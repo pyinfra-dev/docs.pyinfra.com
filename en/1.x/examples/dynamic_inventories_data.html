@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+  
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <meta name="docsearch:version" content="latest" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>Dynamic Inventories &amp; Data &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Groups &amp; Roles" href="groups_roles.html" />
+    <link rel="prev" title="Dynamic Execution during Deploy" href="dynamic_execution_deploy.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="groups_roles.html" title="Groups &amp; Roles"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dynamic_execution_deploy.html" title="Dynamic Execution during Deploy"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../examples.html" accesskey="U">Example Deploys</a> &#187;</li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+            pyinfra
+        </a>
+        
+<form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
+  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Example Deploys</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client_side_assets.html">Client Side Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_multiple_environments.html">Data Accross Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dynamic_execution_deploy.html">Dynamic Execution during Deploy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dynamic Inventories &amp; Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups_roles.html">Groups &amp; Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secret_storage.html">Using Secrets in pyinfra</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="dynamic-inventories-data">
+<h1>Dynamic Inventories &amp; Data<a class="headerlink" href="#dynamic-inventories-data" title="Permalink to this headline">¶</a></h1>
+<p>One of the biggest features of pyinfra is that it’s configured in regular Python. This means inventory, data and deploy files can use Python code and modules. As a result it is possible to generate inventory and group data for a deploy.</p>
+<p>For example, here we fetch the list of target hosts from some internal inventory API:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># inventory.py</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">def</span> <span class="nf">get_servers</span><span class="p">():</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">servers</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;inventory.mycompany.net/api/v1/app_servers&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">server</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;db&#39;</span><span class="p">:</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="n">server</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;web&#39;</span><span class="p">:</span>
+            <span class="n">web</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">db</span><span class="p">,</span> <span class="n">web</span>
+
+
+<span class="n">db_servers</span><span class="p">,</span> <span class="n">web_servers</span> <span class="o">=</span> <span class="n">get_servers</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Like the dynamic inventory, we can use Python inside group data. It is also possible to access the initial inventory (without group data):</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># group_data/all.py</span>
+
+<span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">inventory</span>
+
+<span class="n">master_db_server</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">db_servers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># group_data/web_servers.py</span>
+
+<span class="n">db_user</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span>
+</pre></div>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="dynamic_execution_deploy.html">
+          <span aria-hidden="true">&larr;</span> Dynamic Execution during Deploy
+        </a></li>
+      
+        <li class="next"><a href="groups_roles.html">
+          Groups &amp; Roles <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="groups_roles.html" title="Groups &amp; Roles"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dynamic_execution_deploy.html" title="Dynamic Execution during Deploy"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../examples.html" >Example Deploys</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+</script>
+<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+    apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
+    indexName: 'pyinfra',
+    inputSelector: '#docsearch-input',
+    algoliaOptions: {
+      'facetFilters': ["version:latest", "lang:en"],
+    },
+    debug: false,
+});
+</script>
+  </body>
+</html>
