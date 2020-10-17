@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Using the CLI &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/logo_small.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Connectors" href="connectors.html" />
+    <link rel="prev" title="Writing Deploys" href="deploys.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="connectors.html" title="Connectors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="deploys.html" title="Writing Deploys"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+
+<link rel="stylesheet" type="text/css" href="_static/pyinfra.css" />
+
+<a href="index.html" class="text-logo">
+    <img src="_static/logo_small.png" height="48px" />
+    pyinfra
+</a>
+
+<div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cli-arguments-options">CLI arguments &amp; options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ad-hoc-command-execution">Ad-hoc command execution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-debugging-distributed-services-using-pyinfra">Example: debugging distributed services using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executing-ad-hoc-operations">Executing ad-hoc operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#shell-autocompletion">Shell Autocompletion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Elsewhere</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pyinfra.com">pyinfra.com</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Fizzadar/pyinfra">pyinfra on GitHub</a></li>
+</ul>
+
+    </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Using the CLI</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="using-the-cli">
+<h1>Using the CLI<a class="headerlink" href="#using-the-cli" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> is an extremely powerful tool for ad-hoc execution and management of remote servers.</p>
+<div class="section" id="cli-arguments-options">
+<h2>CLI arguments &amp; options<a class="headerlink" href="#cli-arguments-options" title="Permalink to this headline">¶</a></h2>
+<p>As described in the <a class="reference internal" href="getting_started.html"><span class="doc">getting started page</span></a>, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> needs an <strong>inventory</strong> and some <strong>operations</strong>. These are used with the CLI as below:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Usage: pyinfra <span class="o">[</span>OPTIONS<span class="o">]</span> INVENTORY OPERATIONS...
+
+<span class="c1"># INVENTORY</span>
+
++ a file <span class="o">(</span>inventory.py<span class="o">)</span>
++ hostname <span class="o">(</span>host.net<span class="o">)</span>
++ Comma separated hostnames: host-1.net,host-2.net,@local
+
+<span class="c1"># OPERATIONS</span>
+
+<span class="c1"># Run one or more deploys against the inventory</span>
+pyinfra INVENTORY deploy_web.py <span class="o">[</span>deploy_db.py<span class="o">]</span>...
+
+<span class="c1"># Run a single operation against the inventory</span>
+pyinfra INVENTORY server.user pyinfra <span class="nv">home</span><span class="o">=</span>/home/pyinfra
+
+<span class="c1"># Execute an arbitrary command on the inventory</span>
+pyinfra INVENTORY <span class="nb">exec</span> -- <span class="nb">echo</span> <span class="s2">&quot;hello world&quot;</span>
+
+<span class="c1"># Run one or more facts on the inventory</span>
+pyinfra INVENTORY fact linux_distribution <span class="o">[</span>users<span class="o">]</span>...
+pyinfra INVENTORY all-facts
+
+<span class="c1"># Debug (print) inventory hosts, groups and data</span>
+pyinfra INVENTORY debug-inventory
+</pre></div>
+</div>
+<div class="section" id="options">
+<h3>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Options:
+  -v                      Print std<span class="o">[</span>out<span class="p">|</span>err<span class="o">]</span> from operations/facts.
+  --user TEXT             SSH user to connect as.
+  --port INTEGER          SSH port to connect to.
+  --key PATH              Private key filename.
+  --key-password TEXT     Privte key password.
+  --password TEXT         SSH password.
+  --sudo                  Whether to execute operations with sudo.
+  --sudo-user TEXT        Which user to sudo when sudoing.
+  --su-user TEXT          Which user to su to.
+  --parallel INTEGER      Number of operations to run in parallel.
+  --fail-percent INTEGER  % of hosts allowed to fail.
+  --dry                   Don<span class="s1">&#39;t execute operations on the target hosts.</span>
+<span class="s1">  --limit TEXT            Restrict the target hosts by name and group name.</span>
+<span class="s1">  --no-wait               Don&#39;</span>t <span class="nb">wait</span> between operations <span class="k">for</span> hosts to complete.
+  --serial                Run operations in serial, host by host.
+  --facts                 Print available facts list and exit.
+  --operations            Print available operations list and exit.
+  --version               Show the version and exit.
+  --help                  Show this message and exit.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ad-hoc-command-execution">
+<h2>Ad-hoc command execution<a class="headerlink" href="#ad-hoc-command-execution" title="Permalink to this headline">¶</a></h2>
+<p>pyinfra can execute shell commands on remote hosts by using <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">exec</span></code>. For example:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra inventory.py <span class="nb">exec</span> -- my_command_goes_here --some-argument
+</pre></div>
+</div>
+<p>Note:
+Anything on the right hand side of the <code class="docutils literal notranslate"><span class="pre">--</span></code> will be passed into the target</p>
+<div class="section" id="example-debugging-distributed-services-using-pyinfra">
+<h3>Example: debugging distributed services using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code><a class="headerlink" href="#example-debugging-distributed-services-using-pyinfra" title="Permalink to this headline">¶</a></h3>
+<p>One of <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>’s top design features is its ability to return remote command output in real-time. This can be used to debug N remote services, and is perfect for debugging distributed services.</p>
+<p>For example - a large Elasticsearch cluster. It can be useful to stream the log of every instance in parallel, which can be achieved easily like so:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra inventory.py <span class="nb">exec</span> --sudo -- tail -f /var/log/elasticsearch/elasticsearch.log
+</pre></div>
+</div>
+</div>
+<div class="section" id="executing-ad-hoc-operations">
+<h3>Executing ad-hoc operations<a class="headerlink" href="#executing-ad-hoc-operations" title="Permalink to this headline">¶</a></h3>
+<p>In addition to executing simple commands, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can execute any of it’s builtin operations on remote hosts direct via the CLI.</p>
+<div class="section" id="example-managing-packages-with-ad-hoc-pyinfra-commands">
+<h4>Example: managing packages with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-managing-packages-with-ad-hoc-pyinfra-commands" title="Permalink to this headline">¶</a></h4>
+<p>For example, here we ensure that <code class="docutils literal notranslate"><span class="pre">nginx</span></code> is installed on the remote servers:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu example</span>
+pyinfra inventory.py apt.packages nginx <span class="nv">sudo</span><span class="o">=</span><span class="nb">true</span> <span class="nv">update</span><span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Centos example</span>
+pyinfra inventory2.py yum.packages nginx <span class="nv">sudo</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-managing-services-with-ad-hoc-pyinfra-commands">
+<h4>Example: managing services with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-managing-services-with-ad-hoc-pyinfra-commands" title="Permalink to this headline">¶</a></h4>
+<p>Now that nginx is installed on the box, we can use <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to control the <code class="docutils literal notranslate"><span class="pre">nginx</span></code> service - here we ensure it’s running and enabled to start on system boot:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra inventory.py init.service nginx <span class="nv">running</span><span class="o">=</span><span class="nb">true</span> <span class="nv">enabled</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-rebooting-with-ad-hoc-pyinfra-commands">
+<h4>Example: rebooting with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-rebooting-with-ad-hoc-pyinfra-commands" title="Permalink to this headline">¶</a></h4>
+<p>We can reboot instances a couple of ways using adhoc commands (assuming <em>sudo</em> is enabled in inventory.py):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># using server.reboot()</span>
+pyinfra inventory.py service.reboot <span class="nv">reboot_timeout</span><span class="o">=</span><span class="m">0</span> <span class="nv">delay</span><span class="o">=</span><span class="m">0</span>
+
+<span class="c1"># using exec</span>
+pyinfra inventory.py <span class="nb">exec</span> -- reboot
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-debug-info">
+<h4>Additional debug info<a class="headerlink" href="#additional-debug-info" title="Permalink to this headline">¶</a></h4>
+<p>For additional debug info, use one of these options:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--debug</span></code> Print debug info.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--debug-facts</span></code> Print facts after generating operations and exit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--debug-operations</span></code> Print operations after generating and exit.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="shell-autocompletion">
+<h2>Shell Autocompletion<a class="headerlink" href="#shell-autocompletion" title="Permalink to this headline">¶</a></h2>
+<p>Add the following to your <code class="docutils literal notranslate"><span class="pre">~/.bash_profile</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code> files:</p>
+<ul class="simple">
+<li><strong>bash</strong> <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">scripts/pyinfra-complete.sh</span></code>.</li>
+<li><strong>zsh</strong> <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">scripts/pyinfra-complete.zsh</span></code>.</li>
+</ul>
+<p>These files were generated using these commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="n">_PYINFRA_COMPLETE</span><span class="o">=</span><span class="n">source</span> <span class="n">pyinfra</span> <span class="o">&gt;</span> <span class="n">pyinfra</span><span class="o">-</span><span class="n">complete</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">env</span> <span class="n">_PYINFRA_COMPLETE</span><span class="o">=</span><span class="n">source_zsh</span> <span class="n">pyinfra</span> <span class="o">&gt;</span> <span class="n">pyinfra</span><span class="o">-</span><span class="n">complete</span><span class="o">.</span><span class="n">zsh</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="deploys.html">
+          <span aria-hidden="true">&larr;</span> Writing Deploys
+        </a></li>
+      
+        <li class="next"><a href="connectors.html">
+          Connectors <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="connectors.html" title="Connectors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="deploys.html" title="Writing Deploys"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright Nick Barrett 2020 — pyinfra v0.16.2. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

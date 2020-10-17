@@ -1,0 +1,153 @@
+Dnf
+---
+
+
+Manage dnf packages and repositories. Note that dnf package names are case-sensitive.
+
+:code:`dnf.key`
+~~~~~~~~~~~~~~~
+
+Add dnf gpg keys with ``rpm``.
+
+.. code:: python
+
+    dnf.key(key)
+
++ **key**: filename or URL
+
+Note:
+    always returns one command, not state checking
+
+Example:
+
+.. code:: python
+
+    linux_id = host.fact.linux_distribution['release_meta'].get('ID')
+    dnf.key(
+        {'Add the Docker CentOS gpg key'},
+        'https://download.docker.com/linux/{}/gpg'.format(linux_id),
+    )
+
+
+:code:`dnf.packages`
+~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update dnf packages & updates.
+
+.. code:: python
+
+    dnf.packages(
+        packages=None, present=True, latest=False, update=False, clean=False, nobest=False,
+        extra_install_args='', extra_uninstall_args=''
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run dnf update
++ **clean**: run dnf clean
++ **nobest**: add the no best option to install
++ **extra_install_args**: additional arguments to the dnf install command
++ **extra_uninstall_args**: additional arguments to the dnf uninstall command
+
+Versions:
+    Package versions can be pinned like dnf: ``<pkg>-<version>``
+
+Examples:
+
+.. code:: python
+
+    # Update package list and install packages
+    dnf.packages(
+        {'Install Vim and Vim enhanced'},
+        ['vim-enhanced', 'vim'],
+        update=True,
+    )
+
+    # Install the latest versions of packages (always check)
+    dnf.packages(
+        {'Install latest Vim'},
+        ['vim'],
+        latest=True,
+    )
+
+
+:code:`dnf.repo`
+~~~~~~~~~~~~~~~~
+
+Add/remove/update dnf repositories.
+
+.. code:: python
+
+    dnf.repo(
+        name, baseurl=None, present=True, description=None, enabled=True, gpgcheck=True,
+        gpgkey=None
+    )
+
++ **name**: URL or name for the ``.repo``   file
++ **baseurl**: the baseurl of the repo (if ``name`` is not a URL)
++ **present**: whether the ``.repo`` file should be present
++ **description**: optional verbose description
++ **enabled**: whether this repo is enabled
++ **gpgcheck**: whether set ``gpgcheck=1``
++ **gpgkey**: the URL to the gpg key for this repo
+
+``Baseurl``/``description``/``gpgcheck``/``gpgkey``:
+    These are only valid when ``name`` is a filename (ie not a URL). This is
+    for manual construction of repository files. Use a URL to download and
+    install remote repository files.
+
+Examples:
+
+.. code:: python
+
+    # Download a repository file
+    dnf.rpm(
+        {'Install Docker-CE repo via URL'},
+        'https://download.docker.com/linux/centos/docker-ce.repo',
+    )
+
+    # Create the repository file from baseurl/etc
+    dnf.repo(
+        {'Add the Docker CentOS repo'},
+        name='DockerCE',
+        baseurl='https://download.docker.com/linux/centos/7/$basearch/stable',
+    )
+
+
+:code:`dnf.rpm`
+~~~~~~~~~~~~~~~
+
+Add/remove ``.rpm`` file packages.
+
+.. code:: python
+
+    dnf.rpm(source, present=True)
+
++ **source**: filename or URL of the ``.rpm`` package
++ **present**: whether ore not the package should exist on the system
+
+URL sources with ``present=False``:
+    If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
+    package as the file won't exist until mid-deploy.
+
+Example:
+
+.. code:: python
+
+    dnf.rpm(
+       {'Install EPEL rpm to enable EPEL repo'},
+       'https://dl.fedoraproject.org/pub/epel/epel-release-latest-'
+       '{{  host.fact.linux_distribution.major }}.noarch.rpm',
+    )
+
+
+:code:`dnf.update`
+~~~~~~~~~~~~~~~~~~
+
+Updates all dnf packages.
+
+.. code:: python
+
+    dnf.update()
+

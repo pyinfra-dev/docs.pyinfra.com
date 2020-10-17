@@ -1,0 +1,53 @@
+Python
+------
+
+
+The Python module allows you to execute Python code within the context of a deploy.
+
+:code:`python.call`
+~~~~~~~~~~~~~~~~~~~
+
+Execute a Python function within a deploy.
+
+.. code:: python
+
+    python.call(func)
+
++ **func**: the function to execute
++ **args**: additional arguments to pass to the function
++ **kwargs**: additional keyword arguments to pass to the function
+
+Callback functions args passed the state, host, and any args/kwargs passed
+into the operation directly, eg:
+
+.. code:: python
+
+    def my_callback(state, host, hello=None):
+        command = 'echo hello'
+        if hello:
+            command = command + ' ' + **hello**
+        status, stdout, stderr = host.run_shell_command(state, command=command, sudo=SUDO)
+        assert status is True  # ensure the command executed OK
+        if 'hello ' not in str(stdout):
+            raise Exception('`{}` problem with callback stdout:{} stderr:{}'.format(
+                command, stdout, stderr))
+
+    python.call(my_callback, hello='world')
+
+
+:code:`python.execute`
+~~~~~~~~~~~~~~~~~~~~~~
+
+[DEPRECATED], please use ``python.call``.
+
+.. code:: python
+
+    python.execute(callback)
+
+
+:code:`python.raise_exception`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code:: python
+
+    python.raise_exception(exception_class)
+

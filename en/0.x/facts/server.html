@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Server &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Systemd Facts" href="systemd.html" />
+    <link rel="prev" title="Rpm" href="rpm.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="systemd.html" title="Systemd Facts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rpm.html" title="Rpm"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+
+<link rel="stylesheet" type="text/css" href="../_static/pyinfra.css" />
+
+<a href="../index.html" class="text-logo">
+    <img src="../_static/logo_small.png" height="48px" />
+    pyinfra
+</a>
+
+<div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../facts.html">Facts Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apk.html">Apk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apt.html">Apt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brew.html">Brew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="choco.html">Choco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deb.html">Deb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gem.html">Gem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html">Init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npm.html">Npm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip.html">Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#arch"><code class="code docutils literal notranslate"><span class="pre">arch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command"><code class="code docutils literal notranslate"><span class="pre">command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crontab"><code class="code docutils literal notranslate"><span class="pre">crontab</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#date"><code class="code docutils literal notranslate"><span class="pre">date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#groups"><code class="code docutils literal notranslate"><span class="pre">groups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#home"><code class="code docutils literal notranslate"><span class="pre">home</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostname"><code class="code docutils literal notranslate"><span class="pre">hostname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-modules"><code class="code docutils literal notranslate"><span class="pre">kernel_modules</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-distribution"><code class="code docutils literal notranslate"><span class="pre">linux_distribution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-name"><code class="code docutils literal notranslate"><span class="pre">linux_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lsb-release"><code class="code docutils literal notranslate"><span class="pre">lsb_release</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mounts"><code class="code docutils literal notranslate"><span class="pre">mounts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#os"><code class="code docutils literal notranslate"><span class="pre">os</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#os-version"><code class="code docutils literal notranslate"><span class="pre">os_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sysctl"><code class="code docutils literal notranslate"><span class="pre">sysctl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#users"><code class="code docutils literal notranslate"><span class="pre">users</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#which"><code class="code docutils literal notranslate"><span class="pre">which</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yum.html">Yum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Elsewhere</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://pyinfra.com">pyinfra.com</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/Fizzadar/pyinfra">pyinfra on GitHub</a></li>
+</ul>
+
+    </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../index.html">Docs</a></li>
+              
+                <li><a href="../facts.html">Facts Index</a></li>
+              
+              <li>Server</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="server">
+<h1>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="arch">
+<h2><code class="code docutils literal notranslate"><span class="pre">arch</span></code><a class="headerlink" href="#arch" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">arch</span>
+</pre></div>
+</div>
+<p>Returns the system architecture according to <code class="docutils literal notranslate"><span class="pre">uname</span></code>.</p>
+</div>
+<div class="section" id="command">
+<h2><code class="code docutils literal notranslate"><span class="pre">command</span></code><a class="headerlink" href="#command" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the raw output lines of a given command.</p>
+</div>
+<div class="section" id="crontab">
+<h2><code class="code docutils literal notranslate"><span class="pre">crontab</span></code><a class="headerlink" href="#crontab" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of cron command -&gt; execution time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;minute&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;day_of_month&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;day_of_week&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="date">
+<h2><code class="code docutils literal notranslate"><span class="pre">date</span></code><a class="headerlink" href="#date" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">date</span>
+</pre></div>
+</div>
+<p>Returns the current datetime on the server.</p>
+</div>
+<div class="section" id="groups">
+<h2><code class="code docutils literal notranslate"><span class="pre">groups</span></code><a class="headerlink" href="#groups" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">groups</span>
+</pre></div>
+</div>
+<p>Returns a list of groups on the system.</p>
+</div>
+<div class="section" id="home">
+<h2><code class="code docutils literal notranslate"><span class="pre">home</span></code><a class="headerlink" href="#home" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">home</span>
+</pre></div>
+</div>
+<p>Returns the home directory of the current user.</p>
+</div>
+<div class="section" id="hostname">
+<h2><code class="code docutils literal notranslate"><span class="pre">hostname</span></code><a class="headerlink" href="#hostname" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">hostname</span>
+</pre></div>
+</div>
+<p>Returns the current hostname of the server.</p>
+</div>
+<div class="section" id="kernel-modules">
+<h2><code class="code docutils literal notranslate"><span class="pre">kernel_modules</span></code><a class="headerlink" href="#kernel-modules" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">kernel_modules</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of kernel module name -&gt; info.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;module_name&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;instances&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;Live&#39;</span><span class="p">,</span>
+<span class="p">},</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-distribution">
+<h2><code class="code docutils literal notranslate"><span class="pre">linux_distribution</span></code><a class="headerlink" href="#linux-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">linux_distribution</span>
+</pre></div>
+</div>
+<p>Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
+Fedora &amp; Gentoo currently. Also contains any key/value items located in
+release files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;CentOS&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;major&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="s1">&#39;minor&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;release_meta&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;DISTRIB_CODENAME&#39;</span><span class="p">:</span> <span class="s1">&#39;trusty&#39;</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-name">
+<h2><code class="code docutils literal notranslate"><span class="pre">linux_name</span></code><a class="headerlink" href="#linux-name" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">linux_name</span>
+</pre></div>
+</div>
+<p>Returns the name of the Linux distribution. Shortcut for
+<code class="docutils literal notranslate"><span class="pre">host.fact.linux_distribution['name']</span></code>.</p>
+</div>
+<div class="section" id="lsb-release">
+<h2><code class="code docutils literal notranslate"><span class="pre">lsb_release</span></code><a class="headerlink" href="#lsb-release" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">lsb_release</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of release information using <code class="docutils literal notranslate"><span class="pre">lsb_release</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu 18.04.2 LTS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;release&quot;</span><span class="p">:</span> <span class="s2">&quot;18.04&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;codename&quot;</span><span class="p">:</span> <span class="s2">&quot;bionic&quot;</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mounts">
+<h2><code class="code docutils literal notranslate"><span class="pre">mounts</span></code><a class="headerlink" href="#mounts" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">mounts</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of mounted filesystems and information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;/&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;/dev/mv2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ext4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;rw&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;relatime&quot;</span>
+    <span class="p">]</span>
+<span class="p">},</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="os">
+<h2><code class="code docutils literal notranslate"><span class="pre">os</span></code><a class="headerlink" href="#os" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">os</span>
+</pre></div>
+</div>
+<p>Returns the OS name according to <code class="docutils literal notranslate"><span class="pre">uname</span></code>.</p>
+</div>
+<div class="section" id="os-version">
+<h2><code class="code docutils literal notranslate"><span class="pre">os_version</span></code><a class="headerlink" href="#os-version" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">os_version</span>
+</pre></div>
+</div>
+<p>Returns the OS version according to <code class="docutils literal notranslate"><span class="pre">uname</span></code>.</p>
+</div>
+<div class="section" id="sysctl">
+<h2><code class="code docutils literal notranslate"><span class="pre">sysctl</span></code><a class="headerlink" href="#sysctl" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">sysctl</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of sysctl settings and values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;fs.inotify.max_queued_events&quot;</span><span class="p">:</span> <span class="mi">16384</span><span class="p">,</span>
+    <span class="s2">&quot;fs.inode-state&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="mi">44565</span><span class="p">,</span>
+        <span class="mi">360</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="users">
+<h2><code class="code docutils literal notranslate"><span class="pre">users</span></code><a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">users</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of users -&gt; details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;home&#39;</span><span class="p">:</span> <span class="s1">&#39;/home/user_name&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;shell&#39;</span><span class="p">:</span> <span class="s1">&#39;/bin/bash,</span>
+    <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="s1">&#39;main_user_group&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;groups&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;other&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;groups&#39;</span>
+    <span class="p">]</span>
+<span class="p">},</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="which">
+<h2><code class="code docutils literal notranslate"><span class="pre">which</span></code><a class="headerlink" href="#which" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the path of a given command, if available.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="rpm.html">
+          <span aria-hidden="true">&larr;</span> Rpm
+        </a></li>
+      
+        <li class="next"><a href="systemd.html">
+          Systemd Facts <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="systemd.html" title="Systemd Facts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rpm.html" title="Rpm"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright Nick Barrett 2020 — pyinfra v0.16.2. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
