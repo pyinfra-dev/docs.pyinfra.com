@@ -88,6 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#inventory">Inventory</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#connecting-with-data">Connecting with Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limit">Limit</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a><ul>
@@ -253,6 +254,10 @@ templates/
 </pre></div>
 </div>
 </div>
+<div class="section" id="limit">
+<h3>Limit<a class="headerlink" href="#limit" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to limit the inventory at execution time using the <code class="docutils literal notranslate"><span class="pre">--limit</span></code> argument (<a class="reference external" href="cli.html#limit">using the CLI</a>). This makes <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> only execute operations against targets matching the limit. Facts may still be collected from these hosts if specifically requested. Hosts outside of the limit will not be considered as failed when caclculating whether a deploy should stop executing (via the <code class="docutils literal notranslate"><span class="pre">FAIL_PERCENT</span></code> config variable).</p>
+</div>
 </div>
 <div class="section" id="operations">
 <h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
@@ -291,14 +296,14 @@ templates/
 <p>In addition to each operations having its own arguments, there are a number of keyword arguments available for all operations:</p>
 <dl class="docutils">
 <dt>Privilege &amp; user escalation:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">sudo</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_sudo_login</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_sudo_password</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
-<li><code class="docutils literal notranslate"><span class="pre">preserve_sudo_env</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">use_sudo_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">use_sudo_password=False</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
+<li><code class="docutils literal notranslate"><span class="pre">preserve_sudo_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">su_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_su_login</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">preserve_su_env</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">use_su_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">preserve_su_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
 <li><code class="docutils literal notranslate"><span class="pre">su_shell</span></code>: Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</li>
 </ul>
 </dd>
@@ -307,17 +312,11 @@ templates/
 <li><code class="docutils literal notranslate"><span class="pre">shell_executable</span></code>: The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</li>
 <li><code class="docutils literal notranslate"><span class="pre">chdir</span></code>: Directory to switch to before executing the command.</li>
 <li><code class="docutils literal notranslate"><span class="pre">env</span></code>: Dictionary of environment variables to set.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ignore_errors</span></code>: Ignore errors when executing the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ignore_errors=False</span></code>: Ignore errors when executing the operation.</li>
 <li><code class="docutils literal notranslate"><span class="pre">success_exit_codes=[0]</span></code>: List of exit codes to consider a success.</li>
 <li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: Timeout for <em>each</em> command executed during the operation.</li>
 <li><code class="docutils literal notranslate"><span class="pre">get_pty</span></code>: Whether to get a pseudoTTY when executing any commands.</li>
 <li><code class="docutils literal notranslate"><span class="pre">stdin</span></code>: String or buffer to send to the stdin of any commands.</li>
-</ul>
-</dd>
-<dt>Operation execution:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">parallel</span></code>: Run this operation in batches of hosts.</li>
-<li><code class="docutils literal notranslate"><span class="pre">run_once</span></code>: Only execute this operation once, on the first host to see it.</li>
-<li><code class="docutils literal notranslate"><span class="pre">serial</span></code>: Run this operation host by host, rather than in parallel.</li>
 <li><code class="docutils literal notranslate"><span class="pre">precondition</span></code>: Command to execute &amp; check before the operation commands begin.</li>
 <li><code class="docutils literal notranslate"><span class="pre">postcondition</span></code>: Command to execute &amp; check after the operation commands complete.</li>
 </ul>
@@ -325,6 +324,12 @@ templates/
 <dt>Callbacks:</dt><dd><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">on_success</span></code>: Callback function to execute on success.</li>
 <li><code class="docutils literal notranslate"><span class="pre">on_error</span></code>: Callback function to execute on error.</li>
+</ul>
+</dd>
+<dt>Execution strategy (must be the same for all hosts):</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">parallel</span></code>: Run this operation in batches of hosts.</li>
+<li><code class="docutils literal notranslate"><span class="pre">run_once=False</span></code>: Only execute this operation once, on the first host to see it.</li>
+<li><code class="docutils literal notranslate"><span class="pre">serial=False</span></code>: Run this operation host by host, rather than in parallel.</li>
 </ul>
 </dd>
 </dl>
@@ -483,16 +488,24 @@ templates/
   <div class="footer">
   </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch({
-    apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-    indexName: 'pyinfra',
-    inputSelector: '#docsearch-input',
-    algoliaOptions: {
-      'facetFilters': ["version:latest", "lang:en"],
-    },
-    debug: false,
-});
-</script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+  <script type="text/javascript"> docsearch({
+      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
+      indexName: 'pyinfra',
+      inputSelector: '#docsearch-input',
+      algoliaOptions: {
+        'facetFilters': ["version:latest", "lang:en"],
+      },
+      debug: false,
+  });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
   </body>
 </html>

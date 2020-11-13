@@ -141,14 +141,15 @@
 </div>
 <div class="section" id="dev-setup">
 <h2>Dev Setup<a class="headerlink" href="#dev-setup" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a virtualenv</span>
-virtualenv /path/to/venv
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a virtualenv with your tool of choice</span>
+<span class="c1"># python -m venv / pyenv virtualenv / virtualenv</span>
 
 <span class="c1"># Clone the repo</span>
 git clone git@github.com:Fizzadar/pyinfra.git
 
 <span class="c1"># Install the package in editable mode with development requirements</span>
-pip install -e .<span class="o">[</span>dev<span class="o">]</span>
+<span class="nb">cd</span> pyinfra
+pip install -e <span class="s1">&#39;.[dev]&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -159,12 +160,11 @@ pip install -e .<span class="o">[</span>dev<span class="o">]</span>
 <div class="section" id="generate-documentation">
 <h2>Generate Documentation<a class="headerlink" href="#generate-documentation" title="Permalink to this headline">¶</a></h2>
 <p>To generate:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scripts/build_docs.sh
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sphinx-build -a docs/ docs/build/
 </pre></div>
 </div>
 <p>To view (<a class="reference external" href="http://localhost:8000">localhost:8000</a>):</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs/build/
-python -m http.server
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m http.server -d docs/build/
 </pre></div>
 </div>
 </div>
@@ -226,16 +226,24 @@ python -m http.server
   <div class="footer">
   </div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script type="text/javascript"> docsearch({
-    apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-    indexName: 'pyinfra',
-    inputSelector: '#docsearch-input',
-    algoliaOptions: {
-      'facetFilters': ["version:latest", "lang:en"],
-    },
-    debug: false,
-});
-</script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+  <script type="text/javascript"> docsearch({
+      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
+      indexName: 'pyinfra',
+      inputSelector: '#docsearch-input',
+      algoliaOptions: {
+        'facetFilters': ["version:latest", "lang:en"],
+      },
+      debug: false,
+  });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
   </body>
 </html>
