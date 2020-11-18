@@ -246,7 +246,7 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
 </div>
 <div class="section" id="server-hostname">
 <h2><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code><a class="headerlink" href="#server-hostname" title="Permalink to this headline">¶</a></h2>
-<p>Set the system hostname.</p>
+<p>Set the system hostname using <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> or <code class="docutils literal notranslate"><span class="pre">hostname</span></code> on older systems.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">hostname_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -255,7 +255,9 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
 <li><strong>hostname_file</strong>: the file that permanently sets the hostname</li>
 </ul>
 <dl class="docutils">
-<dt>Hostname file:</dt><dd><p>By default pyinfra will auto detect this by targetting <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>
+<dt>Hostname file:</dt><dd><p>The hostname file only matters no systems that do not have <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code>,
+which is part of <code class="docutils literal notranslate"><span class="pre">systemd</span></code>.</p>
+<p>By default pyinfra will auto detect this by targetting <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>
 on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/myname</span></code> on OpenBSD.</p>
 <p>To completely disable writing the hostname file, set <code class="docutils literal notranslate"><span class="pre">hostname_file=False</span></code>.</p>
 </dd>
