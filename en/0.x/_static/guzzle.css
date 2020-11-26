@@ -1,32 +1,33 @@
+/* roboto-slab-500 - latin */
+@font-face {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 500;
+    src: local(''),
+       url('./fonts/roboto-slab-v10-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('./fonts/roboto-slab-v10-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
 /* Sphinx themes
 -------------------------------------------------- */
 
 body {
-  background-color: #edf0f2;
   background: white;
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
   font-size: 16px;
   color: #2c3e50;
   line-height: 1.6;
 }
 
-#left-column {
-  float: left;
-  position: fixed;
-  height: 100%;
-  border-right: 1px solid #e7e7e7;
-  width: 300px;
-  overflow: auto;
-  /*background: #fafafa;*/
-}
-
 #right-column {
-  padding: 20px 0;
-  margin-left: 300px;
-  background-color: #fff;
-  max-width: 900px;
+  padding-top: 20px;
+  padding-left: 340px;
+  padding-right: 40px;
+  margin: 0 auto;
+  max-width: 1300px;
 }
 
 a.headerlink {
@@ -39,9 +40,22 @@ a.headerlink {
   text-decoration: none;
   color: transparent;
 }
+a.headerlink:hover {
+  color: transparent;
+}
 a.headerlink::after {
   content: '#';
-  color: #428bca;
+  color: #53ac63;
+}
+
+a {
+  color: #53ac63;
+}
+a:hover, a:focus {
+  outline: none;
+  color: #53ac63;
+  text-decoration-color: #E7E7E7;
+  text-decoration-thickness: 2px;
 }
 
 h1:hover > a.headerlink,
@@ -67,21 +81,25 @@ h1, h2, h3, h4, h5, h6 {
 h1, h2, h3 {
   margin-top: 30px;
   margin-bottom: 20px;
+  font-family: 'Roboto Slab';
+  font-weight: 500;
 }
 
 h1 {
+  margin-top: 27px;
   font-size: 38px;
-  padding: 10px 10px 10px 45px;
-  margin: 20px 0 35px -45px;
-  background-color: aliceblue;
-  width: calc(100% + 90px);
+  padding: 10px 10px 10px 0;
   border-bottom: 1px solid #e7e7e7;
+  width: 100%;
 }
 
 h2 {
   font-size: 34px;
   padding: .2em 0;
   border-bottom: 1px solid #e7e7e7;
+}
+h2 code {
+  font-size: 32px;
 }
 
 h3 {
@@ -130,7 +148,7 @@ code, tt {
   color: #476582;
   background: rgba(27,31,35,.05);
   padding: .25rem .5rem;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 tt {
@@ -141,19 +159,26 @@ code, pre {
   line-height: 23px;
   margin: 20px 0;
   word-wrap: normal;
-  /*background-color: #fff;*/
 }
 
 pre {
   color: #fff;
   background-color: #282c34;
   overflow: auto;
-  border-width: 0 0 0 2px;
-  border-color: #eee;
-  border-style: solid;
+  border: none;
   padding: 14px 0 14px 20px;
   padding-right: 0;
   margin: 20px 0;
+}
+
+pre::selection, pre *::selection,
+code::selection, code *::selection {
+    color: white;
+    background: green;
+}
+
+a code {
+  color: #53ac63;
 }
 
 div.highlight {
@@ -176,6 +201,7 @@ dl.method {
   font-size: 15px;
   margin-bottom: 12px;
   background: #fff;
+  padding: 8px 0;
 }
 
 blockquote {
@@ -189,8 +215,99 @@ blockquote {
   font-size: 16px;
 }
 
-/* Sphinx sidebar
+
+/* Header
 -------------------------------------------------- */
+
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  height: 0;
+  overflow: visible;
+}
+
+#header-sidebar {
+  width: 300px;
+  border-right: 1px solid #E7E7E7;
+}
+
+.text-logo {
+  font-size: 18px;
+  display: block;
+  padding: 16px 0px 16px 18px;
+  font-family: 'Roboto Slab';
+  font-weight: 500;
+  color: #606060;
+  /*margin-bottom: -18px;*/
+}
+.text-logo:hover {
+  color: #2c3e50;
+  text-decoration: none;
+  /*background: #F7F7F7;*/
+}
+.text-logo img {
+  height: 44px;
+  width: 44px;
+}
+.text-logo small {
+  color: #a7a7a7;
+}
+
+form#main-search {
+  border-bottom: 1px solid #E7E7E7;
+}
+input#docsearch-input {
+  width: 299px;
+  padding: 0 18px;
+  border: none;
+  border-bottom: 1px solid #E7E7E7;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin-bottom: -1px;
+}
+input#docsearch-input:focus {
+  background: #FFFECC;
+  border-bottom: 1px solid #D7D7D7;
+}
+
+header nav {
+  float: right;
+  margin: 14px 18px 0 0;
+}
+header nav a {
+  margin-left: 10px;
+}
+header nav a, nav a:hover {
+  color: #2c3e50;
+}
+header nav a span.glyphicon {
+  color: #a7a7a7;
+  font-size: 12px;
+  margin-left: 3px;
+}
+header nav a:hover span.glyphicon {
+  color: #a0a0a0;
+}
+
+
+
+/* Sidebar
+-------------------------------------------------- */
+
+#left-column {
+  float: left;
+  position: fixed;
+  top: 110px;
+  bottom: 0;
+  border-right: 1px solid #e7e7e7;
+  width: 300px;
+  overflow: auto;
+  padding-bottom: 30px;
+}
 
 div.sphinxsidebar {
   word-wrap: break-word;
@@ -223,7 +340,7 @@ div.sphinxsidebar p {
 }
 
 .sidebar-toc {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 div.sphinxsidebar .sidebar-toc ul {
@@ -233,7 +350,6 @@ div.sphinxsidebar .sidebar-toc ul {
 }
 
 div.sphinxsidebar .sidebar-toc a {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
   text-decoration: none;
 }
@@ -250,17 +366,17 @@ div.sphinxsidebar .sidebar-toc a {
 }
 
 .sidebar-toc ul li a:hover {
-  /*background-color: #428bca;*/
+  /*background-color: #53ac63;*/
   /*color: #fff;*/
-  color: #428bca;
+  color: #53ac63;
 }
 
 .sidebar-toc ul li.current > a,
 .sidebar-toc ul li.current > a:hover {
   /*background-color: #e6e6e6;*/
   /*color: #444;*/
-  border-left-color: #428bca;
-  color: #428bca;
+  border-left-color: #53ac63;
+  color: #53ac63;
   font-weight: bold;
 }
 
@@ -292,7 +408,6 @@ div.sphinxsidebar .sidebar-toc ul ul {
 
 div.sphinxsidebar input {
   border: 1px solid #ccc;
-  font-family: Helvetica, arial, freesans, clean, sans-serif;
   font-size: 1em;
 }
 
@@ -309,7 +424,6 @@ div.sphinxsidebar input {
   border-bottom: none;
   margin: 0 0 17px 0;
   font-size: 14px;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   padding: 0 0 6px 0;
   font-weight: bold;
   text-transform: uppercase;
@@ -327,46 +441,15 @@ div.sphinxsidebar input {
     margin: 24px 22px 0 22px;
 }
 
-.text-logo {
-  font-size: 18px;
-  /*text-align: center;*/
-  display: block;
-  padding: 14px 8px 8px 8px;
-  /*color: #fff;*/
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0 0 20px 10px;
-  font-weight: bold;
-  color: #606060;
-  /*background-color: #337ab7;*/
-  /*border-bottom: 1px solid #fff;*/
-}
-.text-logo:hover {
-  color: #2c3e50;
-  text-decoration: none;
+.sphinxsidebar p.caption {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #606060;
+    font-size: 14px;
+    margin-left: 17px;
+    margin-top: 30px;
 }
 
-
-/* Left-nav search box
--------------------------------------------------- */
-
-#main-search form .input-group {
-  width: 100%;
-  margin: 0 0 12px 0;
-  padding: 0;
-  border: none;
-}
-
-#main-search form .input-group input {
-  padding: 4px;
-  width: 100%;
-  border-radius: 5px;
-  margin: 0;
-  font-size: 15px;
-}
-
-.search-page-form {
-  width: 350px;
-}
 
 /* Two-pane table list
 -------------------------------------------------- */
@@ -408,10 +491,15 @@ table.two-column {
   display: relative;
   border-top: 1px solid #F7F7F7;
   margin-top: 30px;
+  padding: 12px 0;
 }
 
 .rel-spacer {
   height: 40px;
+}
+
+.pager li > a, .pager li > span {
+  border-radius: 4px;
 }
 
 /* Footer styling
@@ -419,10 +507,11 @@ table.two-column {
 
 div.footer {
   padding: 25px;
-  font-size: 14px;
+  font-size: 12px;
   color: #888;
-  text-align: right;
-  max-width: 1200px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-left: 300px;
   width: 100%;
 }
 
@@ -533,10 +622,6 @@ div.genindex-jumpbox {
 
 /* -- general body styles --------------------------------------------------- */
 
-.body {
-  padding: 0 45px;
-}
-
 div.body p.caption {
   text-align: inherit;
 }
@@ -618,7 +703,7 @@ p.topic-title {
 
 div.topic.contents {
     display: inline-block;
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 24px 36px 18px 36px;
 }
 
@@ -634,7 +719,7 @@ div.topic.contents > ul {
   background-color: #fff;
   border: 1px solid #eee;
   border-left-width: 6px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .admonition dt {
@@ -651,7 +736,6 @@ div.topic.contents > ul {
   font-weight: bold;
   font-size: 18px;
   line-height: 1.1;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .admonition.danger,
@@ -817,7 +901,6 @@ dt:target, .highlight {
   font-weight: bold;
   font-size: 18px;
   line-height: 1.1;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #fff;
   background-color: #337ab7;
 }
@@ -907,20 +990,28 @@ span.eqno {
   height: 40px;
   width: 100%;
   display: none;
-  padding: 12px;
   border-bottom: 1px solid #ccc;
   position: fixed;
   top: 0;
   left: 0;
   background-color: #fff;
   z-index: 1;
+  padding: 2px 20px;
+}
+#mobile-toggle a.text-logo {
+  display: inline;
+  padding: 0;
+  float: right;
+}
+#mobile-toggle a.text-logo img {
+  width: 32px;
+  height: 32px;
 }
 
 /* Small screen styles
 -------------------------------------------------- */
 
 @media screen and (max-width: 768px) {
-
   body {
     padding: 0px;
     margin: 0px;
@@ -929,8 +1020,8 @@ span.eqno {
 
   h1 {
     margin-left: 0;
+    margin-top: 10px;
     width: 100%;
-    padding: 10px;
     font-size: 40px;
   }
 
@@ -942,6 +1033,10 @@ span.eqno {
     width: 100%;
     float: none;
     margin: 40px 0 0 0;
+  }
+
+  div.footer  {
+    padding-left: 25px;
   }
 
   .footer-relations {
@@ -968,6 +1063,14 @@ span.eqno {
 
   #mobile-toggle {
     display: block;
+  }
+  #mobile-toggle .glyphicon {
+    font-size: 20px;
+    padding-top: 5px;
+  }
+
+  #header-sidebar {
+    display: none;
   }
 
   p {
@@ -1050,3 +1153,43 @@ span.eqno {
 .vg { color: #008080 } /* Name.Variable.Global */
 .vi { color: #008080 } /* Name.Variable.Instance */
 .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+/* Index "columns"
+-------------------------------------------------- */
+
+div#pyinfra-documentation div.compound {
+    width: 46%;
+    margin-right: 3%;
+    margin-top: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+div#pyinfra-documentation div.compound.toctree-wrapper {
+    display: none;
+}
+    div#pyinfra-documentation div.compound a {
+        font-size: 18px;
+    }
+    div#pyinfra-documentation div.compound dd {
+        margin-left: 0;
+    }
+
+
+@media screen and (max-width: 768px) {
+  div#pyinfra-documentation div.compound {
+    width: 100%;
+  }
+}
+
+
+/* Docsearch
+-------------------------------------------------- */
+
+.algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu {
+  left: 10px !important;
+}
+
+.algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu::before {
+  left: 15px !important;
+}
