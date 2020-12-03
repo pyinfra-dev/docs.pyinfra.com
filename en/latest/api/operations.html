@@ -98,7 +98,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Operations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#input-reserved-arguments">Input: reserved arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-arguments">Input: arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#output-commands">Output: commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-managing-files">Example: managing files</a></li>
 </ul>
@@ -135,14 +135,20 @@
   <div class="section" id="writing-operations">
 <h1>Writing Operations<a class="headerlink" href="#writing-operations" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../operations.html"><span class="doc">Operations</span></a> are defined as Python functions. They are passed the current deploy state, the target host and any operation arguments. Operation functions read state from the host, comparing it to the arguments, and yield <strong>commands</strong>.</p>
-<div class="section" id="input-reserved-arguments">
-<h2>Input: reserved arguments<a class="headerlink" href="#input-reserved-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="input-arguments">
+<h2>Input: arguments<a class="headerlink" href="#input-arguments" title="Permalink to this headline">¶</a></h2>
 <p>There are a number of arguments <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses that cannot be used within operations:</p>
 <ul class="simple">
 <li>All the <a class="reference external" href="../deploys.html#global-arguments">global operation arguments</a> are reserved for controlling how operations are executed</li>
 <li>The arguments <code class="docutils literal notranslate"><span class="pre">state</span></code>, <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">frameinfo</span></code> and <code class="docutils literal notranslate"><span class="pre">_line_number</span></code> are reserved for internal use within <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code></li>
 <li>The <em>first</em> argument cannot accept <code class="docutils literal notranslate"><span class="pre">set</span></code> objects, as these will be removed for use as the operation name (this is legacy support for 0.x and will be removed in v2)</li>
 </ul>
+<p>In addition to any operation arguments, the function <em>must</em> take a <code class="docutils literal notranslate"><span class="pre">state</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">host</span></code> arguments, both defaulting to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@operation</span>
+<span class="k">def</span> <span class="nf">my_operation</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="output-commands">
 <h2>Output: commands<a class="headerlink" href="#output-commands" title="Permalink to this headline">¶</a></h2>
@@ -172,7 +178,7 @@ remote file based on the <code class="docutils literal notranslate"><span class=
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">operation</span>
 
 <span class="nd">@operation</span>
-<span class="k">def</span> <span class="nf">file</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Manage the state of files.</span>
 
