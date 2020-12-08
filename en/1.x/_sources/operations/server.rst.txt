@@ -89,7 +89,7 @@ Examples:
 :code:`server.hostname`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Set the system hostname.
+Set the system hostname using ``hostnamectl`` or ``hostname`` on older systems.
 
 .. code:: python
 
@@ -99,6 +99,9 @@ Set the system hostname.
 + **hostname_file**: the file that permanently sets the hostname
 
 Hostname file:
+    The hostname file only matters no systems that do not have ``hostnamectl``,
+    which is part of ``systemd``.
+
     By default pyinfra will auto detect this by targetting ``/etc/hostname``
     on Linux and ``/etc/myname`` on OpenBSD.
 

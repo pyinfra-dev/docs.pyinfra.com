@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-  <meta name="docsearch:version" content="latest" />
+  <meta name="docsearch:version" content="1.x" />
   <meta name="docsearch:language" content="en" />
   
     <title>Executing Deploys &#8212; pyinfra  documentation</title>
@@ -59,7 +59,7 @@
       <div id="header-sidebar">
         <a href="index.html" class="text-logo">
             <img src="_static/logo_small.png" />
-            pyinfra
+            pyinfra <small>1.x</small>
         </a>
         
 <form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
@@ -103,6 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#loops">Loops</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-state">Deploy State</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
@@ -125,6 +126,7 @@
     </div>
     
       <div id="right-column">
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="executing-deploys">
@@ -210,6 +212,17 @@
 </div>
 </div>
 </div>
+<div class="section" id="deploy-state">
+<h2>Deploy State<a class="headerlink" href="#deploy-state" title="Permalink to this headline">¶</a></h2>
+<p>At the center of a <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> deployment is a state object. This object holds the inventory of hosts and data, operations to execute and status of the execution.</p>
+<ul class="simple">
+<li>All hosts (or those matching the <code class="docutils literal notranslate"><span class="pre">-limit</span></code>) are connected to and flagged as both <strong>activated</strong> and <strong>active</strong>.</li>
+<li>Deploy files and/or operations are loaded for every activated host, any additional hosts are connected to as required (to collect facts, for example).</li>
+<li>Proposed operations, along with the number of commands for each hosts, are shown to the user for every <strong>activated</strong> host. At this point if the <code class="docutils literal notranslate"><span class="pre">--dry</span></code> flag is passed, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> stops.</li>
+<li>Operations begin to execute, when hosts fail they are flagged as no longer <strong>active</strong>, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> checks <strong>active</strong> vs <strong>activated</strong> counts to determine if we break the <code class="docutils literal notranslate"><span class="pre">FAIL_PERCENT</span></code>, and bail the whole deploy if so.</li>
+<li>Finally the resulting state is printing to the user for every <strong>activated</strong> host.</li>
+</ul>
+</div>
 </div>
 
 
@@ -267,7 +280,7 @@
       indexName: 'pyinfra',
       inputSelector: '#docsearch-input',
       algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
+        'facetFilters': ["version:1.x", "lang:en"],
       },
       debug: false,
   });

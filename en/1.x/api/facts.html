@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-  <meta name="docsearch:version" content="latest" />
+  <meta name="docsearch:version" content="1.x" />
   <meta name="docsearch:language" content="en" />
   
     <title>Writing Facts &#8212; pyinfra  documentation</title>
@@ -59,7 +59,7 @@
       <div id="header-sidebar">
         <a href="../index.html" class="text-logo">
             <img src="../_static/logo_small.png" />
-            pyinfra
+            pyinfra <small>1.x</small>
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Facts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#importing-using-facts">Importing &amp; Using Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-getting-swap-status">Example: getting swap status</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-getting-the-list-of-files-in-a-directory">Example: getting the list of files in a directory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-getting-any-output-from-a-command">Example: getting any output from a command</a></li>
@@ -122,14 +123,18 @@
     </div>
     
       <div id="right-column">
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="writing-facts">
 <h1>Writing Facts<a class="headerlink" href="#writing-facts" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../facts.html"><span class="doc">Facts</span></a> are written as Python classes. They provide a <code class="docutils literal notranslate"><span class="pre">command</span></code> (as either a string or method)
 and a <code class="docutils literal notranslate"><span class="pre">process</span></code> function. The command is executed on the target host and the output
-passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data.</p>
-<p>Facts can output any data structure, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data. Facts can output anything, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<div class="section" id="importing-using-facts">
+<h2>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Permalink to this headline">¶</a></h2>
+<p>Facts are available in a global namespace as attributes on host objects: <code class="docutils literal notranslate"><span class="pre">host.fact.X</span></code>. Custom fact classes will automatically be added to the namespace when the module containing them is imported. Note that the class name is converted to snake case, so <code class="docutils literal notranslate"><span class="pre">MyFact</span></code> becomes <code class="docutils literal notranslate"><span class="pre">my_fact</span></code>, available as <code class="docutils literal notranslate"><span class="pre">host.fact.my_fact</span></code>.</p>
+</div>
 <div class="section" id="example-getting-swap-status">
 <h2>Example: getting swap status<a class="headerlink" href="#example-getting-swap-status" title="Permalink to this headline">¶</a></h2>
 <p>This fact returns a boolean indicating whether swap is enabled. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class attribute.</p>
@@ -253,7 +258,7 @@ passed (as a <code class="docutils literal notranslate"><span class="pre">list</
       indexName: 'pyinfra',
       inputSelector: '#docsearch-input',
       algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
+        'facetFilters': ["version:1.x", "lang:en"],
       },
       debug: false,
   });

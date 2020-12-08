@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-  <meta name="docsearch:version" content="latest" />
+  <meta name="docsearch:version" content="1.x" />
   <meta name="docsearch:language" content="en" />
   
     <title>Connectors &#8212; pyinfra  documentation</title>
@@ -59,7 +59,7 @@
       <div id="header-sidebar">
         <a href="index.html" class="text-logo">
             <img src="_static/logo_small.png" />
-            pyinfra
+            pyinfra <small>1.x</small>
         </a>
         
 <form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
@@ -127,6 +127,7 @@
     </div>
     
       <div id="right-column">
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="connectors">
@@ -164,18 +165,24 @@ pyinfra @ssh/my-host.net ...
 </div>
 <div class="section" id="docker">
 <h2><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code><a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
-<p><strong>Note</strong>: this connector is in beta!</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector allows you to build Docker containers using pyinfra.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector allows you to build Docker images, or modify running Docker containers, using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>. You can pass either an image name or existing container ID:</p>
+<ul class="simple">
+<li>Image - will create a container from the image, execute operations and save into a new image</li>
+<li>Existing container ID - will simply execute operations against the container, leaving it up afterwards</li>
+</ul>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
 pyinfra @docker/alpine:3.8 ...
 
 <span class="c1"># pyinfra can run on multiple Docker images in parallel</span>
 pyinfra @docker/alpine:3.8,@docker/ubuntu:bionic ...
+
+<span class="c1"># Execute against a running container</span>
+pyinfra @docker/2beb8c15a1b1 ...
 </pre></div>
 </div>
 <p><strong>Available Data</strong>:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># Provide a specific container ID - prevents pyinfra starting a new container and will instead use</span>
-<span class="c1"># whatever is provided in the name.</span>
+<span class="c1"># whatever is provided in the name. This is the same as passing container ID via the CLI above.</span>
 <span class="n">docker_container_id</span> <span class="o">=</span> <span class="s1">&#39;abc&#39;</span>
 </pre></div>
 </div>
@@ -317,7 +324,7 @@ pyinfra @winrm/192.168.3.232 --winrm-username vagrant --winrm-password vagrant -
       indexName: 'pyinfra',
       inputSelector: '#docsearch-input',
       algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
+        'facetFilters': ["version:1.x", "lang:en"],
       },
       debug: false,
   });
