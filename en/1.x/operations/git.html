@@ -239,17 +239,23 @@
 <h2><code class="code docutils literal notranslate"><span class="pre">git.worktree</span></code><a class="headerlink" href="#git-worktree" title="Permalink to this headline">¶</a></h2>
 <p>Manage git worktrees.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
-    <span class="n">worktree</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_branch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detached</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_branch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">detached</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">new_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">from_remote_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">assume_repo_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>repo</strong>: git main repository directory</li>
 <li><strong>worktree</strong>: git working tree directory</li>
-<li><strong>branch</strong>: branch to use for the working tree</li>
-<li><strong>create_branch</strong>: the branch already exist or should be created</li>
+<li><strong>repo</strong>: git main repository directory</li>
 <li><strong>detached</strong>: create a working tree with a detached HEAD</li>
+<li><strong>branch</strong>: (deprecated)</li>
+<li><strong>create_branch</strong>: (deprecated)</li>
+<li><strong>new_branch</strong>: local branch name created at the same time than the worktree</li>
+<li><strong>commitish</strong>: from which git commit, branch, … the worktree is created</li>
+<li><strong>pull</strong>: pull any changes from a remote branch if set</li>
+<li><strong>rebase</strong>: when pulling, use <code class="docutils literal notranslate"><span class="pre">--rebase</span></code></li>
+<li><strong>from_remote_branch</strong>: a 2-tuple <code class="docutils literal notranslate"><span class="pre">(remote,</span> <span class="pre">branch)</span></code> that identifies a remote branch</li>
 <li><strong>present</strong>: whether the working tree should exist</li>
 <li><strong>assume_repo_exists</strong>: whether to assume the main repo exists</li>
 <li><strong>force</strong>: remove unclean working tree if should not exist</li>
@@ -258,17 +264,31 @@
 </ul>
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree (a branch `hotfix` is automatically created)&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree from the current repo `HEAD`&#39;</span><span class="p">,</span>
     <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
-    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span>
 <span class="p">)</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree with a new branch `v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree from the commit `4e091aa0`&#39;</span><span class="p">,</span>
     <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
     <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
-    <span class="n">branch</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span><span class="p">,</span>
-    <span class="n">create_branch</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s1">&#39;4e091aa0&#39;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree with a new local branch `v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree from the commit 4e091aa0 with the new local branch `v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s1">&#39;4e091aa0&#39;</span>
 <span class="p">)</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
@@ -279,10 +299,39 @@
 <span class="p">)</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree from the existing branch `v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree with a detached `HEAD` from commit `4e091aa0`&#39;</span><span class="p">,</span>
     <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
     <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
-    <span class="n">branch</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s1">&#39;4e091aa0&#39;</span><span class="p">,</span>
+    <span class="n">detached</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree from the existing local branch `v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a worktree with a new branch `v1.0` that tracks `origin/v1.0`&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s1">&#39;v1.0&#39;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pull an existing worktree already linked to a tracking branch&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pull an existing worktree from a specific remote branch&#39;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/master&#39;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s1">&#39;/usr/local/src/pyinfra/hotfix&#39;</span><span class="p">,</span>
+    <span class="n">from_remote_branch</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="s1">&#39;master&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
