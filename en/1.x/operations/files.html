@@ -589,15 +589,36 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">group</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Example showing how to pass python variable to template file.</span>
-<span class="c1"># The .j2 file can use `{{ foo_variable }}` to be interpolated.</span>
+<span class="c1"># Example showing how to pass python variable to template file. You can also</span>
+<span class="c1"># use dicts and lists. The .j2 file can use `{{ foo_variable }}` to be interpolated.</span>
 <span class="n">foo_variable</span> <span class="o">=</span> <span class="s1">&#39;This is some foo variable contents&#39;</span>
+<span class="n">foo_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;str1&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;str2&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 2&quot;</span>
+<span class="p">}</span>
+<span class="n">foo_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;entry 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;entry 2&quot;</span>
+<span class="p">]</span>
 <span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create a templated file&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;templates/foo.j2&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/foo&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;templates/foo.yml.j2&#39;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/foo.yml&#39;</span><span class="p">,</span>
     <span class="n">foo_variable</span><span class="o">=</span><span class="n">foo_variable</span><span class="p">,</span>
+    <span class="n">foo_dict</span><span class="o">=</span><span class="n">foo_dict</span><span class="p">,</span>
+    <span class="n">foo_list</span><span class="o">=</span><span class="n">foo_list</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-yml notranslate"><div class="highlight"><pre><span></span># templates/foo.j2
+name: &quot;{{ foo_variable }}&quot;
+dict_contents:
+    str1: &quot;{{ foo_dict.str1 }}&quot;
+    str2: &quot;{{ foo_dict.str2 }}&quot;
+list_contents:
+{% for entry in foo_list %}
+    - &quot;{{ entry }}&quot;
+{% endfor %}
 </pre></div>
 </div>
 </div>

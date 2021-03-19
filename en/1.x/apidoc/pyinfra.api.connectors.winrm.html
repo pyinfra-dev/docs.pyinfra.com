@@ -185,36 +185,26 @@
 
 <dl class="function">
 <dt id="pyinfra.api.connectors.winrm.run_shell_command">
-<code class="descclassname">pyinfra.api.connectors.winrm.</code><code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>command</em>, <em>get_pty=False</em>, <em>sudo=None</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>use_sudo_login=False</em>, <em>use_su_login=False</em>, <em>preserve_sudo_env=False</em>, <em>timeout=None</em>, <em>stdin=None</em>, <em>success_exit_codes=None</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>return_combined_output=False</em>, <em>shell_executable=None</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.winrm.run_shell_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.api.connectors.winrm.</code><code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>command</em>, <em>env=None</em>, <em>success_exit_codes=None</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>return_combined_output=False</em>, <em>shell_executable=None</em>, <em>**ignored_command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.winrm.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a command on the specified host.</p>
 <dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
+<dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first simple">
 <li><strong>state</strong> (<code class="docutils literal notranslate"><span class="pre">pyinfra.api.State</span></code> obj) – state object for this command</li>
 <li><strong>hostname</strong> (<em>string</em>) – hostname of the target</li>
 <li><strong>command</strong> (<em>string</em>) – actual command to execute</li>
-<li><strong>get_pty</strong> (<em>boolean</em>) – Not used for WINRM</li>
-<li><strong>sudo</strong> (<em>boolean</em>) – Not used for WINRM</li>
-<li><strong>sudo_user</strong> (<em>string</em>) – Not used for WINRM</li>
-<li><strong>use_sudo_login</strong> (<em>boolean</em>) – Not used for WINRM</li>
-<li><strong>use_su_login</strong> (<em>boolean</em>) – Not used for WINRM</li>
-<li><strong>preserve_sudo_env</strong> (<em>boolean</em>) – Not used for WINRM</li>
+<li><strong>success_exit_codes</strong> (<em>list</em>) – all values in the list that will return success</li>
+<li><strong>print_output</strong> (<em>boolean</em>) – print the output</li>
+<li><strong>print_intput</strong> (<em>boolean</em>) – print the input</li>
+<li><strong>return_combined_output</strong> (<em>boolean</em>) – combine the stdout and stderr lists</li>
+<li><strong>shell_executable</strong> (<em>string</em>) – shell to use - ‘sh’=cmd, ‘ps’=powershell(default)</li>
+<li><strong>env</strong> (<em>dict</em>) – environment variables to set</li>
 </ul>
 </dd>
-</dl>
-<dl class="docutils">
-<dt>TODO: check if winrm has a timeout and use timeout param</dt><dd>timeout (int): timeout for this command to complete before erroring
-stdin (string): Not used for WINRM
-success_exit_codes (list): all values in the list that will return success
-print_output (boolean): print the output
-TODO print_intput (boolean): print the input
-return_combined_output (boolean): combine the stdout and stderr lists
-shell_executable (string): shell to use - ‘sh’=cmd, ‘ps’=powershell(default)
-env (dict): environment variables to set</dd>
-</dl>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Returns</dt><dd class="field-body">(exit_code, stdout, stderr)
-stdout and stderr are both lists of strings from each buffer.</dd>
-<dt class="field-name">Return type</dt><dd class="field-body">tuple</dd>
+<dt class="field-name">Returns</dt><dd class="field-body"><p class="first">(exit_code, stdout, stderr)
+stdout and stderr are both lists of strings from each buffer.</p>
+</dd>
+<dt class="field-name">Return type</dt><dd class="field-body"><p class="first last">tuple</p>
+</dd>
 </dl>
 </dd></dl>
 
