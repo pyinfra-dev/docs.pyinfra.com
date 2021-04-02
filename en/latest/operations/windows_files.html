@@ -121,7 +121,10 @@
 <li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Windows_Files Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#windows-files-directory"><code class="code docutils literal notranslate"><span class="pre">windows_files.directory</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-files-download"><code class="code docutils literal notranslate"><span class="pre">windows_files.download</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#windows-files-file"><code class="code docutils literal notranslate"><span class="pre">windows_files.file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-files-link"><code class="code docutils literal notranslate"><span class="pre">windows_files.link</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-files-put"><code class="code docutils literal notranslate"><span class="pre">windows_files.put</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
@@ -210,6 +213,36 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="windows-files-download">
+<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.download</span></code><a class="headerlink" href="#windows-files-download" title="Permalink to this headline">¶</a></h2>
+<p>Download files from remote locations using curl or wget.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sha256sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sha1sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>src</strong>: source URL of the file</li>
+<li><strong>dest</strong>: where to save the file</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files</li>
+<li><strong>cache_time</strong>: if the file exists already, re-download after this time (in seconds)</li>
+<li><strong>force</strong>: always download the file, even if it already exists</li>
+<li><a href="#id1"><span class="problematic" id="id2">**</span></a>sha**256sum: sha256 hash to checksum the downloaded file against</li>
+<li><a href="#id3"><span class="problematic" id="id4">**</span></a>sha**1sum: sha1 hash to checksum the downloaded file against</li>
+<li><a href="#id5"><span class="problematic" id="id6">**</span></a>md**5sum: md5 hash to checksum the downloaded file against</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">winows_files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Download the Docker repo file&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/centos/docker-ce.repo&#39;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;C:\docker&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="windows-files-file">
 <h2><code class="code docutils literal notranslate"><span class="pre">windows_files.file</span></code><a class="headerlink" href="#windows-files-file" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update files.</p>
@@ -239,6 +272,79 @@ if this is required call <code class="docutils literal notranslate"><span class=
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create c:</span><span class="se">\t</span><span class="s1">emp\hello.txt&#39;</span><span class="p">,</span>
     <span class="n">path</span><span class="o">=</span><span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp\hello.txt&#39;</span><span class="p">,</span>
     <span class="n">touch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows-files-link">
+<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.link</span></code><a class="headerlink" href="#windows-files-link" title="Permalink to this headline">¶</a></h2>
+<p>Add/remove/update links.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>path</strong>: the name of the link</li>
+<li><strong>target</strong>: the file/directory the link points to</li>
+<li><strong>present</strong>: whether the link should exist</li>
+<li><strong>assume_present</strong>: whether to assume the link exists</li>
+<li><strong>user</strong>: user to own the link</li>
+<li><strong>group</strong>: group to own the link</li>
+<li><strong>symbolic</strong>: whether to make a symbolic link (vs hard link)</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
+</ul>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
+<dt>Source changes:</dt><dd>If the link exists and points to a different target, pyinfra will remove it and
+recreate a new one pointing to then new target.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple example showing how to link to a file</span>
+<span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Create link C:\issue2 that points to C:\issue&#39;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C:\issue2&#39;</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C\issue&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows-files-put">
+<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.put</span></code><a class="headerlink" href="#windows-files-put" title="Permalink to this headline">¶</a></h2>
+<p>Upload a local file to the remote system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>src</strong>: local filename to upload</li>
+<li><strong>dest</strong>: remote filename to upload to</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files</li>
+<li><strong>add_deploy_dir</strong>: src is relative to the deploy directory</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
+<li><strong>force</strong>: always upload the file, even if the remote copy matches</li>
+<li><strong>assume_exists</strong>: whether to assume the local file exists</li>
+</ul>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
+<dt>Note:</dt><dd>This operation is not suitable for large files as it may involve copying
+the file before uploading it.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This requires a &#39;files/motd&#39; file on the local filesystem</span>
+<span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Update the message of the day file&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;data/content.json&#39;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;C:\data\content.json&#39;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
