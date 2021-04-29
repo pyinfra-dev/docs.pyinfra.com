@@ -118,6 +118,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-hostname"><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-modprobe"><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-mount"><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-packages"><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-reboot"><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-script"><code class="code docutils literal notranslate"><span class="pre">server.script</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-script-template"><code class="code docutils literal notranslate"><span class="pre">server.script_template</span></code></a></li>
@@ -307,6 +308,25 @@ options it will be remounted with the options provided.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>:</dt><dd>This operation does not attempt to modify the on disk fstab file - for
 that you should use the <a class="reference external" href="./files.html#files-line">files.line operation</a>.</dd>
 </dl>
+</div>
+<div class="section" id="server-packages">
+<h2><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code><a class="headerlink" href="#server-packages" title="Permalink to this headline">¶</a></h2>
+<p>Add or remove system packages. This command checks for the presence of all the
+system package managers <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can handle and executes the relevant operation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and vimpager&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vimpager&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="server-reboot">
 <h2><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code><a class="headerlink" href="#server-reboot" title="Permalink to this headline">¶</a></h2>

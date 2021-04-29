@@ -162,6 +162,29 @@ Options:
     that you should use the `files.line operation <./files.html#files-line>`_.
 
 
+:code:`server.packages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Add or remove system packages. This command checks for the presence of all the
+system package managers ``pyinfra`` can handle and executes the relevant operation.
+
+.. code:: python
+
+    server.packages(packages, present=True)
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
+
+Example:
+
+.. code:: python
+
+    server.packages(
+        name='Install Vim and vimpager',
+        packages=['vimpager', 'vim'],
+    )
+
+
 :code:`server.reboot`
 ~~~~~~~~~~~~~~~~~~~~~
 
