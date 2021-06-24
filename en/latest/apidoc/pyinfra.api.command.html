@@ -113,6 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.dockerssh.html">pyinfra.api.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.local.html">pyinfra.api.connectors.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.mech.html">pyinfra.api.connectors.mech module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.pyinfrawinrmsession.html">pyinfra.api.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.ssh.html">pyinfra.api.connectors.ssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.sshuserclient.html">pyinfra.api.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.sshuserclient.client.html">pyinfra.api.connectors.sshuserclient.client module</a></li>
@@ -250,6 +251,18 @@
 <code class="descname">get_raw_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.command.StringCommand.get_raw_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="pyinfra.api.command.make_formatted_string_command">
+<code class="descclassname">pyinfra.api.command.</code><code class="descname">make_formatted_string_command</code><span class="sig-paren">(</span><em>string</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.command.make_formatted_string_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function that takes a shell command or script as a string, splits
+it, applies formatting to each bit - quoting any formatted values - before
+returning them as a <cite>StringCommand</cite> object.</p>
+<p>Useful to enable string formatted commands/scripts, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">curl_command</span> <span class="o">=</span> <span class="n">make_formatted_string_command</span><span class="p">(</span><span class="s1">&#39;curl -sSLf </span><span class="si">{0}</span><span class="s1"> -o </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
