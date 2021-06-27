@@ -140,7 +140,13 @@ and a <code class="docutils literal notranslate"><span class="pre">process</span
 passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data. Facts can output anything, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <div class="section" id="importing-using-facts">
 <h2>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Permalink to this headline">¶</a></h2>
-<p>Facts are available in a global namespace as attributes on host objects: <code class="docutils literal notranslate"><span class="pre">host.fact.X</span></code>. Custom fact classes will automatically be added to the namespace when the module containing them is imported. Note that the class name is converted to snake case, so <code class="docutils literal notranslate"><span class="pre">MyFact</span></code> becomes <code class="docutils literal notranslate"><span class="pre">my_fact</span></code>, available as <code class="docutils literal notranslate"><span class="pre">host.fact.my_fact</span></code>.</p>
+<p>Like operations, facts are imported from Python modules and executed by calling <cite>Host.get_fact</cite>. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Which</span>
+
+<span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Which</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;htop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="example-getting-swap-status">
 <h2>Example: getting swap status<a class="headerlink" href="#example-getting-swap-status" title="Permalink to this headline">¶</a></h2>
@@ -159,7 +165,7 @@ passed (as a <code class="docutils literal notranslate"><span class="pre">list</
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">is_swap_enabled</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">swap_enabled</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">is_swap_enabled</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SwapEnabled</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -173,16 +179,16 @@ passed (as a <code class="docutils literal notranslate"><span class="pre">list</
 <span class="sd">    Returns a list of files from a start point, recursively using find.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="c1"># Find files in the given location</span>
-        <span class="k">return</span> <span class="s1">&#39;find </span><span class="si">{0}</span><span class="s1"> -type f&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;find </span><span class="si">{0}</span><span class="s1"> -type f&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>  <span class="c1"># return the list of lines (files) as-is</span>
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_files</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">find_files</span><span class="p">(</span><span class="s1">&#39;/some/path&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_files</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/somewhere&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -204,7 +210,7 @@ passed (as a <code class="docutils literal notranslate"><span class="pre">list</
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">command_output</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">raw_command_output</span><span class="p">(</span><span class="s1">&#39;execute my command&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">command_output</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RawCommandOutput</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;execute this command&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
