@@ -1,0 +1,175 @@
+Hardware Facts
+--------------
+
+:code:`BlockDevices`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(BlockDevices)
+
+
+Returns a dict of (mounted) block devices:
+
+.. code:: python
+
+    {
+        '/dev/sda1': {
+            'available': '39489508',
+            'used_percent': '3',
+            'mount': '/',
+            'used': '836392',
+            'blocks': '40325900'
+        },
+    }
+
+
+
+:code:`Cpus`
+~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Cpus)
+
+
+Returns the number of CPUs on this server.
+
+
+
+:code:`Ipv4Addresses`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Ipv4Addresses)
+
+
+Gets & returns a dictionary of network interface -> IPv4 address.
+
+.. code:: python
+
+    {
+        'eth0': '127.0.0.1',
+    }
+
+.. warning::
+    This fact is deprecated, please use the ``ipv4_addrs`` fact.
+
+.. note::
+    Network interfaces with no IPv4 will not be part of the dictionary.
+
+
+
+:code:`Ipv4Addrs`
+~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Ipv4Addrs)
+
+
+Gets & returns a dictionary of network interface -> list of IPv4 addresses.
+
+.. code:: python
+
+    {
+        'eth0': ['127.0.0.1'],
+    }
+
+.. note::
+    Network interfaces with no IPv4 will not be part of the dictionary.
+
+
+
+:code:`Ipv6Addresses`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Ipv6Addresses)
+
+
+Gets & returns a dictionary of network interface -> IPv6 address.
+
+.. code:: python
+
+    {
+        'eth0': 'fe80::a00:27ff::2',
+    }
+
+.. warning::
+    This fact is deprecated, please use the ``ipv6_addrs`` fact.
+
+.. note::
+    Network interfaces with no IPv6 will not be part of the dictionary.
+
+
+
+:code:`Ipv6Addrs`
+~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Ipv6Addrs)
+
+
+Gets & returns a dictionary of network interface -> list of IPv6 addresses.
+
+.. code:: python
+
+    {
+        'eth0': ['fe80::a00:27ff::2'],
+    }
+
+.. note::
+    Network interfaces with no IPv6 will not be part of the dictionary.
+
+
+
+:code:`Memory`
+~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Memory)
+
+
+Returns the memory installed in this server, in MB.
+
+
+
+:code:`NetworkDevices`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(NetworkDevices)
+
+
+Gets & returns a dict of network devices. See the ``ipv4_addresses`` and
+``ipv6_addresses`` facts for easier-to-use shortcuts to get device addresses.
+
+.. code:: python
+
+    {
+        'eth0': {
+            'ipv4': {
+                'address': '127.0.0.1',
+                'broadcast': '127.0.0.13',
+                # Only one of these will exist:
+                'netmask': '255.255.255.255',
+                'mask_bits': 32,
+            },
+            'ipv6': {
+                'address': 'fe80::a00:27ff:fec3:36f0',
+                'mask_bits': 64,
+                'additional_ips': [{
+                    'address': 'fe80::',
+                    'mask_bits': 128,
+                }],
+            }
+        },
+    }
+
+

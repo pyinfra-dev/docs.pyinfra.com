@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+  
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <meta name="docsearch:version" content="next" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>Dnf Operations &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Files Operations" href="files.html" />
+    <link rel="prev" title="Choco Operations" href="choco.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="files.html" title="Files Operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="choco.html" title="Choco Operations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+            pyinfra <small>next</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
+  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dnf Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-key"><code class="code docutils literal notranslate"><span class="pre">dnf.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-packages"><code class="code docutils literal notranslate"><span class="pre">dnf.packages</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-repo"><code class="code docutils literal notranslate"><span class="pre">dnf.repo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-rpm"><code class="code docutils literal notranslate"><span class="pre">dnf.rpm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-update"><code class="code docutils literal notranslate"><span class="pre">dnf.update</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="init.html">Init Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/operations/dnf.html"><strong>1.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="dnf-operations">
+<h1>Dnf Operations<a class="headerlink" href="#dnf-operations" title="Permalink to this headline">¶</a></h1>
+<p>Manage dnf packages and repositories. Note that dnf package names are case-sensitive.</p>
+<div class="section" id="dnf-key">
+<h2><code class="code docutils literal notranslate"><span class="pre">dnf.key</span></code><a class="headerlink" href="#dnf-key" title="Permalink to this headline">¶</a></h2>
+<p>Add dnf gpg keys with <code class="docutils literal notranslate"><span class="pre">rpm</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>key</strong>: filename or URL</li>
+</ul>
+<dl class="docutils">
+<dt>Note:</dt><dd>always returns one command, not idempotent</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">linux_id</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">linux_distribution</span><span class="p">[</span><span class="s1">&#39;release_meta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Add the Docker CentOS gpg key&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/</span><span class="si">{}</span><span class="s1">/gpg&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linux_id</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dnf-packages">
+<h2><code class="code docutils literal notranslate"><span class="pre">dnf.packages</span></code><a class="headerlink" href="#dnf-packages" title="Permalink to this headline">¶</a></h2>
+<p>Install/remove/update dnf packages &amp; updates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nobest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">extra_install_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_uninstall_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
+<li><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">update</span></code> before installing packages</li>
+<li><strong>clean</strong>: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span></code> before installing packages</li>
+<li><strong>nobest</strong>: add the no best option to install</li>
+<li><strong>extra_install_args</strong>: additional arguments to the dnf install command</li>
+<li><strong>extra_uninstall_args</strong>: additional arguments to the dnf uninstall command</li>
+</ul>
+<dl class="docutils">
+<dt>Versions:</dt><dd>Package versions can be pinned as follows: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and Vim enhanced&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vim-enhanced&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Install the latest versions of packages (always check)</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install latest Vim&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dnf-repo">
+<h2><code class="code docutils literal notranslate"><span class="pre">dnf.repo</span></code><a class="headerlink" href="#dnf-repo" title="Permalink to this headline">¶</a></h2>
+<p>Add/remove/update dnf repositories.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">baseurl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gpgcheck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">gpgkey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>name</strong>: URL or name for the <code class="docutils literal notranslate"><span class="pre">.repo</span></code>   file</li>
+<li><strong>present</strong>: whether the <code class="docutils literal notranslate"><span class="pre">.repo</span></code> file should be present</li>
+<li><strong>baseurl</strong>: the baseurl of the repo (if <code class="docutils literal notranslate"><span class="pre">name</span></code> is not a URL)</li>
+<li><strong>description</strong>: optional verbose description</li>
+<li><strong>enabled</strong>: whether this repo is enabled</li>
+<li><strong>gpgcheck</strong>: whether set <code class="docutils literal notranslate"><span class="pre">gpgcheck=1</span></code></li>
+<li><strong>gpgkey</strong>: the URL to the gpg key for this repo</li>
+</ul>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Baseurl</span></code>/<code class="docutils literal notranslate"><span class="pre">description</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgcheck</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgkey</span></code>:</dt><dd>These are only valid when <code class="docutils literal notranslate"><span class="pre">name</span></code> is a filename (ie not a URL). This is
+for manual construction of repository files. Use a URL to download and
+install remote repository files.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a repository file</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Docker-CE repo via URL&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/centos/docker-ce.repo&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the repository file from baseurl/etc</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Add the Docker CentOS repo&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;DockerCE&#39;</span><span class="p">,</span>
+    <span class="n">baseurl</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/centos/7/$basearch/stable&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dnf-rpm">
+<h2><code class="code docutils literal notranslate"><span class="pre">dnf.rpm</span></code><a class="headerlink" href="#dnf-rpm" title="Permalink to this headline">¶</a></h2>
+<p>Add/remove <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>src</strong>: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> package</li>
+<li><strong>present</strong>: whether ore not the package should exist on the system</li>
+</ul>
+<dl class="docutils">
+<dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd>If the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file isn’t downloaded, pyinfra can’t remove any existing
+package as the file won’t exist until mid-deploy.</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span>
+   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install EPEL rpm to enable EPEL repo&#39;</span><span class="p">,</span>
+   <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://dl.fedoraproject.org/pub/epel/epel-release-latest-&#39;</span>
+   <span class="s1">&#39;{{  host.fact.linux_distribution.major }}.noarch.rpm&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dnf-update">
+<h2><code class="code docutils literal notranslate"><span class="pre">dnf.update</span></code><a class="headerlink" href="#dnf-update" title="Permalink to this headline">¶</a></h2>
+<p>Updates all dnf packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="choco.html">
+          <span aria-hidden="true">&larr;</span> Choco Operations
+        </a></li>
+      
+        <li class="next"><a href="files.html">
+          Files Operations <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="files.html" title="Files Operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="choco.html" title="Choco Operations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+</script>
+<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+  <script type="text/javascript"> docsearch({
+      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
+      indexName: 'pyinfra',
+      inputSelector: '#docsearch-input',
+      algoliaOptions: {
+        'facetFilters': ["version:next", "lang:en"],
+      },
+      debug: false,
+  });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>

@@ -1,0 +1,202 @@
+Init Operations
+---------------
+
+
+.. warning::
+
+    This is a legacy module providing backwards compatibility. Please use the other modules:
+
+    + :doc:`./systemd`
+    + :doc:`./upstart`
+    + :doc:`./launchd`
+    + :doc:`./sysvinit`
+    + :doc:`./bsdinit`
+    + `server.service operation <server.html#server-service>`_
+
+:code:`init.d`
+~~~~~~~~~~~~~~
+
+Manage the state of SysV Init (/etc/init.d) services.
+
+.. code:: python
+
+    init.d()
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **reloaded**: whether the service should be reloaded
++ **enabled**: whether this service should be enabled/disabled
++ **command**: command (eg. reload) to run like: ``/etc/init.d/<service> <command>``
+
+Enabled:
+    Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
+    support enabling/disabling services:
+
+    + Ubuntu/Debian (``update-rc.d``)
+    + CentOS/Fedora/RHEL (``chkconfig``)
+    + Gentoo (``rc-update``)
+
+    For other distributions and more granular service control, see the
+    ``sysvinit.enable`` operation.
+
+Example:
+
+.. code:: python
+
+    sysvinit.service(
+        name='Restart and enable rsyslog',
+        service='rsyslog',
+        restarted=True,
+        enabled=True,
+    )
+
+
+:code:`init.d_enable`
+~~~~~~~~~~~~~~~~~~~~~
+
+Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.
+
+.. code:: python
+
+    init.d_enable()
+
++ **service**: name of the service to enable
++ **start_priority**: priority to start the service
++ **stop_priority**: priority to stop the service
++ **start_levels**: which runlevels should the service run when enabled
++ **stop_levels**: which runlevels should the service stop when enabled
+
+Example:
+
+.. code:: python
+
+    init.d_enable(
+        name='Finer control on which runlevels rsyslog should run',
+        service='rsyslog',
+        start_levels=(3, 4, 5),
+        stop_levels=(0, 1, 2, 6),
+    )
+
+
+:code:`init.launchd`
+~~~~~~~~~~~~~~~~~~~~
+
+Manage the state of systemd managed services.
+
+.. code:: python
+
+    init.launchd()
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **command**: custom command to pass like: ``launchctl <command> <service>``
++ **enabled**: whether this service should be enabled/disabled on boot
+
+
+:code:`init.rc`
+~~~~~~~~~~~~~~~
+
+Manage the state of BSD init (/etc/rc.d) services.
+
+.. code:: python
+
+    init.rc()
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **reloaded**: whether the service should be reloaded
++ **command**: custom command to pass like: ``/etc/rc.d/<service> <command>``
++ **enabled**: whether this service should be enabled/disabled on boot
+
+
+:code:`init.service`
+~~~~~~~~~~~~~~~~~~~~
+
+Manage the state of services. This command checks for the presence of all the
+Linux init systems ``pyinfra`` can handle and executes the relevant operation.
+
+.. code:: python
+
+    init.service()
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **reloaded**: whether the service should be reloaded
++ **command**: custom command execute
++ **enabled**: whether this service should be enabled/disabled on boot
+
+Example:
+
+.. code:: python
+
+    server.service(
+        name='Enable open-vm-tools service',
+        service='open-vm-tools',
+        enabled=True,
+    )
+
+
+:code:`init.systemd`
+~~~~~~~~~~~~~~~~~~~~
+
+Manage the state of systemd managed units.
+
+.. code:: python
+
+    init.systemd()
+
++ **service**: name of the systemd unit to manage
++ **running**: whether the unit should be running
++ **restarted**: whether the unit should be restarted
++ **reloaded**: whether the unit should be reloaded
++ **command**: custom command to pass like: ``/etc/rc.d/<name> <command>``
++ **enabled**: whether this unit should be enabled/disabled on boot
++ **daemon_reload**: reload the systemd daemon to read updated unit files
++ **user_mode**: whether to use per-user systemd (systemctl --user) or not
+
+Example:
+
+.. code:: python
+
+    systemd.service(
+        name='Restart and enable the dnsmasq service',
+        service='dnsmasq.service',
+        running=True,
+        restarted=True,
+        enabled=True,
+    )
+
+    systemd.service(
+        name='Enable logrotate timer',
+        service='logrotate.timer',
+        running=True,
+        enabled=True,
+    )
+
+
+:code:`init.upstart`
+~~~~~~~~~~~~~~~~~~~~
+
+Manage the state of upstart managed services.
+
+.. code:: python
+
+    init.upstart()
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **reloaded**: whether the service should be reloaded
++ **command**: custom command to pass like: ``/etc/rc.d/<service> <command>``
++ **enabled**: whether this service should be enabled/disabled on boot
+
+Enabling/disabling services:
+    Upstart jobs define runlevels in their config files - as such there is no way to
+    edit/list these without fiddling with the config. So pyinfra simply manages the
+    existence of a ``/etc/init/<service>.override`` file, and sets its content to
+    "manual" to disable automatic start of services.
+

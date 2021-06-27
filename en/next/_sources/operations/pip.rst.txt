@@ -1,0 +1,95 @@
+Pip Operations
+--------------
+
+
+Manage pip (python) packages. Compatible globally or inside
+a virtualenv (virtual environment).
+
+:code:`pip.packages`
+~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update pip packages.
+
+.. code:: python
+
+    pip.packages(
+        packages=None, present=True, latest=False, requirements=None, pip='pip', virtualenv=None,
+        virtualenv_kwargs=None, extra_install_args=None,
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **requirements**: location of requirements file to install/uninstall
++ **pip**: name or path of the pip directory to use
++ **virtualenv**: root directory of virtualenv to work in
++ **virtualenv_kwargs**: dictionary of arguments to pass to ``pip.virtualenv``
++ **extra_install_args**: additional arguments to the pip install command
+
+Virtualenv:
+    This will be created if it does not exist already. ``virtualenv_kwargs``
+    will be passed to ``pip.virtualenv`` which can be used to control how
+    the env is created.
+
+Versions:
+    Package versions can be pinned like pip: ``<pkg>==<version>``.
+
+Example:
+
+.. code:: python
+
+    pip.packages(
+        name='Install pyinfra into a virtualenv',
+        packages=['pyinfra'],
+        virtualenv='/usr/local/bin/venv',
+    )
+
+
+:code:`pip.venv`
+~~~~~~~~~~~~~~~~
+
+Add/remove Python virtualenvs.
+
+.. code:: python
+
+    pip.venv(path, python=None, site_packages=False, always_copy=False, present=True)
+
++ **python**: python interpreter to use
++ **site_packages**: give access to the global site-packages
++ **always_copy**: always copy files rather than symlinking
++ **present**: whether the virtualenv should exist
+
+Example:
+
+.. code:: python
+
+    pip.venv(
+        name='Create a virtualenv',
+        path='/usr/local/bin/venv',
+    )
+
+
+:code:`pip.virtualenv`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove Python virtualenvs.
+
+.. code:: python
+
+    pip.virtualenv(path, python=None, venv=False, site_packages=False, always_copy=False, present=True)
+
++ **python**: python interpreter to use
++ **venv**: use standard venv module instead of virtualenv
++ **site_packages**: give access to the global site-packages
++ **always_copy**: always copy files rather than symlinking
++ **present**: whether the virtualenv should exist
+
+Example:
+
+.. code:: python
+
+    pip.virtualenv(
+        name='Create a virtualenv',
+        path='/usr/local/bin/venv',
+    )
+
