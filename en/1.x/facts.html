@@ -160,22 +160,23 @@
 <p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses <strong>facts</strong> to determine the existing state of a remote server. Operations use this information to generate commands which alter the state. Facts are read-only and is populated at the beginning of the deploy.</p>
 <p>Facts can be executed/tested via the command line:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example how to get multiple facts from a server myhost.com</span>
-pyinfra myhost.com fact date another_fact ...
+pyinfra myhost.com fact server.Date server.Hostname ...
 </pre></div>
 </div>
-<p>If you want to see all facts:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show all of the facts from myhost.com</span>
-pyinfra myhost.com all-facts
-</pre></div>
-</div>
-<p>If you want to pass an argument to a fact, use <cite>:</cite> then the argument. For example:</p>
+<p>If you want to pass an argument to a fact, pass it with <code class="docutils literal notranslate"><span class="pre">key=value</span></code>. For example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># See if the package &#39;openssh-server&#39; is installed servers myhost.com and myhost2.com</span>
-pyinfra myhost.com,myhost2.com fact deb_package:openssh-server
+pyinfra myhost.com,myhost2.com fact deb.DebPackage <span class="nv">name</span><span class="o">=</span>openssh-server
+</pre></div>
+</div>
+<p>Multiple facts with arguments may be called like so:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra @local fact files.File <span class="nv">path</span><span class="o">=</span>setup.py files.File <span class="nv">path</span><span class="o">=</span>anotherfile.txt
 </pre></div>
 </div>
 <p>You can leverage facts as part of <a class="reference internal" href="deploys.html"><span class="doc">a deploy</span></a> like this:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># If this is an Ubuntu server</span>
-<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">linux_name</span> <span class="o">==</span> <span class="s1">&#39;Ubuntu&#39;</span><span class="p">:</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">LinuxName</span>
+
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Ubuntu&#39;</span><span class="p">:</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -184,231 +185,231 @@ pyinfra myhost.com,myhost2.com fact deb_package:openssh-server
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="facts/apk.html">Apk Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/apk.html#apk-packages"><code class="code docutils literal notranslate"><span class="pre">apk_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/apk.html#apkpackages"><code class="code docutils literal notranslate"><span class="pre">ApkPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/apt.html">Apt Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/apt.html#apt-keys"><code class="code docutils literal notranslate"><span class="pre">apt_keys</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/apt.html#apt-sources"><code class="code docutils literal notranslate"><span class="pre">apt_sources</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/apt.html#aptkeys"><code class="code docutils literal notranslate"><span class="pre">AptKeys</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/apt.html#aptsources"><code class="code docutils literal notranslate"><span class="pre">AptSources</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/brew.html">Brew Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brew-casks"><code class="code docutils literal notranslate"><span class="pre">brew_casks</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brew-packages"><code class="code docutils literal notranslate"><span class="pre">brew_packages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brew-taps"><code class="code docutils literal notranslate"><span class="pre">brew_taps</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brew-version"><code class="code docutils literal notranslate"><span class="pre">brew_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brewcasks"><code class="code docutils literal notranslate"><span class="pre">BrewCasks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brewpackages"><code class="code docutils literal notranslate"><span class="pre">BrewPackages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brewtaps"><code class="code docutils literal notranslate"><span class="pre">BrewTaps</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/brew.html#brewversion"><code class="code docutils literal notranslate"><span class="pre">BrewVersion</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/bsdinit.html">Bsdinit Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/bsdinit.html#rcd-status"><code class="code docutils literal notranslate"><span class="pre">rcd_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/bsdinit.html#rcdstatus"><code class="code docutils literal notranslate"><span class="pre">RcdStatus</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/choco.html">Choco Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/choco.html#choco-packages"><code class="code docutils literal notranslate"><span class="pre">choco_packages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/choco.html#choco-version"><code class="code docutils literal notranslate"><span class="pre">choco_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/choco.html#chocopackages"><code class="code docutils literal notranslate"><span class="pre">ChocoPackages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/choco.html#chocoversion"><code class="code docutils literal notranslate"><span class="pre">ChocoVersion</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/deb.html">Deb Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/deb.html#deb-package"><code class="code docutils literal notranslate"><span class="pre">deb_package</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/deb.html#deb-packages"><code class="code docutils literal notranslate"><span class="pre">deb_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/deb.html#debpackage"><code class="code docutils literal notranslate"><span class="pre">DebPackage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/deb.html#debpackages"><code class="code docutils literal notranslate"><span class="pre">DebPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/dnf.html">Dnf Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/dnf.html#dnf-repositories"><code class="code docutils literal notranslate"><span class="pre">dnf_repositories</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/dnf.html#dnfrepositories"><code class="code docutils literal notranslate"><span class="pre">DnfRepositories</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/docker.html">Docker Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker_container</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-containers"><code class="code docutils literal notranslate"><span class="pre">docker_containers</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker_image</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-images"><code class="code docutils literal notranslate"><span class="pre">docker_images</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-network"><code class="code docutils literal notranslate"><span class="pre">docker_network</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-networks"><code class="code docutils literal notranslate"><span class="pre">docker_networks</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-single-mixin"><code class="code docutils literal notranslate"><span class="pre">docker_single_mixin</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-system-info"><code class="code docutils literal notranslate"><span class="pre">docker_system_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockercontainer"><code class="code docutils literal notranslate"><span class="pre">DockerContainer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockercontainers"><code class="code docutils literal notranslate"><span class="pre">DockerContainers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockerimage"><code class="code docutils literal notranslate"><span class="pre">DockerImage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockerimages"><code class="code docutils literal notranslate"><span class="pre">DockerImages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockernetwork"><code class="code docutils literal notranslate"><span class="pre">DockerNetwork</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockernetworks"><code class="code docutils literal notranslate"><span class="pre">DockerNetworks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockersinglemixin"><code class="code docutils literal notranslate"><span class="pre">DockerSingleMixin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#dockersysteminfo"><code class="code docutils literal notranslate"><span class="pre">DockerSystemInfo</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/files.html">Files Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#directory"><code class="code docutils literal notranslate"><span class="pre">directory</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#file"><code class="code docutils literal notranslate"><span class="pre">file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#find-directories"><code class="code docutils literal notranslate"><span class="pre">find_directories</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#find-files"><code class="code docutils literal notranslate"><span class="pre">find_files</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#find-in-file"><code class="code docutils literal notranslate"><span class="pre">find_in_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#find-links"><code class="code docutils literal notranslate"><span class="pre">find_links</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#link"><code class="code docutils literal notranslate"><span class="pre">link</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#md5-file"><code class="code docutils literal notranslate"><span class="pre">md5_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#sha1-file"><code class="code docutils literal notranslate"><span class="pre">sha1_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#sha256-file"><code class="code docutils literal notranslate"><span class="pre">sha256_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/files.html#socket"><code class="code docutils literal notranslate"><span class="pre">socket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#directory"><code class="code docutils literal notranslate"><span class="pre">Directory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#file"><code class="code docutils literal notranslate"><span class="pre">File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#finddirectories"><code class="code docutils literal notranslate"><span class="pre">FindDirectories</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#findfiles"><code class="code docutils literal notranslate"><span class="pre">FindFiles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#findinfile"><code class="code docutils literal notranslate"><span class="pre">FindInFile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#findlinks"><code class="code docutils literal notranslate"><span class="pre">FindLinks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#link"><code class="code docutils literal notranslate"><span class="pre">Link</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#md5file"><code class="code docutils literal notranslate"><span class="pre">Md5File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#sha1file"><code class="code docutils literal notranslate"><span class="pre">Sha1File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#sha256file"><code class="code docutils literal notranslate"><span class="pre">Sha256File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#socket"><code class="code docutils literal notranslate"><span class="pre">Socket</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/gem.html">Gem Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/gem.html#gem-packages"><code class="code docutils literal notranslate"><span class="pre">gem_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/gem.html#gempackages"><code class="code docutils literal notranslate"><span class="pre">GemPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/git.html">Git Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-branch"><code class="code docutils literal notranslate"><span class="pre">git_branch</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-config"><code class="code docutils literal notranslate"><span class="pre">git_config</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-tracking-branch"><code class="code docutils literal notranslate"><span class="pre">git_tracking_branch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/git.html#gitbranch"><code class="code docutils literal notranslate"><span class="pre">GitBranch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/git.html#gitconfig"><code class="code docutils literal notranslate"><span class="pre">GitConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/git.html#gittrackingbranch"><code class="code docutils literal notranslate"><span class="pre">GitTrackingBranch</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/gpg.html">Gpg Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpg-key"><code class="code docutils literal notranslate"><span class="pre">gpg_key</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpg-keys"><code class="code docutils literal notranslate"><span class="pre">gpg_keys</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpg-secret-keys"><code class="code docutils literal notranslate"><span class="pre">gpg_secret_keys</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpgkey"><code class="code docutils literal notranslate"><span class="pre">GpgKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpgkeys"><code class="code docutils literal notranslate"><span class="pre">GpgKeys</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/gpg.html#gpgsecretkeys"><code class="code docutils literal notranslate"><span class="pre">GpgSecretKeys</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/hardware.html">Hardware Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#block-devices"><code class="code docutils literal notranslate"><span class="pre">block_devices</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#cpus"><code class="code docutils literal notranslate"><span class="pre">cpus</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv4-addresses"><code class="code docutils literal notranslate"><span class="pre">ipv4_addresses</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv4-addrs"><code class="code docutils literal notranslate"><span class="pre">ipv4_addrs</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv6-addresses"><code class="code docutils literal notranslate"><span class="pre">ipv6_addresses</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv6-addrs"><code class="code docutils literal notranslate"><span class="pre">ipv6_addrs</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#memory"><code class="code docutils literal notranslate"><span class="pre">memory</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#network-devices"><code class="code docutils literal notranslate"><span class="pre">network_devices</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#blockdevices"><code class="code docutils literal notranslate"><span class="pre">BlockDevices</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#cpus"><code class="code docutils literal notranslate"><span class="pre">Cpus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv4addresses"><code class="code docutils literal notranslate"><span class="pre">Ipv4Addresses</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv4addrs"><code class="code docutils literal notranslate"><span class="pre">Ipv4Addrs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv6addresses"><code class="code docutils literal notranslate"><span class="pre">Ipv6Addresses</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#ipv6addrs"><code class="code docutils literal notranslate"><span class="pre">Ipv6Addrs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#memory"><code class="code docutils literal notranslate"><span class="pre">Memory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/hardware.html#networkdevices"><code class="code docutils literal notranslate"><span class="pre">NetworkDevices</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/iptables.html">Iptables Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#ip6tables-chains"><code class="code docutils literal notranslate"><span class="pre">ip6tables_chains</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#ip6tables-rules"><code class="code docutils literal notranslate"><span class="pre">ip6tables_rules</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#iptables-chains"><code class="code docutils literal notranslate"><span class="pre">iptables_chains</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#iptables-rules"><code class="code docutils literal notranslate"><span class="pre">iptables_rules</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#ip6tableschains"><code class="code docutils literal notranslate"><span class="pre">Ip6tablesChains</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#ip6tablesrules"><code class="code docutils literal notranslate"><span class="pre">Ip6tablesRules</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#iptableschains"><code class="code docutils literal notranslate"><span class="pre">IptablesChains</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/iptables.html#iptablesrules"><code class="code docutils literal notranslate"><span class="pre">IptablesRules</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/launchd.html">Launchd Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/launchd.html#launchd-status"><code class="code docutils literal notranslate"><span class="pre">launchd_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/launchd.html#launchdstatus"><code class="code docutils literal notranslate"><span class="pre">LaunchdStatus</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/lxd.html">Lxd Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/lxd.html#lxd-containers"><code class="code docutils literal notranslate"><span class="pre">lxd_containers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/lxd.html#lxdcontainers"><code class="code docutils literal notranslate"><span class="pre">LXDContainers</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/mysql.html">Mysql Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysql-databases"><code class="code docutils literal notranslate"><span class="pre">mysql_databases</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysql-user-grants"><code class="code docutils literal notranslate"><span class="pre">mysql_user_grants</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysql-users"><code class="code docutils literal notranslate"><span class="pre">mysql_users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysqldatabases"><code class="code docutils literal notranslate"><span class="pre">MysqlDatabases</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysqlusergrants"><code class="code docutils literal notranslate"><span class="pre">MysqlUserGrants</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/mysql.html#mysqlusers"><code class="code docutils literal notranslate"><span class="pre">MysqlUsers</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/npm.html">Npm Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/npm.html#npm-packages"><code class="code docutils literal notranslate"><span class="pre">npm_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/npm.html#npmpackages"><code class="code docutils literal notranslate"><span class="pre">NpmPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/pacman.html">Pacman Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/pacman.html#pacman-packages"><code class="code docutils literal notranslate"><span class="pre">pacman_packages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/pacman.html#pacman-unpack-group"><code class="code docutils literal notranslate"><span class="pre">pacman_unpack_group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/pacman.html#pacmanpackages"><code class="code docutils literal notranslate"><span class="pre">PacmanPackages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/pacman.html#pacmanunpackgroup"><code class="code docutils literal notranslate"><span class="pre">PacmanUnpackGroup</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/pip.html">Pip Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/pip.html#pip3-packages"><code class="code docutils literal notranslate"><span class="pre">pip3_packages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/pip.html#pip-packages"><code class="code docutils literal notranslate"><span class="pre">pip_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/pip.html#pip3packages"><code class="code docutils literal notranslate"><span class="pre">Pip3Packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/pip.html#pippackages"><code class="code docutils literal notranslate"><span class="pre">PipPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/pkg.html">Pkg Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/pkg.html#pkg-packages"><code class="code docutils literal notranslate"><span class="pre">pkg_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/pkg.html#pkgpackages"><code class="code docutils literal notranslate"><span class="pre">PkgPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/postgresql.html">Postgresql Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/postgresql.html#postgresql-databases"><code class="code docutils literal notranslate"><span class="pre">postgresql_databases</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/postgresql.html#postgresql-roles"><code class="code docutils literal notranslate"><span class="pre">postgresql_roles</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/postgresql.html#postgresqldatabases"><code class="code docutils literal notranslate"><span class="pre">PostgresqlDatabases</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/postgresql.html#postgresqlroles"><code class="code docutils literal notranslate"><span class="pre">PostgresqlRoles</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/rpm.html">Rpm Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpm-packages"><code class="code docutils literal notranslate"><span class="pre">rpm_packages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpm-package"><code class="code docutils literal notranslate"><span class="pre">rpm_package</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpm-package-provides"><code class="code docutils literal notranslate"><span class="pre">rpm_package_provides</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpmpackages"><code class="code docutils literal notranslate"><span class="pre">RPMPackages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpmpackage"><code class="code docutils literal notranslate"><span class="pre">RpmPackage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/rpm.html#rpmpackageprovides"><code class="code docutils literal notranslate"><span class="pre">RpmPackageProvides</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/server.html">Server Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#arch"><code class="code docutils literal notranslate"><span class="pre">arch</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#command"><code class="code docutils literal notranslate"><span class="pre">command</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#crontab"><code class="code docutils literal notranslate"><span class="pre">crontab</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#date"><code class="code docutils literal notranslate"><span class="pre">date</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#groups"><code class="code docutils literal notranslate"><span class="pre">groups</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#has-gui"><code class="code docutils literal notranslate"><span class="pre">has_gui</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#home"><code class="code docutils literal notranslate"><span class="pre">home</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#hostname"><code class="code docutils literal notranslate"><span class="pre">hostname</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernel"><code class="code docutils literal notranslate"><span class="pre">kernel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernel-modules"><code class="code docutils literal notranslate"><span class="pre">kernel_modules</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernel-version"><code class="code docutils literal notranslate"><span class="pre">kernel_version</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linux-distribution"><code class="code docutils literal notranslate"><span class="pre">linux_distribution</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linux-gui"><code class="code docutils literal notranslate"><span class="pre">linux_gui</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linux-name"><code class="code docutils literal notranslate"><span class="pre">linux_name</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#lsb-release"><code class="code docutils literal notranslate"><span class="pre">lsb_release</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#macos-version"><code class="code docutils literal notranslate"><span class="pre">macos_version</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#mounts"><code class="code docutils literal notranslate"><span class="pre">mounts</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#os"><code class="code docutils literal notranslate"><span class="pre">os</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#os-version"><code class="code docutils literal notranslate"><span class="pre">os_version</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#path"><code class="code docutils literal notranslate"><span class="pre">path</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#selinux"><code class="code docutils literal notranslate"><span class="pre">selinux</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#sysctl"><code class="code docutils literal notranslate"><span class="pre">sysctl</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#user"><code class="code docutils literal notranslate"><span class="pre">user</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#users"><code class="code docutils literal notranslate"><span class="pre">users</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#which"><code class="code docutils literal notranslate"><span class="pre">which</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#arch"><code class="code docutils literal notranslate"><span class="pre">Arch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#command"><code class="code docutils literal notranslate"><span class="pre">Command</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#crontab"><code class="code docutils literal notranslate"><span class="pre">Crontab</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#date"><code class="code docutils literal notranslate"><span class="pre">Date</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#groups"><code class="code docutils literal notranslate"><span class="pre">Groups</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#hasgui"><code class="code docutils literal notranslate"><span class="pre">HasGui</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#home"><code class="code docutils literal notranslate"><span class="pre">Home</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#hostname"><code class="code docutils literal notranslate"><span class="pre">Hostname</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernel"><code class="code docutils literal notranslate"><span class="pre">Kernel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernelmodules"><code class="code docutils literal notranslate"><span class="pre">KernelModules</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#kernelversion"><code class="code docutils literal notranslate"><span class="pre">KernelVersion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linuxdistribution"><code class="code docutils literal notranslate"><span class="pre">LinuxDistribution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linuxgui"><code class="code docutils literal notranslate"><span class="pre">LinuxGui</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#linuxname"><code class="code docutils literal notranslate"><span class="pre">LinuxName</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#lsbrelease"><code class="code docutils literal notranslate"><span class="pre">LsbRelease</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#macosversion"><code class="code docutils literal notranslate"><span class="pre">MacosVersion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#mounts"><code class="code docutils literal notranslate"><span class="pre">Mounts</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#os"><code class="code docutils literal notranslate"><span class="pre">Os</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#osversion"><code class="code docutils literal notranslate"><span class="pre">OsVersion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#path"><code class="code docutils literal notranslate"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#selinux"><code class="code docutils literal notranslate"><span class="pre">Selinux</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#sysctl"><code class="code docutils literal notranslate"><span class="pre">Sysctl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#user"><code class="code docutils literal notranslate"><span class="pre">User</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#users"><code class="code docutils literal notranslate"><span class="pre">Users</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#which"><code class="code docutils literal notranslate"><span class="pre">Which</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/systemd.html">Systemd Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/systemd.html#systemd-enabled"><code class="code docutils literal notranslate"><span class="pre">systemd_enabled</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/systemd.html#systemd-status"><code class="code docutils literal notranslate"><span class="pre">systemd_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/systemd.html#systemdenabled"><code class="code docutils literal notranslate"><span class="pre">SystemdEnabled</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/systemd.html#systemdstatus"><code class="code docutils literal notranslate"><span class="pre">SystemdStatus</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/sysvinit.html">Sysvinit Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/sysvinit.html#initd-status"><code class="code docutils literal notranslate"><span class="pre">initd_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/sysvinit.html#initdstatus"><code class="code docutils literal notranslate"><span class="pre">InitdStatus</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/upstart.html">Upstart Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/upstart.html#upstart-status"><code class="code docutils literal notranslate"><span class="pre">upstart_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/upstart.html#upstartstatus"><code class="code docutils literal notranslate"><span class="pre">UpstartStatus</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/vzctl.html">Vzctl Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/vzctl.html#openvz-containers"><code class="code docutils literal notranslate"><span class="pre">openvz_containers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/vzctl.html#openvzcontainers"><code class="code docutils literal notranslate"><span class="pre">OpenvzContainers</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/windows.html">Windows Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-aliases"><code class="code docutils literal notranslate"><span class="pre">windows_aliases</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-bios"><code class="code docutils literal notranslate"><span class="pre">windows_bios</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-computer-info"><code class="code docutils literal notranslate"><span class="pre">windows_computer_info</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-date"><code class="code docutils literal notranslate"><span class="pre">windows_date</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-home"><code class="code docutils literal notranslate"><span class="pre">windows_home</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-hostname"><code class="code docutils literal notranslate"><span class="pre">windows_hostname</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-hotfixes"><code class="code docutils literal notranslate"><span class="pre">windows_hotfixes</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-installer-applications"><code class="code docutils literal notranslate"><span class="pre">windows_installer_applications</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-last-reboot"><code class="code docutils literal notranslate"><span class="pre">windows_last_reboot</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-local-drives-info"><code class="code docutils literal notranslate"><span class="pre">windows_local_drives_info</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-local-groups"><code class="code docutils literal notranslate"><span class="pre">windows_local_groups</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-logged-in-user-info"><code class="code docutils literal notranslate"><span class="pre">windows_logged_in_user_info</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-logon-session-info"><code class="code docutils literal notranslate"><span class="pre">windows_logon_session_info</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-network-configuration"><code class="code docutils literal notranslate"><span class="pre">windows_network_configuration</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-os"><code class="code docutils literal notranslate"><span class="pre">windows_os</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-os-version"><code class="code docutils literal notranslate"><span class="pre">windows_os_version</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-processes"><code class="code docutils literal notranslate"><span class="pre">windows_processes</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-processors"><code class="code docutils literal notranslate"><span class="pre">windows_processors</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-service"><code class="code docutils literal notranslate"><span class="pre">windows_service</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-services"><code class="code docutils literal notranslate"><span class="pre">windows_services</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-system-type"><code class="code docutils literal notranslate"><span class="pre">windows_system_type</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-where"><code class="code docutils literal notranslate"><span class="pre">windows_where</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsaliases"><code class="code docutils literal notranslate"><span class="pre">WindowsAliases</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsbios"><code class="code docutils literal notranslate"><span class="pre">WindowsBios</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowscomputerinfo"><code class="code docutils literal notranslate"><span class="pre">WindowsComputerInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsdate"><code class="code docutils literal notranslate"><span class="pre">WindowsDate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowshome"><code class="code docutils literal notranslate"><span class="pre">WindowsHome</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowshostname"><code class="code docutils literal notranslate"><span class="pre">WindowsHostname</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowshotfixes"><code class="code docutils literal notranslate"><span class="pre">WindowsHotfixes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsinstallerapplications"><code class="code docutils literal notranslate"><span class="pre">WindowsInstallerApplications</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowslastreboot"><code class="code docutils literal notranslate"><span class="pre">WindowsLastReboot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowslocaldrivesinfo"><code class="code docutils literal notranslate"><span class="pre">WindowsLocalDrivesInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowslocalgroups"><code class="code docutils literal notranslate"><span class="pre">WindowsLocalGroups</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsloggedinuserinfo"><code class="code docutils literal notranslate"><span class="pre">WindowsLoggedInUserInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowslogonsessioninfo"><code class="code docutils literal notranslate"><span class="pre">WindowsLogonSessionInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsnetworkconfiguration"><code class="code docutils literal notranslate"><span class="pre">WindowsNetworkConfiguration</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsos"><code class="code docutils literal notranslate"><span class="pre">WindowsOs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsosversion"><code class="code docutils literal notranslate"><span class="pre">WindowsOsVersion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsprocesses"><code class="code docutils literal notranslate"><span class="pre">WindowsProcesses</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsprocessors"><code class="code docutils literal notranslate"><span class="pre">WindowsProcessors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsservice"><code class="code docutils literal notranslate"><span class="pre">WindowsService</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowsservices"><code class="code docutils literal notranslate"><span class="pre">WindowsServices</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowssystemtype"><code class="code docutils literal notranslate"><span class="pre">WindowsSystemType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windowswhere"><code class="code docutils literal notranslate"><span class="pre">WindowsWhere</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/windows_files.html">Windows_Files Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-directory"><code class="code docutils literal notranslate"><span class="pre">windows_directory</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-file"><code class="code docutils literal notranslate"><span class="pre">windows_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-link"><code class="code docutils literal notranslate"><span class="pre">windows_link</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-md5-file"><code class="code docutils literal notranslate"><span class="pre">windows_md5_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-sha1-file"><code class="code docutils literal notranslate"><span class="pre">windows_sha1_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-sha256-file"><code class="code docutils literal notranslate"><span class="pre">windows_sha256_file</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-temp-dir"><code class="code docutils literal notranslate"><span class="pre">windows_temp_dir</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowsdirectory"><code class="code docutils literal notranslate"><span class="pre">WindowsDirectory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowsfile"><code class="code docutils literal notranslate"><span class="pre">WindowsFile</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowslink"><code class="code docutils literal notranslate"><span class="pre">WindowsLink</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowsmd5file"><code class="code docutils literal notranslate"><span class="pre">WindowsMd5File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowssha1file"><code class="code docutils literal notranslate"><span class="pre">WindowsSha1File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowssha256file"><code class="code docutils literal notranslate"><span class="pre">WindowsSha256File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windowstempdir"><code class="code docutils literal notranslate"><span class="pre">WindowsTempDir</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/xbps.html">Xbps Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/xbps.html#xbps-packages"><code class="code docutils literal notranslate"><span class="pre">xbps_packages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/xbps.html#xbpspackages"><code class="code docutils literal notranslate"><span class="pre">XbpsPackages</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/yum.html">Yum Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/yum.html#yum-repositories"><code class="code docutils literal notranslate"><span class="pre">yum_repositories</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/yum.html#yumrepositories"><code class="code docutils literal notranslate"><span class="pre">YumRepositories</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/zypper.html">Zypper Facts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="facts/zypper.html#zypper-repositories"><code class="code docutils literal notranslate"><span class="pre">zypper_repositories</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/zypper.html#zypperrepositories"><code class="code docutils literal notranslate"><span class="pre">ZypperRepositories</span></code></a></li>
 </ul>
 </li>
 </ul>
