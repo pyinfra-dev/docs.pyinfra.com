@@ -256,11 +256,15 @@
 <dl class="function">
 <dt id="pyinfra.api.command.make_formatted_string_command">
 <code class="descclassname">pyinfra.api.command.</code><code class="descname">make_formatted_string_command</code><span class="sig-paren">(</span><em>string</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.command.make_formatted_string_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function that takes a shell command or script as a string, splits
-it, applies formatting to each bit - quoting any formatted values - before
-returning them as a <cite>StringCommand</cite> object.</p>
+<dd><p>Helper function that takes a shell command or script as a string, splits it
+using <code class="docutils literal notranslate"><span class="pre">shlex.split</span></code> and then formats each bit, returning a <code class="docutils literal notranslate"><span class="pre">StringCommand</span></code>
+instance with each bit.</p>
 <p>Useful to enable string formatted commands/scripts, for example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">curl_command</span> <span class="o">=</span> <span class="n">make_formatted_string_command</span><span class="p">(</span><span class="s1">&#39;curl -sSLf </span><span class="si">{0}</span><span class="s1"> -o </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">curl_command</span> <span class="o">=</span> <span class="n">make_formatted_string_command</span><span class="p">(</span>
+    <span class="s1">&#39;curl -sSLf </span><span class="si">{0}</span><span class="s1"> -o </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">QuoteString</span><span class="p">(</span><span class="n">src</span><span class="p">),</span>
+    <span class="n">QuoteString</span><span class="p">(</span><span class="n">dest</span><span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
