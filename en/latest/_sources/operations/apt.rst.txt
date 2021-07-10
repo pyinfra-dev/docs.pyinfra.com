@@ -119,10 +119,10 @@ Examples:
         latest=True,
     )
 
-    # Note: host.fact.os_version is the same as `uname -r` (ex: '4.15.0-72-generic')
+    # Note: host.get_fact(OsVersion) is the same as `uname -r` (ex: '4.15.0-72-generic')
     apt.packages(
         name='Install kernel headers',
-        packages=['linux-headers-{}'.format(host.fact.os_version)],
+        packages=['linux-headers-{}'.format(host.get_fact(OsVersion))],
         update=True,
     )
 
