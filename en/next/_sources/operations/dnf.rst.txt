@@ -22,7 +22,7 @@ Example:
 
 .. code:: python
 
-    linux_id = host.fact.linux_distribution['release_meta'].get('ID')
+    linux_id = host.get_fact(LinuxDistribution)['release_meta'].get('ID')
     dnf.key(
         name='Add the Docker CentOS gpg key',
         src='https://download.docker.com/linux/{}/gpg'.format(linux_id),
@@ -135,10 +135,10 @@ Example:
 
 .. code:: python
 
+    major_centos_version = host.get_fact(LinuxDistribution)['major']
     dnf.rpm(
        name='Install EPEL rpm to enable EPEL repo',
-       src='https://dl.fedoraproject.org/pub/epel/epel-release-latest-'
-       '{{  host.fact.linux_distribution.major }}.noarch.rpm',
+       src='https://dl.fedoraproject.org/pub/epel/epel-release-latest-{}.noarch.rpm'.format(major_centos_version),
     )
 
 

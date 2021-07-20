@@ -176,6 +176,7 @@
 <p>This is a simplified version of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation, which will create/remove a
 remote file based on the <code class="docutils literal notranslate"><span class="pre">present</span></code> kwargs:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">operation</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.files</span> <span class="kn">import</span> <span class="n">File</span>
 
 <span class="nd">@operation</span>
 <span class="k">def</span> <span class="nf">file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -186,7 +187,7 @@ remote file based on the <code class="docutils literal notranslate"><span class=
 <span class="sd">    + present: whether the file should exist</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">fact</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
     <span class="c1"># Not a file?!</span>
     <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
