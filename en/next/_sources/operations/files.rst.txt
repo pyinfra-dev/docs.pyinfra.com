@@ -13,7 +13,7 @@ Add/remove/update directories.
 
     files.directory(
         path, present=True, assume_present=False, user=None, group=None, mode=None,
-        recursive=False,
+        recursive=False, force=False, force_backup=True, force_backup_dir=None,
     )
 
 + **path**: path of the remote folder
@@ -23,6 +23,9 @@ Add/remove/update directories.
 + **group**: group to own the folder
 + **mode**: permissions of the folder
 + **recursive**: recursively apply user/group/mode
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
 Examples:
 
@@ -93,7 +96,7 @@ Add/remove/update files.
 
     files.file(
         path, present=True, assume_present=False, user=None, group=None, mode=None, touch=False,
-        create_remote_dir=True,
+        create_remote_dir=True, force=False, force_backup=True, force_backup_dir=None,
     )
 
 + **path**: name/path of the remote file
@@ -104,6 +107,9 @@ Add/remove/update files.
 + **mode**: permissions of the files as an integer, eg: 755
 + **touch**: whether to touch the file
 + **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
 ``create_remote_dir``:
     If the remote directory does not exist it will be created using the same
@@ -251,7 +257,8 @@ Add/remove/update links.
 
     files.link(
         path, target=None, present=True, assume_present=False, user=None, group=None,
-        symbolic=True, create_remote_dir=True,
+        symbolic=True, create_remote_dir=True, force=False, force_backup=True,
+        force_backup_dir=None,
     )
 
 + **path**: the name of the link
@@ -262,6 +269,9 @@ Add/remove/update links.
 + **group**: group to own the link
 + **symbolic**: whether to make a symbolic link (vs hard link)
 + **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
 ``create_remote_dir``:
     If the remote directory does not exist it will be created using the same

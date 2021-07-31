@@ -184,7 +184,7 @@
 <p>Add/remove/update directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -196,6 +196,9 @@
 <li><strong>group</strong>: group to own the folder</li>
 <li><strong>mode</strong>: permissions of the folder</li>
 <li><strong>recursive</strong>: recursively apply user/group/mode</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
 </ul>
 <p>Examples:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
@@ -256,7 +259,7 @@
 <p>Add/remove/update files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">touch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -269,6 +272,9 @@
 <li><strong>mode</strong>: permissions of the files as an integer, eg: 755</li>
 <li><strong>touch</strong>: whether to touch the file</li>
 <li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
 </ul>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
@@ -396,7 +402,8 @@ it will be append to the end of the file.</dd>
 <p>Add/remove/update links.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force_backup_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -409,6 +416,9 @@ it will be append to the end of the file.</dd>
 <li><strong>group</strong>: group to own the link</li>
 <li><strong>symbolic</strong>: whether to make a symbolic link (vs hard link)</li>
 <li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
 </ul>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
