@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Zypper Facts &#8212; pyinfra  documentation</title>
+    <title>Selinux Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example Deploys" href="../examples.html" />
-    <link rel="prev" title="Yum Facts" href="yum.html" />
+    <link rel="next" title="Server Facts" href="server.html" />
+    <link rel="prev" title="Rpm Facts" href="rpm.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../examples.html" title="Example Deploys"
+          <a href="server.html" title="Server Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="yum.html" title="Yum Facts"
+          <a href="rpm.html" title="Rpm Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li> 
@@ -116,7 +116,11 @@
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Selinux Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-filecontext"><code class="code docutils literal notranslate"><span class="pre">selinux.FileContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-seboolean"><code class="code docutils literal notranslate"><span class="pre">selinux.SEBoolean</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
@@ -126,10 +130,7 @@
 <li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Zypper Facts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#zypper-zypperrepositories"><code class="code docutils literal notranslate"><span class="pre">zypper.ZypperRepositories</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Facts</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
@@ -162,31 +163,27 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/facts/zypper.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/facts/selinux.html"><strong>1.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="zypper-facts">
-<h1>Zypper Facts<a class="headerlink" href="#zypper-facts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="zypper-zypperrepositories">
-<h2><code class="code docutils literal notranslate"><span class="pre">zypper.ZypperRepositories</span></code><a class="headerlink" href="#zypper-zypperrepositories" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">ZypperRepositories</span><span class="p">)</span>
+  <div class="section" id="selinux-facts">
+<h1>Selinux Facts<a class="headerlink" href="#selinux-facts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="selinux-filecontext">
+<h2><code class="code docutils literal notranslate"><span class="pre">selinux.FileContext</span></code><a class="headerlink" href="#selinux-filecontext" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FileContext</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a list of installed zypper repositories:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Main Repository&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;autorefresh&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;baseurl&#39;</span><span class="p">:</span> <span class="s1">&#39;http://download.opensuse.org/distribution/leap/$releasever/repo/oss/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;rpm-md&#39;</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">]</span>
+<p>Returns structured SELinux file context data for a specified file.</p>
+</div>
+<div class="section" id="selinux-seboolean">
+<h2><code class="code docutils literal notranslate"><span class="pre">selinux.SEBoolean</span></code><a class="headerlink" href="#selinux-seboolean" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SEBoolean</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Returns the on/off status of a SELinux Boolean.</p>
 </div>
 </div>
 
@@ -196,12 +193,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="yum.html">
-          <span aria-hidden="true">&larr;</span> Yum Facts
+        <li class="previous"><a href="rpm.html">
+          <span aria-hidden="true">&larr;</span> Rpm Facts
         </a></li>
       
-        <li class="next"><a href="../examples.html">
-          Example Deploys <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="server.html">
+          Server Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -221,10 +218,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../examples.html" title="Example Deploys"
+          <a href="server.html" title="Server Facts"
              >next</a> |</li>
         <li class="right" >
-          <a href="yum.html" title="Yum Facts"
+          <a href="rpm.html" title="Rpm Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li> 
