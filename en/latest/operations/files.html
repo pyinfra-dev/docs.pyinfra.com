@@ -559,6 +559,14 @@ remove extra files on the remote side, but not extra directories.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Note: <code class="docutils literal notranslate"><span class="pre">exclude</span></code> and <code class="docutils literal notranslate"><span class="pre">exclude_dir</span></code> use <code class="docutils literal notranslate"><span class="pre">fnmatch</span></code> behind the scenes to do the filtering.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">exclude</span></code> matches against the filename.</li>
+<li><code class="docutils literal notranslate"><span class="pre">exclude_dir</span></code> matches against the path of the directory, relative to <code class="docutils literal notranslate"><span class="pre">src</span></code>.
+Since fnmatch does not treat path separators (<code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code>) as special characters,
+excluding all directories matching a given name, however deep under <code class="docutils literal notranslate"><span class="pre">src</span></code> they are,
+can be done for example with <code class="docutils literal notranslate"><span class="pre">exclude_dir=[&quot;__pycache__&quot;,</span> <span class="pre">&quot;*/__pycache__&quot;]</span></code></li>
+</ul>
 </div>
 <div class="section" id="files-template">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.template</span></code><a class="headerlink" href="#files-template" title="Permalink to this headline">¶</a></h2>
