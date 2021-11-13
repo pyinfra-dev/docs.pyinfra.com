@@ -165,7 +165,7 @@ Ensure lines in files using grep to locate and sed to replace.
 
     files.line(
         path, line, present=True, replace=None, flags=None, backup=False,
-        interpolate_variables=False, assume_present=False,
+        interpolate_variables=False, escape_regex_characters=False, assume_present=False,
     )
 
 + **path**: target remote file to edit
@@ -176,6 +176,7 @@ Ensure lines in files using grep to locate and sed to replace.
 + **backup**: whether to backup the file (see below)
 + **interpolate_variables**: whether to interpolate variables in ``replace``
 + **assume_present**: whether to assume a matching line already exists in the file
++ **escape_regex_characters**: whether to escape regex characters from the matching line
 
 Regex line matching:
     Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
