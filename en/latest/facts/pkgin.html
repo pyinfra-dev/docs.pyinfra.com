@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Sysvinit Facts &#8212; pyinfra  documentation</title>
+    <title>Pkgin Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Upstart Facts" href="upstart.html" />
-    <link rel="prev" title="Systemd Facts" href="systemd.html" />
+    <link rel="next" title="Postgresql Facts" href="postgresql.html" />
+    <link rel="prev" title="Pkg Facts" href="pkg.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="upstart.html" title="Upstart Facts"
+          <a href="postgresql.html" title="Postgresql Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="systemd.html" title="Systemd Facts"
+          <a href="pkg.html" title="Pkg Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li> 
@@ -114,16 +114,16 @@
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pkgin Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pkgin-pkginpackages"><code class="code docutils literal notranslate"><span class="pre">pkgin.PkginPackages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sysvinit Facts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sysvinit-initdstatus"><code class="code docutils literal notranslate"><span class="pre">sysvinit.InitdStatus</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Facts</a></li>
@@ -163,26 +163,25 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/facts/sysvinit.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/facts/pkgin.html"><strong>1.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="sysvinit-facts">
-<h1>Sysvinit Facts<a class="headerlink" href="#sysvinit-facts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="sysvinit-initdstatus">
-<h2><code class="code docutils literal notranslate"><span class="pre">sysvinit.InitdStatus</span></code><a class="headerlink" href="#sysvinit-initdstatus" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">InitdStatus</span><span class="p">)</span>
+  <div class="section" id="pkgin-facts">
+<h1>Pkgin Facts<a class="headerlink" href="#pkgin-facts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pkgin-pkginpackages">
+<h2><code class="code docutils literal notranslate"><span class="pre">pkgin.PkginPackages</span></code><a class="headerlink" href="#pkgin-pkginpackages" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">PkginPackages</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Low level check for every /etc/init.d/* script. Unfortunately many of these
-mishehave and return exit status 0 while also displaying the help info/not
-offering status support.</p>
-<p>Returns a dict of name -&gt; status.</p>
-<dl class="docutils">
-<dt>Expected codes found at:</dt><dd><a class="reference external" href="http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html</a></dd>
-</dl>
+<p>Returns a dict of installed pkgin packages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;package_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -192,12 +191,12 @@ offering status support.</p>
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="systemd.html">
-          <span aria-hidden="true">&larr;</span> Systemd Facts
+        <li class="previous"><a href="pkg.html">
+          <span aria-hidden="true">&larr;</span> Pkg Facts
         </a></li>
       
-        <li class="next"><a href="upstart.html">
-          Upstart Facts <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="postgresql.html">
+          Postgresql Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -217,10 +216,10 @@ offering status support.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="upstart.html" title="Upstart Facts"
+          <a href="postgresql.html" title="Postgresql Facts"
              >next</a> |</li>
         <li class="right" >
-          <a href="systemd.html" title="Systemd Facts"
+          <a href="pkg.html" title="Pkg Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li> 
