@@ -114,7 +114,8 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 
     mysql.privileges(
         user, privileges, user_hostname='localhost', database='*', table='*', present=True,
-        flush=True, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None,
+        flush=True, with_grant_option=None, mysql_user=None, mysql_password=None, mysql_host=None,
+        mysql_port=None,
     )
 
 + **user**: name of the user to manage privileges for
@@ -122,9 +123,15 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 + **user_hostname**: the hostname of the user
 + **database**: name of the database to grant privileges to (defaults to all)
 + **table**: name of the table to grant privileges to (defaults to all)
-+ **present**: whether these privileges should exist (False to ``REVOKE)
++ **present**: whether these privileges should exist (False to ``REVOKE``)
 + **flush**: whether to flush (and update) the privileges table after any changes
++ **with_grant_option**: whether to add the with grant option privilege
 + **mysql_***: global module arguments, see above
+
+Note:
+    This operation will either ensure permissions exist or are removed for a given database
+    & table combination. This means when ``present=True`` it won't add/remove any permissions
+    that already exist but aren't passed in as ``privileges``.
 
 
 :code:`mysql.sql`
@@ -150,7 +157,10 @@ Add/remove/update MySQL users.
 
     mysql.user(
         user, present=True, user_hostname='localhost', password=None, privileges=None,
-        mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None,
+        require=None, require_cipher=False, require_issuer=False, require_subject=False,
+        max_connections=None, max_queries_per_hour=None, max_updates_per_hour=None,
+        max_connections_per_hour=None, mysql_user=None, mysql_password=None, mysql_host=None,
+        mysql_port=None,
     )
 
 + **user**: the name of the user
@@ -177,5 +187,31 @@ Example:
         name='Create the pyinfra@localhost MySQL user',
         user='pyinfra',
         password='somepassword',
+    )
+
+    # Create a user with resource limits
+    mysql.user(
+        name='Create the pyinfra@localhost MySQL user',
+        user='pyinfra',
+        max_connections=50,
+        max_updates_per_hour=10,
+    )
+
+    # Create a user that requires SSL for connections
+    mysql.user(
+        name='Create the pyinfra@localhost MySQL user',
+        user='pyinfra',
+        password='somepassword',
+        require='SSL',
+    )
+
+    # Create a user that requires a specific certificate
+    mysql.user(
+        name='Create the pyinfra@localhost MySQL user',
+        user='pyinfra',
+        password='somepassword',
+        require='X509',
+        require_issuer='/C=SE/ST=Stockholm...',
+        require_cipher='EDH-RSA-DES-CBC3-SHA',
     )
 

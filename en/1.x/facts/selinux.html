@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="1.x" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Docker Facts &#8212; pyinfra  documentation</title>
+    <title>Selinux Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Files Facts" href="files.html" />
-    <link rel="prev" title="Dnf Facts" href="dnf.html" />
+    <link rel="next" title="Server Facts" href="server.html" />
+    <link rel="prev" title="Rpm Facts" href="rpm.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="files.html" title="Files Facts"
+          <a href="server.html" title="Server Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="dnf.html" title="Dnf Facts"
+          <a href="rpm.html" title="Rpm Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li> 
@@ -99,17 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deb.html">Deb Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Facts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Facts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockercontainer"><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainer</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockercontainers"><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainers</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockerimage"><code class="code docutils literal notranslate"><span class="pre">docker.DockerImage</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockerimages"><code class="code docutils literal notranslate"><span class="pre">docker.DockerImages</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockernetwork"><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetwork</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockernetworks"><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetworks</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockersinglemixin"><code class="code docutils literal notranslate"><span class="pre">docker.DockerSingleMixin</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#docker-dockersysteminfo"><code class="code docutils literal notranslate"><span class="pre">docker.DockerSystemInfo</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Facts</a></li>
@@ -127,7 +117,11 @@
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Selinux Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-filecontext"><code class="code docutils literal notranslate"><span class="pre">selinux.FileContext</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-seboolean"><code class="code docutils literal notranslate"><span class="pre">selinux.SEBoolean</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
@@ -169,62 +163,21 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="docker-facts">
-<h1>Docker Facts<a class="headerlink" href="#docker-facts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="docker-dockercontainer">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainer</span></code><a class="headerlink" href="#docker-dockercontainer" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainer</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+  <div class="section" id="selinux-facts">
+<h1>Selinux Facts<a class="headerlink" href="#selinux-facts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="selinux-filecontext">
+<h2><code class="code docutils literal notranslate"><span class="pre">selinux.FileContext</span></code><a class="headerlink" href="#selinux-filecontext" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FileContext</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for a single Docker container.</p>
+<p>Returns structured SELinux file context data for a specified file.</p>
 </div>
-<div class="section" id="docker-dockercontainers">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainers</span></code><a class="headerlink" href="#docker-dockercontainers" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainers</span><span class="p">)</span>
+<div class="section" id="selinux-seboolean">
+<h2><code class="code docutils literal notranslate"><span class="pre">selinux.SEBoolean</span></code><a class="headerlink" href="#selinux-seboolean" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SEBoolean</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for all Docker containers.</p>
-</div>
-<div class="section" id="docker-dockerimage">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerImage</span></code><a class="headerlink" href="#docker-dockerimage" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImage</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for a single Docker image.</p>
-</div>
-<div class="section" id="docker-dockerimages">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerImages</span></code><a class="headerlink" href="#docker-dockerimages" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImages</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for all Docker images.</p>
-</div>
-<div class="section" id="docker-dockernetwork">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetwork</span></code><a class="headerlink" href="#docker-dockernetwork" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetwork</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for a single Docker network.</p>
-</div>
-<div class="section" id="docker-dockernetworks">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetworks</span></code><a class="headerlink" href="#docker-dockernetworks" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetworks</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span></code> output for all Docker networks.</p>
-</div>
-<div class="section" id="docker-dockersinglemixin">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerSingleMixin</span></code><a class="headerlink" href="#docker-dockersinglemixin" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSingleMixin</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="docker-dockersysteminfo">
-<h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerSystemInfo</span></code><a class="headerlink" href="#docker-dockersysteminfo" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSystemInfo</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">system</span> <span class="pre">info</span></code> output in JSON format.</p>
+<p>Returns the on/off status of a SELinux Boolean.</p>
 </div>
 </div>
 
@@ -234,12 +187,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="dnf.html">
-          <span aria-hidden="true">&larr;</span> Dnf Facts
+        <li class="previous"><a href="rpm.html">
+          <span aria-hidden="true">&larr;</span> Rpm Facts
         </a></li>
       
-        <li class="next"><a href="files.html">
-          Files Facts <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="server.html">
+          Server Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -259,10 +212,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="files.html" title="Files Facts"
+          <a href="server.html" title="Server Facts"
              >next</a> |</li>
         <li class="right" >
-          <a href="dnf.html" title="Dnf Facts"
+          <a href="rpm.html" title="Rpm Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li> 

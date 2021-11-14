@@ -1,0 +1,59 @@
+Pkgin Operations
+----------------
+
+
+Manage pkgin packages.
+
+:code:`pkgin.packages`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update pkgin packages.
+
+.. code:: python
+
+    pkgin.packages(packages=None, present=True, latest=False, update=False, upgrade=False)
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``pkgin update`` before installing packages
++ **upgrade**: run ``pkgin upgrade`` before installing packages
+
+Examples:
+
+.. code:: python
+
+    # Update package list and install packages
+    pkgin.packages(
+        name='Install tmux and Vim',
+        packages=['tmux', 'vim'],
+        update=True,
+    )
+
+    # Install the latest versions of packages (always check)
+    pkgin.packages(
+        name='Install latest Vim',
+        packages=['vim'],
+        latest=True,
+    )
+
+
+:code:`pkgin.update`
+~~~~~~~~~~~~~~~~~~~~
+
+Updates pkgin repositories.
+
+.. code:: python
+
+    pkgin.update()
+
+
+:code:`pkgin.upgrade`
+~~~~~~~~~~~~~~~~~~~~~
+
+Upgrades all pkgin packages.
+
+.. code:: python
+
+    pkgin.upgrade()
+

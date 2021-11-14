@@ -123,11 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
@@ -188,14 +191,14 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindDirectories</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a list of directories from a start point, recursively using find.</p>
+<p>Returns a list of directories from a start path, recursively using find.</p>
 </div>
 <div class="section" id="files-findfiles">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code><a class="headerlink" href="#files-findfiles" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a list of files from a start point, recursively using find.</p>
+<p>Returns a list of files from a start path, recursively using find.</p>
 </div>
 <div class="section" id="files-findinfile">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code><a class="headerlink" href="#files-findinfile" title="Permalink to this headline">¶</a></h2>
@@ -210,7 +213,7 @@ lines if the file exists, and <code class="docutils literal notranslate"><span c
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindLinks</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a list of links from a start point, recursively using find.</p>
+<p>Returns a list of links from a start path, recursively using find.</p>
 </div>
 <div class="section" id="files-link">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.Link</span></code><a class="headerlink" href="#files-link" title="Permalink to this headline">¶</a></h2>
@@ -223,21 +226,22 @@ lines if the file exists, and <code class="docutils literal notranslate"><span c
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Md5File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns an MD5 hash of a file.</p>
+<p>Returns an MD5 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
 </div>
 <div class="section" id="files-sha1file">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.Sha1File</span></code><a class="headerlink" href="#files-sha1file" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha1File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a SHA1 hash of a file. Works with both sha1sum and sha1.</p>
+<p>Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the file doest not exist.</p>
 </div>
 <div class="section" id="files-sha256file">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.Sha256File</span></code><a class="headerlink" href="#files-sha256file" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha256File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a SHA256 hash of a file.</p>
+<p>Returns a SHA256 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
 </div>
 <div class="section" id="files-socket">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.Socket</span></code><a class="headerlink" href="#files-socket" title="Permalink to this headline">¶</a></h2>

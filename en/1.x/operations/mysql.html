@@ -114,9 +114,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
@@ -260,7 +262,8 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <p>Add/remove MySQL privileges for a user, either global, database or table specific.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">privileges</span><span class="p">(</span>
     <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -270,10 +273,16 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <li><strong>user_hostname</strong>: the hostname of the user</li>
 <li><strong>database</strong>: name of the database to grant privileges to (defaults to all)</li>
 <li><strong>table</strong>: name of the table to grant privileges to (defaults to all)</li>
-<li><strong>present</strong>: whether these privileges should exist (False to <a href="#id1"><span class="problematic" id="id2">``</span></a>REVOKE)</li>
+<li><strong>present</strong>: whether these privileges should exist (False to <code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>)</li>
 <li><strong>flush</strong>: whether to flush (and update) the privileges table after any changes</li>
+<li><strong>with_grant_option</strong>: whether to add the with grant option privilege</li>
 <li><strong>mysql_*</strong>: global module arguments, see above</li>
 </ul>
+<dl class="docutils">
+<dt>Note:</dt><dd>This operation will either ensure permissions exist or are removed for a given database
+&amp; table combination. This means when <code class="docutils literal notranslate"><span class="pre">present=True</span></code> it won’t add/remove any permissions
+that already exist but aren’t passed in as <code class="docutils literal notranslate"><span class="pre">privileges</span></code>.</dd>
+</dl>
 </div>
 <div class="section" id="mysql-sql">
 <h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this headline">¶</a></h2>
@@ -292,7 +301,10 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <p>Add/remove/update MySQL users.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
     <span class="n">user</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">privileges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">require</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">require_cipher</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_issuer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_subject</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">max_connections</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_queries_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_connections_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -316,6 +328,32 @@ attempt to change it.</dd>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
     <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
     <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a user with resource limits</span>
+<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
+    <span class="n">max_connections</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a user that requires SSL for connections</span>
+<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
+    <span class="n">require</span><span class="o">=</span><span class="s1">&#39;SSL&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a user that requires a specific certificate</span>
+<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
+    <span class="n">require</span><span class="o">=</span><span class="s1">&#39;X509&#39;</span><span class="p">,</span>
+    <span class="n">require_issuer</span><span class="o">=</span><span class="s1">&#39;/C=SE/ST=Stockholm...&#39;</span><span class="p">,</span>
+    <span class="n">require_cipher</span><span class="o">=</span><span class="s1">&#39;EDH-RSA-DES-CBC3-SHA&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

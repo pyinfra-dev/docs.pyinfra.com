@@ -131,6 +131,10 @@
 <p><a class="reference internal" href="../facts.html"><span class="doc">Facts</span></a> are written as Python classes. They provide a <code class="docutils literal notranslate"><span class="pre">command</span></code> (as either a string or method)
 and a <code class="docutils literal notranslate"><span class="pre">process</span></code> function. The command is executed on the target host and the output
 passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data. Facts can output anything, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
+<p>Fact classes may provide a <code class="docutils literal notranslate"><span class="pre">default</span></code> function that takes no arguments (except <code class="docutils literal notranslate"><span class="pre">self</span></code>). The return value of this function is used if an error
+occurs during fact collection. Additionally, a <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> variable can be set on the fact that specifies a command that must be available
+on the host to collect the fact. If this command is not present on the host the fact will be set to the default, or empty if no <code class="docutils literal notranslate"><span class="pre">default</span></code> function
+is available.</p>
 <div class="section" id="importing-using-facts">
 <h2>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Permalink to this headline">¶</a></h2>
 <p>Like operations, facts are imported from Python modules and executed by calling <cite>Host.get_fact</cite>. For example:</p>
