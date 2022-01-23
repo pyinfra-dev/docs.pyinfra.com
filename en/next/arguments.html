@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Help &amp; Support &#8212; pyinfra  documentation</title>
+    <title>Global Arguments &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributing" href="contributing.html" />
-    <link rel="prev" title="pyinfra.version module" href="apidoc/pyinfra.version.html" />
+    <link rel="next" title="Connectors" href="connectors.html" />
+    <link rel="prev" title="Zypper Facts" href="facts/zypper.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="contributing.html" title="Contributing"
+          <a href="connectors.html" title="Connectors"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="apidoc/pyinfra.version.html" title="pyinfra.version module"
+          <a href="facts/zypper.html" title="Zypper Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
       </ul>
@@ -88,10 +88,10 @@
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 </ul>
@@ -105,13 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Help &amp; Support</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#i-think-i-ve-got-a-bug">I think I’ve got a bug!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#i-have-an-idea">I have an idea!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#i-d-like-to-contribute">I’d like to contribute!</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
@@ -127,35 +122,60 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/support.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/arguments.html"><strong>1.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="help-support">
-<h1>Help &amp; Support<a class="headerlink" href="#help-support" title="Permalink to this headline">¶</a></h1>
-<p>Need a hand with using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> or have some questions? You can find official <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> communities below:</p>
-<ul class="simple">
-<li>Ask questions on <a class="reference external" href="https://stackoverflow.com/questions/tagged/pyinfra">Stack Overflow</a> (be sure to use the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> tag!)</li>
-<li>Chat on <a class="reference external" href="https://discord.gg/w3XxuKw">the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> Discord</a></li>
+  <div class="section" id="global-arguments">
+<h1>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this headline">¶</a></h1>
+<p>In addition to each operations having its own arguments, there are a number of keyword arguments available in all operations and deploys.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With the exception of <code class="docutils literal notranslate"><span class="pre">name</span></code> these are prefixed with <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid clashes with other operation and deploy arguments.</p>
+</div>
+<dl class="docutils">
+<dt>Privilege &amp; user escalation:</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_sudo=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_password=False</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
+<li><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_su_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_su_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_preserve_su_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code>: Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_doas</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code> as a non-root user.</li>
 </ul>
-<div class="section" id="i-think-i-ve-got-a-bug">
-<h2>I think I’ve got a bug!<a class="headerlink" href="#i-think-i-ve-got-a-bug" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Please have a quick scan of the <a class="reference internal" href="compatibility.html"><span class="doc">the compatibility page</span></a> to see if the issue is referenced there</li>
-<li>Check <a class="reference external" href="https://github.com/Fizzadar/pyinfra/issues">the issue list</a> to see if anyone else has this issue</li>
-<li>Submit <a class="reference external" href="https://github.com/Fizzadar/pyinfra/issues/new/choose">a new bug report</a></li>
+</dd>
+<dt>Shell control &amp; features:</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_shell_executable=sh</span></code>: The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</li>
+<li><code class="docutils literal notranslate"><span class="pre">_chdir</span></code>: Directory to switch to before executing the command.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_env</span></code>: Dictionary of environment variables to set.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_success_exit_codes=[0]</span></code>: List of exit codes to consider a success.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_timeout</span></code>: Timeout for <em>each</em> command executed during the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code>: Whether to get a pseudoTTY when executing any commands.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_stdin</span></code>: String or buffer to send to the stdin of any commands.</li>
 </ul>
-</div>
-<div class="section" id="i-have-an-idea">
-<h2>I have an idea!<a class="headerlink" href="#i-have-an-idea" title="Permalink to this headline">¶</a></h2>
-<p>Please consider <a class="reference external" href="https://github.com/Fizzadar/pyinfra/issues/new/choose">submitting a feature request</a>.</p>
-</div>
-<div class="section" id="i-d-like-to-contribute">
-<h2>I’d like to contribute!<a class="headerlink" href="#i-d-like-to-contribute" title="Permalink to this headline">¶</a></h2>
-<p>Fantastic! Please see <a class="reference internal" href="contributing.html"><span class="doc">the contributing docs</span></a>.</p>
-</div>
+</dd>
+<dt>Operation meta &amp; callbacks:</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_ignore_errors=False</span></code>: Ignore errors when executing the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_precondition</span></code>: Command to execute &amp; check before the operation commands begin.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_postcondition</span></code>: Command to execute &amp; check after the operation commands complete.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_on_success</span></code>: Callback function to execute on success.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_on_error</span></code>: Callback function to execute on error.</li>
+</ul>
+</dd>
+<dt>Execution strategy (must be the same for all hosts):</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_parallel</span></code>: Run this operation in batches of hosts.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_run_once=False</span></code>: Only execute this operation once, on the first host to see it.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_serial=False</span></code>: Run this operation host by host, rather than in parallel.</li>
+</ul>
+</dd>
+</dl>
 </div>
 
 
@@ -164,12 +184,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="apidoc/pyinfra.version.html">
-          <span aria-hidden="true">&larr;</span> pyinfra.version module
+        <li class="previous"><a href="facts/zypper.html">
+          <span aria-hidden="true">&larr;</span> Zypper Facts
         </a></li>
       
-        <li class="next"><a href="contributing.html">
-          Contributing <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="connectors.html">
+          Connectors <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -189,10 +209,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="contributing.html" title="Contributing"
+          <a href="connectors.html" title="Connectors"
              >next</a> |</li>
         <li class="right" >
-          <a href="apidoc/pyinfra.version.html" title="pyinfra.version module"
+          <a href="facts/zypper.html" title="Zypper Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
       </ul>
