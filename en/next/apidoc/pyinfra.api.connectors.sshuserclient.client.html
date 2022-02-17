@@ -178,6 +178,21 @@
 <p>This file as originally part of the “sshuserclient” pypi package. The GitHub
 source has now vanished (<a class="reference external" href="https://github.com/tobald/sshuserclient">https://github.com/tobald/sshuserclient</a>).</p>
 <dl class="class">
+<dt id="pyinfra.api.connectors.sshuserclient.client.AskPolicy">
+<em class="property">class </em><code class="descclassname">pyinfra.api.connectors.sshuserclient.client.</code><code class="descname">AskPolicy</code><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.AskPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">paramiko.client.MissingHostKeyPolicy</span></code></p>
+<dl class="method">
+<dt id="pyinfra.api.connectors.sshuserclient.client.AskPolicy.missing_host_key">
+<code class="descname">missing_host_key</code><span class="sig-paren">(</span><em>client</em>, <em>hostname</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.AskPolicy.missing_host_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when an <cite>.SSHClient</cite> receives a server key for a server that
+isn’t in either the system or local <cite>.HostKeys</cite> object.  To accept
+the key, simply return.  To reject, raised an exception (which will
+be passed to the calling application).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyinfra.api.connectors.sshuserclient.client.SSHClient">
 <em class="property">class </em><code class="descclassname">pyinfra.api.connectors.sshuserclient.client.</code><code class="descname">SSHClient</code><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.SSHClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">paramiko.client.SSHClient</span></code></p>
@@ -280,7 +295,7 @@ establishing an SSH session</p>
 
 <dl class="method">
 <dt id="pyinfra.api.connectors.sshuserclient.client.SSHClient.derive_shorthand">
-<em class="property">static </em><code class="descname">derive_shorthand</code><span class="sig-paren">(</span><em>host_string</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.SSHClient.derive_shorthand" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">derive_shorthand</code><span class="sig-paren">(</span><em>ssh_config</em>, <em>host_string</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.SSHClient.derive_shorthand" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -294,6 +309,41 @@ establishing an SSH session</p>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="class">
+<dt id="pyinfra.api.connectors.sshuserclient.client.StrictPolicy">
+<em class="property">class </em><code class="descclassname">pyinfra.api.connectors.sshuserclient.client.</code><code class="descname">StrictPolicy</code><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.StrictPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">paramiko.client.MissingHostKeyPolicy</span></code></p>
+<dl class="method">
+<dt id="pyinfra.api.connectors.sshuserclient.client.StrictPolicy.missing_host_key">
+<code class="descname">missing_host_key</code><span class="sig-paren">(</span><em>client</em>, <em>hostname</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.StrictPolicy.missing_host_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when an <cite>.SSHClient</cite> receives a server key for a server that
+isn’t in either the system or local <cite>.HostKeys</cite> object.  To accept
+the key, simply return.  To reject, raised an exception (which will
+be passed to the calling application).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyinfra.api.connectors.sshuserclient.client.WarningPolicy">
+<em class="property">class </em><code class="descclassname">pyinfra.api.connectors.sshuserclient.client.</code><code class="descname">WarningPolicy</code><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.WarningPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">paramiko.client.MissingHostKeyPolicy</span></code></p>
+<dl class="method">
+<dt id="pyinfra.api.connectors.sshuserclient.client.WarningPolicy.missing_host_key">
+<code class="descname">missing_host_key</code><span class="sig-paren">(</span><em>client</em>, <em>hostname</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.WarningPolicy.missing_host_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when an <cite>.SSHClient</cite> receives a server key for a server that
+isn’t in either the system or local <cite>.HostKeys</cite> object.  To accept
+the key, simply return.  To reject, raised an exception (which will
+be passed to the calling application).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyinfra.api.connectors.sshuserclient.client.get_host_keys">
+<code class="descclassname">pyinfra.api.connectors.sshuserclient.client.</code><code class="descname">get_host_keys</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.sshuserclient.client.get_host_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.api.connectors.sshuserclient.client.get_ssh_config">
