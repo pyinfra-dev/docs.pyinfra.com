@@ -97,6 +97,13 @@
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Executing Deploys</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#detailed-lifecycle-of-executing-the-pyinfra-cli">Detailed lifecycle of executing the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> CLI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup-connect">Setup &amp; connect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fact-gathering-operation-preparation">Fact gathering / operation preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operation-execution">Operation execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#completion">Completion</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#interdependent-operations">Interdependent operations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-operations">Dynamic operations</a></li>
@@ -137,6 +144,55 @@
 <dt><strong>Executing operations</strong>:</dt><dd>This phase takes the commands/files/etc generated during fact gathering and executes the commands, uploads the files to the remote system. At the end of the operations the remote state should reflect that defined by the users operations.</dd>
 </dl>
 <p>This two phase deploy process enables <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to do some really interesting things, however there are some limitations to consider.</p>
+<div class="section" id="detailed-lifecycle-of-executing-the-pyinfra-cli">
+<h2>Detailed lifecycle of executing the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> CLI<a class="headerlink" href="#detailed-lifecycle-of-executing-the-pyinfra-cli" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup-connect">
+<h3>Setup &amp; connect<a class="headerlink" href="#setup-connect" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Parse &amp; validate CLI arguments, inventory file, group data files, commands</li>
+<li>Create <code class="docutils literal notranslate"><span class="pre">Inventory</span></code>, <code class="docutils literal notranslate"><span class="pre">Config</span></code> and <code class="docutils literal notranslate"><span class="pre">State</span></code> objects<ul>
+<li>Populate the inventory with <code class="docutils literal notranslate"><span class="pre">Host</span></code> objects for each host</li>
+<li>Load up any filesystem based config variables</li>
+</ul>
+</li>
+<li>Connect to each target host from the inventory using the relevant connector</li>
+</ul>
+</div>
+<div class="section" id="fact-gathering-operation-preparation">
+<h3>Fact gathering / operation preparation<a class="headerlink" href="#fact-gathering-operation-preparation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Loop through each deploy file:<ul>
+<li>Loop through each host and execute the file</li>
+<li>As operation functions are called, needed facts are fetched from hosts</li>
+<li>Commands output by operations are stored in the state</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="operation-execution">
+<h3>Operation execution<a class="headerlink" href="#operation-execution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Generate order of operations<ul>
+<li>Uses line numbers in CLI mode (ie - works like the user would expect)</li>
+<li>Uses <cite>add_op</cite> call order in API mode</li>
+</ul>
+</li>
+<li>Loop through each operation<ul>
+<li>For each host, execute the commands specific for this (op, host) pair</li>
+<li>Collect results and trigger failure handling for any errors encountered</li>
+<li>Store the results in the state</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="completion">
+<h3>Completion<a class="headerlink" href="#completion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Disconnect from all the target hosts</li>
+<li>Write out the results to the user</li>
+</ul>
+</div>
+</div>
 <div class="section" id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="interdependent-operations">
