@@ -132,10 +132,10 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.operations.html">pyinfra.api.operations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.modules.html">pyinfra.modules module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.pseudo_modules.html">pyinfra.pseudo_modules module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.version.html">pyinfra.version module</a></li>
 </ul>
 </li>
@@ -168,7 +168,7 @@
 <span id="pyinfra-api-host-module"></span><h1>pyinfra.api.host module<a class="headerlink" href="#module-pyinfra.api.host" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyinfra.api.host.Host">
-<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">Host</code><span class="sig-paren">(</span><em>name</em>, <em>inventory</em>, <em>groups</em>, <em>data</em>, <em>executor=&lt;module 'pyinfra.api.connectors.ssh' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pyinfra/api/connectors/ssh.py'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">Host</code><span class="sig-paren">(</span><em>name</em>, <em>inventory</em>, <em>groups</em>, <em>executor=&lt;module 'pyinfra.api.connectors.ssh' from '/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/pyinfra/api/connectors/ssh.py'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents a target host. Thin class that links up to facts and host/group
 data.</p>
@@ -197,10 +197,47 @@ data.</p>
 <code class="descname">create_fact</code><span class="sig-paren">(</span><em>name_or_cls</em>, <em>data=None</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.create_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_deploy_data">
+<code class="descname">current_deploy_data</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_deploy_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_deploy_kwargs">
+<code class="descname">current_deploy_kwargs</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_deploy_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_deploy_name">
+<code class="descname">current_deploy_name</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_deploy_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_deploy_op_order">
+<code class="descname">current_deploy_op_order</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_deploy_op_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_op_global_kwargs">
+<code class="descname">current_op_global_kwargs</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_op_global_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.current_op_hash">
+<code class="descname">current_op_hash</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_op_hash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="pyinfra.api.host.Host.delete_fact">
 <code class="descname">delete_fact</code><span class="sig-paren">(</span><em>name_or_cls</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.delete_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.host.Host.deploy">
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>name</em>, <em>kwargs</em>, <em>data</em>, <em>in_deploy=True</em>, <em>deploy_op_order=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps a group of operations as a deploy, this should not be used
+directly, instead use <code class="docutils literal notranslate"><span class="pre">pyinfra.api.deploy.deploy</span></code>.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pyinfra.api.host.Host.disconnect">
@@ -210,6 +247,11 @@ data.</p>
 <dl class="attribute">
 <dt id="pyinfra.api.host.Host.fact">
 <code class="descname">fact</code><em class="property"> = &lt;pyinfra.api.host.HostFacts object&gt;</em><a class="headerlink" href="#pyinfra.api.host.Host.fact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.host.Host.get_deploy_data">
+<code class="descname">get_deploy_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.get_deploy_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -230,6 +272,16 @@ data.</p>
 <dl class="method">
 <dt id="pyinfra.api.host.Host.host_data">
 <em class="property">property </em><code class="descname">host_data</code><a class="headerlink" href="#pyinfra.api.host.Host.host_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.in_deploy">
+<code class="descname">in_deploy</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.host.Host.in_deploy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.host.Host.in_op">
+<code class="descname">in_op</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.host.Host.in_op" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
