@@ -174,11 +174,13 @@
 <div class="section" id="systemd-daemon-reload">
 <h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Permalink to this headline">¶</a></h2>
 <p>Reload the systemd daemon to read unit file changes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
+<li><strong>machine</strong>: the machine name to connect to</li>
+<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
 </ul>
 </div>
 <div class="section" id="systemd-service">
@@ -186,7 +188,7 @@
 <p>Manage the state of systemd managed units.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
     <span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -199,6 +201,8 @@
 <li><strong>enabled</strong>: whether this unit should be enabled/disabled on boot</li>
 <li><strong>daemon_reload</strong>: reload the systemd daemon to read updated unit files</li>
 <li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
+<li><strong>machine</strong>: the machine name to connect to</li>
+<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
 </ul>
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
