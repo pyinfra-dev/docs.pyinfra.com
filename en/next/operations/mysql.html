@@ -268,28 +268,22 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove MySQL privileges for a user, either global, database or table specific.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">privileges</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>user</strong>: name of the user to manage privileges for</li>
-<li><strong>privileges</strong>: list of privileges the user should have</li>
+<li><strong>privileges</strong>: list of privileges the user should have (see also: <code class="docutils literal notranslate"><span class="pre">with_grant_option</span></code> argument)</li>
 <li><strong>user_hostname</strong>: the hostname of the user</li>
 <li><strong>database</strong>: name of the database to grant privileges to (defaults to all)</li>
 <li><strong>table</strong>: name of the table to grant privileges to (defaults to all)</li>
-<li><strong>present</strong>: whether these privileges should exist (False to <code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>)</li>
 <li><strong>flush</strong>: whether to flush (and update) the privileges table after any changes</li>
-<li><strong>with_grant_option</strong>: whether to add the with grant option privilege</li>
+<li><strong>with_grant_option</strong>: whether the grant option privilege should be set</li>
 <li><strong>mysql_*</strong>: global module arguments, see above</li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation will either ensure permissions exist or are removed for a given database
-&amp; table combination. This means when <code class="docutils literal notranslate"><span class="pre">present=True</span></code> it won’t add/remove any permissions
-that already exist but aren’t passed in as <code class="docutils literal notranslate"><span class="pre">privileges</span></code>.</dd>
-</dl>
 </div>
 <div class="section" id="mysql-sql">
 <h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this headline">¶</a></h2>

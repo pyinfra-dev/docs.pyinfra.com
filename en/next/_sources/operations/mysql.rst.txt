@@ -113,25 +113,19 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 .. code:: python
 
     mysql.privileges(
-        user, privileges, user_hostname='localhost', database='*', table='*', present=True,
-        flush=True, with_grant_option=None, mysql_user=None, mysql_password=None, mysql_host=None,
+        user, privileges, user_hostname='localhost', database='*', table='*', flush=True,
+        with_grant_option=False, mysql_user=None, mysql_password=None, mysql_host=None,
         mysql_port=None,
     )
 
 + **user**: name of the user to manage privileges for
-+ **privileges**: list of privileges the user should have
++ **privileges**: list of privileges the user should have (see also: ``with_grant_option`` argument)
 + **user_hostname**: the hostname of the user
 + **database**: name of the database to grant privileges to (defaults to all)
 + **table**: name of the table to grant privileges to (defaults to all)
-+ **present**: whether these privileges should exist (False to ``REVOKE``)
 + **flush**: whether to flush (and update) the privileges table after any changes
-+ **with_grant_option**: whether to add the with grant option privilege
++ **with_grant_option**: whether the grant option privilege should be set
 + **mysql_***: global module arguments, see above
-
-Note:
-    This operation will either ensure permissions exist or are removed for a given database
-    & table combination. This means when ``present=True`` it won't add/remove any permissions
-    that already exist but aren't passed in as ``privileges``.
 
 
 :code:`mysql.sql`
