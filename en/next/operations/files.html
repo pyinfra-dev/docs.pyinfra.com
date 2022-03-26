@@ -498,12 +498,15 @@ the file before uploading it.</dd>
 <div class="section" id="files-replace">
 <h2><code class="code docutils literal notranslate"><span class="pre">files.replace</span></code><a class="headerlink" href="#files-replace" title="Permalink to this headline">¶</a></h2>
 <p>Replace contents of a file using <code class="docutils literal notranslate"><span class="pre">sed</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">match</span><span class="p">,</span> <span class="n">replace</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">match</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>path</strong>: target remote file to edit</li>
-<li><strong>match</strong>: text/regex to match for</li>
+<li><strong>text</strong>: text/regex to match against</li>
 <li><strong>replace</strong>: text to replace with</li>
 <li><strong>flags</strong>: list of flags to pass to sed</li>
 <li><strong>backup</strong>: whether to backup the file (see below)</li>
@@ -518,7 +521,7 @@ you pass a string value this will be used as the extension of the backed up file
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Change part of a line in a file&#39;</span><span class="p">,</span>
     <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/etc/motd&#39;</span><span class="p">,</span>
-    <span class="n">match</span><span class="o">=</span><span class="s1">&#39;verboten&#39;</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s1">&#39;verboten&#39;</span><span class="p">,</span>
     <span class="n">replace</span><span class="o">=</span><span class="s1">&#39;forbidden&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
