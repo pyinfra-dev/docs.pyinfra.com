@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+  
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <meta name="docsearch:version" content="2.x" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>pyinfra.api.state module &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyinfra.api.util module" href="pyinfra.api.util.html" />
+    <link rel="prev" title="pyinfra.api.operations module" href="pyinfra.api.operations.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyinfra.api.util.html" title="pyinfra.api.util module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyinfra.api.operations.html" title="pyinfra.api.operations module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+            pyinfra <small>2.x</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
+  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.deploy.html">pyinfra.api.deploy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.exceptions.html">pyinfra.api.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.facts.html">pyinfra.api.facts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.host.html">pyinfra.api.host module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.inventory.html">pyinfra.api.inventory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.operation.html">pyinfra.api.operation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.operations.html">pyinfra.api.operations module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.state module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.version.html">pyinfra.version module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/apidoc/pyinfra.api.state.html"><strong>1.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="module-pyinfra.api.state">
+<span id="pyinfra-api-state-module"></span><h1>pyinfra.api.state module<a class="headerlink" href="#module-pyinfra.api.state" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyinfra.api.state.BaseStateCallback">
+<em class="property">class </em><code class="descclassname">pyinfra.api.state.</code><code class="descname">BaseStateCallback</code><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.host_before_connect">
+<em class="property">static </em><code class="descname">host_before_connect</code><span class="sig-paren">(</span><em>state</em>, <em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.host_before_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.host_connect">
+<em class="property">static </em><code class="descname">host_connect</code><span class="sig-paren">(</span><em>state</em>, <em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.host_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.host_connect_error">
+<em class="property">static </em><code class="descname">host_connect_error</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>error</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.host_connect_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.host_disconnect">
+<em class="property">static </em><code class="descname">host_disconnect</code><span class="sig-paren">(</span><em>state</em>, <em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.host_disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.operation_end">
+<em class="property">static </em><code class="descname">operation_end</code><span class="sig-paren">(</span><em>state</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.operation_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.operation_host_error">
+<em class="property">static </em><code class="descname">operation_host_error</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.operation_host_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.operation_host_start">
+<em class="property">static </em><code class="descname">operation_host_start</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.operation_host_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.operation_host_success">
+<em class="property">static </em><code class="descname">operation_host_success</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.operation_host_success" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.BaseStateCallback.operation_start">
+<em class="property">static </em><code class="descname">operation_start</code><span class="sig-paren">(</span><em>state</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.BaseStateCallback.operation_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyinfra.api.state.State">
+<em class="property">class </em><code class="descclassname">pyinfra.api.state.</code><code class="descname">State</code><span class="sig-paren">(</span><em>inventory=None</em>, <em>config=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages state for a pyinfra deploy.</p>
+<dl class="method">
+<dt id="pyinfra.api.state.State.activate_host">
+<code class="descname">activate_host</code><span class="sig-paren">(</span><em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.activate_host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag a host as active.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.add_callback_handler">
+<code class="descname">add_callback_handler</code><span class="sig-paren">(</span><em>handler</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.add_callback_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.config">
+<code class="descname">config</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.current_deploy_filename">
+<code class="descname">current_deploy_filename</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.current_deploy_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.current_exec_filename">
+<code class="descname">current_exec_filename</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.current_exec_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.cwd">
+<code class="descname">cwd</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.cwd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.deploying">
+<code class="descname">deploying</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.deploying" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.fail_hosts">
+<code class="descname">fail_hosts</code><span class="sig-paren">(</span><em>hosts_to_fail</em>, <em>activated_count=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.fail_hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag a <code class="docutils literal notranslate"><span class="pre">set</span></code> of hosts as failed, error for <code class="docutils literal notranslate"><span class="pre">config.FAIL_PERCENT</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.get_op_data">
+<code class="descname">get_op_data</code><span class="sig-paren">(</span><em>host</em>, <em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_op_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.get_op_meta">
+<code class="descname">get_op_meta</code><span class="sig-paren">(</span><em>op_hash</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_op_meta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.get_op_order">
+<code class="descname">get_op_order</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_op_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.get_temp_filename">
+<code class="descname">get_temp_filename</code><span class="sig-paren">(</span><em>hash_key=None</em>, <em>hash_filename=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_temp_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a temporary filename for this deploy.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>inventory</em>, <em>config</em>, <em>initial_limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.initialised">
+<code class="descname">initialised</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.initialised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.inventory">
+<code class="descname">inventory</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.inventory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.is_host_in_limit">
+<code class="descname">is_host_in_limit</code><span class="sig-paren">(</span><em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.is_host_in_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean indicating if the host is within the current state limit.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.loop_counter">
+<code class="descname">loop_counter</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.loop_counter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.loop_filename">
+<code class="descname">loop_filename</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.loop_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.loop_line">
+<code class="descname">loop_line</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.loop_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.pool">
+<code class="descname">pool</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.state.State.pool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.preserve_loop_order">
+<code class="descname">preserve_loop_order</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.preserve_loop_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_fact_info">
+<code class="descname">print_fact_info</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_fact_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_fact_input">
+<code class="descname">print_fact_input</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_fact_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_fact_output">
+<code class="descname">print_fact_output</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_fact_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_input">
+<code class="descname">print_input</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_noop_info">
+<code class="descname">print_noop_info</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_noop_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.api.state.State.print_output">
+<code class="descname">print_output</code><em class="property"> = False</em><a class="headerlink" href="#pyinfra.api.state.State.print_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyinfra.api.state.State.trigger_callbacks">
+<code class="descname">trigger_callbacks</code><span class="sig-paren">(</span><em>method_name</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.trigger_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="pyinfra.api.operations.html">
+          <span aria-hidden="true">&larr;</span> pyinfra.api.operations module
+        </a></li>
+      
+        <li class="next"><a href="pyinfra.api.util.html">
+          pyinfra.api.util module <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyinfra.api.util.html" title="pyinfra.api.util module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyinfra.api.operations.html" title="pyinfra.api.operations module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+</script>
+<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+  <script type="text/javascript"> docsearch({
+      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
+      indexName: 'pyinfra',
+      inputSelector: '#docsearch-input',
+      algoliaOptions: {
+        'facetFilters': ["version:2.x", "lang:en"],
+      },
+      debug: false,
+  });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>
