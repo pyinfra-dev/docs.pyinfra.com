@@ -100,7 +100,6 @@
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="init.html">Init Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -135,8 +134,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
@@ -165,7 +165,7 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/operations/postgresql.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/operations/postgresql.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
@@ -176,156 +176,44 @@
 <p>The PostgreSQL modules manage PostgreSQL databases, users and privileges.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">psql</span></code> CLI executable on the target host(s).</p>
 <dl class="docutils">
-<dt>All operations in this module take four optional global arguments:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">postgresql_user</span></code>: the username to connect to postgresql to</li>
-<li><code class="docutils literal notranslate"><span class="pre">postgresql_password</span></code>: the password for the connecting user</li>
-<li><code class="docutils literal notranslate"><span class="pre">postgresql_host</span></code>: the hostname of the server to connect to</li>
-<li><code class="docutils literal notranslate"><span class="pre">postgresql_port</span></code>: the port of the server to connect to</li>
+<dt>All operations in this module take four optional arguments:</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">psql_user</span></code>: the username to connect to postgresql to</li>
+<li><code class="docutils literal notranslate"><span class="pre">psql_password</span></code>: the password for the connecting user</li>
+<li><code class="docutils literal notranslate"><span class="pre">psql_host</span></code>: the hostname of the server to connect to</li>
+<li><code class="docutils literal notranslate"><span class="pre">psql_port</span></code>: the port of the server to connect to</li>
 </ul>
 </dd>
 </dl>
 <p>See example/postgresql.py for detailed example</p>
 <div class="section" id="postgresql-database">
 <h2><code class="code docutils literal notranslate"><span class="pre">postgresql.database</span></code><a class="headerlink" href="#postgresql-database" title="Permalink to this headline">¶</a></h2>
-<p>Add/remove PostgreSQL databases.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">database</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_collate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">lc_ctype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tablespace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>name</strong>: name of the database</li>
-<li><strong>present</strong>: whether the database should exist or not</li>
-<li><strong>owner</strong>: the PostgreSQL role that owns the database</li>
-<li><strong>template</strong>: name of the PostgreSQL template to use</li>
-<li><strong>encoding</strong>: encoding of the database</li>
-<li><strong>lc_collate</strong>: lc_collate of the database</li>
-<li><strong>lc_ctype</strong>: lc_ctype of the database</li>
-<li><strong>tablespace</strong>: the tablespace to use for the template</li>
-<li><strong>connection_limit</strong>: the connection limit to apply to the database</li>
-<li><strong>postgresql_*</strong>: global module arguments, see above</li>
-</ul>
-<dl class="docutils">
-<dt>Updates:</dt><dd>pyinfra will not attempt to change existing databases - it will either
-create or drop databases, but not alter them (if the db exists this
-operation will make no changes).</dd>
-</dl>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
-    <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF8&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-dump">
 <h2><code class="code docutils literal notranslate"><span class="pre">postgresql.dump</span></code><a class="headerlink" href="#postgresql-dump" title="Permalink to this headline">¶</a></h2>
-<p>Dump a PostgreSQL database into a <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file. Requires <code class="docutils literal notranslate"><span class="pre">pg_dump</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">dest</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>dest</strong>: name of the file to dump the SQL to</li>
-<li><strong>database</strong>: name of the database to dump</li>
-<li><strong>postgresql_*</strong>: global module arguments, see above</li>
-</ul>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dump the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-load">
 <h2><code class="code docutils literal notranslate"><span class="pre">postgresql.load</span></code><a class="headerlink" href="#postgresql-load" title="Permalink to this headline">¶</a></h2>
-<p>Load <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file into a database.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>src</strong>: the filename to read from</li>
-<li><strong>database</strong>: name of the database to import into</li>
-<li><strong>postgresql_*</strong>: global module arguments, see above</li>
-</ul>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Import the pyinfra_stuff dump into pyinfra_stuff_copy&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff_copy&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-role">
 <h2><code class="code docutils literal notranslate"><span class="pre">postgresql.role</span></code><a class="headerlink" href="#postgresql-role" title="Permalink to this headline">¶</a></h2>
-<p>Add/remove PostgreSQL roles.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">role</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">superuser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inherit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">createdb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createrole</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">replication</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">connection_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>role</strong>: name of the role</li>
-<li><strong>present</strong>: whether the role should be present or absent</li>
-<li><strong>password</strong>: the password for the role</li>
-<li><strong>login</strong>: whether the role can login</li>
-<li><strong>superuser</strong>: whether role will be a superuser</li>
-<li><strong>inherit</strong>: whether the role inherits from other roles</li>
-<li><strong>createdb</strong>: whether the role is allowed to create databases</li>
-<li><strong>createrole</strong>: whether the role is allowed to create new roles</li>
-<li><strong>replication</strong>: whether this role is allowed to replicate</li>
-<li><strong>connection_limit</strong>: the connection limit for the role</li>
-<li><strong>postgresql_*</strong>: global module arguments, see above</li>
-</ul>
-<dl class="docutils">
-<dt>Updates:</dt><dd>pyinfra will not attempt to change existing roles - it will either
-create or drop roles, but not alter them (if the role exists this
-operation will make no changes).</dd>
-</dl>
-<p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra PostgreSQL role&#39;</span><span class="p">,</span>
-    <span class="n">role</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
-    <span class="n">superuser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-sql">
 <h2><code class="code docutils literal notranslate"><span class="pre">postgresql.sql</span></code><a class="headerlink" href="#postgresql-sql" title="Permalink to this headline">¶</a></h2>
-<p>Execute arbitrary SQL against PostgreSQL.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="n">sql</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">postgresql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">postgresql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">sql</span><span class="p">()</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><strong>sql</strong>: SQL command(s) to execute</li>
-<li><strong>database</strong>: optional database to execute against</li>
-<li><strong>postgresql_*</strong>: global module arguments, see above</li>
-</ul>
 </div>
 </div>
 

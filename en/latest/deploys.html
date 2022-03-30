@@ -112,8 +112,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
@@ -142,7 +143,7 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/deploys.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/deploys.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
@@ -304,42 +305,42 @@ templates/
 <p>In addition to each operations having its own arguments, there are a number of keyword arguments available for all operations:</p>
 <dl class="docutils">
 <dt>Privilege &amp; user escalation:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">sudo=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">sudo_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_sudo_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_sudo_password=False</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
-<li><code class="docutils literal notranslate"><span class="pre">preserve_sudo_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">su_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">use_su_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">preserve_su_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">su_shell</span></code>: Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">doas</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">doas_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code> as a non-root user.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_sudo=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_password=False</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
+<li><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_su_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_use_su_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_preserve_su_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code>: Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_doas</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code> as a non-root user.</li>
 </ul>
 </dd>
-<dt>Operation control:</dt><dd><ul class="simple">
+<dt>Shell control &amp; features:</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_shell_executable=sh</span></code>: The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</li>
+<li><code class="docutils literal notranslate"><span class="pre">_chdir</span></code>: Directory to switch to before executing the command.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_env</span></code>: Dictionary of environment variables to set.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_success_exit_codes=[0]</span></code>: List of exit codes to consider a success.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_timeout</span></code>: Timeout for <em>each</em> command executed during the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code>: Whether to get a pseudoTTY when executing any commands.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_stdin</span></code>: String or buffer to send to the stdin of any commands.</li>
+</ul>
+</dd>
+<dt>Operation meta &amp; callbacks (not available in facts):</dt><dd><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">shell_executable=sh</span></code>: The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</li>
-<li><code class="docutils literal notranslate"><span class="pre">chdir</span></code>: Directory to switch to before executing the command.</li>
-<li><code class="docutils literal notranslate"><span class="pre">env</span></code>: Dictionary of environment variables to set.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ignore_errors=False</span></code>: Ignore errors when executing the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">success_exit_codes=[0]</span></code>: List of exit codes to consider a success.</li>
-<li><code class="docutils literal notranslate"><span class="pre">timeout</span></code>: Timeout for <em>each</em> command executed during the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">get_pty</span></code>: Whether to get a pseudoTTY when executing any commands.</li>
-<li><code class="docutils literal notranslate"><span class="pre">stdin</span></code>: String or buffer to send to the stdin of any commands.</li>
-<li><code class="docutils literal notranslate"><span class="pre">precondition</span></code>: Command to execute &amp; check before the operation commands begin.</li>
-<li><code class="docutils literal notranslate"><span class="pre">postcondition</span></code>: Command to execute &amp; check after the operation commands complete.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_ignore_errors=False</span></code>: Ignore errors when executing the operation.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_precondition</span></code>: Command to execute &amp; check before the operation commands begin.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_postcondition</span></code>: Command to execute &amp; check after the operation commands complete.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_on_success</span></code>: Callback function to execute on success.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_on_error</span></code>: Callback function to execute on error.</li>
 </ul>
 </dd>
-<dt>Callbacks:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">on_success</span></code>: Callback function to execute on success.</li>
-<li><code class="docutils literal notranslate"><span class="pre">on_error</span></code>: Callback function to execute on error.</li>
-</ul>
-</dd>
-<dt>Execution strategy (must be the same for all hosts):</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">parallel</span></code>: Run this operation in batches of hosts.</li>
-<li><code class="docutils literal notranslate"><span class="pre">run_once=False</span></code>: Only execute this operation once, on the first host to see it.</li>
-<li><code class="docutils literal notranslate"><span class="pre">serial=False</span></code>: Run this operation host by host, rather than in parallel.</li>
+<dt>Execution strategy (not available in facts, must be the same for all hosts):</dt><dd><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">_parallel</span></code>: Run this operation in batches of hosts.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_run_once=False</span></code>: Only execute this operation once, on the first host to see it.</li>
+<li><code class="docutils literal notranslate"><span class="pre">_serial=False</span></code>: Run this operation host by host, rather than in parallel.</li>
 </ul>
 </dd>
 </dl>

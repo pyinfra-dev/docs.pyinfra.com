@@ -100,7 +100,6 @@
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="init.html">Init Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -136,8 +135,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
@@ -166,7 +166,7 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/operations/mysql.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/operations/mysql.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
@@ -177,7 +177,7 @@
 <p>Manage MySQL databases, users and privileges.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">mysql</span></code> CLI executable on the target host(s).</p>
 <dl class="docutils">
-<dt>All operations in this module take four optional global arguments:</dt><dd><ul class="simple">
+<dt>All operations in this module take four optional arguments:</dt><dd><ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">mysql_user</span></code>: the username to connect to mysql to</li>
 <li><code class="docutils literal notranslate"><span class="pre">mysql_password</span></code>: the password for the connecting user</li>
 <li><code class="docutils literal notranslate"><span class="pre">mysql_host</span></code>: the hostname of the server to connect to</li>
@@ -268,28 +268,22 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove MySQL privileges for a user, either global, database or table specific.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">privileges</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>user</strong>: name of the user to manage privileges for</li>
-<li><strong>privileges</strong>: list of privileges the user should have</li>
+<li><strong>privileges</strong>: list of privileges the user should have (see also: <code class="docutils literal notranslate"><span class="pre">with_grant_option</span></code> argument)</li>
 <li><strong>user_hostname</strong>: the hostname of the user</li>
 <li><strong>database</strong>: name of the database to grant privileges to (defaults to all)</li>
 <li><strong>table</strong>: name of the table to grant privileges to (defaults to all)</li>
-<li><strong>present</strong>: whether these privileges should exist (False to <code class="docutils literal notranslate"><span class="pre">REVOKE</span></code>)</li>
 <li><strong>flush</strong>: whether to flush (and update) the privileges table after any changes</li>
-<li><strong>with_grant_option</strong>: whether to add the with grant option privilege</li>
+<li><strong>with_grant_option</strong>: whether the grant option privilege should be set</li>
 <li><strong>mysql_*</strong>: global module arguments, see above</li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation will either ensure permissions exist or are removed for a given database
-&amp; table combination. This means when <code class="docutils literal notranslate"><span class="pre">present=True</span></code> it won’t add/remove any permissions
-that already exist but aren’t passed in as <code class="docutils literal notranslate"><span class="pre">privileges</span></code>.</dd>
-</dl>
 </div>
 <div class="section" id="mysql-sql">
 <h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this headline">¶</a></h2>

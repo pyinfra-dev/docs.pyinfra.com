@@ -30,17 +30,15 @@ Returns a dict of existing MySQL databases and associated data:
     host.get_fact(MysqlUserGrants, user, hostname='localhost', mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
 
-Returns a dict of ``<database>`.<table>`` with granted privileges for each:
+Returns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
 
 .. code:: python
 
     {
         '`pyinfra_stuff`.*': {
-            'privileges': [
-                'SELECT',
-                'INSERT'
-            ],
-            "with_grant_option": false
+            'SELECT',
+            'INSERT',
+            'GRANT OPTION',
         },
     }
 

@@ -100,7 +100,6 @@
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="init.html">Init Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -134,8 +133,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
@@ -164,7 +164,7 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/1.x/operations/ssh.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/operations/ssh.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
@@ -177,7 +177,7 @@
 <div class="section" id="ssh-command">
 <h2><code class="code docutils literal notranslate"><span class="pre">ssh.command</span></code><a class="headerlink" href="#ssh-command" title="Permalink to this headline">¶</a></h2>
 <p>Execute commands on other servers over SSH.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">ssh_user</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -201,7 +201,7 @@
 <p>Download files from other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
     <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">local_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ssh_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -238,7 +238,7 @@
 <p>Upload files to other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
     <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">remote_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_remote_sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ssh_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
