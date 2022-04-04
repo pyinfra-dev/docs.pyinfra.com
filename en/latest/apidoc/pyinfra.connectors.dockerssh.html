@@ -84,31 +84,39 @@
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Meta</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.html">pyinfra.api.connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.deploy.html">pyinfra.api.deploy module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.exceptions.html">pyinfra.api.exceptions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.facts.html">pyinfra.api.facts module</a></li>
@@ -144,13 +152,6 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
-</ul>
 
     </div>
 </div>
@@ -170,6 +171,26 @@
           
   <div class="section" id="module-pyinfra.connectors.dockerssh">
 <span id="pyinfra-connectors-dockerssh-module"></span><h1>pyinfra.connectors.dockerssh module<a class="headerlink" href="#module-pyinfra.connectors.dockerssh" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note</strong>: this connector is in beta!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;dockerssh</span></code> connector allows you to run commands on Docker containers on a remote machine.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
+pyinfra @dockerssh/remotehost:alpine:3.8 ...
+
+<span class="c1"># pyinfra can run on multiple Docker images in parallel</span>
+pyinfra @dockerssh/remotehost:alpine:3.8,@dockerssh/remotehost:ubuntu:bionic ...
+</pre></div>
+</div>
+<dl class="class">
+<dt id="pyinfra.connectors.dockerssh.Meta">
+<em class="property">class </em><code class="descclassname">pyinfra.connectors.dockerssh.</code><code class="descname">Meta</code><a class="headerlink" href="#pyinfra.connectors.dockerssh.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyinfra.api.connectors.BaseConnectorMeta</span></code></a></p>
+<dl class="attribute">
+<dt id="pyinfra.connectors.dockerssh.Meta.handles_execution">
+<code class="descname">handles_execution</code><em class="property"> = True</em><a class="headerlink" href="#pyinfra.connectors.dockerssh.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="pyinfra.connectors.dockerssh.connect">
 <code class="descclassname">pyinfra.connectors.dockerssh.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>state</em>, <em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.dockerssh.connect" title="Permalink to this definition">¶</a></dt>
