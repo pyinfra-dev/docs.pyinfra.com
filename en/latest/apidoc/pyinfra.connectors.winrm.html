@@ -142,6 +142,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.winrm module</a></li>
@@ -171,31 +172,90 @@
           
   <div class="section" id="module-pyinfra.connectors.winrm">
 <span id="pyinfra-connectors-winrm-module"></span><h1>pyinfra.connectors.winrm module<a class="headerlink" href="#module-pyinfra.connectors.winrm" title="Permalink to this headline">¶</a></h1>
-<p><strong>Note</strong>: this connector is experimental and a work in progress! Some Windows
-facts and Windows operations work but this is to be considered experimental. For
-now, only <cite>winrm-username</cite> and <cite>winrm-password</cite> is being used. There are other
-methods for authentication, but they have not yet been added/experimented with.</p>
-<p>The <cite>&#64;winrm</cite> connector can be used to communicate with Windows instances that have WinRM enabled.</p>
-<p>Examples using <cite>&#64;winrm</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the windows_home fact</span>
-<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span>         <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">-</span><span class="n">vv</span> <span class="o">--</span><span class="n">debug</span> <span class="n">fact</span> <span class="n">windows_home</span>
-<span class="c1"># create a directory</span>
-<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span>         <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="n">windows_files</span><span class="o">.</span><span class="n">windows_directory</span> <span class="s1">&#39;c:        emp&#39;</span>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This connector is in alpha and may change in future releases.</p>
+</div>
+<p>Some Windows facts and Windows operations work but this is to be considered
+experimental. For now, only <code class="docutils literal notranslate"><span class="pre">winrm_username</span></code> and <code class="docutils literal notranslate"><span class="pre">winrm_password</span></code> is
+being used. There are other methods for authentication, but they have not yet
+been added/experimented with.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;winrm</span></code> connector can be used to communicate with Windows instances that have WinRM enabled.</p>
+<p>Examples using <code class="docutils literal notranslate"><span class="pre">&#64;winrm</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the windows_home fact</span>
+<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span> \
+    <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">-</span><span class="n">vv</span> <span class="o">--</span><span class="n">debug</span> <span class="n">fact</span> <span class="n">windows_home</span>
+
+<span class="c1"># Create a directory</span>
+<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span> \
+    <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="n">windows_files</span><span class="o">.</span><span class="n">windows_directory</span> <span class="s1">&#39;c:  emp&#39;</span>
+
 <span class="c1"># Run a powershell command (&#39;ps&#39; is the default shell-executable for the winrm connector)</span>
-<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span>         <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">write</span><span class="o">-</span><span class="n">host</span> <span class="n">hello</span>
+<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span> \
+    <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">write</span><span class="o">-</span><span class="n">host</span> <span class="n">hello</span>
+
 <span class="c1"># Run a command using the command prompt:</span>
-<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span>         <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">--</span><span class="n">shell</span><span class="o">-</span><span class="n">executable</span> <span class="n">cmd</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">date</span> <span class="o">/</span><span class="n">T</span>
+<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span> \
+    <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">--</span><span class="n">shell</span><span class="o">-</span><span class="n">executable</span> <span class="n">cmd</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">date</span> <span class="o">/</span><span class="n">T</span>
+
 <span class="c1"># Run a command using the winrm ntlm transport</span>
-<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span>         <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">transport</span> <span class="n">ntlm</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">hostname</span>
+<span class="n">pyinfra</span> <span class="nd">@winrm</span><span class="o">/</span><span class="mf">192.168.3.232</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">username</span> <span class="n">vagrant</span> \
+    <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">password</span> <span class="n">vagrant</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">port</span> <span class="mi">5985</span> <span class="o">--</span><span class="n">winrm</span><span class="o">-</span><span class="n">transport</span> <span class="n">ntlm</span> <span class="n">exec</span> <span class="o">--</span> <span class="n">hostname</span>
 </pre></div>
 </div>
 <dl class="class">
 <dt id="pyinfra.connectors.winrm.Meta">
 <em class="property">class </em><code class="descclassname">pyinfra.connectors.winrm.</code><code class="descname">Meta</code><a class="headerlink" href="#pyinfra.connectors.winrm.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyinfra.api.connectors.BaseConnectorMeta</span></code></a></p>
+<dl class="class">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys">
+<em class="property">class </em><code class="descname">DataKeys</code><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.hostname">
+<code class="descname">hostname</code><em class="property"> = 'WinRM hostname to connect to'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.hostname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.operation_timeout_sec">
+<code class="descname">operation_timeout_sec</code><em class="property"> = 'Operation timeout in seconds (default: ``20``)'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.operation_timeout_sec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.password">
+<code class="descname">password</code><em class="property"> = 'WinRM password'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.port">
+<code class="descname">port</code><em class="property"> = 'WinRM port to connect to'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.read_timeout_sec">
+<code class="descname">read_timeout_sec</code><em class="property"> = 'Read timeout in seconds (default: ``30``)'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.read_timeout_sec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.transport">
+<code class="descname">transport</code><em class="property"> = 'WinRM transport (default: ``plaintext``)'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.transport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.DataKeys.user">
+<code class="descname">user</code><em class="property"> = 'WinRM username'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.DataKeys.user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyinfra.connectors.winrm.Meta.handles_execution">
 <code class="descname">handles_execution</code><em class="property"> = True</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyinfra.connectors.winrm.Meta.keys_prefix">
+<code class="descname">keys_prefix</code><em class="property"> = 'winrm'</em><a class="headerlink" href="#pyinfra.connectors.winrm.Meta.keys_prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

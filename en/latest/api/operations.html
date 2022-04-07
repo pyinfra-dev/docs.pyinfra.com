@@ -138,7 +138,7 @@
 <p><a class="reference internal" href="../operations.html"><span class="doc">Operations</span></a> are defined as Python functions. They are passed the current deploy state, the target host and any operation arguments. Operation functions read state from the host, comparing it to the arguments, and yield <strong>commands</strong>.</p>
 <div class="section" id="input-arguments">
 <h2>Input: arguments<a class="headerlink" href="#input-arguments" title="Permalink to this headline">¶</a></h2>
-<p>Operations can accept any arguments except those starting with <code class="docutils literal notranslate"><span class="pre">_</span></code> which are reserved for internal use.</p>
+<p>Operations can accept any arguments except <code class="docutils literal notranslate"><span class="pre">name</span></code> and those starting with <code class="docutils literal notranslate"><span class="pre">_</span></code> which are reserved for internal use.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@operation</span>
 <span class="k">def</span> <span class="nf">my_operation</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="o">...</span>
@@ -163,6 +163,13 @@
 
 <span class="c1"># Additionally, commands can override some of the global arguments</span>
 <span class="k">yield</span> <span class="n">StringCommand</span><span class="p">(</span><span class="s1">&#39;echo &quot;Shell!&quot;&#39;</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Operations can also call other operations using <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">yield from</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/some/file&quot;</span><span class="p">,</span>
+    <span class="o">...</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
