@@ -39,6 +39,12 @@ Example:
 :code:`apt.dist_upgrade`
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
 Updates all apt packages, employing dist-upgrade.
 
 .. code:: python
@@ -148,6 +154,12 @@ Examples:
 :code:`apt.ppa`
 ~~~~~~~~~~~~~~~
 
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
 Add/remove Ubuntu ppa repositories.
 
 .. code:: python
@@ -198,14 +210,19 @@ Example:
 :code:`apt.update`
 ~~~~~~~~~~~~~~~~~~
 
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands unless the ``cache_time`` argument is provided.
+
+
 Updates apt repositories.
 
 .. code:: python
 
-    apt.update(cache_time=None, touch_periodic=False)
+    apt.update(cache_time=None)
 
 + **cache_time**: cache updates for this many seconds
-+ **touch_periodic**: touch ``/var/lib/apt/periodic/update-success-stamp`` after update
 
 Example:
 
@@ -219,6 +236,12 @@ Example:
 
 :code:`apt.upgrade`
 ~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Upgrades all apt packages.
 

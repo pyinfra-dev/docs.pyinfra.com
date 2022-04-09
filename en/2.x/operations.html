@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Apk Operations" href="operations/apk.html" />
-    <link rel="prev" title="Packaging Deploys" href="api/deploys.html" />
+    <link rel="prev" title="@winrm Connector" href="connectors/winrm.html" />
   
    
 
@@ -44,7 +44,7 @@
           <a href="operations/apk.html" title="Apk Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="api/deploys.html" title="Packaging Deploys"
+          <a href="connectors/winrm.html" title="@winrm Connector"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
       </ul>
@@ -82,13 +82,16 @@
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operations Index</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="operations/apk.html">Apk Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="operations/apt.html">Apt Operations</a></li>
@@ -126,18 +129,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
 <ul>
@@ -145,6 +144,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
 </ul>
 
     </div>
@@ -158,10 +158,37 @@
           
   <div class="section" id="operations-index">
 <h1>Operations Index<a class="headerlink" href="#operations-index" title="Permalink to this headline">¶</a></h1>
-<p>Operations are used to describe changes to make to systems in the inventory. Use them to define state and <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will make any necessary changes to reach that state. Operations can be executed via the <a class="reference external" href="getting_started.html#using-the-pyinfra-command-line">command line</a> or by <a class="reference internal" href="deploys.html"><span class="doc">creating a deploy</span></a>.</p>
+<p>Operations are used to describe changes to make to systems in the inventory. Use them to define state and <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will make any necessary changes to reach that state. All operations accept a set of <a class="reference internal" href="arguments.html"><span class="doc">global arguments</span></a> and are grouped as Python modules.</p>
 <p><strong>Want a new operation?</strong> Check out <a class="reference internal" href="api/operations.html"><span class="doc">the writing operations guide</span></a>.</p>
-<p>All operations accept a set of <a class="reference external" href="deploys.html#global-arguments">global arguments</a> and are grouped as Python modules.</p>
-<div class="toctree-wrapper compound">
+<h3>Popular operations by category:</h3><div class="note inline admonition">
+<p class="first admonition-title">Basics</p>
+<p class="last"><a class="reference internal" href="operations/files.html"><span class="doc">Files Operations</span></a>, <a class="reference internal" href="operations/server.html"><span class="doc">Server Operations</span></a>, <a class="reference internal" href="operations/git.html"><span class="doc">Git Operations</span></a>, <a class="reference internal" href="operations/systemd.html"><span class="doc">Systemd Operations</span></a></p>
+</div>
+<div class="note inline admonition">
+<p class="first admonition-title">System Packages</p>
+<p class="last"><a class="reference internal" href="operations/apt.html"><span class="doc">Apt Operations</span></a>, <a class="reference internal" href="operations/apk.html"><span class="doc">Apk Operations</span></a>, <a class="reference internal" href="operations/brew.html"><span class="doc">Brew Operations</span></a>, <a class="reference internal" href="operations/dnf.html"><span class="doc">Dnf Operations</span></a>, <a class="reference internal" href="operations/yum.html"><span class="doc">Yum Operations</span></a></p>
+</div>
+<div class="note inline admonition">
+<p class="first admonition-title">Language Packages</p>
+<p class="last"><a class="reference internal" href="operations/gem.html"><span class="doc">Gem Operations</span></a>, <a class="reference internal" href="operations/npm.html"><span class="doc">Npm Operations</span></a>, <a class="reference internal" href="operations/pip.html"><span class="doc">Pip Operations</span></a></p>
+</div>
+<div class="note inline admonition">
+<p class="first admonition-title">Databases</p>
+<p class="last"><a class="reference internal" href="operations/postgresql.html"><span class="doc">Postgresql Operations</span></a>, <a class="reference internal" href="operations/mysql.html"><span class="doc">Mysql Operations</span></a></p>
+</div>
+<h3>All operations alphabetically:</h3><style type="text/css">
+   #operations-index .toctree-wrapper > ul {
+      padding: 0;
+   }
+   #operations-index .toctree-wrapper > ul > li {
+      padding: 0;
+      list-style: none;
+      margin: 20px 0;
+   }
+   #operations-index .toctree-wrapper > ul > li > ul > li {
+      display: inline-block;
+   }
+</style><div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="operations/apk.html">Apk Operations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="operations/apk.html#apk-packages"><code class="code docutils literal notranslate"><span class="pre">apk.packages</span></code></a></li>
@@ -393,8 +420,8 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="api/deploys.html">
-          <span aria-hidden="true">&larr;</span> Packaging Deploys
+        <li class="previous"><a href="connectors/winrm.html">
+          <span aria-hidden="true">&larr;</span> <code class="docutils literal notranslate"><span class="pre">&#64;winrm</span></code> Connector
         </a></li>
       
         <li class="next"><a href="operations/apk.html">
@@ -421,7 +448,7 @@
           <a href="operations/apk.html" title="Apk Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="api/deploys.html" title="Packaging Deploys"
+          <a href="connectors/winrm.html" title="@winrm Connector"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
       </ul>
@@ -430,6 +457,11 @@
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">

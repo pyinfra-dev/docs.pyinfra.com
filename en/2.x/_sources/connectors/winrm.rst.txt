@@ -1,0 +1,57 @@
+``@winrm`` Connector
+--------------------
+
+
+.. warning::
+    This connector is in alpha and may change in future releases.
+
+Some Windows facts and Windows operations work but this is to be considered
+experimental. For now, only ``winrm_username`` and ``winrm_password`` is
+being used. There are other methods for authentication, but they have not yet
+been added/experimented with.
+
+The ``@winrm`` connector can be used to communicate with Windows instances that have WinRM enabled.
+
+Examples using ``@winrm``:
+
+.. code:: python
+
+    # Get the windows_home fact
+    pyinfra @winrm/192.168.3.232 --winrm-username vagrant \
+        --winrm-password vagrant --winrm-port 5985 -vv --debug fact windows_home
+
+    # Create a directory
+    pyinfra @winrm/192.168.3.232 --winrm-username vagrant \
+        --winrm-password vagrant --winrm-port 5985 windows_files.windows_directory 'c:	emp'
+
+    # Run a powershell command ('ps' is the default shell-executable for the winrm connector)
+    pyinfra @winrm/192.168.3.232 --winrm-username vagrant \
+        --winrm-password vagrant --winrm-port 5985 exec -- write-host hello
+
+    # Run a command using the command prompt:
+    pyinfra @winrm/192.168.3.232 --winrm-username vagrant \
+        --winrm-password vagrant --winrm-port 5985 --shell-executable cmd exec -- date /T
+
+    # Run a command using the winrm ntlm transport
+    pyinfra @winrm/192.168.3.232 --winrm-username vagrant \
+        --winrm-password vagrant --winrm-port 5985 --winrm-transport ntlm exec -- hostname
+
+Usage
+~~~~~
+
+.. code:: python
+
+    pyinfra @winrm/hostname ...
+
+Available Data
+~~~~~~~~~~~~~~
+
+.. code:: python
+
+    winrm_hostname  # WinRM hostname to connect to
+    winrm_port  # WinRM port to connect to
+    winrm_user  # WinRM username
+    winrm_password  # WinRM password
+    winrm_transport  # WinRM transport (default: ``plaintext``)
+    winrm_read_timeout_sec  # Read timeout in seconds (default: ``30``)
+    winrm_operation_timeout_sec  # Operation timeout in seconds (default: ``20``)

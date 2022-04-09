@@ -75,27 +75,26 @@
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
 <ul>
@@ -103,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
 </ul>
 
     </div>
@@ -127,6 +127,7 @@
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -149,11 +150,13 @@
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.add_callback_handler">add_callback_handler() (pyinfra.api.state.State method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.deploy.html#pyinfra.api.deploy.add_deploy">add_deploy() (in module pyinfra.api.deploy)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.operation.html#pyinfra.api.operation.add_op">add_op() (in module pyinfra.api.operation)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.allow_agent">allow_agent (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.ansible.html#pyinfra.connectors.ansible.append_groups_to_host">append_groups_to_host() (in module pyinfra.connectors.ansible)</a>
 </li>
@@ -165,6 +168,12 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta">BaseConnectorMeta (class in pyinfra.api.connectors)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta.DataKeys">BaseConnectorMeta.DataKeys (class in pyinfra.api.connectors)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.BaseStateCallback">BaseStateCallback (class in pyinfra.api.state)</a>
 </li>
   </ul></td>
@@ -188,6 +197,8 @@
       <li><a href="apidoc/pyinfra.api.config.html#pyinfra.api.config.Config">Config (class in pyinfra.api.config)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.config">config (pyinfra.api.state.State attribute)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.config_file">config_file (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.chroot.html#pyinfra.connectors.chroot.connect">connect() (in module pyinfra.connectors.chroot)</a>
 
@@ -219,6 +230,8 @@
 </li>
       <li><a href="apidoc/pyinfra.context.html#pyinfra.context.container">container (class in pyinfra.context)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta.DataKeys.container_id">container_id (pyinfra.connectors.docker.Meta.DataKeys attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.context.html#pyinfra.context.ContextManager">ContextManager (class in pyinfra.context)</a>
 </li>
       <li><a href="apidoc/pyinfra.context.html#pyinfra.context.ContextObject">ContextObject (class in pyinfra.context)</a>
@@ -240,6 +253,8 @@
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host.current_deploy_op_order">current_deploy_op_order (pyinfra.api.host.Host attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.current_exec_filename">current_exec_filename (pyinfra.api.state.State attribute)</a>
+</li>
+      <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.current_op_file_number">current_op_file_number (pyinfra.api.state.State attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host.current_op_global_kwargs">current_op_global_kwargs (pyinfra.api.host.Host attribute)</a>
 </li>
@@ -269,8 +284,6 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.deploying">deploying (pyinfra.api.state.State attribute)</a>
-</li>
       <li><a href="apidoc/pyinfra.connectors.sshuserclient.client.html#pyinfra.connectors.sshuserclient.client.SSHClient.derive_shorthand">derive_shorthand() (pyinfra.connectors.sshuserclient.client.SSHClient static method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.HostData.dict">dict() (pyinfra.api.host.HostData method)</a>
@@ -339,6 +352,8 @@
 </li>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.format_exception">format_exception() (in module pyinfra.api.util)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.forward_agent">forward_agent (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.command.html#pyinfra.api.command.FunctionCommand">FunctionCommand (class in pyinfra.api.command)</a>
 </li>
   </ul></td>
@@ -357,6 +372,8 @@
         <li><a href="apidoc/pyinfra.context.html#pyinfra.context.ContextManager.get">(pyinfra.context.ContextManager method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.get_all_connectors">get_all_connectors() (in module pyinfra.api.connectors)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.get_args_kwargs_spec">get_args_kwargs_spec() (in module pyinfra.api.util)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.get_call_location">get_call_location() (in module pyinfra.api.util)</a>
@@ -373,6 +390,10 @@
         <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.get_deploy_data">(pyinfra.api.inventory.Inventory method)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.get_execution_connector">get_execution_connector() (in module pyinfra.api.connectors)</a>
+</li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.get_execution_connectors">get_execution_connectors() (in module pyinfra.api.connectors)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.arguments.html#pyinfra.api.arguments.get_execution_kwarg_keys">get_execution_kwarg_keys() (in module pyinfra.api.arguments)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.arguments.html#pyinfra.api.arguments.get_executor_kwarg_keys">get_executor_kwarg_keys() (in module pyinfra.api.arguments)</a>
@@ -405,10 +426,10 @@
 </li>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.get_file_path">get_file_path() (in module pyinfra.api.util)</a>
 </li>
-      <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.get_file_sha1">get_file_sha1() (in module pyinfra.api.util)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.get_file_sha1">get_file_sha1() (in module pyinfra.api.util)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.get_group">get_group() (pyinfra.api.inventory.Inventory method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.get_group_data">get_group_data() (pyinfra.api.inventory.Inventory method)</a>
@@ -469,14 +490,30 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta.handles_execution">handles_execution (pyinfra.api.connectors.BaseConnectorMeta attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.chroot.html#pyinfra.connectors.chroot.Meta.handles_execution">(pyinfra.connectors.chroot.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta.handles_execution">(pyinfra.connectors.docker.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.dockerssh.html#pyinfra.connectors.dockerssh.Meta.handles_execution">(pyinfra.connectors.dockerssh.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.local.html#pyinfra.connectors.local.Meta.handles_execution">(pyinfra.connectors.local.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.handles_execution">(pyinfra.connectors.ssh.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.handles_execution">(pyinfra.connectors.winrm.Meta attribute)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host">Host (class in pyinfra.api.host)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.BaseStateCallback.host_before_connect">host_before_connect() (pyinfra.api.state.BaseStateCallback static method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.BaseStateCallback.host_connect">host_connect() (pyinfra.api.state.BaseStateCallback static method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.BaseStateCallback.host_connect_error">host_connect_error() (pyinfra.api.state.BaseStateCallback static method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host.host_data">host_data() (pyinfra.api.host.Host property)</a>
@@ -485,12 +522,20 @@
 </li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.HostData">HostData (class in pyinfra.api.host)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.hostname">hostname (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.hostname">(pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta.DataKeys.identifier">identifier (pyinfra.connectors.docker.Meta.DataKeys attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host.in_deploy">in_deploy (pyinfra.api.host.Host attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.host.html#pyinfra.api.host.Host.in_op">in_op (pyinfra.api.host.Host attribute)</a>
@@ -511,6 +556,8 @@
 </li>
       <li><a href="apidoc/pyinfra.api.exceptions.html#pyinfra.api.exceptions.InventoryError">InventoryError</a>
 </li>
+      <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.is_executing">is_executing (pyinfra.api.state.State attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.is_host_in_limit">is_host_in_limit() (pyinfra.api.state.State method)</a>
 </li>
       <li><a href="apidoc/pyinfra.context.html#pyinfra.context.ContextManager.isset">isset() (pyinfra.context.ContextManager method)</a>
@@ -518,6 +565,32 @@
       <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.iter_activated_hosts">iter_activated_hosts() (pyinfra.api.inventory.Inventory method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.iter_active_hosts">iter_active_hosts() (pyinfra.api.inventory.Inventory method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.key">key (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.key_password">key_password (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+</li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta.keys">keys() (pyinfra.api.connectors.BaseConnectorMeta class method)</a>
+</li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta.keys_prefix">keys_prefix (pyinfra.api.connectors.BaseConnectorMeta attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta.keys_prefix">(pyinfra.connectors.docker.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.keys_prefix">(pyinfra.connectors.ssh.Meta attribute)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.keys_prefix">(pyinfra.connectors.winrm.Meta attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.known_hosts_file">known_hosts_file (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -533,11 +606,13 @@
 </li>
       <li><a href="apidoc/pyinfra.api.config.html#pyinfra.api.config.Config.lock_current_sate">lock_current_sate() (pyinfra.api.config.Config method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.log_error_or_warning">log_error_or_warning() (in module pyinfra.api.util)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.log_host_command_error">log_host_command_error() (in module pyinfra.api.util)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.look_for_keys">look_for_keys (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.loop_counter">loop_counter (pyinfra.api.state.State attribute)</a>
 </li>
@@ -572,23 +647,47 @@
 </li>
         <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.make_names_data">(in module pyinfra.connectors.ssh)</a>
 </li>
+        <li><a href="apidoc/pyinfra.connectors.terraform.html#pyinfra.connectors.terraform.make_names_data">(in module pyinfra.connectors.terraform)</a>
+</li>
         <li><a href="apidoc/pyinfra.connectors.vagrant.html#pyinfra.connectors.vagrant.make_names_data">(in module pyinfra.connectors.vagrant)</a>
 </li>
         <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.make_names_data">(in module pyinfra.connectors.winrm)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.connectors.util.html#pyinfra.connectors.util.make_unix_command">make_unix_command() (in module pyinfra.connectors.util)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.util.html#pyinfra.connectors.util.make_unix_command_for_host">make_unix_command_for_host() (in module pyinfra.connectors.util)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.connectors.util.html#pyinfra.connectors.util.make_win_command">make_win_command() (in module pyinfra.connectors.util)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.command.html#pyinfra.api.command.MaskString">MaskString (class in pyinfra.api.command)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.util.html#pyinfra.api.util.memoize">memoize() (in module pyinfra.api.util)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.chroot.html#pyinfra.connectors.chroot.Meta">Meta (class in pyinfra.connectors.chroot)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta">(class in pyinfra.connectors.docker)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.dockerssh.html#pyinfra.connectors.dockerssh.Meta">(class in pyinfra.connectors.dockerssh)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.local.html#pyinfra.connectors.local.Meta">(class in pyinfra.connectors.local)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta">(class in pyinfra.connectors.ssh)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta">(class in pyinfra.connectors.winrm)</a>
+</li>
+      </ul></li>
+      <li><a href="apidoc/pyinfra.connectors.docker.html#pyinfra.connectors.docker.Meta.DataKeys">Meta.DataKeys (class in pyinfra.connectors.docker)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys">(class in pyinfra.connectors.ssh)</a>
+</li>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys">(class in pyinfra.connectors.winrm)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/pyinfra.connectors.sshuserclient.client.html#pyinfra.connectors.sshuserclient.client.AskPolicy.missing_host_key">missing_host_key() (pyinfra.connectors.sshuserclient.client.AskPolicy method)</a>
 
       <ul>
@@ -641,6 +740,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.BaseStateCallback.operation_start">operation_start() (pyinfra.api.state.BaseStateCallback static method)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.operation_timeout_sec">operation_timeout_sec (pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.exceptions.html#pyinfra.api.exceptions.OperationError">OperationError</a>
 </li>
       <li><a href="apidoc/pyinfra.api.operation.html#pyinfra.api.operation.OperationMeta">OperationMeta (class in pyinfra.api.operation)</a>
@@ -667,10 +768,22 @@
 </li>
       <li><a href="apidoc/pyinfra.connectors.ansible.html#pyinfra.connectors.ansible.parse_inventory_tree">parse_inventory_tree() (in module pyinfra.connectors.ansible)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.password">password (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.password">(pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.pool">pool (pyinfra.api.state.State attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.arguments.html#pyinfra.api.arguments.pop_global_arguments">pop_global_arguments() (in module pyinfra.api.arguments)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.port">port (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.port">(pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
+</li>
+      </ul></li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.preserve_loop_order">preserve_loop_order() (pyinfra.api.state.State method)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.print_fact_info">print_fact_info (pyinfra.api.state.State attribute)</a>
@@ -717,10 +830,12 @@
 </li>
       <li><a href="apidoc/pyinfra.api.config.html#module-pyinfra.api.config">pyinfra.api.config (module)</a>
 </li>
-      <li><a href="apidoc/pyinfra.api.connect.html#module-pyinfra.api.connect">pyinfra.api.connect (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.api.connect.html#module-pyinfra.api.connect">pyinfra.api.connect (module)</a>
+</li>
+      <li><a href="apidoc/pyinfra.api.connectors.html#module-pyinfra.api.connectors">pyinfra.api.connectors (module)</a>
+</li>
       <li><a href="apidoc/pyinfra.api.deploy.html#module-pyinfra.api.deploy">pyinfra.api.deploy (module)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.exceptions.html#module-pyinfra.api.exceptions">pyinfra.api.exceptions (module)</a>
@@ -763,6 +878,8 @@
 </li>
       <li><a href="apidoc/pyinfra.connectors.sshuserclient.config.html#module-pyinfra.connectors.sshuserclient.config">pyinfra.connectors.sshuserclient.config (module)</a>
 </li>
+      <li><a href="apidoc/pyinfra.connectors.terraform.html#module-pyinfra.connectors.terraform">pyinfra.connectors.terraform (module)</a>
+</li>
       <li><a href="apidoc/pyinfra.connectors.util.html#module-pyinfra.connectors.util">pyinfra.connectors.util (module)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.vagrant.html#module-pyinfra.connectors.vagrant">pyinfra.connectors.vagrant (module)</a>
@@ -800,6 +917,8 @@
       <li><a href="apidoc/pyinfra.connectors.util.html#pyinfra.connectors.util.read_buffer">read_buffer() (in module pyinfra.connectors.util)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.util.html#pyinfra.connectors.util.read_buffers_into_queue">read_buffers_into_queue() (in module pyinfra.connectors.util)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.read_timeout_sec">read_timeout_sec (pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
 </li>
       <li><a href="apidoc/pyinfra.connectors.dockerssh.html#pyinfra.connectors.dockerssh.remote_remove">remote_remove() (in module pyinfra.connectors.dockerssh)</a>
 </li>
@@ -888,6 +1007,8 @@
 </li>
         <li><a href="apidoc/pyinfra.connectors.dockerssh.html#pyinfra.connectors.dockerssh.show_warning">(in module pyinfra.connectors.dockerssh)</a>
 </li>
+        <li><a href="apidoc/pyinfra.connectors.terraform.html#pyinfra.connectors.terraform.show_warning">(in module pyinfra.connectors.terraform)</a>
+</li>
         <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.show_warning">(in module pyinfra.connectors.winrm)</a>
 </li>
       </ul></li>
@@ -909,6 +1030,8 @@
         <li><a href="apidoc/pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory.state">(pyinfra.api.inventory.Inventory attribute)</a>
 </li>
       </ul></li>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.strict_host_key_checking">strict_host_key_checking (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+</li>
       <li><a href="apidoc/pyinfra.connectors.sshuserclient.client.html#pyinfra.connectors.sshuserclient.client.StrictPolicy">StrictPolicy (class in pyinfra.connectors.sshuserclient.client)</a>
 </li>
       <li><a href="apidoc/pyinfra.api.command.html#pyinfra.api.command.StringCommand">StringCommand (class in pyinfra.api.command)</a>
@@ -922,6 +1045,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.api.state.html#pyinfra.api.state.State.to_dict">to_dict() (pyinfra.api.state.State method)</a>
+</li>
+      <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.transport">transport (pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -937,6 +1062,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidoc/pyinfra.context.html#pyinfra.context.ContextManager.use">use() (pyinfra.context.ContextManager method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="apidoc/pyinfra.connectors.ssh.html#pyinfra.connectors.ssh.Meta.DataKeys.user">user (pyinfra.connectors.ssh.Meta.DataKeys attribute)</a>
+
+      <ul>
+        <li><a href="apidoc/pyinfra.connectors.winrm.html#pyinfra.connectors.winrm.Meta.DataKeys.user">(pyinfra.connectors.winrm.Meta.DataKeys attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -975,6 +1108,11 @@
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">

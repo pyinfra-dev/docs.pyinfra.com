@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Building Connectors &#8212; pyinfra  documentation</title>
+    <title>Writing Connectors &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Using the API" href="index.html" />
-    <link rel="prev" title="Writing Facts" href="facts.html" />
+    <link rel="next" title="Writing Operations" href="operations.html" />
+    <link rel="prev" title="Packaging Deploys" href="deploys.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Using the API"
+          <a href="operations.html" title="Writing Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="facts.html" title="Writing Facts"
+          <a href="deploys.html" title="Packaging Deploys"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li> 
       </ul>
@@ -82,27 +82,26 @@
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Writing Facts</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
 <ul>
@@ -110,6 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 </ul>
 
     </div>
@@ -121,8 +121,8 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="building-connectors">
-<h1>Building Connectors<a class="headerlink" href="#building-connectors" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="writing-connectors">
+<h1>Writing Connectors<a class="headerlink" href="#writing-connectors" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="../connectors.html"><span class="doc">Connectors</span></a> enable <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to directly integrate with other tools and systems. These do not require the other system to have any knowledge of <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>.</p>
 <p>Check out <a class="reference external" href="https://github.com/Fizzadar/pyinfra/tree/master/pyinfra/api/connectors">the existing code</a>. Be sure to add tests and documentation.</p>
 <p>All connectors must provide the <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code> function:</p>
@@ -238,12 +238,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="facts.html">
-          <span aria-hidden="true">&larr;</span> Writing Facts
+        <li class="previous"><a href="deploys.html">
+          <span aria-hidden="true">&larr;</span> Packaging Deploys
         </a></li>
       
-        <li class="next"><a href="index.html">
-          Using the API <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="operations.html">
+          Writing Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -263,10 +263,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Using the API"
+          <a href="operations.html" title="Writing Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="facts.html" title="Writing Facts"
+          <a href="deploys.html" title="Packaging Deploys"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li> 
       </ul>
@@ -275,6 +275,11 @@
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">

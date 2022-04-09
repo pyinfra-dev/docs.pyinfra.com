@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Operations Index" href="../operations.html" />
-    <link rel="prev" title="Using the CLI" href="../cli.html" />
+    <link rel="next" title="Writing Connectors" href="connectors.html" />
+    <link rel="prev" title="Zypper Facts" href="../facts/zypper.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../operations.html" title="Operations Index"
+          <a href="connectors.html" title="Writing Connectors"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../cli.html" title="Using the CLI"
+          <a href="../facts/zypper.html" title="Zypper Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li> 
       </ul>
@@ -81,33 +81,32 @@
         <div class="sidebar-block">
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Packaging Deploys</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#global-arguments">Global Arguments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-in-deploys">Data in Deploys</a></li>
 </ul>
 </li>
-</ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-</ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
 <ul>
@@ -115,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 </ul>
 
     </div>
@@ -129,22 +129,19 @@
   <div class="section" id="packaging-deploys">
 <h1>Packaging Deploys<a class="headerlink" href="#packaging-deploys" title="Permalink to this headline">¶</a></h1>
 <p>Operations in <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> execute low-level system tools (filesystem, systemd, package manager, etc). A <strong>deploy</strong> is a higher level abstraction, combining one or more operations together to setup and configure something (docker, certbot, nginx, etc).</p>
-<p>Deploys are usually defined by the user (see <a class="reference internal" href="../deploys.html"><span class="doc">writing deploys</span></a>). It is also possible to package deploys as Python modules making them reusable and shareable via <a class="reference external" href="https://pypi.org/">pypi</a>. These can then be imported into your own deploy code and utilised.</p>
+<p>Deploys are usually defined by the user (see <a class="reference internal" href="../using-operations.html"><span class="doc">Using Operations</span></a>). It is also possible to package deploys as Python modules making them reusable and shareable via <a class="reference external" href="https://pypi.org/">pypi</a>. These can then be imported into your own deploy code and utilised.</p>
 <p>Packaging a deploy essentially requires two changes from the usual deploy code:</p>
 <ul class="simple">
-<li>Wrap everything in a function, itself decorated with <code class="docutils literal notranslate"><span class="pre">&#64;deploy(NAME)</span></code></li>
-<li>Pass <code class="docutils literal notranslate"><span class="pre">state</span></code> and <code class="docutils literal notranslate"><span class="pre">host</span></code> as keyword arguments to all operation calls</li>
+<li>Wrap everything in a function decorated with <code class="docutils literal notranslate"><span class="pre">&#64;deploy(NAME)</span></code></li>
 </ul>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
 <span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
 
 <span class="nd">@deploy</span><span class="p">(</span><span class="s1">&#39;Install MariaDB&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install MariaDB apt package&#39;</span><span class="p">,</span>
         <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mariadb-server&#39;</span><span class="p">],</span>
-        <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>  <span class="c1"># note passing of state &amp; host here</span>
-        <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -171,7 +168,8 @@
 <div class="section" id="data-in-deploys">
 <h2>Data in Deploys<a class="headerlink" href="#data-in-deploys" title="Permalink to this headline">¶</a></h2>
 <p>Deploys can define their own set of data defaults. Any user provided host or group data with the same name will take precedent. This enables deploys to provide their own sensible default options and enable end-users to customise this by modifying group/host data.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
 <span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
 
 <span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
@@ -179,12 +177,10 @@
 <span class="p">}</span>
 
 <span class="nd">@deploy</span><span class="p">(</span><span class="s1">&#39;Install mariadb&#39;</span><span class="p">,</span> <span class="n">data_defaults</span><span class="o">=</span><span class="n">DEFAULTS</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install MariaDB apt package&#39;</span><span class="p">,</span>
         <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mariadb-server=</span><span class="si">{</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mariadb_version</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
-        <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
-        <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -197,12 +193,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="../cli.html">
-          <span aria-hidden="true">&larr;</span> Using the CLI
+        <li class="previous"><a href="../facts/zypper.html">
+          <span aria-hidden="true">&larr;</span> Zypper Facts
         </a></li>
       
-        <li class="next"><a href="../operations.html">
-          Operations Index <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="connectors.html">
+          Writing Connectors <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -222,10 +218,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../operations.html" title="Operations Index"
+          <a href="connectors.html" title="Writing Connectors"
              >next</a> |</li>
         <li class="right" >
-          <a href="../cli.html" title="Using the CLI"
+          <a href="../facts/zypper.html" title="Zypper Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li> 
       </ul>
@@ -234,6 +230,11 @@
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">

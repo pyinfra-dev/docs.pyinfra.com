@@ -83,13 +83,16 @@
     <div class="sidebar-toc">
         <p class="caption"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
@@ -137,18 +140,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
 <p class="caption"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Meta</span></p>
 <ul>
@@ -156,6 +155,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
     </div>
@@ -172,6 +172,10 @@
 <p>Manage OpenVZ containers with <code class="docutils literal notranslate"><span class="pre">vzctl</span></code>.</p>
 <div class="section" id="vzctl-create">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.create</span></code><a class="headerlink" href="#vzctl-create" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Create OpenVZ containers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -182,6 +186,10 @@
 </div>
 <div class="section" id="vzctl-delete">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.delete</span></code><a class="headerlink" href="#vzctl-delete" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Delete OpenVZ containers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
 </pre></div>
@@ -192,6 +200,10 @@
 </div>
 <div class="section" id="vzctl-mount">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.mount</span></code><a class="headerlink" href="#vzctl-mount" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Mount OpenVZ container filesystems.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
 </pre></div>
@@ -202,6 +214,10 @@
 </div>
 <div class="section" id="vzctl-restart">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.restart</span></code><a class="headerlink" href="#vzctl-restart" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Restart OpenVZ containers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">restart</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -213,6 +229,10 @@
 </div>
 <div class="section" id="vzctl-set">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.set</span></code><a class="headerlink" href="#vzctl-set" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Set OpenVZ container details.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -229,6 +249,10 @@
 </div>
 <div class="section" id="vzctl-start">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.start</span></code><a class="headerlink" href="#vzctl-start" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Start OpenVZ containers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -240,6 +264,10 @@
 </div>
 <div class="section" id="vzctl-stop">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.stop</span></code><a class="headerlink" href="#vzctl-stop" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Stop OpenVZ containers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
 </pre></div>
@@ -250,6 +278,10 @@
 </div>
 <div class="section" id="vzctl-unmount">
 <h2><code class="code docutils literal notranslate"><span class="pre">vzctl.unmount</span></code><a class="headerlink" href="#vzctl-unmount" title="Permalink to this headline">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
 <p>Unmount OpenVZ container filesystems.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">unmount</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
 </pre></div>
@@ -304,6 +336,11 @@
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
