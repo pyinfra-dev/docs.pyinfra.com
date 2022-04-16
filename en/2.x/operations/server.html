@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -177,12 +179,13 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Permalink to this headline">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
 <div class="section" id="server-crontab">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update crontab entries.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
-    <span class="n">command</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cron_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-    <span class="n">day_of_week</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">day_of_month</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">special_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">command</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cron_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+    <span class="n">day_of_week</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">day_of_month</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">special_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -206,12 +209,12 @@ multiple identical commands, provide a different name argument for each.</dd>
 <dt>Special times:</dt><dd>When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
 for <code class="docutils literal notranslate"><span class="pre">minute</span></code>/<code class="docutils literal notranslate"><span class="pre">hour</span></code>/<code class="docutils literal notranslate"><span class="pre">month</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code>.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple example for a crontab</span>
 <span class="n">server</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Backup /etc weekly&#39;</span><span class="p">,</span>
-    <span class="n">command</span><span class="o">=</span><span class="s1">&#39;/bin/tar cf /tmp/etc_bup.tar /etc&#39;</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;backup_etc&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Backup /etc weekly&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;/bin/tar cf /tmp/etc_bup.tar /etc&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;backup_etc&quot;</span><span class="p">,</span>
     <span class="n">day_of_week</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">hour</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -220,7 +223,7 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
 </div>
 </div>
 <div class="section" id="server-group">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.group</span></code><a class="headerlink" href="#server-group" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-group"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.group</span></code><a class="headerlink" href="#server-group" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove system groups.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -233,23 +236,23 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
 <dl class="docutils">
 <dt>System users:</dt><dd>System users don’t exist on BSD, so the argument is ignored for BSD targets.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create docker group&#39;</span><span class="p">,</span>
-    <span class="n">group</span><span class="o">=</span><span class="s1">&#39;docker&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create docker group&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;docker&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># multiple groups</span>
-<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;wheel&#39;</span><span class="p">,</span> <span class="s1">&#39;lusers&#39;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;wheel&quot;</span><span class="p">,</span> <span class="s2">&quot;lusers&quot;</span><span class="p">]:</span>
     <span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Create the group </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Create the group </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-hostname">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code><a class="headerlink" href="#server-hostname" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-hostname"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code><a class="headerlink" href="#server-hostname" title="Permalink to this headline">¶</a></h2>
 <p>Set the system hostname using <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> or <code class="docutils literal notranslate"><span class="pre">hostname</span></code> on older systems.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">hostname_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -266,16 +269,16 @@ on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/m
 <p>To completely disable writing the hostname file, set <code class="docutils literal notranslate"><span class="pre">hostname_file=False</span></code>.</p>
 </dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Set the hostname&#39;</span><span class="p">,</span>
-    <span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;server1.example.com&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the hostname&quot;</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;server1.example.com&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-modprobe">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code><a class="headerlink" href="#server-modprobe" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-modprobe"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code><a class="headerlink" href="#server-modprobe" title="Permalink to this headline">¶</a></h2>
 <p>Load/unload kernel modules.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -285,16 +288,16 @@ on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/m
 <li><strong>present</strong>: whether the module should be loaded or not</li>
 <li><strong>force</strong>: whether to force any add/remove modules</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Silly example for modprobe&#39;</span><span class="p">,</span>
-    <span class="n">module</span><span class="o">=</span><span class="s1">&#39;floppy&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Silly example for modprobe&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;floppy&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-mount">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code><a class="headerlink" href="#server-mount" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-mount"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code><a class="headerlink" href="#server-mount" title="Permalink to this headline">¶</a></h2>
 <p>Manage mounted filesystems.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mounted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -312,7 +315,7 @@ that you should use the <a class="reference external" href="./files.html#files-l
 </dl>
 </div>
 <div class="section" id="server-packages">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code><a class="headerlink" href="#server-packages" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code><a class="headerlink" href="#server-packages" title="Permalink to this headline">¶</a></h2>
 <p>Add or remove system packages. This command checks for the presence of all the
 system package managers <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can handle and executes the relevant operation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -322,16 +325,16 @@ system package managers <code class="docutils literal notranslate"><span class="
 <li><strong>packages</strong>: list of packages to ensure</li>
 <li><strong>present</strong>: whether the packages should be installed</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and vimpager&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vimpager&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and vimpager&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-reboot">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code><a class="headerlink" href="#server-reboot" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-reboot"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code><a class="headerlink" href="#server-reboot" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -345,9 +348,9 @@ system package managers <code class="docutils literal notranslate"><span class="
 <li><strong>interval</strong>: interval (s) between reconnect attempts</li>
 <li><strong>reboot_timeout</strong>: total time before giving up reconnecting</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Reboot the server and wait to reconnect&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reboot the server and wait to reconnect&quot;</span><span class="p">,</span>
     <span class="n">delay</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
     <span class="n">reboot_timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
 <span class="p">)</span>
@@ -355,7 +358,7 @@ system package managers <code class="docutils literal notranslate"><span class="
 </div>
 </div>
 <div class="section" id="server-script">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.script</span></code><a class="headerlink" href="#server-script" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-script"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.script</span></code><a class="headerlink" href="#server-script" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -367,17 +370,17 @@ system package managers <code class="docutils literal notranslate"><span class="
 <ul class="simple">
 <li><strong>src</strong>: local script filename to upload &amp; execute</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This assumes there is a file in files/hello.bash locally.</span>
 <span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;files/hello.bash&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-script-template">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.script_template</span></code><a class="headerlink" href="#server-script-template" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-script-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.script_template</span></code><a class="headerlink" href="#server-script-template" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -389,22 +392,22 @@ system package managers <code class="docutils literal notranslate"><span class="
 <ul class="simple">
 <li><strong>src</strong>: local script template filename</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example showing how to pass python variable to a script template file.</span>
 <span class="c1"># The .j2 file can use `{{ some_var }}` to be interpolated.</span>
 <span class="c1"># To see output need to run pyinfra with &#39;-v&#39;</span>
 <span class="c1"># Note: This assumes there is a file in templates/hello2.bash.j2 locally.</span>
 <span class="n">some_var</span> <span class="o">=</span> <span class="s1">&#39;blah blah blah &#39;</span>
 <span class="n">server</span><span class="o">.</span><span class="n">script_template</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Hello from script&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;templates/hello2.bash.j2&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello from script&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/hello2.bash.j2&quot;</span><span class="p">,</span>
     <span class="n">some_var</span><span class="o">=</span><span class="n">some_var</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-service">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.service</span></code><a class="headerlink" href="#server-service" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.service</span></code><a class="headerlink" href="#server-service" title="Permalink to this headline">¶</a></h2>
 <p>Manage the state of services. This command checks for the presence of all the
 Linux init systems <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can handle and executes the relevant operation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -418,17 +421,17 @@ Linux init systems <code class="docutils literal notranslate"><span class="pre">
 <li><strong>command</strong>: custom command execute</li>
 <li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Enable open-vm-tools service&#39;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s1">&#39;open-vm-tools&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable open-vm-tools service&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;open-vm-tools&quot;</span><span class="p">,</span>
     <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-shell">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code><a class="headerlink" href="#server-shell" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-shell"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code><a class="headerlink" href="#server-shell" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -442,18 +445,18 @@ since facts are only run at the start of a deploy.</p>
 <ul class="simple">
 <li><strong>commands</strong>: command or list of commands to execute on the remote server</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Run lxd auto init&#39;</span><span class="p">,</span>
-    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lxd init --auto&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run lxd auto init&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd init --auto&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="server-sysctl">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code><a class="headerlink" href="#server-sysctl" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-sysctl"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code><a class="headerlink" href="#server-sysctl" title="Permalink to this headline">¶</a></h2>
 <p>Edit sysctl configuration.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">persist_file</span><span class="o">=</span><span class="s1">&#39;/etc/sysctl.conf&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">persist_file</span><span class="o">=</span><span class="s2">&quot;/etc/sysctl.conf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -462,10 +465,10 @@ since facts are only run at the start of a deploy.</p>
 <li><strong>persist</strong>: whether to write this sysctl to the config</li>
 <li><strong>persist_file</strong>: file to write the sysctl to persist on reboot</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Change the fs.file-max value&#39;</span><span class="p">,</span>
-    <span class="n">key</span><span class="o">=</span><span class="s1">&#39;fs.file-max&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Change the fs.file-max value&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fs.file-max&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span>
     <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
@@ -473,7 +476,7 @@ since facts are only run at the start of a deploy.</p>
 </div>
 </div>
 <div class="section" id="server-user">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.user</span></code><a class="headerlink" href="#server-user" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.user</span></code><a class="headerlink" href="#server-user" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update system users &amp; their ssh <cite>authorized_keys</cite>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
     <span class="n">user</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">home</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -503,23 +506,23 @@ since facts are only run at the start of a deploy.</p>
 <dt>Public keys:</dt><dd>These can be provided as strings containing the public key or as a path to
 a public key file which <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will read.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure user is removed&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;kevin&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user is removed&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
     <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure myweb user exists&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;myweb&#39;</span><span class="p">,</span>
-    <span class="n">shell</span><span class="o">=</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure myweb user exists&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myweb&quot;</span><span class="p">,</span>
+    <span class="n">shell</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># multiple users</span>
-<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;kevin&#39;</span><span class="p">,</span> <span class="s1">&#39;bob&#39;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span> <span class="s2">&quot;bob&quot;</span><span class="p">]:</span>
     <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Ensure user </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s1"> is removed&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Ensure user </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2"> is removed&quot;</span><span class="p">,</span>
         <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
         <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>
@@ -527,7 +530,7 @@ a public key file which <code class="docutils literal notranslate"><span class="
 </div>
 </div>
 <div class="section" id="server-wait">
-<h2><code class="code docutils literal notranslate"><span class="pre">server.wait</span></code><a class="headerlink" href="#server-wait" title="Permalink to this headline">¶</a></h2>
+<span id="operations-server-wait"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.wait</span></code><a class="headerlink" href="#server-wait" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -540,9 +543,9 @@ second.</p>
 <ul class="simple">
 <li><strong>port</strong>: port number to wait for</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Wait for webserver to start&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Wait for webserver to start&quot;</span><span class="p">,</span>
     <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -605,16 +608,18 @@ second.</p>
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

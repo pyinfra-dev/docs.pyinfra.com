@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -170,8 +172,9 @@
   <div class="section" id="apt-operations">
 <h1>Apt Operations<a class="headerlink" href="#apt-operations" title="Permalink to this headline">¶</a></h1>
 <p>Manage apt packages and repositories.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/apt.html#facts-apt-aptkeys"><span class="std std-ref">apt.AptKeys</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-aptsources"><span class="std std-ref">apt.AptSources</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackage"><span class="std std-ref">deb.DebPackage</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackages"><span class="std std-ref">deb.DebPackages</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/gpg.html#facts-gpg-gpgkey"><span class="std std-ref">gpg.GpgKey</span></a>.</p>
 <div class="section" id="apt-deb">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.deb</span></code><a class="headerlink" href="#apt-deb" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-deb"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.deb</span></code><a class="headerlink" href="#apt-deb" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -187,17 +190,17 @@ dependencies.</dd>
 <dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd>If the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file isn’t downloaded, pyinfra can’t remove any existing
 package as the file won’t exist until mid-deploy.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: Assumes wget is installed.</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Chrome via deb&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Chrome via deb&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-dist-upgrade">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.dist_upgrade</span></code><a class="headerlink" href="#apt-dist-upgrade" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-dist-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.dist_upgrade</span></code><a class="headerlink" href="#apt-dist-upgrade" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -206,15 +209,15 @@ package as the file won’t exist until mid-deploy.</dd>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Upgrade apt packages using dist-upgrade&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upgrade apt packages using dist-upgrade&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-key">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.key</span></code><a class="headerlink" href="#apt-key" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.key</span></code><a class="headerlink" href="#apt-key" title="Permalink to this headline">¶</a></h2>
 <p>Add apt gpg keys with <code class="docutils literal notranslate"><span class="pre">apt-key</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyserver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyid</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -227,22 +230,22 @@ package as the file won’t exist until mid-deploy.</dd>
 <dl class="docutils">
 <dt>keyserver/id:</dt><dd>These must be provided together.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: If using URL, wget is assumed to be installed.</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Add the Docker apt gpg key&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/ubuntu/gpg&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Docker apt gpg key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/ubuntu/gpg&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install VirtualBox key&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://www.virtualbox.org/download/oracle_vbox_2016.asc&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install VirtualBox key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://www.virtualbox.org/download/oracle_vbox_2016.asc&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-packages">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.packages</span></code><a class="headerlink" href="#apt-packages" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.packages</span></code><a class="headerlink" href="#apt-packages" title="Permalink to this headline">¶</a></h2>
 <p>Install/remove/update packages &amp; update apt.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cache_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -270,32 +273,32 @@ package as the file won’t exist until mid-deploy.</dd>
 is touched upon successful update. Some distros already do this (Ubuntu), but others
 simply leave the periodic directory empty (Debian).</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Asterisk and Vim&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;asterisk&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Asterisk and Vim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;asterisk&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
     <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Install the latest versions of packages (always check)</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install latest Vim&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install latest Vim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
     <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Note: host.get_fact(OsVersion) is the same as `uname -r` (ex: &#39;4.15.0-72-generic&#39;)</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install kernel headers&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;linux-headers-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OsVersion</span><span class="p">))],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install kernel headers&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;linux-headers-</span><span class="si">{</span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OsVersion</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
     <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-ppa">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.ppa</span></code><a class="headerlink" href="#apt-ppa" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-ppa"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.ppa</span></code><a class="headerlink" href="#apt-ppa" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -311,17 +314,17 @@ simply leave the periodic directory empty (Debian).</dd>
 <dl class="docutils">
 <dt>Note:</dt><dd>requires <code class="docutils literal notranslate"><span class="pre">apt-add-repository</span></code> on the remote host</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: Assumes software-properties-common is installed.</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">ppa</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Add the Bitcoin ppa&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;ppa:bitcoin/bitcoin&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Bitcoin ppa&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;ppa:bitcoin/bitcoin&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-repo">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.repo</span></code><a class="headerlink" href="#apt-repo" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.repo</span></code><a class="headerlink" href="#apt-repo" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove apt repositories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -332,16 +335,16 @@ simply leave the periodic directory empty (Debian).</dd>
 <li><strong>filename</strong>: optional filename to use <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/&lt;filename&gt;.list</span></code>. By
 default uses <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code>.</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install VirtualBox repo&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;deb https://download.virtualbox.org/virtualbox/debian bionic contrib&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install VirtualBox repo&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;deb https://download.virtualbox.org/virtualbox/debian bionic contrib&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-update">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.update</span></code><a class="headerlink" href="#apt-update" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.update</span></code><a class="headerlink" href="#apt-update" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands unless the <code class="docutils literal notranslate"><span class="pre">cache_time</span></code> argument is provided.</p>
@@ -353,16 +356,16 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <ul class="simple">
 <li><strong>cache_time</strong>: cache updates for this many seconds</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Update apt repositories&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update apt repositories&quot;</span><span class="p">,</span>
     <span class="n">cache_time</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apt-upgrade">
-<h2><code class="code docutils literal notranslate"><span class="pre">apt.upgrade</span></code><a class="headerlink" href="#apt-upgrade" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apt-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.upgrade</span></code><a class="headerlink" href="#apt-upgrade" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -371,9 +374,9 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Upgrade apt packages&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upgrade apt packages&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -435,16 +438,18 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

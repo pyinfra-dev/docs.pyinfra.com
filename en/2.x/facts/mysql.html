@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -167,46 +169,47 @@
           
   <div class="section" id="mysql-facts">
 <h1>Mysql Facts<a class="headerlink" href="#mysql-facts" title="Permalink to this headline">¶</a></h1>
+<p>See also: <a class="reference internal" href="../operations/mysql.html"><span class="doc">Mysql Operations</span></a>.</p>
 <div class="section" id="mysql-mysqldatabases">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlDatabases</span></code><a class="headerlink" href="#mysql-mysqldatabases" title="Permalink to this headline">¶</a></h2>
+<span id="facts-mysql-mysqldatabases"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlDatabases</span></code><a class="headerlink" href="#mysql-mysqldatabases" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlDatabases</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of existing MySQL databases and associated data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;mysql&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;character_set&#39;</span><span class="p">:</span> <span class="s1">&#39;latin1&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;collation_name&#39;</span><span class="p">:</span> <span class="s1">&#39;latin1_swedish_ci&#39;</span>
+    <span class="s2">&quot;mysql&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;character_set&quot;</span><span class="p">:</span> <span class="s2">&quot;latin1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;collation_name&quot;</span><span class="p">:</span> <span class="s2">&quot;latin1_swedish_ci&quot;</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mysql-mysqlusergrants">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUserGrants</span></code><a class="headerlink" href="#mysql-mysqlusergrants" title="Permalink to this headline">¶</a></h2>
+<span id="facts-mysql-mysqlusergrants"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUserGrants</span></code><a class="headerlink" href="#mysql-mysqlusergrants" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlUserGrants</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of <code class="docutils literal notranslate"><span class="pre">&lt;database&gt;`.&lt;table&gt;</span></code> with a set of granted privileges for each:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;`pyinfra_stuff`.*&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;SELECT&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;INSERT&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;GRANT OPTION&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;`pyinfra_stuff`.*&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;SELECT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;INSERT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GRANT OPTION&quot;</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mysql-mysqlusers">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUsers</span></code><a class="headerlink" href="#mysql-mysqlusers" title="Permalink to this headline">¶</a></h2>
+<span id="facts-mysql-mysqlusers"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUsers</span></code><a class="headerlink" href="#mysql-mysqlusers" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlUsers</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of MySQL <code class="docutils literal notranslate"><span class="pre">user&#64;host</span></code>’s and their associated data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;user@host&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;privileges&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Alter&#39;</span><span class="p">,</span> <span class="s1">&#39;Grant&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;user@host&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;privileges&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Alter&quot;</span><span class="p">,</span> <span class="s2">&quot;Grant&quot;</span><span class="p">],</span>
         <span class="s1">&#39;max_connections&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
         <span class="o">...</span>
     <span class="p">},</span>
@@ -271,16 +274,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

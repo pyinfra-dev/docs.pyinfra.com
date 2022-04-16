@@ -1,6 +1,10 @@
 Server Facts
 ------------
 
+See also: :doc:`../operations/server`.
+
+.. _facts:server.Arch:
+
 :code:`server.Arch`
 ~~~~~~~~~~~~~~~~~~~
 
@@ -8,10 +12,10 @@ Server Facts
 
     host.get_fact(Arch)
 
-
 Returns the system architecture according to ``uname``.
 
 
+.. _facts:server.Command:
 
 :code:`server.Command`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -20,10 +24,10 @@ Returns the system architecture according to ``uname``.
 
     host.get_fact(Command, command)
 
-
 Returns the raw output lines of a given command.
 
 
+.. _facts:server.Crontab:
 
 :code:`server.Crontab`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -32,25 +36,25 @@ Returns the raw output lines of a given command.
 
     host.get_fact(Crontab, user=None)
 
-
 Returns a dictionary of cron command -> execution time.
 
 .. code:: python
 
     {
-        '/path/to/command': {
-            'minute': '*',
-            'hour': '*',
-            'month': '*',
-            'day_of_month': '*',
-            'day_of_week': '*',
+        "/path/to/command": {
+            "minute": "*",
+            "hour": "*",
+            "month": "*",
+            "day_of_month": "*",
+            "day_of_week": "*",
         },
-        'echo another command': {
-            'special_time': '@daily',
+        "echo another command": {
+            "special_time": "@daily",
         },
     }
 
 
+.. _facts:server.Date:
 
 :code:`server.Date`
 ~~~~~~~~~~~~~~~~~~~
@@ -59,10 +63,10 @@ Returns a dictionary of cron command -> execution time.
 
     host.get_fact(Date)
 
-
 Returns the current datetime on the server.
 
 
+.. _facts:server.Groups:
 
 :code:`server.Groups`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -71,10 +75,10 @@ Returns the current datetime on the server.
 
     host.get_fact(Groups)
 
-
 Returns a list of groups on the system.
 
 
+.. _facts:server.HasGui:
 
 :code:`server.HasGui`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -83,10 +87,10 @@ Returns a list of groups on the system.
 
     host.get_fact(HasGui)
 
-
 Returns a boolean indicating the remote side has GUI capabilities. Linux only.
 
 
+.. _facts:server.Home:
 
 :code:`server.Home`
 ~~~~~~~~~~~~~~~~~~~
@@ -95,10 +99,10 @@ Returns a boolean indicating the remote side has GUI capabilities. Linux only.
 
     host.get_fact(Home)
 
-
 Returns the home directory of the current user.
 
 
+.. _facts:server.Hostname:
 
 :code:`server.Hostname`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,10 +111,10 @@ Returns the home directory of the current user.
 
     host.get_fact(Hostname)
 
-
 Returns the current hostname of the server.
 
 
+.. _facts:server.Kernel:
 
 :code:`server.Kernel`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -119,10 +123,10 @@ Returns the current hostname of the server.
 
     host.get_fact(Kernel)
 
-
 Returns the kernel name according to ``uname``.
 
 
+.. _facts:server.KernelModules:
 
 :code:`server.KernelModules`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,20 +135,20 @@ Returns the kernel name according to ``uname``.
 
     host.get_fact(KernelModules)
 
-
 Returns a dictionary of kernel module name -> info.
 
 .. code:: python
 
     {
-        'module_name': {
-            'size': 0,
-            'instances': 0,
-            'state': 'Live',
+        "module_name": {
+            "size": 0,
+            "instances": 0,
+            "state": "Live",
         },
     }
 
 
+.. _facts:server.KernelVersion:
 
 :code:`server.KernelVersion`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -153,10 +157,10 @@ Returns a dictionary of kernel module name -> info.
 
     host.get_fact(KernelVersion)
 
-
 Returns the kernel version according to ``uname``.
 
 
+.. _facts:server.LinuxDistribution:
 
 :code:`server.LinuxDistribution`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,7 +169,6 @@ Returns the kernel version according to ``uname``.
 
     host.get_fact(LinuxDistribution)
 
-
 Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
 Fedora & Gentoo currently. Also contains any key/value items located in
 release files.
@@ -173,17 +176,18 @@ release files.
 .. code:: python
 
     {
-        'name': 'Ubuntu',
-        'major': 20,
-        'minor': 04,
-        'release_meta': {
-            'CODENAME': 'focal',
-            'ID_LIKE': 'debian',
+        "name": "Ubuntu",
+        "major": 20,
+        "minor": 04,
+        "release_meta": {
+            "CODENAME": "focal",
+            "ID_LIKE": "debian",
             ...
         }
     }
 
 
+.. _facts:server.LinuxGui:
 
 :code:`server.LinuxGui`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,10 +196,10 @@ release files.
 
     host.get_fact(LinuxGui)
 
-
 Returns a list of available Linux GUIs.
 
 
+.. _facts:server.LinuxName:
 
 :code:`server.LinuxName`
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -204,11 +208,11 @@ Returns a list of available Linux GUIs.
 
     host.get_fact(LinuxName)
 
-
 Returns the name of the Linux distribution. Shortcut for
 ``host.get_fact(LinuxDistribution)['name']``.
 
 
+.. _facts:server.LsbRelease:
 
 :code:`server.LsbRelease`
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -216,7 +220,6 @@ Returns the name of the Linux distribution. Shortcut for
 .. code:: python
 
     host.get_fact(LsbRelease)
-
 
 Returns a dictionary of release information using ``lsb_release``.
 
@@ -231,6 +234,7 @@ Returns a dictionary of release information using ``lsb_release``.
     }
 
 
+.. _facts:server.MacosVersion:
 
 :code:`server.MacosVersion`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,10 +243,10 @@ Returns a dictionary of release information using ``lsb_release``.
 
     host.get_fact(MacosVersion)
 
-
 Returns the installed MacOS version.
 
 
+.. _facts:server.Mounts:
 
 :code:`server.Mounts`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -250,7 +254,6 @@ Returns the installed MacOS version.
 .. code:: python
 
     host.get_fact(Mounts)
-
 
 Returns a dictionary of mounted filesystems and information.
 
@@ -268,6 +271,7 @@ Returns a dictionary of mounted filesystems and information.
     }
 
 
+.. _facts:server.Os:
 
 :code:`server.Os`
 ~~~~~~~~~~~~~~~~~
@@ -276,13 +280,13 @@ Returns a dictionary of mounted filesystems and information.
 
     host.get_fact(Os)
 
-
 Returns the OS name according to ``uname``.
 
 .. warning::
-    This fact is deprecated/renamed, please use the ``kernel`` fact.
+    This fact is deprecated/renamed, please use the ``server.Kernel`` fact.
 
 
+.. _facts:server.OsVersion:
 
 :code:`server.OsVersion`
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -291,13 +295,13 @@ Returns the OS name according to ``uname``.
 
     host.get_fact(OsVersion)
 
-
 Returns the OS version according to ``uname``.
 
 .. warning::
-    This fact is deprecated/renamed, please use the ``kernel_version`` fact.
+    This fact is deprecated/renamed, please use the ``server.KernelVersion`` fact.
 
 
+.. _facts:server.Path:
 
 :code:`server.Path`
 ~~~~~~~~~~~~~~~~~~~
@@ -306,10 +310,10 @@ Returns the OS version according to ``uname``.
 
     host.get_fact(Path)
 
-
 Returns the path environment variable of the current user.
 
 
+.. _facts:server.Selinux:
 
 :code:`server.Selinux`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -318,16 +322,16 @@ Returns the path environment variable of the current user.
 
     host.get_fact(Selinux)
 
-
 Discovers the SELinux related facts on the target host.
 
 .. code:: python
 
     {
-        'mode': 'enabled',
+        "mode": "enabled",
     }
 
 
+.. _facts:server.Sysctl:
 
 :code:`server.Sysctl`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -335,7 +339,6 @@ Discovers the SELinux related facts on the target host.
 .. code:: python
 
     host.get_fact(Sysctl)
-
 
 Returns a dictionary of sysctl settings and values.
 
@@ -350,6 +353,7 @@ Returns a dictionary of sysctl settings and values.
     }
 
 
+.. _facts:server.User:
 
 :code:`server.User`
 ~~~~~~~~~~~~~~~~~~~
@@ -358,10 +362,10 @@ Returns a dictionary of sysctl settings and values.
 
     host.get_fact(User)
 
-
 Returns the name of the current user.
 
 
+.. _facts:server.Users:
 
 :code:`server.Users`
 ~~~~~~~~~~~~~~~~~~~~
@@ -370,28 +374,28 @@ Returns the name of the current user.
 
     host.get_fact(Users)
 
-
 Returns a dictionary of users -> details.
 
 .. code:: python
 
     {
-        'user_name': {
-            'comment': 'Full Name',
-            'home': '/home/user_name',
-            'shell': '/bin/bash,
-            'group': 'main_user_group',
-            'groups': [
-                'other',
-                'groups'
+        "user_name": {
+            "comment": "Full Name",
+            "home": "/home/user_name",
+            "shell": "/bin/bash,
+            "group": "main_user_group",
+            "groups": [
+                "other",
+                "groups"
             ],
-            'uid': user_id,
-            'gid': main_user_group_id,
-            'lastlog': last_login_time,
+            "uid": user_id,
+            "gid": main_user_group_id,
+            "lastlog": last_login_time,
         },
     }
 
 
+.. _facts:server.Which:
 
 :code:`server.Which`
 ~~~~~~~~~~~~~~~~~~~~
@@ -400,7 +404,5 @@ Returns a dictionary of users -> details.
 
     host.get_fact(Which, command)
 
-
 Returns the path of a given command, if available.
-
 

@@ -4,6 +4,11 @@ Iptables Operations
 
 The iptables modules handles iptables rules
 
+
+Facts used in these operations: :ref:`facts:iptables.Ip6tablesChains`, :ref:`facts:iptables.Ip6tablesRules`, :ref:`facts:iptables.IptablesChains`, :ref:`facts:iptables.IptablesRules`.
+
+.. _operations:iptables.chain:
+
 :code:`iptables.chain`
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -11,7 +16,7 @@ Add/remove/update iptables chains.
 
 .. code:: python
 
-    iptables.chain(chain, present=True, table='filter', policy=None, version=4)
+    iptables.chain(chain, present=True, table="filter", policy=None, version=4)
 
 + **chain**: the name of the chain
 + **present**: whether the chain should exist
@@ -23,6 +28,8 @@ Policy:
     These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).
 
 
+.. _operations:iptables.rule:
+
 :code:`iptables.rule`
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -31,11 +38,11 @@ Add/remove iptables rules.
 .. code:: python
 
     iptables.rule(
-        chain, jump, present=True, table='filter', append=True, version=4, protocol=None,
+        chain, jump, present=True, table="filter", append=True, version=4, protocol=None,
         not_protocol=None, source=None, not_source=None, destination=None, not_destination=None,
         in_interface=None, not_in_interface=None, out_interface=None, not_out_interface=None,
         to_destination=None, to_source=None, to_ports=None, log_prefix=None,
-        destination_port=None, source_port=None, extras='',
+        destination_port=None, source_port=None, extras="",
     )
 
 + **chain**: the chain this rule should live in
@@ -62,23 +69,24 @@ Extras:
 + **destination_port**: destination port (requires protocol)
 + **source_port**: source port (requires protocol)
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     iptables.rule(
-        name='Block SSH traffic',
-        chain='INPUT',
-        jump='DROP',
-        destination_port=22
+        name="Block SSH traffic",
+        chain="INPUT",
+        jump="DROP",
+        destination_port=22,
     )
 
     iptables.rule(
-        name='NAT traffic on from 8.8.8.8:53 to 8.8.4.4:8080',
-        chain='PREROUTING',
-        jump='DNAT',
-        table='nat',
-        source='8.8.8.8', destination_port=53,
-        to_destination='8.8.4.4:8080'
+        name="NAT traffic on from 8.8.8.8:53 to 8.8.4.4:8080",
+        chain="PREROUTING",
+        jump="DNAT",
+        table="nat",
+        source="8.8.8.8",
+        destination_port=53,
+        to_destination="8.8.4.4:8080",
     )
 

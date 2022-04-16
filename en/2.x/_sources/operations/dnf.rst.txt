@@ -4,6 +4,11 @@ Dnf Operations
 
 Manage dnf packages and repositories. Note that dnf package names are case-sensitive.
 
+
+Facts used in these operations: :ref:`facts:rpm.RpmPackageProvides`, :ref:`facts:rpm.RpmPackages`.
+
+.. _operations:dnf.key:
+
 :code:`dnf.key`
 ~~~~~~~~~~~~~~~
 
@@ -24,16 +29,18 @@ Add dnf gpg keys with ``rpm``.
 Note:
     always returns one command, not idempotent
 
-Example:
+**Example:**
 
 .. code:: python
 
-    linux_id = host.get_fact(LinuxDistribution)['release_meta'].get('ID')
+    linux_id = host.get_fact(LinuxDistribution)["release_meta"].get("ID")
     dnf.key(
-        name='Add the Docker CentOS gpg key',
-        src='https://download.docker.com/linux/{}/gpg'.format(linux_id),
+        name="Add the Docker CentOS gpg key",
+        src=f"https://download.docker.com/linux/{linux_id}/gpg",
     )
 
+
+.. _operations:dnf.packages:
 
 :code:`dnf.packages`
 ~~~~~~~~~~~~~~~~~~~~
@@ -59,24 +66,26 @@ Install/remove/update dnf packages & updates.
 Versions:
     Package versions can be pinned as follows: ``<pkg>=<version>``
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Update package list and install packages
     dnf.packages(
         name='Install Vim and Vim enhanced',
-        packages=['vim-enhanced', 'vim'],
+        packages=["vim-enhanced", "vim"],
         update=True,
     )
 
     # Install the latest versions of packages (always check)
     dnf.packages(
-        name='Install latest Vim',
-        packages=['vim'],
+        name="Install latest Vim",
+        packages=["vim"],
         latest=True,
     )
 
+
+.. _operations:dnf.repo:
 
 :code:`dnf.repo`
 ~~~~~~~~~~~~~~~~
@@ -103,23 +112,25 @@ Add/remove/update dnf repositories.
     for manual construction of repository files. Use a URL to download and
     install remote repository files.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Download a repository file
     dnf.rpm(
-        name='Install Docker-CE repo via URL',
-        src='https://download.docker.com/linux/centos/docker-ce.repo',
+        name="Install Docker-CE repo via URL",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
     )
 
     # Create the repository file from baseurl/etc
     dnf.repo(
-        name='Add the Docker CentOS repo',
-        src='DockerCE',
-        baseurl='https://download.docker.com/linux/centos/7/$basearch/stable',
+        name="Add the Docker CentOS repo",
+        src="DockerCE",
+        baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
     )
 
+
+.. _operations:dnf.rpm:
 
 :code:`dnf.rpm`
 ~~~~~~~~~~~~~~~
@@ -137,16 +148,18 @@ URL sources with ``present=False``:
     If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
     package as the file won't exist until mid-deploy.
 
-Example:
+**Example:**
 
 .. code:: python
 
-    major_centos_version = host.get_fact(LinuxDistribution)['major']
+    major_centos_version = host.get_fact(LinuxDistribution)["major"]
     dnf.rpm(
-       name='Install EPEL rpm to enable EPEL repo',
-       src='https://dl.fedoraproject.org/pub/epel/epel-release-latest-{}.noarch.rpm'.format(major_centos_version),
+       name="Install EPEL rpm to enable EPEL repo",
+       src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_centos_version}.noarch.rpm",
     )
 
+
+.. _operations:dnf.update:
 
 :code:`dnf.update`
 ~~~~~~~~~~~~~~~~~~

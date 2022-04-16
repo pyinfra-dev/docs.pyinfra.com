@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -63,9 +63,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -202,13 +204,13 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;Install nginx&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;nginx&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 
 <span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;Remove default nginx site&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;/etc/nginx/sites-enabled/default&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove default nginx site&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
     <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -217,13 +219,13 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
 <span class="n">install_nginx</span> <span class="o">=</span> <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;Install nginx&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;nginx&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 
 <span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;Remove default nginx site&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;/etc/nginx/sites-enabled/default&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove default nginx site&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
     <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">assume_present</span><span class="o">=</span><span class="n">install_nginx</span><span class="o">.</span><span class="n">changed</span><span class="p">,</span>
 <span class="p">)</span>
@@ -240,7 +242,7 @@
 <h3>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h3>
 <p>In CLI mode <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses <em>line numbers</em> to determine the order in which operations are executed. While this is very effective and executing in an order users would expect, loops are an exception. <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> inclues a workaround for this with the <code class="docutils literal notranslate"><span class="pre">state.preserve_loop_order</span></code> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of items</span>
-<span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
 
 <span class="c1"># This loop will be executed as:</span>
 <span class="c1"># &gt; item: a</span>
@@ -250,8 +252,8 @@
 <span class="c1"># &gt; end item: b</span>
 <span class="c1"># &gt; end item: c</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">({</span><span class="s1">&#39;item: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="s1">&#39;hi&#39;</span><span class="p">)</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">({</span><span class="s1">&#39;end item: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="s1">&#39;hi&#39;</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;end item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
 
 
 <span class="c1"># This loop will be executed as:</span>
@@ -263,8 +265,8 @@
 <span class="c1"># &gt; end item: c</span>
 <span class="k">with</span> <span class="n">state</span><span class="o">.</span><span class="n">preserve_loop_order</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="k">as</span> <span class="n">loop_items</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">loop_items</span><span class="p">():</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">({</span><span class="s1">&#39;item: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="s1">&#39;hi&#39;</span><span class="p">)</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">({</span><span class="s1">&#39;end item: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="s1">&#39;hi&#39;</span><span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;end item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -336,16 +338,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

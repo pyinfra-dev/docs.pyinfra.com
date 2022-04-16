@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -173,44 +175,44 @@
   <div class="section" id="hardware-facts">
 <h1>Hardware Facts<a class="headerlink" href="#hardware-facts" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="hardware-blockdevices">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.BlockDevices</span></code><a class="headerlink" href="#hardware-blockdevices" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-blockdevices"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.BlockDevices</span></code><a class="headerlink" href="#hardware-blockdevices" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">BlockDevices</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of (mounted) block devices:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;/dev/sda1&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;available&#39;</span><span class="p">:</span> <span class="s1">&#39;39489508&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;used_percent&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;mount&#39;</span><span class="p">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;used&#39;</span><span class="p">:</span> <span class="s1">&#39;836392&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;blocks&#39;</span><span class="p">:</span> <span class="s1">&#39;40325900&#39;</span>
+    <span class="s2">&quot;/dev/sda1&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;39489508&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;used_percent&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mount&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;used&quot;</span><span class="p">:</span> <span class="s2">&quot;836392&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;blocks&quot;</span><span class="p">:</span> <span class="s2">&quot;40325900&quot;</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="hardware-cpus">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Cpus</span></code><a class="headerlink" href="#hardware-cpus" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-cpus"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Cpus</span></code><a class="headerlink" href="#hardware-cpus" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Cpus</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns the number of CPUs on this server.</p>
 </div>
 <div class="section" id="hardware-ipv4addresses">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addresses</span></code><a class="headerlink" href="#hardware-ipv4addresses" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-ipv4addresses"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addresses</span></code><a class="headerlink" href="#hardware-ipv4addresses" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv4Addresses</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Gets &amp; returns a dictionary of network interface -&gt; IPv4 address.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;eth0&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">ipv4_addrs</span></code> fact.</p>
+<p class="last">This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code> fact.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -218,13 +220,13 @@
 </div>
 </div>
 <div class="section" id="hardware-ipv4addrs">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code><a class="headerlink" href="#hardware-ipv4addrs" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-ipv4addrs"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code><a class="headerlink" href="#hardware-ipv4addrs" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv4Addrs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Gets &amp; returns a dictionary of network interface -&gt; list of IPv4 addresses.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;eth0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -234,19 +236,19 @@
 </div>
 </div>
 <div class="section" id="hardware-ipv6addresses">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addresses</span></code><a class="headerlink" href="#hardware-ipv6addresses" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-ipv6addresses"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addresses</span></code><a class="headerlink" href="#hardware-ipv6addresses" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv6Addresses</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Gets &amp; returns a dictionary of network interface -&gt; IPv6 address.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;eth0&#39;</span><span class="p">:</span> <span class="s1">&#39;fe80::a00:27ff::2&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::a00:27ff::2&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">ipv6_addrs</span></code> fact.</p>
+<p class="last">This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code> fact.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -254,13 +256,13 @@
 </div>
 </div>
 <div class="section" id="hardware-ipv6addrs">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code><a class="headerlink" href="#hardware-ipv6addrs" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-ipv6addrs"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code><a class="headerlink" href="#hardware-ipv6addrs" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv6Addrs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Gets &amp; returns a dictionary of network interface -&gt; list of IPv6 addresses.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;eth0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;fe80::a00:27ff::2&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fe80::a00:27ff::2&quot;</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -270,34 +272,34 @@
 </div>
 </div>
 <div class="section" id="hardware-memory">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.Memory</span></code><a class="headerlink" href="#hardware-memory" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-memory"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Memory</span></code><a class="headerlink" href="#hardware-memory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Memory</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns the memory installed in this server, in MB.</p>
 </div>
 <div class="section" id="hardware-networkdevices">
-<h2><code class="code docutils literal notranslate"><span class="pre">hardware.NetworkDevices</span></code><a class="headerlink" href="#hardware-networkdevices" title="Permalink to this headline">¶</a></h2>
+<span id="facts-hardware-networkdevices"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.NetworkDevices</span></code><a class="headerlink" href="#hardware-networkdevices" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">NetworkDevices</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Gets &amp; returns a dict of network devices. See the <code class="docutils literal notranslate"><span class="pre">ipv4_addresses</span></code> and
 <code class="docutils literal notranslate"><span class="pre">ipv6_addresses</span></code> facts for easier-to-use shortcuts to get device addresses.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;eth0&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;ipv4&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;broadcast&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.13&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;broadcast&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.13&quot;</span><span class="p">,</span>
             <span class="c1"># Only one of these will exist:</span>
-            <span class="s1">&#39;netmask&#39;</span><span class="p">:</span> <span class="s1">&#39;255.255.255.255&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;mask_bits&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+            <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.255&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s1">&#39;ipv6&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;fe80::a00:27ff:fec3:36f0&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;mask_bits&#39;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
-            <span class="s1">&#39;additional_ips&#39;</span><span class="p">:</span> <span class="p">[{</span>
-                <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;fe80::&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;mask_bits&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+        <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::a00:27ff:fec3:36f0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+            <span class="s2">&quot;additional_ips&quot;</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
             <span class="p">}],</span>
         <span class="p">}</span>
     <span class="p">},</span>
@@ -362,16 +364,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

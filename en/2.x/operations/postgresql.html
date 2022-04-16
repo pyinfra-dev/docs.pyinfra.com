@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="2.x" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -178,8 +180,9 @@
 </dd>
 </dl>
 <p>See example/postgresql.py for detailed example</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/postgresql.html#facts-postgresql-postgresqldatabases"><span class="std std-ref">postgresql.PostgresqlDatabases</span></a>, <a class="reference internal" href="../facts/postgresql.html#facts-postgresql-postgresqlroles"><span class="std std-ref">postgresql.PostgresqlRoles</span></a>.</p>
 <div class="section" id="postgresql-database">
-<h2><code class="code docutils literal notranslate"><span class="pre">postgresql.database</span></code><a class="headerlink" href="#postgresql-database" title="Permalink to this headline">¶</a></h2>
+<span id="operations-postgresql-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgresql.database</span></code><a class="headerlink" href="#postgresql-database" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove PostgreSQL databases.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
     <span class="n">database</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_collate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -205,19 +208,19 @@
 create or drop databases, but not alter them (if the db exists this
 operation will make no changes).</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
-    <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF8&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra_stuff database&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
+    <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF8&quot;</span><span class="p">,</span>
+    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-dump">
-<h2><code class="code docutils literal notranslate"><span class="pre">postgresql.dump</span></code><a class="headerlink" href="#postgresql-dump" title="Permalink to this headline">¶</a></h2>
+<span id="operations-postgresql-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgresql.dump</span></code><a class="headerlink" href="#postgresql-dump" title="Permalink to this headline">¶</a></h2>
 <p>Dump a PostgreSQL database into a <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file. Requires <code class="docutils literal notranslate"><span class="pre">pg_dump</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -227,18 +230,18 @@ operation will make no changes).</dd>
 <li><strong>database</strong>: name of the database to dump</li>
 <li><strong>psql_*</strong>: global module arguments, see above</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dump the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dump the pyinfra_stuff database&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
+    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-load">
-<h2><code class="code docutils literal notranslate"><span class="pre">postgresql.load</span></code><a class="headerlink" href="#postgresql-load" title="Permalink to this headline">¶</a></h2>
+<span id="operations-postgresql-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgresql.load</span></code><a class="headerlink" href="#postgresql-load" title="Permalink to this headline">¶</a></h2>
 <p>Load <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file into a database.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -248,18 +251,18 @@ operation will make no changes).</dd>
 <li><strong>database</strong>: name of the database to import into</li>
 <li><strong>psql_*</strong>: global module arguments, see above</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Import the pyinfra_stuff dump into pyinfra_stuff_copy&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff_copy&#39;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import the pyinfra_stuff dump into pyinfra_stuff_copy&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff_copy&quot;</span><span class="p">,</span>
+    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-role">
-<h2><code class="code docutils literal notranslate"><span class="pre">postgresql.role</span></code><a class="headerlink" href="#postgresql-role" title="Permalink to this headline">¶</a></h2>
+<span id="operations-postgresql-role"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgresql.role</span></code><a class="headerlink" href="#postgresql-role" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove PostgreSQL roles.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
     <span class="n">role</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">superuser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inherit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -286,20 +289,20 @@ operation will make no changes).</dd>
 create or drop roles, but not alter them (if the role exists this
 operation will make no changes).</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra PostgreSQL role&#39;</span><span class="p">,</span>
-    <span class="n">role</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra PostgreSQL role&quot;</span><span class="p">,</span>
+    <span class="n">role</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
     <span class="n">superuser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span>
+    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="postgresql-sql">
-<h2><code class="code docutils literal notranslate"><span class="pre">postgresql.sql</span></code><a class="headerlink" href="#postgresql-sql" title="Permalink to this headline">¶</a></h2>
+<span id="operations-postgresql-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgresql.sql</span></code><a class="headerlink" href="#postgresql-sql" title="Permalink to this headline">¶</a></h2>
 <p>Execute arbitrary SQL against PostgreSQL.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -367,16 +370,18 @@ operation will make no changes).</dd>
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:2.x", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:2.x", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

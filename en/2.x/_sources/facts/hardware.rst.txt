@@ -1,6 +1,8 @@
 Hardware Facts
 --------------
 
+.. _facts:hardware.BlockDevices:
+
 :code:`hardware.BlockDevices`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -8,22 +10,22 @@ Hardware Facts
 
     host.get_fact(BlockDevices)
 
-
 Returns a dict of (mounted) block devices:
 
 .. code:: python
 
     {
-        '/dev/sda1': {
-            'available': '39489508',
-            'used_percent': '3',
-            'mount': '/',
-            'used': '836392',
-            'blocks': '40325900'
+        "/dev/sda1": {
+            "available": "39489508",
+            "used_percent": "3",
+            "mount": "/",
+            "used": "836392",
+            "blocks": "40325900"
         },
     }
 
 
+.. _facts:hardware.Cpus:
 
 :code:`hardware.Cpus`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -32,10 +34,10 @@ Returns a dict of (mounted) block devices:
 
     host.get_fact(Cpus)
 
-
 Returns the number of CPUs on this server.
 
 
+.. _facts:hardware.Ipv4Addresses:
 
 :code:`hardware.Ipv4Addresses`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,22 +46,22 @@ Returns the number of CPUs on this server.
 
     host.get_fact(Ipv4Addresses)
 
-
 Gets & returns a dictionary of network interface -> IPv4 address.
 
 .. code:: python
 
     {
-        'eth0': '127.0.0.1',
+        "eth0": "127.0.0.1",
     }
 
 .. warning::
-    This fact is deprecated, please use the ``ipv4_addrs`` fact.
+    This fact is deprecated, please use the ``hardware.Ipv4Addrs`` fact.
 
 .. note::
     Network interfaces with no IPv4 will not be part of the dictionary.
 
 
+.. _facts:hardware.Ipv4Addrs:
 
 :code:`hardware.Ipv4Addrs`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,19 +70,19 @@ Gets & returns a dictionary of network interface -> IPv4 address.
 
     host.get_fact(Ipv4Addrs)
 
-
 Gets & returns a dictionary of network interface -> list of IPv4 addresses.
 
 .. code:: python
 
     {
-        'eth0': ['127.0.0.1'],
+        "eth0": ["127.0.0.1"],
     }
 
 .. note::
     Network interfaces with no IPv4 will not be part of the dictionary.
 
 
+.. _facts:hardware.Ipv6Addresses:
 
 :code:`hardware.Ipv6Addresses`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,22 +91,22 @@ Gets & returns a dictionary of network interface -> list of IPv4 addresses.
 
     host.get_fact(Ipv6Addresses)
 
-
 Gets & returns a dictionary of network interface -> IPv6 address.
 
 .. code:: python
 
     {
-        'eth0': 'fe80::a00:27ff::2',
+        "eth0": "fe80::a00:27ff::2",
     }
 
 .. warning::
-    This fact is deprecated, please use the ``ipv6_addrs`` fact.
+    This fact is deprecated, please use the ``hardware.Ipv6Addrs`` fact.
 
 .. note::
     Network interfaces with no IPv6 will not be part of the dictionary.
 
 
+.. _facts:hardware.Ipv6Addrs:
 
 :code:`hardware.Ipv6Addrs`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,19 +115,19 @@ Gets & returns a dictionary of network interface -> IPv6 address.
 
     host.get_fact(Ipv6Addrs)
 
-
 Gets & returns a dictionary of network interface -> list of IPv6 addresses.
 
 .. code:: python
 
     {
-        'eth0': ['fe80::a00:27ff::2'],
+        "eth0": ["fe80::a00:27ff::2"],
     }
 
 .. note::
     Network interfaces with no IPv6 will not be part of the dictionary.
 
 
+.. _facts:hardware.Memory:
 
 :code:`hardware.Memory`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -134,10 +136,10 @@ Gets & returns a dictionary of network interface -> list of IPv6 addresses.
 
     host.get_fact(Memory)
 
-
 Returns the memory installed in this server, in MB.
 
 
+.. _facts:hardware.NetworkDevices:
 
 :code:`hardware.NetworkDevices`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -146,30 +148,28 @@ Returns the memory installed in this server, in MB.
 
     host.get_fact(NetworkDevices)
 
-
 Gets & returns a dict of network devices. See the ``ipv4_addresses`` and
 ``ipv6_addresses`` facts for easier-to-use shortcuts to get device addresses.
 
 .. code:: python
 
     {
-        'eth0': {
-            'ipv4': {
-                'address': '127.0.0.1',
-                'broadcast': '127.0.0.13',
+        "eth0": {
+            "ipv4": {
+                "address": "127.0.0.1",
+                "broadcast": "127.0.0.13",
                 # Only one of these will exist:
-                'netmask': '255.255.255.255',
-                'mask_bits': 32,
+                "netmask": "255.255.255.255",
+                "mask_bits": 32,
             },
-            'ipv6': {
-                'address': 'fe80::a00:27ff:fec3:36f0',
-                'mask_bits': 64,
-                'additional_ips': [{
-                    'address': 'fe80::',
-                    'mask_bits': 128,
+            "ipv6": {
+                "address": "fe80::a00:27ff:fec3:36f0",
+                "mask_bits": 64,
+                "additional_ips": [{
+                    "address": "fe80::",
+                    "mask_bits": 128,
                 }],
             }
         },
     }
-
 
