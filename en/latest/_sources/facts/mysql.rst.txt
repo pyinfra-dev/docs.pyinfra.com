@@ -1,6 +1,10 @@
 Mysql Facts
 -----------
 
+See also: :doc:`../operations/mysql`.
+
+.. _facts:mysql.MysqlDatabases:
+
 :code:`mysql.MysqlDatabases`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -8,19 +12,19 @@ Mysql Facts
 
     host.get_fact(MysqlDatabases, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-
 Returns a dict of existing MySQL databases and associated data:
 
 .. code:: python
 
     {
-        'mysql': {
-            'character_set': 'latin1',
-            'collation_name': 'latin1_swedish_ci'
+        "mysql": {
+            "character_set": "latin1",
+            "collation_name": "latin1_swedish_ci"
         },
     }
 
 
+.. _facts:mysql.MysqlUserGrants:
 
 :code:`mysql.MysqlUserGrants`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,20 +33,20 @@ Returns a dict of existing MySQL databases and associated data:
 
     host.get_fact(MysqlUserGrants, user, hostname='localhost', mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-
 Returns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
 
 .. code:: python
 
     {
-        '`pyinfra_stuff`.*': {
-            'SELECT',
-            'INSERT',
-            'GRANT OPTION',
+        "`pyinfra_stuff`.*": {
+            "SELECT",
+            "INSERT",
+            "GRANT OPTION",
         },
     }
 
 
+.. _facts:mysql.MysqlUsers:
 
 :code:`mysql.MysqlUsers`
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,17 +55,15 @@ Returns a dict of ``<database>`.<table>`` with a set of granted privileges for e
 
     host.get_fact(MysqlUsers, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-
 Returns a dict of MySQL ``user@host``'s and their associated data:
 
 .. code:: python
 
     {
-        'user@host': {
-            'privileges': ['Alter', 'Grant'],
+        "user@host": {
+            "privileges": ["Alter", "Grant"],
             'max_connections': 5,
             ...
         },
     }
-
 

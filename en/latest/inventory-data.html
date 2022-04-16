@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -63,9 +63,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -87,15 +89,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Inventory &amp; Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#inventory-files">Inventory Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limiting-inventory-at-runtime">Limiting inventory at runtime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#data">Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#host-data">Host Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#group-data">Group Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-hierarchy">Data Hierarchy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#connecting-with-data">Connecting with Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#global-arguments-with-data">Global Arguments with Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#external-sources-for-data">External Sources for Data</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#host-data">Host Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#group-data-files">Group Data Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-hierarchy">Data Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-with-data">Connecting with Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-arguments-with-data">Global Arguments with Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-sources-for-data">External Sources for Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
@@ -186,11 +185,8 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 </pre></div>
 </div>
 </div>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
-<p>Data can be used to separate environment specific information from operations. Data is also used to configure <a class="reference internal" href="connectors.html"><span class="doc">connectors</span></a>.</p>
 <div class="section" id="host-data">
-<h3>Host Data<a class="headerlink" href="#host-data" title="Permalink to this headline">¶</a></h3>
+<h2>Host Data<a class="headerlink" href="#host-data" title="Permalink to this headline">¶</a></h2>
 <p>Data can be assigned to individual hosts in the inventory by using a tuple <code class="docutils literal notranslate"><span class="pre">(hostname,</span> <span class="pre">data_dict)</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app_servers</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">&quot;app-1.net&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;install_postgres&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}),</span>
@@ -208,8 +204,8 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 </pre></div>
 </div>
 </div>
-<div class="section" id="group-data">
-<h3>Group Data<a class="headerlink" href="#group-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="group-data-files">
+<h2>Group Data Files<a class="headerlink" href="#group-data-files" title="Permalink to this headline">¶</a></h2>
 <p>Group data can be stored in separate files under the <code class="docutils literal notranslate"><span class="pre">group_data</span></code> directory (there’s also a <code class="docutils literal notranslate"><span class="pre">--group-data</span> <span class="pre">$DIR</span></code> flag). Files will be loaded that match <code class="docutils literal notranslate"><span class="pre">group_data/&lt;group_name&gt;.py</span></code>, and all hosts in any matching group will receive variables defined in the file as data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app_user</span> <span class="o">=</span> <span class="s2">&quot;myuser&quot;</span>
 <span class="n">app_dir</span> <span class="o">=</span> <span class="s2">&quot;/opt/pyinfra&quot;</span>
@@ -231,7 +227,7 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 </div>
 </div>
 <div class="section" id="data-hierarchy">
-<h3>Data Hierarchy<a class="headerlink" href="#data-hierarchy" title="Permalink to this headline">¶</a></h3>
+<h2>Data Hierarchy<a class="headerlink" href="#data-hierarchy" title="Permalink to this headline">¶</a></h2>
 <p>The same keys can be defined for host and group data - this means we can set a default in <code class="docutils literal notranslate"><span class="pre">all.py</span></code> and override it on a group or host basis. When accessing data, the first match in the following is returned:</p>
 <ul class="simple">
 <li>“Override” data passed in via CLI args</li>
@@ -245,7 +241,7 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 </div>
 </div>
 <div class="section" id="connecting-with-data">
-<h3>Connecting with Data<a class="headerlink" href="#connecting-with-data" title="Permalink to this headline">¶</a></h3>
+<h2>Connecting with Data<a class="headerlink" href="#connecting-with-data" title="Permalink to this headline">¶</a></h2>
 <p>Data can be used to configure connectors, for example setting SSH connection details can be done like so:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh_user</span> <span class="o">=</span> <span class="s2">&quot;ubuntu&quot;</span>
 <span class="n">ssh_key</span> <span class="o">=</span> <span class="s2">&quot;~/.ssh/some_key&quot;</span>
@@ -255,7 +251,7 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 <p>The <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a> contains full details of which data keys are available in each connector.</p>
 </div>
 <div class="section" id="global-arguments-with-data">
-<h3>Global Arguments with Data<a class="headerlink" href="#global-arguments-with-data" title="Permalink to this headline">¶</a></h3>
+<h2>Global Arguments with Data<a class="headerlink" href="#global-arguments-with-data" title="Permalink to this headline">¶</a></h2>
 <p>Data can also provide default values for <a class="reference internal" href="arguments.html"><span class="doc">Global Arguments</span></a>, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_sudo</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">_sudo_user</span> <span class="o">=</span> <span class="s2">&quot;pyinfra&quot;</span>
@@ -263,9 +259,8 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
 </div>
 </div>
 <div class="section" id="external-sources-for-data">
-<h3>External Sources for Data<a class="headerlink" href="#external-sources-for-data" title="Permalink to this headline">¶</a></h3>
+<h2>External Sources for Data<a class="headerlink" href="#external-sources-for-data" title="Permalink to this headline">¶</a></h2>
 <p>Because <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> is configured in Python, you can pull in data from pretty much anywhere just using other Python packages.</p>
-</div>
 </div>
 </div>
 
@@ -323,16 +318,18 @@ pyinfra inventory.py deploy.py --limit app_servers --limit db-1.net
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

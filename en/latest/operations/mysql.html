@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -186,12 +188,13 @@
 </dd>
 </dl>
 <p>See the example/mysql.py</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqldatabases"><span class="std std-ref">mysql.MysqlDatabases</span></a>, <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqlusergrants"><span class="std std-ref">mysql.MysqlUserGrants</span></a>, <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqlusers"><span class="std std-ref">mysql.MysqlUsers</span></a>.</p>
 <div class="section" id="mysql-database">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.database</span></code><a class="headerlink" href="#mysql-database" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.database</span></code><a class="headerlink" href="#mysql-database" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove MySQL databases.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">database</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
-    <span class="n">user_privileges</span><span class="o">=</span><span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">database</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user_privileges</span><span class="o">=</span><span class="s2">&quot;ALL&quot;</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -210,19 +213,19 @@
 <dt>Collate/charset:</dt><dd>these will only be applied if the database does not exist - ie pyinfra
 will not attempt to alter the existing databases collate/character sets.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">user_privileges</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SELECT&#39;</span><span class="p">,</span> <span class="s1">&#39;INSERT&#39;</span><span class="p">],</span>
-    <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra_stuff database&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">user_privileges</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SELECT&quot;</span><span class="p">,</span> <span class="s2">&quot;INSERT&quot;</span><span class="p">],</span>
+    <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mysql-dump">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.dump</span></code><a class="headerlink" href="#mysql-dump" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.dump</span></code><a class="headerlink" href="#mysql-dump" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -239,17 +242,17 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <li><strong>database</strong>: name of the database to dump</li>
 <li><strong>mysql_*</strong>: global module arguments, see above</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dump the pyinfra_stuff database&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dump the pyinfra_stuff database&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mysql-load">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.load</span></code><a class="headerlink" href="#mysql-load" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.load</span></code><a class="headerlink" href="#mysql-load" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -263,20 +266,20 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 <li><strong>database</strong>: name of the database to import into</li>
 <li><strong>mysql_*</strong>: global module arguments, see above</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Import the pyinfra_stuff dump into pyinfra_stuff_copy&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;/tmp/pyinfra_stuff.dump&#39;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s1">&#39;pyinfra_stuff_copy&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import the pyinfra_stuff dump into pyinfra_stuff_copy&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff_copy&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="mysql-privileges">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-privileges"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove MySQL privileges for a user, either global, database or table specific.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">privileges</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
@@ -294,7 +297,7 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 </ul>
 </div>
 <div class="section" id="mysql-sql">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -310,10 +313,10 @@ will not attempt to alter the existing databases collate/character sets.</dd>
 </ul>
 </div>
 <div class="section" id="mysql-user">
-<h2><code class="code docutils literal notranslate"><span class="pre">mysql.user</span></code><a class="headerlink" href="#mysql-user" title="Permalink to this headline">¶</a></h2>
+<span id="operations-mysql-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.user</span></code><a class="headerlink" href="#mysql-user" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update MySQL users.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">privileges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">privileges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">require</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">require_cipher</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_issuer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_subject</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">max_connections</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_queries_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">max_connections_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -336,37 +339,37 @@ user, rather than update users with the same <code class="docutils literal notra
 detect if the current password doesn’t match the one provided, so won’t
 attempt to change it.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Create a user with resource limits</span>
 <span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">max_connections</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
     <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Create a user that requires SSL for connections</span>
 <span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
-    <span class="n">require</span><span class="o">=</span><span class="s1">&#39;SSL&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
+    <span class="n">require</span><span class="o">=</span><span class="s2">&quot;SSL&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Create a user that requires a specific certificate</span>
 <span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create the pyinfra@localhost MySQL user&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;somepassword&#39;</span><span class="p">,</span>
-    <span class="n">require</span><span class="o">=</span><span class="s1">&#39;X509&#39;</span><span class="p">,</span>
-    <span class="n">require_issuer</span><span class="o">=</span><span class="s1">&#39;/C=SE/ST=Stockholm...&#39;</span><span class="p">,</span>
-    <span class="n">require_cipher</span><span class="o">=</span><span class="s1">&#39;EDH-RSA-DES-CBC3-SHA&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
+    <span class="n">require</span><span class="o">=</span><span class="s2">&quot;X509&quot;</span><span class="p">,</span>
+    <span class="n">require_issuer</span><span class="o">=</span><span class="s2">&quot;/C=SE/ST=Stockholm...&quot;</span><span class="p">,</span>
+    <span class="n">require_cipher</span><span class="o">=</span><span class="s2">&quot;EDH-RSA-DES-CBC3-SHA&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -428,16 +431,18 @@ attempt to change it.</dd>
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

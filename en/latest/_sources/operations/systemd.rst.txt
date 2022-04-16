@@ -4,6 +4,11 @@ Systemd Operations
 
 Manage systemd services.
 
+
+Facts used in these operations: :ref:`facts:systemd.SystemdEnabled`, :ref:`facts:systemd.SystemdStatus`.
+
+.. _operations:systemd.daemon_reload:
+
 :code:`systemd.daemon_reload`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,6 +28,8 @@ Reload the systemd daemon to read unit file changes.
 + **machine**: the machine name to connect to
 + **user_name**: connect to a specific user's systemd session
 
+
+.. _operations:systemd.service:
 
 :code:`systemd.service`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,21 +54,21 @@ Manage the state of systemd managed units.
 + **machine**: the machine name to connect to
 + **user_name**: connect to a specific user's systemd session
 
-Example:
+**Examples:**
 
 .. code:: python
 
     systemd.service(
-        name='Restart and enable the dnsmasq service',
-        service='dnsmasq.service',
+        name="Restart and enable the dnsmasq service",
+        service="dnsmasq.service",
         running=True,
         restarted=True,
         enabled=True,
     )
 
     systemd.service(
-        name='Enable logrotate timer',
-        service='logrotate.timer',
+        name="Enable logrotate timer",
+        service="logrotate.timer",
         running=True,
         enabled=True,
     )

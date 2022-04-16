@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -63,9 +63,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -144,7 +146,7 @@
 <span class="sd">        tuple: (name, data, group_names)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">yield</span> <span class="s1">&#39;name-of-host&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;value&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s1">&#39;a-group&#39;</span><span class="p">,</span> <span class="s1">&#39;another-group&#39;</span><span class="p">]</span>
+    <span class="k">yield</span> <span class="s2">&quot;name-of-host&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">},</span> <span class="p">[</span><span class="s2">&quot;a-group&quot;</span><span class="p">,</span> <span class="s2">&quot;another-group&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Furthermore, connectors that modify execution must provide the following functions:</p>
@@ -195,9 +197,9 @@
 
     <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">combined_output</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s1">&#39;stdout&#39;</span><span class="p">,</span> <span class="s1">&#39;some standard output&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;stderr&#39;</span><span class="p">,</span> <span class="s1">&#39;some standard error&#39;</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;stderr&#39;</span><span class="p">,</span> <span class="s1">&#39;some more standard error&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;stdout&quot;</span><span class="p">,</span> <span class="s2">&quot;some standard output&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;stderr&quot;</span><span class="p">,</span> <span class="s2">&quot;some standard error&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;stderr&quot;</span><span class="p">,</span> <span class="s2">&quot;some more standard error&quot;</span><span class="p">),</span>
     <span class="p">]</span>
 
     <span class="k">if</span> <span class="n">return_combined_output</span><span class="p">:</span>
@@ -293,16 +295,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

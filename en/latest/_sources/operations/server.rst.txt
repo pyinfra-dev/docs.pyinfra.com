@@ -5,6 +5,11 @@ Server Operations
 The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.
 
+
+Facts used in these operations: :ref:`facts:server.Crontab`, :ref:`facts:files.Directory`, :ref:`facts:server.Groups`, :ref:`facts:server.Hostname`, :ref:`facts:server.KernelModules`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
+
+.. _operations:server.crontab:
+
 :code:`server.crontab`
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -13,8 +18,8 @@ Add/remove/update crontab entries.
 .. code:: python
 
     server.crontab(
-        command, present=True, user=None, cron_name=None, minute='*', hour='*', month='*',
-        day_of_week='*', day_of_month='*', special_time=None, interpolate_variables=False,
+        command, present=True, user=None, cron_name=None, minute="*", hour="*", month="*",
+        day_of_week="*", day_of_month="*", special_time=None, interpolate_variables=False,
     )
 
 + **command**: the command for the cron
@@ -38,20 +43,22 @@ Special times:
     When provided, ``special_time`` will be used instead of any values passed in
     for ``minute``/``hour``/``month``/``day_of_week``/``day_of_month``.
 
-Example:
+**Example:**
 
 .. code:: python
 
     # simple example for a crontab
     server.crontab(
-        name='Backup /etc weekly',
-        command='/bin/tar cf /tmp/etc_bup.tar /etc',
-        name='backup_etc',
+        name="Backup /etc weekly",
+        command="/bin/tar cf /tmp/etc_bup.tar /etc",
+        name="backup_etc",
         day_of_week=0,
         hour=1,
         minute=0,
     )
 
+
+.. _operations:server.group:
 
 :code:`server.group`
 ~~~~~~~~~~~~~~~~~~~~
@@ -69,22 +76,24 @@ Add/remove system groups.
 System users:
     System users don't exist on BSD, so the argument is ignored for BSD targets.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     server.group(
-        name='Create docker group',
-        group='docker',
+        name="Create docker group",
+        group="docker",
     )
 
     # multiple groups
-    for group in ['wheel', 'lusers']:
+    for group in ["wheel", "lusers"]:
         server.group(
-            name=f'Create the group {group}',
+            name=f"Create the group {group}",
             group=group,
         )
 
+
+.. _operations:server.hostname:
 
 :code:`server.hostname`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,15 +116,17 @@ Hostname file:
 
     To completely disable writing the hostname file, set ``hostname_file=False``.
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.hostname(
-        name='Set the hostname',
-        hostname='server1.example.com',
+        name="Set the hostname",
+        hostname="server1.example.com",
     )
 
+
+.. _operations:server.modprobe:
 
 :code:`server.modprobe`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,15 +141,17 @@ Load/unload kernel modules.
 + **present**: whether the module should be loaded or not
 + **force**: whether to force any add/remove modules
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.modprobe(
-        name='Silly example for modprobe',
-        module='floppy',
+        name="Silly example for modprobe",
+        module="floppy",
     )
 
+
+.. _operations:server.mount:
 
 :code:`server.mount`
 ~~~~~~~~~~~~~~~~~~~~
@@ -162,6 +175,8 @@ Options:
     that you should use the `files.line operation <./files.html#files-line>`_.
 
 
+.. _operations:server.packages:
+
 :code:`server.packages`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -175,15 +190,17 @@ system package managers ``pyinfra`` can handle and executes the relevant operati
 + **packages**: list of packages to ensure
 + **present**: whether the packages should be installed
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.packages(
-        name='Install Vim and vimpager',
-        packages=['vimpager', 'vim'],
+        name="Install Vim and vimpager",
+        packages=["vimpager", "vim"],
     )
 
+
+.. _operations:server.reboot:
 
 :code:`server.reboot`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -204,16 +221,18 @@ Reboot the server and wait for reconnection.
 + **interval**: interval (s) between reconnect attempts
 + **reboot_timeout**: total time before giving up reconnecting
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.reboot(
-        name='Reboot the server and wait to reconnect',
+        name="Reboot the server and wait to reconnect",
         delay=60,
         reboot_timeout=600,
     )
 
+
+.. _operations:server.script:
 
 :code:`server.script`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -232,16 +251,18 @@ Upload and execute a local script on the remote host.
 
 + **src**: local script filename to upload & execute
 
-Example:
+**Example:**
 
 .. code:: python
 
     # Note: This assumes there is a file in files/hello.bash locally.
     server.script(
-        name='Hello',
-        src='files/hello.bash',
+        name="Hello",
+        src="files/hello.bash",
     )
 
+
+.. _operations:server.script_template:
 
 :code:`server.script_template`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -260,7 +281,7 @@ Generate, upload and execute a local script template on the remote host.
 
 + **src**: local script template filename
 
-Example:
+**Example:**
 
 .. code:: python
 
@@ -270,11 +291,13 @@ Example:
     # Note: This assumes there is a file in templates/hello2.bash.j2 locally.
     some_var = 'blah blah blah '
     server.script_template(
-        name='Hello from script',
-        src='templates/hello2.bash.j2',
+        name="Hello from script",
+        src="templates/hello2.bash.j2",
         some_var=some_var,
     )
 
+
+.. _operations:server.service:
 
 :code:`server.service`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -293,16 +316,18 @@ Linux init systems ``pyinfra`` can handle and executes the relevant operation.
 + **command**: custom command execute
 + **enabled**: whether this service should be enabled/disabled on boot
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.service(
-        name='Enable open-vm-tools service',
-        service='open-vm-tools',
+        name="Enable open-vm-tools service",
+        service="open-vm-tools",
         enabled=True,
     )
 
+
+.. _operations:server.shell:
 
 :code:`server.shell`
 ~~~~~~~~~~~~~~~~~~~~
@@ -323,15 +348,17 @@ since facts are only run at the start of a deploy.
 
 + **commands**: command or list of commands to execute on the remote server
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.shell(
-        name='Run lxd auto init',
-        commands=['lxd init --auto'],
+        name="Run lxd auto init",
+        commands=["lxd init --auto"],
     )
 
+
+.. _operations:server.sysctl:
 
 :code:`server.sysctl`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -340,24 +367,26 @@ Edit sysctl configuration.
 
 .. code:: python
 
-    server.sysctl(key, value, persist=False, persist_file='/etc/sysctl.conf')
+    server.sysctl(key, value, persist=False, persist_file="/etc/sysctl.conf")
 
 + **key**: name of the sysctl setting to ensure
 + **value**: the value or list of values the sysctl should be
 + **persist**: whether to write this sysctl to the config
 + **persist_file**: file to write the sysctl to persist on reboot
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.sysctl(
-        name='Change the fs.file-max value',
-        key='fs.file-max',
+        name="Change the fs.file-max value",
+        key="fs.file-max",
         value=100000,
         persist=True,
     )
 
+
+.. _operations:server.user:
 
 :code:`server.user`
 ~~~~~~~~~~~~~~~~~~~
@@ -394,30 +423,32 @@ Public keys:
     These can be provided as strings containing the public key or as a path to
     a public key file which ``pyinfra`` will read.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     server.user(
-        name='Ensure user is removed',
-        user='kevin',
+        name="Ensure user is removed",
+        user="kevin",
         present=False,
     )
 
     server.user(
-        name='Ensure myweb user exists',
-        user='myweb',
-        shell='/bin/bash',
+        name="Ensure myweb user exists",
+        user="myweb",
+        shell="/bin/bash",
     )
 
     # multiple users
-    for user in ['kevin', 'bob']:
+    for user in ["kevin", "bob"]:
         server.user(
-            name=f'Ensure user {user} is removed',
+            name=f"Ensure user {user} is removed",
             user=user,
             present=False,
         )
 
+
+.. _operations:server.wait:
 
 :code:`server.wait`
 ~~~~~~~~~~~~~~~~~~~
@@ -437,12 +468,12 @@ second.
 
 + **port**: port number to wait for
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.wait(
-        name='Wait for webserver to start',
+        name="Wait for webserver to start",
         port=80,
     )
 

@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -174,8 +176,9 @@
   <div class="section" id="windows-files-operations">
 <h1>Windows_Files Operations<a class="headerlink" href="#windows-files-operations" title="Permalink to this headline">¶</a></h1>
 <p>The windows_files module handles windows filesystem state, file uploads and template generation.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/windows.html#facts-windows-date"><span class="std std-ref">windows.Date</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-directory"><span class="std std-ref">windows_files.Directory</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-file"><span class="std std-ref">windows_files.File</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-link"><span class="std std-ref">windows_files.Link</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-md5file"><span class="std std-ref">windows_files.Md5File</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-sha1file"><span class="std std-ref">windows_files.Sha1File</span></a>, <a class="reference internal" href="../facts/windows_files.html#facts-windows-files-sha256file"><span class="std std-ref">windows_files.Sha256File</span></a>.</p>
 <div class="section" id="windows-files-directory">
-<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.directory</span></code><a class="headerlink" href="#windows-files-directory" title="Permalink to this headline">¶</a></h2>
+<span id="operations-windows-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">windows_files.directory</span></code><a class="headerlink" href="#windows-files-directory" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -192,31 +195,31 @@
 <li>TODO: mode: permissions of the folder</li>
 <li>TODO: recursive: recursively apply user/group/mode</li>
 </ul>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure the c:</span><span class="se">\t</span><span class="s1">emp\dir_that_we_want_removed is removed&#39;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp\dir_that_we_want_removed&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure the c:</span><span class="se">\t</span><span class="s2">emp\dir_that_we_want_removed is removed&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;c:</span><span class="se">\t</span><span class="s2">emp\dir_that_we_want_removed&quot;</span><span class="p">,</span>
     <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure c:</span><span class="se">\t</span><span class="s1">emp</span><span class="se">\f</span><span class="s1">oo</span><span class="se">\f</span><span class="s1">oo_dir exists&#39;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp</span><span class="se">\f</span><span class="s1">oo</span><span class="se">\f</span><span class="s1">oo_dir&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure c:</span><span class="se">\t</span><span class="s2">emp</span><span class="se">\f</span><span class="s2">oo</span><span class="se">\f</span><span class="s2">oo_dir exists&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;c:</span><span class="se">\t</span><span class="s2">emp</span><span class="se">\f</span><span class="s2">oo</span><span class="se">\f</span><span class="s2">oo_dir&quot;</span><span class="p">,</span>
     <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># multiple directories</span>
-<span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp</span><span class="se">\f</span><span class="s1">oo_dir1&#39;</span><span class="p">,</span> <span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp</span><span class="se">\f</span><span class="s1">oo_dir2&#39;</span><span class="p">]</span>
+<span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;c:</span><span class="se">\t</span><span class="s2">emp</span><span class="se">\f</span><span class="s2">oo_dir1&quot;</span><span class="p">,</span> <span class="s2">&quot;c:</span><span class="se">\t</span><span class="s2">emp</span><span class="se">\f</span><span class="s2">oo_dir2&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
     <span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure the directory `</span><span class="si">{}</span><span class="s1">` exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure the directory `</span><span class="si">{}</span><span class="s2">` exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span>
         <span class="n">path</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="windows-files-download">
-<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.download</span></code><a class="headerlink" href="#windows-files-download" title="Permalink to this headline">¶</a></h2>
+<span id="operations-windows-files-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">windows_files.download</span></code><a class="headerlink" href="#windows-files-download" title="Permalink to this headline">¶</a></h2>
 <p>Download files from remote locations using curl or wget.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
     <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sha256sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -232,21 +235,21 @@
 <li><strong>mode</strong>: permissions of the files</li>
 <li><strong>cache_time</strong>: if the file exists already, re-download after this time (in seconds)</li>
 <li><strong>force</strong>: always download the file, even if it already exists</li>
-<li><a href="#id1"><span class="problematic" id="id2">**</span></a>sha**256sum: sha256 hash to checksum the downloaded file against</li>
-<li><a href="#id3"><span class="problematic" id="id4">**</span></a>sha**1sum: sha1 hash to checksum the downloaded file against</li>
-<li><a href="#id5"><span class="problematic" id="id6">**</span></a>md**5sum: md5 hash to checksum the downloaded file against</li>
+<li><strong>sha256sum</strong>: sha256 hash to checksum the downloaded file against</li>
+<li><strong>sha1sum</strong>: sha1 hash to checksum the downloaded file against</li>
+<li><strong>md5sum</strong>: md5 hash to checksum the downloaded file against</li>
 </ul>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">winows_files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Download the Docker repo file&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;https://download.docker.com/linux/centos/docker-ce.repo&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;C:\docker&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download the Docker repo file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/centos/docker-ce.repo&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;C:\docker&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="windows-files-file">
-<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.file</span></code><a class="headerlink" href="#windows-files-file" title="Permalink to this headline">¶</a></h2>
+<span id="operations-windows-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">windows_files.file</span></code><a class="headerlink" href="#windows-files-file" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">touch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -269,17 +272,17 @@
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
 if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Create c:</span><span class="se">\t</span><span class="s1">emp\hello.txt&#39;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;c:</span><span class="se">\t</span><span class="s1">emp\hello.txt&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create c:</span><span class="se">\t</span><span class="s2">emp\hello.txt&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;c:</span><span class="se">\t</span><span class="s2">emp\hello.txt&quot;</span><span class="p">,</span>
     <span class="n">touch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="windows-files-link">
-<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.link</span></code><a class="headerlink" href="#windows-files-link" title="Permalink to this headline">¶</a></h2>
+<span id="operations-windows-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">windows_files.link</span></code><a class="headerlink" href="#windows-files-link" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update links.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -304,18 +307,18 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <dt>Source changes:</dt><dd>If the link exists and points to a different target, pyinfra will remove it and
 recreate a new one pointing to then new target.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple example showing how to link to a file</span>
 <span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Create link C:\issue2 that points to C:\issue&#39;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C:\issue2&#39;</span><span class="p">,</span>
-    <span class="n">target</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;C\issue&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;Create link C:\issue2 that points to C:\issue&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\issue2&quot;</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C\issue&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="windows-files-put">
-<h2><code class="code docutils literal notranslate"><span class="pre">windows_files.put</span></code><a class="headerlink" href="#windows-files-put" title="Permalink to this headline">¶</a></h2>
+<span id="operations-windows-files-put"></span><h2><code class="code docutils literal notranslate"><span class="pre">windows_files.put</span></code><a class="headerlink" href="#windows-files-put" title="Permalink to this headline">¶</a></h2>
 <p>Upload a local file to the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">windows_files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
     <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -341,12 +344,12 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <dt>Note:</dt><dd>This operation is not suitable for large files as it may involve copying
 the file before uploading it.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This requires a &#39;files/motd&#39; file on the local filesystem</span>
 <span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Update the message of the day file&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;data/content.json&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;C:\data\content.json&#39;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update the message of the day file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;data/content.json&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;C:\data\content.json&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -408,16 +411,18 @@ the file before uploading it.</dd>
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

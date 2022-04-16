@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -170,8 +172,9 @@
   <div class="section" id="launchd-operations">
 <h1>Launchd Operations<a class="headerlink" href="#launchd-operations" title="Permalink to this headline">¶</a></h1>
 <p>Manage launchd services.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/launchd.html#facts-launchd-launchdstatus"><span class="std std-ref">launchd.LaunchdStatus</span></a>.</p>
 <div class="section" id="launchd-service">
-<h2><code class="code docutils literal notranslate"><span class="pre">launchd.service</span></code><a class="headerlink" href="#launchd-service" title="Permalink to this headline">¶</a></h2>
+<span id="operations-launchd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">launchd.service</span></code><a class="headerlink" href="#launchd-service" title="Permalink to this headline">¶</a></h2>
 <p>Manage the state of systemd managed services.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">launchd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
@@ -241,16 +244,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

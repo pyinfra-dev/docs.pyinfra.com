@@ -15,6 +15,11 @@ All operations in this module take four optional arguments:
 See the example/mysql.py
 
 
+
+Facts used in these operations: :ref:`facts:mysql.MysqlDatabases`, :ref:`facts:mysql.MysqlUserGrants`, :ref:`facts:mysql.MysqlUsers`.
+
+.. _operations:mysql.database:
+
 :code:`mysql.database`
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,8 +28,8 @@ Add/remove MySQL databases.
 .. code:: python
 
     mysql.database(
-        database, present=True, collate=None, charset=None, user=None, user_hostname='localhost',
-        user_privileges='ALL', mysql_user=None, mysql_password=None, mysql_host=None,
+        database, present=True, collate=None, charset=None, user=None, user_hostname="localhost",
+        user_privileges="ALL", mysql_user=None, mysql_password=None, mysql_host=None,
         mysql_port=None,
     )
 
@@ -41,18 +46,20 @@ Collate/charset:
     these will only be applied if the database does not exist - ie pyinfra
     will not attempt to alter the existing databases collate/character sets.
 
-Example:
+**Example:**
 
 .. code:: python
 
     mysql.database(
-        name='Create the pyinfra_stuff database',
-        database='pyinfra_stuff',
-        user='pyinfra',
-        user_privileges=['SELECT', 'INSERT'],
-        charset='utf8',
+        name="Create the pyinfra_stuff database",
+        database="pyinfra_stuff",
+        user="pyinfra",
+        user_privileges=["SELECT", "INSERT"],
+        charset="utf8",
     )
 
+
+.. _operations:mysql.dump:
 
 :code:`mysql.dump`
 ~~~~~~~~~~~~~~~~~~
@@ -76,16 +83,18 @@ Dump a MySQL database into a ``.sql`` file. Requires ``mysqldump``.
 + **database**: name of the database to dump
 + **mysql_***: global module arguments, see above
 
-Example:
+**Example:**
 
 .. code:: python
 
     mysql.dump(
-        name='Dump the pyinfra_stuff database',
-        dest='/tmp/pyinfra_stuff.dump',
-        database='pyinfra_stuff',
+        name="Dump the pyinfra_stuff database",
+        dest="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff",
     )
 
+
+.. _operations:mysql.load:
 
 :code:`mysql.load`
 ~~~~~~~~~~~~~~~~~~
@@ -106,16 +115,18 @@ Load ``.sql`` file into a database.
 + **database**: name of the database to import into
 + **mysql_***: global module arguments, see above
 
-Example:
+**Example:**
 
 .. code:: python
 
     mysql.load(
-        name='Import the pyinfra_stuff dump into pyinfra_stuff_copy',
-        src='/tmp/pyinfra_stuff.dump',
-        database='pyinfra_stuff_copy',
+        name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
+        src="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff_copy",
     )
 
+
+.. _operations:mysql.privileges:
 
 :code:`mysql.privileges`
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,7 +136,7 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 .. code:: python
 
     mysql.privileges(
-        user, privileges, user_hostname='localhost', database='*', table='*', flush=True,
+        user, privileges, user_hostname="localhost", database="*", table="*", flush=True,
         with_grant_option=False, mysql_user=None, mysql_password=None, mysql_host=None,
         mysql_port=None,
     )
@@ -139,6 +150,8 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 + **with_grant_option**: whether the grant option privilege should be set
 + **mysql_***: global module arguments, see above
 
+
+.. _operations:mysql.sql:
 
 :code:`mysql.sql`
 ~~~~~~~~~~~~~~~~~
@@ -160,6 +173,8 @@ Execute arbitrary SQL against MySQL.
 + **mysql_***: global module arguments, see above
 
 
+.. _operations:mysql.user:
+
 :code:`mysql.user`
 ~~~~~~~~~~~~~~~~~~
 
@@ -168,7 +183,7 @@ Add/remove/update MySQL users.
 .. code:: python
 
     mysql.user(
-        user, present=True, user_hostname='localhost', password=None, privileges=None,
+        user, present=True, user_hostname="localhost", password=None, privileges=None,
         require=None, require_cipher=False, require_issuer=False, require_subject=False,
         max_connections=None, max_queries_per_hour=None, max_updates_per_hour=None,
         max_connections_per_hour=None, mysql_user=None, mysql_password=None, mysql_host=None,
@@ -191,39 +206,39 @@ Password:
     detect if the current password doesn't match the one provided, so won't
     attempt to change it.
 
-Example:
+**Example:**
 
 .. code:: python
 
     mysql.user(
-        name='Create the pyinfra@localhost MySQL user',
-        user='pyinfra',
-        password='somepassword',
+        name="Create the pyinfra@localhost MySQL user",
+        user="pyinfra",
+        password="somepassword",
     )
 
     # Create a user with resource limits
     mysql.user(
-        name='Create the pyinfra@localhost MySQL user',
-        user='pyinfra',
+        name="Create the pyinfra@localhost MySQL user",
+        user="pyinfra",
         max_connections=50,
         max_updates_per_hour=10,
     )
 
     # Create a user that requires SSL for connections
     mysql.user(
-        name='Create the pyinfra@localhost MySQL user',
-        user='pyinfra',
-        password='somepassword',
-        require='SSL',
+        name="Create the pyinfra@localhost MySQL user",
+        user="pyinfra",
+        password="somepassword",
+        require="SSL",
     )
 
     # Create a user that requires a specific certificate
     mysql.user(
-        name='Create the pyinfra@localhost MySQL user',
-        user='pyinfra',
-        password='somepassword',
-        require='X509',
-        require_issuer='/C=SE/ST=Stockholm...',
-        require_cipher='EDH-RSA-DES-CBC3-SHA',
+        name="Create the pyinfra@localhost MySQL user",
+        user="pyinfra",
+        password="somepassword",
+        require="X509",
+        require_issuer="/C=SE/ST=Stockholm...",
+        require_cipher="EDH-RSA-DES-CBC3-SHA",
     )
 

@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -175,8 +177,9 @@
   <div class="section" id="brew-operations">
 <h1>Brew Operations<a class="headerlink" href="#brew-operations" title="Permalink to this headline">¶</a></h1>
 <p>Manage brew packages on mac/OSX. See <a class="reference external" href="https://brew.sh/">https://brew.sh/</a></p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/brew.html#facts-brew-brewcasks"><span class="std std-ref">brew.BrewCasks</span></a>, <a class="reference internal" href="../facts/brew.html#facts-brew-brewpackages"><span class="std std-ref">brew.BrewPackages</span></a>, <a class="reference internal" href="../facts/brew.html#facts-brew-brewtaps"><span class="std std-ref">brew.BrewTaps</span></a>, <a class="reference internal" href="../facts/brew.html#facts-brew-brewversion"><span class="std std-ref">brew.BrewVersion</span></a>.</p>
 <div class="section" id="brew-cask-upgrade">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.cask_upgrade</span></code><a class="headerlink" href="#brew-cask-upgrade" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-cask-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.cask_upgrade</span></code><a class="headerlink" href="#brew-cask-upgrade" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -187,7 +190,7 @@
 </div>
 </div>
 <div class="section" id="brew-casks">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.casks</span></code><a class="headerlink" href="#brew-casks" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-casks"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.casks</span></code><a class="headerlink" href="#brew-casks" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update brew casks.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">casks</span><span class="p">(</span><span class="n">casks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -201,10 +204,10 @@
 <dl class="docutils">
 <dt>Versions:</dt><dd>Cask versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</dd>
 </dl>
-<p>Example:</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">casks</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Upgrade and install the latest cask&#39;</span><span class="p">,</span>
-    <span class="n">casks</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;godot&#39;</span><span class="p">],</span>
+    <span class="n">casks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;godot&quot;</span><span class="p">],</span>
     <span class="n">upgrade</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
@@ -212,7 +215,7 @@
 </div>
 </div>
 <div class="section" id="brew-packages">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.packages</span></code><a class="headerlink" href="#brew-packages" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.packages</span></code><a class="headerlink" href="#brew-packages" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update brew packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -227,25 +230,25 @@
 <dl class="docutils">
 <dt>Versions:</dt><dd>Package versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</dd>
 </dl>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
 <span class="n">brew</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and vimpager&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vimpager&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
     <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Install the latest versions of packages (always check)</span>
 <span class="n">brew</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install latest Vim&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vim&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install latest Vim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
     <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="brew-tap">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.tap</span></code><a class="headerlink" href="#brew-tap" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-tap"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.tap</span></code><a class="headerlink" href="#brew-tap" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove brew taps.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
@@ -254,24 +257,23 @@
 <li><strong>src</strong>: the name of the tap</li>
 <li><strong>present</strong>: whether this tap should be present or not</li>
 </ul>
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Add a brew tap&#39;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;includeos/includeos&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add a brew tap&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># multiple taps</span>
-<span class="n">taps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;includeos/includeos&#39;</span><span class="p">,</span> <span class="s1">&#39;ktr0731/evans&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="n">taps</span><span class="p">:</span>
+<span class="c1"># Multiple taps</span>
+<span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span> <span class="s2">&quot;ktr0731/evans&quot;</span><span class="p">]:</span>
     <span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s1">&#39;Add brew tap </span><span class="si">{</span><span class="n">tap</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">},</span>
+        <span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;Add brew tap </span><span class="si">{</span><span class="n">tap</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
         <span class="n">src</span><span class="o">=</span><span class="n">tap</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="brew-update">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.update</span></code><a class="headerlink" href="#brew-update" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.update</span></code><a class="headerlink" href="#brew-update" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -282,7 +284,7 @@
 </div>
 </div>
 <div class="section" id="brew-upgrade">
-<h2><code class="code docutils literal notranslate"><span class="pre">brew.upgrade</span></code><a class="headerlink" href="#brew-upgrade" title="Permalink to this headline">¶</a></h2>
+<span id="operations-brew-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.upgrade</span></code><a class="headerlink" href="#brew-upgrade" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -349,16 +351,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

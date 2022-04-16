@@ -4,6 +4,11 @@ Windows_Files Operations
 
 The windows_files module handles windows filesystem state, file uploads and template generation.
 
+
+Facts used in these operations: :ref:`facts:windows.Date`, :ref:`facts:windows_files.Directory`, :ref:`facts:windows_files.File`, :ref:`facts:windows_files.Link`, :ref:`facts:windows_files.Md5File`, :ref:`facts:windows_files.Sha1File`, :ref:`facts:windows_files.Sha256File`.
+
+.. _operations:windows_files.directory:
+
 :code:`windows_files.directory`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -24,30 +29,32 @@ Add/remove/update directories.
 + TODO: mode: permissions of the folder
 + TODO: recursive: recursively apply user/group/mode
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     files.directory(
-        name='Ensure the c:\temp\dir_that_we_want_removed is removed',
-        path='c:\temp\dir_that_we_want_removed',
+        name="Ensure the c:\temp\dir_that_we_want_removed is removed",
+        path="c:\temp\dir_that_we_want_removed",
         present=False,
     )
 
     files.directory(
-        name='Ensure c:\temp\foo\foo_dir exists',
-        path='c:\temp\foo\foo_dir',
+        name="Ensure c:\temp\foo\foo_dir exists",
+        path="c:\temp\foo\foo_dir",
         recursive=True,
     )
 
     # multiple directories
-    dirs = ['c:\temp\foo_dir1', 'c:\temp\foo_dir2']
+    dirs = ["c:\temp\foo_dir1", "c:\temp\foo_dir2"]
     for dir in dirs:
         files.directory(
-            name='Ensure the directory `{}` exists'.format(dir),
+            name="Ensure the directory `{}` exists".format(dir),
             path=dir,
         )
 
+
+.. _operations:windows_files.download:
 
 :code:`windows_files.download`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,20 +75,22 @@ Download files from remote locations using curl or wget.
 + **mode**: permissions of the files
 + **cache_time**: if the file exists already, re-download after this time (in seconds)
 + **force**: always download the file, even if it already exists
-+ **sha**256sum: sha256 hash to checksum the downloaded file against
-+ **sha**1sum: sha1 hash to checksum the downloaded file against
-+ **md**5sum: md5 hash to checksum the downloaded file against
++ **sha256sum**: sha256 hash to checksum the downloaded file against
++ **sha1sum**: sha1 hash to checksum the downloaded file against
++ **md5sum**: md5 hash to checksum the downloaded file against
 
-Example:
+**Example:**
 
 .. code:: python
 
     winows_files.download(
-        name='Download the Docker repo file',
-        src='https://download.docker.com/linux/centos/docker-ce.repo',
-        dest='C:\docker',
+        name="Download the Docker repo file",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
+        dest="C:\docker",
     )
 
+
+.. _operations:windows_files.file:
 
 :code:`windows_files.file`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,16 +118,18 @@ Add/remove/update files.
     user & group as passed to ``files.put``. The mode will *not* be copied over,
     if this is required call ``files.directory`` separately.
 
-Example:
+**Example:**
 
 .. code:: python
 
     files.file(
-        name='Create c:\temp\hello.txt',
-        path='c:\temp\hello.txt',
+        name="Create c:\temp\hello.txt",
+        path="c:\temp\hello.txt",
         touch=True,
     )
 
+
+.. _operations:windows_files.link:
 
 :code:`windows_files.link`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,17 +161,19 @@ Source changes:
     If the link exists and points to a different target, pyinfra will remove it and
     recreate a new one pointing to then new target.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # simple example showing how to link to a file
     files.link(
-        name=r'Create link C:\issue2 that points to C:\issue',
-        path=r'C:\issue2',
-        target=r'C\issue',
+        name=r"Create link C:\issue2 that points to C:\issue",
+        path=r"C:\issue2",
+        target=r"C\issue",
     )
 
+
+.. _operations:windows_files.put:
 
 :code:`windows_files.put`
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,14 +206,14 @@ Note:
     This operation is not suitable for large files as it may involve copying
     the file before uploading it.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Note: This requires a 'files/motd' file on the local filesystem
     files.put(
-        name='Update the message of the day file',
-        src='data/content.json',
-        dest='C:\data\content.json'
+        name="Update the message of the day file",
+        src="data/content.json",
+        dest="C:\data\content.json",
     )
 

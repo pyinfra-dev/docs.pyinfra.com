@@ -10,7 +10,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
@@ -64,9 +64,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -171,8 +173,9 @@
   <div class="section" id="systemd-operations">
 <h1>Systemd Operations<a class="headerlink" href="#systemd-operations" title="Permalink to this headline">¶</a></h1>
 <p>Manage systemd services.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdenabled"><span class="std std-ref">systemd.SystemdEnabled</span></a>, <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdstatus"><span class="std std-ref">systemd.SystemdStatus</span></a>.</p>
 <div class="section" id="systemd-daemon-reload">
-<h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Permalink to this headline">¶</a></h2>
+<span id="operations-systemd-daemon-reload"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Permalink to this headline">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -188,7 +191,7 @@
 </ul>
 </div>
 <div class="section" id="systemd-service">
-<h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Permalink to this headline">¶</a></h2>
+<span id="operations-systemd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Permalink to this headline">¶</a></h2>
 <p>Manage the state of systemd managed units.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
     <span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -208,18 +211,18 @@
 <li><strong>machine</strong>: the machine name to connect to</li>
 <li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
 </ul>
-<p>Example:</p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Restart and enable the dnsmasq service&#39;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s1">&#39;dnsmasq.service&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Restart and enable the dnsmasq service&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;dnsmasq.service&quot;</span><span class="p">,</span>
     <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">restarted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Enable logrotate timer&#39;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s1">&#39;logrotate.timer&#39;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable logrotate timer&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;logrotate.timer&quot;</span><span class="p">,</span>
     <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
@@ -283,16 +286,18 @@
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:latest", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:latest", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

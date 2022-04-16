@@ -1,6 +1,11 @@
 Zypper Operations
 -----------------
 
+
+Facts used in these operations: :ref:`facts:rpm.RpmPackages`.
+
+.. _operations:zypper.packages:
+
 :code:`zypper.packages`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -27,24 +32,26 @@ Install/remove/update zypper packages & updates.
 Versions:
     Package versions can be pinned like zypper: ``<pkg>=<version>``
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Update package list and install packages
     zypper.packages(
-        name='Install Vim and Vim enhanced',
-        packages=['vim-enhanced', 'vim'],
+        name="Install Vim and Vim enhanced",
+        packages=["vim-enhanced", "vim"],
         update=True,
     )
 
     # Install the latest versions of packages (always check)
     zypper.packages(
-        name='Install latest Vim',
-        packages=['vim'],
+        name="Install latest Vim",
+        packages=["vim"],
         latest=True,
     )
 
+
+.. _operations:zypper.repo:
 
 :code:`zypper.repo`
 ~~~~~~~~~~~~~~~~~~~
@@ -55,7 +62,7 @@ Add/remove/update zypper repositories.
 
     zypper.repo(
         src, baseurl=None, present=True, description=None, enabled=True, gpgcheck=True,
-        gpgkey=None, type='rpm-md',
+        gpgkey=None, type="rpm-md",
     )
 
 + **src**: URL or name for the ``.repo``   file
@@ -72,23 +79,25 @@ Add/remove/update zypper repositories.
     for manual construction of repository files. Use a URL to download and
     install remote repository files.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Download a repository file
     zypper.repo(
-        name='Install container virtualization repo via URL',
-        src='https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo',
+        name="Install container virtualization repo via URL",
+        src="https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo",
     )
 
     # Create the repository file from baseurl/etc
     zypper.repo(
-        name='Install container virtualization repo',
-        src=='Virtualization:containers (openSUSE_Tumbleweed)',
-        baseurl='https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/',
+        name="Install container virtualization repo",
+        src=="Virtualization:containers (openSUSE_Tumbleweed)",
+        baseurl="https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/",
     )
 
+
+.. _operations:zypper.rpm:
 
 :code:`zypper.rpm`
 ~~~~~~~~~~~~~~~~~~
@@ -106,15 +115,17 @@ URL sources with ``present=False``:
     If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
     package as the file won't exist until mid-deploy.
 
-Example:
+**Example:**
 
 .. code:: python
 
     zypper.rpm(
-       name='Install task from rpm',
-       src='https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm'
+       name="Install task from rpm",
+       src="https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm",
     )
 
+
+.. _operations:zypper.update:
 
 :code:`zypper.update`
 ~~~~~~~~~~~~~~~~~~~~~

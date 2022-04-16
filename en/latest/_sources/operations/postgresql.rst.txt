@@ -15,6 +15,11 @@ All operations in this module take four optional arguments:
 See example/postgresql.py for detailed example
 
 
+
+Facts used in these operations: :ref:`facts:postgresql.PostgresqlDatabases`, :ref:`facts:postgresql.PostgresqlRoles`.
+
+.. _operations:postgresql.database:
+
 :code:`postgresql.database`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -44,18 +49,20 @@ Updates:
     create or drop databases, but not alter them (if the db exists this
     operation will make no changes).
 
-Example:
+**Example:**
 
 .. code:: python
 
     postgresql.database(
-        name='Create the pyinfra_stuff database',
-        database='pyinfra_stuff',
-        owner='pyinfra',
-        encoding='UTF8',
-        sudo_user='postgres',
+        name="Create the pyinfra_stuff database",
+        database="pyinfra_stuff",
+        owner="pyinfra",
+        encoding="UTF8",
+        sudo_user="postgres",
     )
 
+
+.. _operations:postgresql.dump:
 
 :code:`postgresql.dump`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,17 +77,19 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
 + **database**: name of the database to dump
 + **psql_***: global module arguments, see above
 
-Example:
+**Example:**
 
 .. code:: python
 
     postgresql.dump(
-        name='Dump the pyinfra_stuff database',
-        dest='/tmp/pyinfra_stuff.dump',
-        database='pyinfra_stuff',
-        sudo_user='postgres',
+        name="Dump the pyinfra_stuff database",
+        dest="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff",
+        sudo_user="postgres",
     )
 
+
+.. _operations:postgresql.load:
 
 :code:`postgresql.load`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,17 +104,19 @@ Load ``.sql`` file into a database.
 + **database**: name of the database to import into
 + **psql_***: global module arguments, see above
 
-Example:
+**Example:**
 
 .. code:: python
 
     postgresql.load(
-        name='Import the pyinfra_stuff dump into pyinfra_stuff_copy',
-        src='/tmp/pyinfra_stuff.dump',
-        database='pyinfra_stuff_copy',
-        sudo_user='postgres',
+        name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
+        src="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff_copy",
+        sudo_user="postgres",
     )
 
+
+.. _operations:postgresql.role:
 
 :code:`postgresql.role`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,19 +148,21 @@ Updates:
     create or drop roles, but not alter them (if the role exists this
     operation will make no changes).
 
-Example:
+**Example:**
 
 .. code:: python
 
     postgresql.role(
-        name='Create the pyinfra PostgreSQL role',
-        role='pyinfra',
-        password='somepassword',
+        name="Create the pyinfra PostgreSQL role",
+        role="pyinfra",
+        password="somepassword",
         superuser=True,
         login=True,
-        sudo_user='postgres',
+        sudo_user="postgres",
     )
 
+
+.. _operations:postgresql.sql:
 
 :code:`postgresql.sql`
 ~~~~~~~~~~~~~~~~~~~~~~
