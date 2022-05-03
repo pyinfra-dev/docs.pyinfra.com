@@ -119,10 +119,10 @@
 <h1>Using the API<a class="headerlink" href="#using-the-api" title="Permalink to this headline">¶</a></h1>
 <p>In addition to <a class="reference internal" href="../cli.html"><span class="doc">the pyinfra CLI</span></a>, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> provides a full Python API. As of <cite>v1</cite> this API can be considered mostly stable. An example of how to use the API is embedded below. See also <a class="reference internal" href="reference.html"><span class="doc">API Reference</span></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">monkey</span>  <span class="c1"># noqa</span>
+
 <span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>  <span class="c1"># noqa async things (speed++, optional)</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>  <span class="c1"># noqa: E402, I100</span>
-
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>  <span class="c1"># noqa: E402</span>
 
 <span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">BaseStateCallback</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>  <span class="c1"># noqa: E402</span>
@@ -137,20 +137,20 @@
 
 <span class="k">class</span> <span class="nc">StateCallback</span><span class="p">(</span><span class="n">BaseStateCallback</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">host_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Host connected: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Host connected: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">operation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start operation: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start operation: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">operation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;End operation: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;End operation: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
 
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
 
 
 <span class="c1"># Make our hosts and groups data (using the Vagrant connector in this case)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading Vagrant config...&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading Vagrant config...&quot;</span><span class="p">)</span>
 <span class="n">hosts</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">([],</span> <span class="p">{}))</span>
 
@@ -177,40 +177,40 @@
 
 
 <span class="c1"># Connect to all the hosts</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connecting...&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connecting...&quot;</span><span class="p">)</span>
 <span class="n">connect_all</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
 
 <span class="c1"># Start adding operations</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Generating operations...&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating operations...&quot;</span><span class="p">)</span>
 <span class="n">add_op</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span>
     <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">home</span><span class="o">=</span><span class="s1">&#39;/home/pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">shell</span><span class="o">=</span><span class="s1">&#39;/bin/bash&#39;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">home</span><span class="o">=</span><span class="s2">&quot;/home/pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">shell</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">add_op</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span>
     <span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">,</span>
-    <span class="n">group</span><span class="o">=</span><span class="s1">&#39;pyinfra2&#39;</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Ensure pyinfra2 group exists&#39;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra2&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure pyinfra2 group exists&quot;</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="c1"># Add an op only to a subset of hosts</span>
     <span class="c1"># (in this case, the inventory.centos group)</span>
-    <span class="n">host</span><span class="o">=</span><span class="n">inventory</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s1">&#39;centos&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[]),</span>
+    <span class="n">host</span><span class="o">=</span><span class="n">inventory</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">&quot;centos&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[]),</span>
 <span class="p">)</span>
 
 <span class="c1"># Ensure the state of files</span>
 <span class="n">add_op</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span>
     <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/var/log/pyinfra.log&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">group</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;644&#39;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/var/log/pyinfra.log&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;644&quot;</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -218,10 +218,10 @@
 <span class="n">add_op</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span>
     <span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/tmp/email&#39;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">group</span><span class="o">=</span><span class="s1">&#39;pyinfra&#39;</span><span class="p">,</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;755&#39;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/tmp/email&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;755&quot;</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -229,8 +229,8 @@
 <span class="n">add_op</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span>
     <span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s1">&#39;files/motd&#39;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;/home/vagrant/motd&#39;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/motd&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/home/vagrant/motd&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -239,7 +239,7 @@
 
 
 <span class="c1"># We can also get facts for all the hosts</span>
-<span class="n">facts</span> <span class="o">=</span> <span class="n">get_facts</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s1">&#39;os&#39;</span><span class="p">)</span>
+<span class="n">facts</span> <span class="o">=</span> <span class="n">get_facts</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">jsonify</span><span class="p">(</span><span class="n">facts</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 </div>
