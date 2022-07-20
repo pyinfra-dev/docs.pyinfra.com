@@ -232,7 +232,7 @@
 <p>Download files from remote locations using <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
     <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sha256sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">sha1sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sha1sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -247,6 +247,8 @@
 <li><strong>sha256sum</strong>: sha256 hash to checksum the downloaded file against</li>
 <li><strong>sha1sum</strong>: sha1 hash to checksum the downloaded file against</li>
 <li><strong>md5sum</strong>: md5 hash to checksum the downloaded file against</li>
+<li><strong>headers</strong>: optional dictionary of headers to set for the HTTP request</li>
+<li><strong>insecure</strong>: disable SSL verification for the HTTP request</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
@@ -474,7 +476,7 @@ recreate a new one pointing to then new target.</dd>
 <li><strong>dest</strong>: remote filename to upload to</li>
 <li><strong>user</strong>: user to own the files</li>
 <li><strong>group</strong>: group to own the files</li>
-<li><strong>mode</strong>: permissions of the files</li>
+<li><strong>mode</strong>: permissions of the files, use <code class="docutils literal notranslate"><span class="pre">True</span></code> to copy the local file</li>
 <li><strong>add_deploy_dir</strong>: src is relative to the deploy directory</li>
 <li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
 <li><strong>force</strong>: always upload the file, even if the remote copy matches</li>
@@ -483,6 +485,8 @@ recreate a new one pointing to then new target.</dd>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">dest</span></code>:</dt><dd>If this is a directory that already exists on the remote side, the local
 file will be uploaded to that directory with the same filename.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mode</span></code>:</dt><dd>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> the permissions of the local file are applied to the
+remote file after the upload is complete.</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
 if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>

@@ -132,6 +132,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-shell"><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-user"><code class="code docutils literal notranslate"><span class="pre">server.user</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-user-authorized-keys"><code class="code docutils literal notranslate"><span class="pre">server.user_authorized_keys</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-wait"><code class="code docutils literal notranslate"><span class="pre">server.wait</span></code></a></li>
 </ul>
 </li>
@@ -536,6 +537,34 @@ a public key file which <code class="docutils literal notranslate"><span class="
         <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
         <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="server-user-authorized-keys">
+<span id="operations-server-user-authorized-keys"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.user_authorized_keys</span></code><a class="headerlink" href="#server-user-authorized-keys" title="Permalink to this headline">¶</a></h2>
+<p>Manage <cite>authorized_keys</cite> of system users.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span>
+    <span class="n">user</span><span class="p">,</span> <span class="n">public_keys</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delete_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">authorized_key_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">authorized_key_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>user</strong>: name of the user to ensure</li>
+<li><strong>public_keys</strong>: list of public keys to attach to this user, <code class="docutils literal notranslate"><span class="pre">home</span></code> must be specified</li>
+<li><strong>group</strong>: the users primary group</li>
+<li><strong>delete_keys</strong>: whether to remove any keys not specified in <code class="docutils literal notranslate"><span class="pre">public_keys</span></code></li>
+</ul>
+<dl class="docutils">
+<dt>Public keys:</dt><dd>These can be provided as strings containing the public key or as a path to
+a public key file which <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will read.</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user has a public key&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
+    <span class="n">public_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ed25519...&quot;</span><span class="p">],</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -451,6 +451,40 @@ Public keys:
         )
 
 
+.. _operations:server.user_authorized_keys:
+
+:code:`server.user_authorized_keys`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Manage `authorized_keys` of system users.
+
+.. code:: python
+
+    server.user_authorized_keys(
+        user, public_keys, group=None, delete_keys=False, authorized_key_directory=None,
+        authorized_key_filename=None,
+    )
+
++ **user**: name of the user to ensure
++ **public_keys**: list of public keys to attach to this user, ``home`` must be specified
++ **group**: the users primary group
++ **delete_keys**: whether to remove any keys not specified in ``public_keys``
+
+Public keys:
+    These can be provided as strings containing the public key or as a path to
+    a public key file which ``pyinfra`` will read.
+
+**Examples:**
+
+.. code:: python
+
+    server.user_authorized_keys(
+        name="Ensure user has a public key",
+        user="kevin",
+        public_keys=["ed25519..."],
+    )
+
+
 .. _operations:server.wait:
 
 :code:`server.wait`
