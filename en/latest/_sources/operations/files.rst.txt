@@ -5,7 +5,7 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
 
 .. _operations:files.directory:
 
@@ -139,6 +139,41 @@ Add/remove/update files.
         group="root",
         touch=True,
         create_remote_dir=True,
+    )
+
+
+.. _operations:files.flags:
+
+:code:`files.flags`
+~~~~~~~~~~~~~~~~~~~
+
+Set/clear file flags.
+
+.. code:: python
+
+    files.flags(path, flags=None, present=True)
+
++ **path**: path of the remote folder
++ **flags**: a list of the file flags to be set or cleared
++ **present**: whether the flags should be set or cleared
+
+**Examples:**
+
+.. code:: python
+
+    files.flags(
+        name="Ensure ~/Library is visible in the GUI",
+        path="~/Library",
+        flags="hidden",
+        present=False
+    )
+
+    files.directory(
+        name="Ensure no one can change these files",
+        path="/something/very/important",
+        flags=["uchg", "schg"],
+        present=True,
+        _sudo=True
     )
 
 
