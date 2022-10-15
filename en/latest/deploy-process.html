@@ -114,7 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#interdependent-operations">Interdependent operations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-operations">Dynamic operations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#loops">Loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loops-cycle-errors">Loops &amp; Cycle Errors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#deploy-state">Deploy State</a></li>
@@ -245,36 +245,41 @@
 <p>Sometimes it is impossible to know all the facts before executing operations. For example the unique identifier for the server that a package generates, which happens inside an operation. This requires reading this state (the identifier) from the server <em>during</em> the deploy.</p>
 <p>See the <a class="reference internal" href="examples/dynamic_execution_deploy.html"><span class="doc">Dynamic Execution during Deploy</span></a> example.</p>
 </div>
-<div class="section" id="loops">
-<h3>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h3>
-<p>In CLI mode <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses <em>line numbers</em> to determine the order in which operations are executed. While this is very effective and executing in an order users would expect, loops are an exception. <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> inclues a workaround for this with the <code class="docutils literal notranslate"><span class="pre">state.preserve_loop_order</span></code> function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># list of items</span>
-<span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
-
-<span class="c1"># This loop will be executed as:</span>
-<span class="c1"># &gt; item: a</span>
-<span class="c1"># &gt; item: b</span>
-<span class="c1"># &gt; item: c</span>
-<span class="c1"># &gt; end item: a</span>
-<span class="c1"># &gt; end item: b</span>
-<span class="c1"># &gt; end item: c</span>
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;end item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
-
-
-<span class="c1"># This loop will be executed as:</span>
-<span class="c1"># &gt; item: a</span>
-<span class="c1"># &gt; end item: a</span>
-<span class="c1"># &gt; item: b</span>
-<span class="c1"># &gt; end item: b</span>
-<span class="c1"># &gt; item: c</span>
-<span class="c1"># &gt; end item: c</span>
-<span class="k">with</span> <span class="n">state</span><span class="o">.</span><span class="n">preserve_loop_order</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="k">as</span> <span class="n">loop_items</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">loop_items</span><span class="p">():</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;end item: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)},</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
+<div class="section" id="loops-cycle-errors">
+<h3>Loops &amp; Cycle Errors<a class="headerlink" href="#loops-cycle-errors" title="Permalink to this headline">¶</a></h3>
+<p>In CLI mode <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses a single DAG to determine the order in which operations are executed. While this is very effective and executing in an order users would expect, certain loops result in cycles within the DAG which raise an error. This can be fixed using the <code class="docutils literal notranslate"><span class="pre">host.loop</span></code> function as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Do a thing&quot;</span><span class="p">,</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="section" id="technical-walk-through">
+<h4>Technical walk through<a class="headerlink" href="#technical-walk-through" title="Permalink to this headline">¶</a></h4>
+<p>In the below section we’ll walk through an example of the problem described above by looking at operations that would generate a cycle and the resulting DAG, and then the fix. First up let’s consider this example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This results in the following DAG order for each host - note that <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> does not know the loop position, so when an operation is seen twice on the same line, it just appends a number, like so:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># @local: A -&gt; B -&gt; A-1 -&gt; B-1</span>
+<span class="c1"># Other:       B -&gt; A   -&gt; B-1</span>
+</pre></div>
+</div>
+<p>The probelm is that combining these two means A needs B and B needs A, causing a loop and raising an error. We can use the <code class="docutils literal notranslate"><span class="pre">host.loop</span></code> function to prevent this occurring by providing the loop position to <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ls B&quot;</span><span class="p">,</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>
+
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ls C&quot;</span><span class="p">,</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the loop position is provided as a hint to <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>, it can resolve the DAGs correctly:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># @local: 0A -&gt; 0B -&gt; 1A -&gt; 1B</span>
+<span class="c1"># Other:        0B -&gt; 1A -&gt; 1B</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
