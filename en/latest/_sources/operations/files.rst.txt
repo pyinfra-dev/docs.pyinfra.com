@@ -5,7 +5,85 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+
+.. _operations:files.block:
+
+:code:`files.block`
+~~~~~~~~~~~~~~~~~~~
+
+Ensure content, surrounded by the appropriate markers, is present (or not) in the file.
+
+.. code:: python
+
+    files.block(
+        path, content=None, present=True, line=None, backup=False, escape_regex_characters=False,
+        before=False, after=False, marker=None, begin=None, end=None,
+    )
+
++ **path**: target remote file
++ **content**: what should be present in the file (between markers).
++ **present**: whether the content should be present in the file
++ **before**: should the content be added before ``line`` if it doesn't exist
++ **after**: should the content be added after ``line`` if it doesn't exist
++ **line**: regex before or after which the content should be added if it doesn't exist.
++ **backup**: whether to backup the file (see ``files.line``). Default False.
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
++ **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
++ **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
+
+Content appended if ``line`` not found in the file
+    If ``content`` is not in the file but is required (``present=True``) and ``line`` is not
+    found in the file, ``content`` (surrounded by markers) will be appended to the file.  The
+    file is created if necessary.
+
+Content prepended or appended if ``line`` not specified
+    If ``content`` is not in the file but is required and ``line`` was not provided the content
+    will either be  prepended to the file (if both ``before`` and ``after``
+    are ``True``) or appended to the file (if both are ``False``).
+
+Removal ignores ``content`` and ``line``
+
+**Examples:**
+
+.. code:: python
+
+    # add entry to /etc/host
+    files.marked_block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one",
+        before=True,
+        regex=".*localhost",
+    )
+
+    # have two entries in /etc/host
+    files.marked_block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
+        before=True,
+        regex=".*localhost",
+    )
+
+    # remove marked entry from /etc/hosts
+    files.marked_block(
+        name="remove all 10.* addresses from /etc/hosts",
+        path="/etc/hosts",
+        present=False
+    )
+
+    # add out of date warning to web page
+    files.marked_block(
+        name="add out of date warning to web page",
+        path="/var/www/html/something.html",
+        content= "<p>Warning: this page is out of date.</p>",
+        regex=".*<body>.*",
+        after=True
+        marker="<!-- {mark} PYINFRA BLOCK -->",
+    )
+
 
 .. _operations:files.directory:
 

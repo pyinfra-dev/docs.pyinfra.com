@@ -103,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Files Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#files-block"><code class="code docutils literal notranslate"><span class="pre">files.block</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-directory"><code class="code docutils literal notranslate"><span class="pre">files.directory</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-download"><code class="code docutils literal notranslate"><span class="pre">files.download</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-file"><code class="code docutils literal notranslate"><span class="pre">files.file</span></code></a></li>
@@ -185,7 +186,76 @@
   <div class="section" id="files-operations">
 <h1>Files Operations<a class="headerlink" href="#files-operations" title="Permalink to this headline">¶</a></h1>
 <p>The files operations handles filesystem state, file uploads and template generation.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findfiles"><span class="std std-ref">files.FindFiles</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-flags"><span class="std std-ref">files.Flags</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-md5file"><span class="std std-ref">files.Md5File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha1file"><span class="std std-ref">files.Sha1File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha256file"><span class="std std-ref">files.Sha256File</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-block"><span class="std std-ref">files.Block</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findfiles"><span class="std std-ref">files.FindFiles</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-flags"><span class="std std-ref">files.Flags</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-md5file"><span class="std std-ref">files.Md5File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha1file"><span class="std std-ref">files.Sha1File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha256file"><span class="std std-ref">files.Sha256File</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<div class="section" id="files-block">
+<span id="operations-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.block</span></code><a class="headerlink" href="#files-block" title="Permalink to this headline">¶</a></h2>
+<p>Ensure content, surrounded by the appropriate markers, is present (or not) in the file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">before</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>path</strong>: target remote file</li>
+<li><strong>content</strong>: what should be present in the file (between markers).</li>
+<li><strong>present</strong>: whether the content should be present in the file</li>
+<li><strong>before</strong>: should the content be added before <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</li>
+<li><strong>after</strong>: should the content be added after <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</li>
+<li><strong>line</strong>: regex before or after which the content should be added if it doesn’t exist.</li>
+<li><strong>backup</strong>: whether to backup the file (see <code class="docutils literal notranslate"><span class="pre">files.line</span></code>). Default False.</li>
+<li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
+<li><strong>marker</strong>: the base string used to mark the text.  Default is <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">{mark}</span> <span class="pre">PYINFRA</span> <span class="pre">BLOCK</span></code></li>
+<li><strong>begin</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker before the content. Default is <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code></li>
+<li><strong>end</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker after the content. Default is <code class="docutils literal notranslate"><span class="pre">END</span></code></li>
+</ul>
+<dl class="docutils">
+<dt>Content appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not found in the file</dt><dd>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required (<code class="docutils literal notranslate"><span class="pre">present=True</span></code>) and <code class="docutils literal notranslate"><span class="pre">line</span></code> is not
+found in the file, <code class="docutils literal notranslate"><span class="pre">content</span></code> (surrounded by markers) will be appended to the file.  The
+file is created if necessary.</dd>
+<dt>Content prepended or appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not specified</dt><dd>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required and <code class="docutils literal notranslate"><span class="pre">line</span></code> was not provided the content
+will either be  prepended to the file (if both <code class="docutils literal notranslate"><span class="pre">before</span></code> and <code class="docutils literal notranslate"><span class="pre">after</span></code>
+are <code class="docutils literal notranslate"><span class="pre">True</span></code>) or appended to the file (if both are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</dd>
+</dl>
+<p>Removal ignores <code class="docutils literal notranslate"><span class="pre">content</span></code> and <code class="docutils literal notranslate"><span class="pre">line</span></code></p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># add entry to /etc/host</span>
+<span class="n">files</span><span class="o">.</span><span class="n">marked_block</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add IP address for red server&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+    <span class="n">content</span><span class="o">=</span><span class="s2">&quot;10.0.0.1 mars-one&quot;</span><span class="p">,</span>
+    <span class="n">before</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*localhost&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># have two entries in /etc/host</span>
+<span class="n">files</span><span class="o">.</span><span class="n">marked_block</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add IP address for red server&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+    <span class="n">content</span><span class="o">=</span><span class="s2">&quot;10.0.0.1 mars-one</span><span class="se">\n</span><span class="s2">10.0.0.2 mars-two&quot;</span><span class="p">,</span>
+    <span class="n">before</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*localhost&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># remove marked entry from /etc/hosts</span>
+<span class="n">files</span><span class="o">.</span><span class="n">marked_block</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;remove all 10.* addresses from /etc/hosts&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># add out of date warning to web page</span>
+<span class="n">files</span><span class="o">.</span><span class="n">marked_block</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add out of date warning to web page&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/var/www/html/something.html&quot;</span><span class="p">,</span>
+    <span class="n">content</span><span class="o">=</span> <span class="s2">&quot;&lt;p&gt;Warning: this page is out of date.&lt;/p&gt;&quot;</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;.*&lt;body&gt;.*&quot;</span><span class="p">,</span>
+    <span class="n">after</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&lt;!-- </span><span class="si">{mark}</span><span class="s2"> PYINFRA BLOCK --&gt;&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="files-directory">
 <span id="operations-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.directory</span></code><a class="headerlink" href="#files-directory" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update directories.</p>

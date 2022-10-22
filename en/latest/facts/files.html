@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Files Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#files-block"><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-directory"><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-file"><code class="code docutils literal notranslate"><span class="pre">files.File</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-finddirectories"><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code></a></li>
@@ -188,6 +189,23 @@
 <h1>Files Facts<a class="headerlink" href="#files-facts" title="Permalink to this headline">¶</a></h1>
 <p>The files facts provide information about the filesystem and it’s contents on the target host.</p>
 <p>See also: <a class="reference internal" href="../operations/files.html"><span class="doc">Files Operations</span></a>.</p>
+<div class="section" id="files-block">
+<span id="facts-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code><a class="headerlink" href="#files-block" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Block</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a (possibly empty) list of the lines found between the markers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s2">&quot;xray: one&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alpha: two&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> doesn’t exist</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> exists but the markers are not found</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">[]</span></code></dd>
+</dl>
+</div>
 <div class="section" id="files-directory">
 <span id="facts-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code><a class="headerlink" href="#files-directory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
