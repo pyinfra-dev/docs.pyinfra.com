@@ -270,19 +270,19 @@ pyinfra @ssh/my-host.net ...
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.check_can_rsync">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">check_can_rsync</code><span class="sig-paren">(</span><em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.check_can_rsync" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">check_can_rsync</code><span class="sig-paren">(</span><em>host: Host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.check_can_rsync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.connect">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>state</em>, <em>host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to a single host. Returns the SSH client if successful. Stateless by
 design so can be run in parallel.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.get_file">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">get_file</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>remote_filename</em>, <em>filename_or_io</em>, <em>remote_temp_filename=None</em>, <em>sudo=False</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.get_file" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">get_file</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>remote_filename: str</em>, <em>filename_or_io</em>, <em>remote_temp_filename=None</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.get_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a file from the remote host using SFTP. Supports download files
 with sudo by copying to a temporary directory with read permissions,
 downloading and then removing the copy.</p>
@@ -295,19 +295,19 @@ downloading and then removing the copy.</p>
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.put_file">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">put_file</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>filename_or_io</em>, <em>remote_filename</em>, <em>remote_temp_filename=None</em>, <em>sudo=False</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.put_file" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">put_file</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>filename_or_io</em>, <em>remote_filename</em>, <em>remote_temp_filename=None</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.put_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload file-ios to the specified host using SFTP. Supports uploading files
 with sudo by uploading to a temporary directory then moving &amp; chowning.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.rsync">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">rsync</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>src</em>, <em>dest</em>, <em>flags</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>sudo=False</em>, <em>sudo_user=None</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.rsync" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">rsync</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>src: str</em>, <em>dest: str</em>, <em>flags</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.rsync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.connectors.ssh.run_shell_command">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>command</em>, <em>get_pty=False</em>, <em>timeout=None</em>, <em>stdin=None</em>, <em>success_exit_codes=None</em>, <em>print_output=False</em>, <em>print_input=False</em>, <em>return_combined_output=False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.run_shell_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>command</em>, <em>get_pty: bool = False</em>, <em>timeout=None</em>, <em>stdin=None</em>, <em>success_exit_codes=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>return_combined_output: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a command on the specified host.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first simple">

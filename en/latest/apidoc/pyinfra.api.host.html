@@ -171,7 +171,7 @@
 <span id="pyinfra-api-host-module"></span><h1>pyinfra.api.host module<a class="headerlink" href="#module-pyinfra.api.host" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyinfra.api.host.Host">
-<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">Host</code><span class="sig-paren">(</span><em>name</em>, <em>inventory</em>, <em>groups</em>, <em>executor=&lt;module 'pyinfra.connectors.ssh' from '/home/runner/work/pyinfra/pyinfra/pyinfra/connectors/ssh.py'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">Host</code><span class="sig-paren">(</span><em>name: str</em>, <em>inventory: Inventory</em>, <em>groups</em>, <em>executor=&lt;module 'pyinfra.connectors.ssh' from '/home/runner/work/pyinfra/pyinfra/pyinfra/connectors/ssh.py'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents a target host. Thin class that links up to facts and host/group
 data.</p>
@@ -182,7 +182,7 @@ data.</p>
 
 <dl class="method">
 <dt id="pyinfra.api.host.Host.connect">
-<code class="descname">connect</code><span class="sig-paren">(</span><em>reason=None</em>, <em>show_errors=True</em>, <em>raise_exceptions=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connect</code><span class="sig-paren">(</span><em>reason=None</em>, <em>show_errors: bool = True</em>, <em>raise_exceptions: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.connect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -216,11 +216,6 @@ data.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyinfra.api.host.Host.current_op_global_kwargs">
-<code class="descname">current_op_global_kwargs</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_op_global_kwargs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="pyinfra.api.host.Host.current_op_hash">
 <code class="descname">current_op_hash</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.current_op_hash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -232,7 +227,7 @@ data.</p>
 
 <dl class="method">
 <dt id="pyinfra.api.host.Host.deploy">
-<code class="descname">deploy</code><span class="sig-paren">(</span><em>name</em>, <em>kwargs</em>, <em>data</em>, <em>in_deploy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.deploy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deploy</code><span class="sig-paren">(</span><em>name: str</em>, <em>kwargs</em>, <em>data</em>, <em>in_deploy: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.deploy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps a group of operations as a deploy, this should not be used
 directly, instead use <code class="docutils literal notranslate"><span class="pre">pyinfra.api.deploy.deploy</span></code>.</p>
 </dd></dl>
@@ -328,11 +323,6 @@ directly, instead use <code class="docutils literal notranslate"><span class="pr
 <code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.api.host.Host.state">
-<code class="descname">state</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.Host.state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="pyinfra.api.host.Host.style_print_prefix">
 <code class="descname">style_print_prefix</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.Host.style_print_prefix" title="Permalink to this definition">¶</a></dt>
@@ -342,7 +332,7 @@ directly, instead use <code class="docutils literal notranslate"><span class="pr
 
 <dl class="class">
 <dt id="pyinfra.api.host.HostData">
-<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">HostData</code><span class="sig-paren">(</span><em>host</em>, <em>*datas</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.HostData" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyinfra.api.host.</code><code class="descname">HostData</code><span class="sig-paren">(</span><em>host: pyinfra.api.host.Host</em>, <em>*datas</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.HostData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Combines multiple AttrData’s to search for attributes.</p>
 <dl class="method">
@@ -352,19 +342,14 @@ directly, instead use <code class="docutils literal notranslate"><span class="pr
 
 <dl class="method">
 <dt id="pyinfra.api.host.HostData.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>key</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.HostData.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyinfra.api.host.HostData.override_datas">
-<code class="descname">override_datas</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.host.HostData.override_datas" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>key: str</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.HostData.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="pyinfra.api.host.extract_callable_datas">
-<code class="descclassname">pyinfra.api.host.</code><code class="descname">extract_callable_datas</code><span class="sig-paren">(</span><em>datas</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.host.extract_callable_datas" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyinfra.api.host.</code><code class="descname">extract_callable_datas</code><span class="sig-paren">(</span><em>datas: List[Union[Callable[[...], Any], Any]]</em><span class="sig-paren">)</span> &#x2192; Generator[Any, Any, Any]<a class="headerlink" href="#pyinfra.api.host.extract_callable_datas" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
