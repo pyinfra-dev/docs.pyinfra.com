@@ -90,11 +90,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Global Arguments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#privilege-user-escalation">Privilege &amp; user escalation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shell-control-features">Shell control &amp; features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operation-meta-callbacks-not-available-in-facts">Operation meta &amp; callbacks (not available in facts)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#execution-strategy-not-available-in-facts-must-be-the-same-for-all-hosts">Execution strategy (not available in facts, must be the same for all hosts)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-meta-callbacks">Operation meta &amp; callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution-strategy">Execution strategy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul>
@@ -138,58 +139,170 @@
           
   <div class="section" id="global-arguments">
 <h1>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this headline">¶</a></h1>
-<p>In addition to each operations having its own arguments, there are a number of keyword arguments available in all operations and deploys.</p>
+<p>In addition to each operations having its own arguments, there are a number of keyword arguments available in all facts, operations and deploys.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">With the exception of <code class="docutils literal notranslate"><span class="pre">name</span></code> these are prefixed with <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid clashes with other operation and deploy arguments.</p>
 </div>
 <div class="section" id="privilege-user-escalation">
 <h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">_sudo=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_use_sudo_password=False</span></code>: Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</li>
-<li><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_su_user</span></code>: Execute/apply any changes with this user using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_use_su_login=False</span></code>: Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_preserve_su_env=False</span></code>: Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code>: Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_doas=False</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code>: Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code> as a non-root user.</li>
-</ul>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_sudo=False</span></code></dt><dd>Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code></dt><dd>Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as a non-root user.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_use_sudo_login=False</span></code></dt><dd>Execute <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with a login shell.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_use_sudo_password=False</span></code></dt><dd>Whether to use a password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (will ask).</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env=False</span></code></dt><dd>Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_su_user</span></code></dt><dd>Execute/apply any changes with this user using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_use_su_login=False</span></code></dt><dd>Execute <code class="docutils literal notranslate"><span class="pre">su</span></code> with a login shell.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_preserve_su_env=False</span></code></dt><dd>Preserve the shell environment when using <code class="docutils literal notranslate"><span class="pre">su</span></code>.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code></dt><dd>Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_doas=False</span></code></dt><dd>Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code>.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code></dt><dd>Execute/apply any changes with <code class="docutils literal notranslate"><span class="pre">doas</span></code> as a non-root user.</dd>
+</dl>
+</div>
 </div>
 <div class="section" id="shell-control-features">
 <h2>Shell control &amp; features<a class="headerlink" href="#shell-control-features" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">_shell_executable=sh</span></code>: The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</li>
-<li><code class="docutils literal notranslate"><span class="pre">_chdir</span></code>: Directory to switch to before executing the command.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_env</span></code>: Dictionary of environment variables to set.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_success_exit_codes=[0]</span></code>: List of exit codes to consider a success.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_timeout</span></code>: Timeout for <em>each</em> command executed during the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code>: Whether to get a pseudoTTY when executing any commands.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_stdin</span></code>: String or buffer to send to the stdin of any commands.</li>
-</ul>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_shell_executable=sh</span></code></dt><dd>The shell to use. Defaults to <code class="docutils literal notranslate"><span class="pre">sh</span></code> (Unix) or <code class="docutils literal notranslate"><span class="pre">cmd</span></code> (Windows).</dd>
+</dl>
 </div>
-<div class="section" id="operation-meta-callbacks-not-available-in-facts">
-<h2>Operation meta &amp; callbacks (not available in facts)<a class="headerlink" href="#operation-meta-callbacks-not-available-in-facts" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name of the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_ignore_errors=False</span></code>: Ignore errors when executing the operation.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_continue_on_error=False</span></code>: Continue executing operation commands after error. Only applies when <code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code> is true.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_precondition</span></code>: Command to execute &amp; check before the operation commands begin.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_postcondition</span></code>: Command to execute &amp; check after the operation commands complete.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_on_success</span></code>: Callback function to execute on success.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_on_error</span></code>: Callback function to execute on error.</li>
-</ul>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_chdir</span></code></dt><dd>Directory to switch to before executing the command.</dd>
+</dl>
 </div>
-<div class="section" id="execution-strategy-not-available-in-facts-must-be-the-same-for-all-hosts">
-<h2>Execution strategy (not available in facts, must be the same for all hosts)<a class="headerlink" href="#execution-strategy-not-available-in-facts-must-be-the-same-for-all-hosts" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">_parallel=0</span></code>: Run this operation in batches of hosts.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_run_once=False</span></code>: Only execute this operation once, on the first host to see it.</li>
-<li><code class="docutils literal notranslate"><span class="pre">_serial=False</span></code>: Run this operation host by host, rather than in parallel.</li>
-</ul>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_env</span></code></dt><dd>Dictionary of environment variables to set.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_success_exit_codes=[0]</span></code></dt><dd>List of exit codes to consider a success.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_timeout</span></code></dt><dd>Timeout for <em>each</em> command executed during the operation.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code></dt><dd>Whether to get a pseudoTTY when executing any commands.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_stdin</span></code></dt><dd>String or buffer to send to the stdin of any commands.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="operation-meta-callbacks">
+<h2>Operation meta &amp; callbacks<a class="headerlink" href="#operation-meta-callbacks" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not available in facts.</p>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd>Name of the operation.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_ignore_errors=False</span></code></dt><dd>Ignore errors when executing the operation.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_continue_on_error=False</span></code></dt><dd>Continue executing operation commands after error. Only applies when <code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code> is true.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_precondition</span></code></dt><dd>Command to execute &amp; check before the operation commands begin.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_postcondition</span></code></dt><dd>Command to execute &amp; check after the operation commands complete.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_on_success</span></code></dt><dd>Callback function to execute on success.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_on_error</span></code></dt><dd>Callback function to execute on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="execution-strategy">
+<h2>Execution strategy<a class="headerlink" href="#execution-strategy" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not available in facts, value must be the same for all hosts.</p>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_parallel=0</span></code></dt><dd>Run this operation in batches of hosts.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_run_once=False</span></code></dt><dd>Only execute this operation once, on the first host to see it.</dd>
+</dl>
+</div>
+<div class="compound">
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">_serial=False</span></code></dt><dd>Run this operation host by host, rather than in parallel.</dd>
+</dl>
+</div>
 </div>
 </div>
 

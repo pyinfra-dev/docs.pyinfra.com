@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deploy Reference</span></p>
 <ul>
@@ -283,6 +284,11 @@ for the SSH banner to be presented.</li>
 an authentication response.</li>
 <li><strong>disabled_algorithms</strong> (<em>dict</em>) – an optional dict passed directly to <cite>.Transport</cite> and its keyword
 argument of the same name.</li>
+<li><strong>transport_factory</strong> – an optional callable which is handed a subset of the constructor
+arguments (primarily those related to the socket, GSS
+functionality, and algorithm selection) and generates a
+<cite>.Transport</cite> instance to be used by this client. Defaults to
+<cite>.Transport.__init__</cite>.</li>
 </ul>
 </dd>
 <dt class="field-name">Raises</dt><dd class="field-body"><p class="first"><cite>.BadHostKeyException</cite> – if the server’s host key could not be
@@ -308,6 +314,9 @@ establishing an SSH session</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 2.6: </span>Added the <code class="docutils literal notranslate"><span class="pre">disabled_algorithms</span></code> argument.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 2.12: </span>Added the <code class="docutils literal notranslate"><span class="pre">transport_factory</span></code> argument.</p>
 </div>
 </dd></dl>
 
