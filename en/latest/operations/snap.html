@@ -179,14 +179,19 @@
 <div class="section" id="snap-package">
 <span id="operations-snap-package"></span><h2><code class="code docutils literal notranslate"><span class="pre">snap.package</span></code><a class="headerlink" href="#snap-package" title="Permalink to this headline">¶</a></h2>
 <p>Install/remove a snap package</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;latest/stable&quot;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;latest/stable&quot;</span><span class="p">,</span> <span class="n">classic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>packages</strong>: List of packages</li>
 <li><strong>channel</strong>: tracking channel</li>
+<li><strong>classic</strong>: Use classic confinement</li>
 <li><strong>present</strong>: whether the package should be installed</li>
 </ul>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">classic</span></code>:</dt><dd>Allows access to your system’s resources in much the same way traditional
+packages do. This option corresponds to the <code class="docutils literal notranslate"><span class="pre">--classic</span></code> argument.</dd>
+</dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install vlc snap</span>
 <span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
@@ -212,6 +217,13 @@
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install LXD 4.0/stable&quot;</span><span class="p">,</span>
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd&quot;</span><span class="p">],</span>
     <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;4.0/stable&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Install neovim with classic confinement</span>
+<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Neovim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nvim&quot;</span><span class="p">],</span>
+    <span class="n">classic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

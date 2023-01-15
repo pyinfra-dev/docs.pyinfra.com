@@ -16,11 +16,16 @@ Install/remove a snap package
 
 .. code:: python
 
-    snap.package(packages=None, channel="latest/stable", present=True)
+    snap.package(packages=None, channel="latest/stable", classic=False, present=True)
 
 + **packages**: List of packages
 + **channel**: tracking channel
++ **classic**: Use classic confinement
 + **present**: whether the package should be installed
+
+``classic``:
+    Allows access to your system’s resources in much the same way traditional
+    packages do. This option corresponds to the ``--classic`` argument.
 
 **Examples:**
 
@@ -50,5 +55,12 @@ Install/remove a snap package
         name="Install LXD 4.0/stable",
         packages=["lxd"],
         channel="4.0/stable",
+    )
+
+    # Install neovim with classic confinement
+    snap.package(
+        name="Install Neovim",
+        packages=["nvim"],
+        classic=True,
     )
 
