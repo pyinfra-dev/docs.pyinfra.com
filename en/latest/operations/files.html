@@ -439,6 +439,7 @@ the remote file before downloading it.</dd>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
     <span class="n">path</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">ensure_newline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -452,6 +453,7 @@ the remote file before downloading it.</dd>
 <li><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></li>
 <li><strong>assume_present</strong>: whether to assume a matching line already exists in the file</li>
 <li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
+<li><strong>ensure_newline</strong>: ensures that the appended line is on a new line</li>
 </ul>
 <dl class="docutils">
 <dt>Regex line matching:</dt><dd>Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
@@ -464,6 +466,8 @@ date (taken from the machine running <code class="docutils literal notranslate">
 you pass a string value this will be used as the extension of the backed up file.</dd>
 <dt>Append:</dt><dd>If <code class="docutils literal notranslate"><span class="pre">line</span></code> is not in the file but we want it (<code class="docutils literal notranslate"><span class="pre">present</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>), then
 it will be append to the end of the file.</dd>
+<dt>Ensure new line:</dt><dd>This will ensure that the <code class="docutils literal notranslate"><span class="pre">line</span></code> being appended is always on a seperate new
+line in case the file doesn’t end with a newline character.</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># prepare to do some maintenance</span>
