@@ -375,17 +375,25 @@ system package managers <code class="docutils literal notranslate"><span class="
 <p class="last">This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Upload and execute a local script on the remote host.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>src</strong>: local script filename to upload &amp; execute</li>
+<li><strong>args</strong>: iterable to pass as arguments to the script</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This assumes there is a file in files/hello.bash locally.</span>
 <span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
     <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Example passing arguments to the script</span>
+<span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;do-something&quot;</span><span class="p">,</span> <span class="s2">&quot;with-this&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 </div>

@@ -247,9 +247,10 @@ Upload and execute a local script on the remote host.
 
 .. code:: python
 
-    server.script(src)
+    server.script(src, args=())
 
 + **src**: local script filename to upload & execute
++ **args**: iterable to pass as arguments to the script
 
 **Example:**
 
@@ -259,6 +260,13 @@ Upload and execute a local script on the remote host.
     server.script(
         name="Hello",
         src="files/hello.bash",
+    )
+
+    # Example passing arguments to the script
+    server.script(
+        name="Hello",
+        src="files/hello.bash",
+        args=("do-something", "with-this"),
     )
 
 
