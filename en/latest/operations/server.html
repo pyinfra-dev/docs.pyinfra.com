@@ -125,6 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-crontab"><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-group"><code class="code docutils literal notranslate"><span class="pre">server.group</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-hostname"><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-locale"><code class="code docutils literal notranslate"><span class="pre">server.locale</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-modprobe"><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-mount"><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-packages"><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code></a></li>
@@ -191,7 +192,7 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Permalink to this headline">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
 <div class="section" id="server-crontab">
 <span id="operations-server-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this headline">¶</a></h2>
 <p>Add/remove/update crontab entries.</p>
@@ -285,6 +286,30 @@ on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/m
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the hostname&quot;</span><span class="p">,</span>
     <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;server1.example.com&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="server-locale">
+<span id="operations-server-locale"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.locale</span></code><a class="headerlink" href="#server-locale" title="Permalink to this headline">¶</a></h2>
+<p>Enable/Disable locale.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="n">locale</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>locale</strong>: name of the locale to enable/disable</li>
+<li><strong>present</strong>: whether this locale should be present or not</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is not present&quot;</span><span class="p">,</span>
+    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is present&quot;</span><span class="p">,</span>
+    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
