@@ -14,7 +14,7 @@
   <meta name="docsearch:version" content="latest" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Xbps Operations &#8212; pyinfra  documentation</title>
+    <title>Cargo Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -25,8 +25,8 @@
     <link rel="shortcut icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Yum Operations" href="yum.html" />
-    <link rel="prev" title="Windows_Files Operations" href="windows_files.html" />
+    <link rel="next" title="Choco Operations" href="choco.html" />
+    <link rel="prev" title="Bsdinit Operations" href="bsdinit.html" />
   
    
 
@@ -41,10 +41,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="yum.html" title="Yum Operations"
+          <a href="choco.html" title="Choco Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="windows_files.html" title="Windows_Files Operations"
+          <a href="bsdinit.html" title="Bsdinit Operations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li> 
@@ -101,7 +101,10 @@
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cargo Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cargo-packages"><code class="code docutils literal notranslate"><span class="pre">cargo.packages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
@@ -130,12 +133,7 @@
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Xbps Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#xbps-packages"><code class="code docutils literal notranslate"><span class="pre">xbps.packages</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#xbps-update"><code class="code docutils literal notranslate"><span class="pre">xbps.update</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#xbps-upgrade"><code class="code docutils literal notranslate"><span class="pre">xbps.upgrade</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
 </ul>
@@ -169,57 +167,30 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/operations/xbps.html"><strong>2.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/operations/cargo.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="xbps-operations">
-<h1>Xbps Operations<a class="headerlink" href="#xbps-operations" title="Permalink to this headline">¶</a></h1>
-<p>Manage XBPS packages and repositories. Note that XBPS package names are case-sensitive.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/xbps.html#facts-xbps-xbpspackages"><span class="std std-ref">xbps.XbpsPackages</span></a>.</p>
-<div class="section" id="xbps-packages">
-<span id="operations-xbps-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">xbps.packages</span></code><a class="headerlink" href="#xbps-packages" title="Permalink to this headline">¶</a></h2>
-<p>Install/remove/update XBPS packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xbps</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+  <div class="section" id="cargo-operations">
+<h1>Cargo Operations<a class="headerlink" href="#cargo-operations" title="Permalink to this headline">¶</a></h1>
+<p>Manage cargo (aka Rust) packages.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/cargo.html#facts-cargo-cargopackages"><span class="std std-ref">cargo.CargoPackages</span></a>.</p>
+<div class="section" id="cargo-packages">
+<span id="operations-cargo-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">cargo.packages</span></code><a class="headerlink" href="#cargo-packages" title="Permalink to this headline">¶</a></h2>
+<p>Install/remove/update cargo packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cargo</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><strong>packages</strong>: list of packages to ensure</li>
-<li><strong>present</strong>: whether the packages should be installed</li>
-<li><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">xbps-install</span> <span class="pre">-S</span></code> before installing packages</li>
-<li><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">xbps-install</span> <span class="pre">-y</span> <span class="pre">-u</span></code> before installing packages</li>
+<li><strong>present</strong>: whether the packages should be present</li>
+<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
 </ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xbps</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and Vim Pager&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="xbps-update">
-<span id="operations-xbps-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">xbps.update</span></code><a class="headerlink" href="#xbps-update" title="Permalink to this headline">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Update XBPS repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xbps</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="xbps-upgrade">
-<span id="operations-xbps-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">xbps.upgrade</span></code><a class="headerlink" href="#xbps-upgrade" title="Permalink to this headline">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Upgrades all XBPS packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xbps</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span>
-</pre></div>
-</div>
+<dl class="docutils">
+<dt>Versions:</dt><dd>Package versions can be pinned like cargo: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</dd>
+</dl>
 </div>
 </div>
 
@@ -229,12 +200,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="windows_files.html">
-          <span aria-hidden="true">&larr;</span> Windows_Files Operations
+        <li class="previous"><a href="bsdinit.html">
+          <span aria-hidden="true">&larr;</span> Bsdinit Operations
         </a></li>
       
-        <li class="next"><a href="yum.html">
-          Yum Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="choco.html">
+          Choco Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -254,10 +225,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="yum.html" title="Yum Operations"
+          <a href="choco.html" title="Choco Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="windows_files.html" title="Windows_Files Operations"
+          <a href="bsdinit.html" title="Bsdinit Operations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li> 
