@@ -282,6 +282,8 @@ canonicalize the name of the host being connected to (default
 for the SSH banner to be presented.</li>
 <li><strong>auth_timeout</strong> (<em>float</em>) – an optional timeout (in seconds) to wait for
 an authentication response.</li>
+<li><strong>channel_timeout</strong> (<em>float</em>) – an optional timeout (in seconds) to wait
+for a channel open response.</li>
 <li><strong>disabled_algorithms</strong> (<em>dict</em>) – an optional dict passed directly to <cite>.Transport</cite> and its keyword
 argument of the same name.</li>
 <li><strong>transport_factory</strong> – an optional callable which is handed a subset of the constructor
@@ -289,17 +291,35 @@ arguments (primarily those related to the socket, GSS
 functionality, and algorithm selection) and generates a
 <cite>.Transport</cite> instance to be used by this client. Defaults to
 <cite>.Transport.__init__</cite>.</li>
+<li><strong>auth_strategy</strong> – <p>an optional instance of <cite>.AuthStrategy</cite>, triggering use of this
+newer authentication mechanism instead of SSHClient’s legacy auth
+method.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This parameter is <strong>incompatible</strong> with all other
+authentication-related parameters (such as, but not limited to,
+<code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">key_filename</span></code> and <code class="docutils literal notranslate"><span class="pre">allow_agent</span></code>) and will
+trigger an exception if given alongside them.</p>
+</div>
+</li>
 </ul>
 </dd>
-<dt class="field-name">Raises</dt><dd class="field-body"><p class="first"><cite>.BadHostKeyException</cite> – if the server’s host key could not be
-verified</p>
+<dt class="field-name">Returns</dt><dd class="field-body"><p class="first"><cite>.AuthResult</cite> if <code class="docutils literal notranslate"><span class="pre">auth_strategy</span></code> is non-<code class="docutils literal notranslate"><span class="pre">None</span></code>; otherwise,
+returns <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd>
-<dt class="field-name">Raises</dt><dd class="field-body"><p class="first"><cite>.AuthenticationException</cite> – if authentication failed</p>
-</dd>
-<dt class="field-name">Raises</dt><dd class="field-body"><p class="first"><cite>.SSHException</cite> – if there was any other error connecting or
-establishing an SSH session</p>
-</dd>
-<dt class="field-name">Raises</dt><dd class="field-body"><p class="first last"><strong>socket.error</strong> – if a socket error occurred while connecting</p>
+<dt class="field-name">Raises</dt><dd class="field-body"><ul class="first last simple">
+<li><strong>BadHostKeyException</strong> – if the server’s host key could not be verified.</li>
+<li><strong>AuthenticationException</strong> – if authentication failed.</li>
+<li><strong>UnableToAuthenticate</strong> – if authentication failed (when <code class="docutils literal notranslate"><span class="pre">auth_strategy</span></code> is non-<code class="docutils literal notranslate"><span class="pre">None</span></code>;
+and note that this is a subclass of <code class="docutils literal notranslate"><span class="pre">AuthenticationException</span></code>).</li>
+<li><strong>socket.error</strong> – if a socket error (other than connection-refused or
+host-unreachable) occurred while connecting.</li>
+<li><strong>NoValidConnectionsError</strong> – if all valid connection targets for the requested hostname (eg IPv4
+and IPv6) yielded connection-refused or host-unreachable socket
+errors.</li>
+<li><strong>SSHException</strong> – if there was any other error connecting or establishing an SSH
+session.</li>
+</ul>
 </dd>
 </dl>
 <div class="versionchanged">
@@ -317,6 +337,9 @@ establishing an SSH session</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 2.12: </span>Added the <code class="docutils literal notranslate"><span class="pre">transport_factory</span></code> argument.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 3.2: </span>Added the <code class="docutils literal notranslate"><span class="pre">auth_strategy</span></code> argument.</p>
 </div>
 </dd></dl>
 
