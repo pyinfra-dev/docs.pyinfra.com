@@ -132,6 +132,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-reboot"><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-script"><code class="code docutils literal notranslate"><span class="pre">server.script</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-script-template"><code class="code docutils literal notranslate"><span class="pre">server.script_template</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-security-limit"><code class="code docutils literal notranslate"><span class="pre">server.security_limit</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-service"><code class="code docutils literal notranslate"><span class="pre">server.service</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-shell"><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code></a></li>
@@ -448,6 +449,29 @@ system package managers <code class="docutils literal notranslate"><span class="
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello from script&quot;</span><span class="p">,</span>
     <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/hello2.bash.j2&quot;</span><span class="p">,</span>
     <span class="n">some_var</span><span class="o">=</span><span class="n">some_var</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="server-security-limit">
+<span id="operations-server-security-limit"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.security_limit</span></code><a class="headerlink" href="#server-security-limit" title="Permalink to this headline">¶</a></h2>
+<p>Edit /etc/security/limits.conf configuration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">security_limit</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">limit_type</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>domain</strong>: the domain (user, group, or wildcard) for the limit</li>
+<li><strong>limit_type</strong>: the type of limit (hard or soft)</li>
+<li><strong>item</strong>: the item to limit (e.g., nofile, nproc)</li>
+<li><strong>value</strong>: the value for the limit</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">security_limit</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set nofile limit for all users&quot;</span><span class="p">,</span>
+    <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="n">limit_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span>
+    <span class="n">item</span><span class="o">=</span><span class="s1">&#39;nofile&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

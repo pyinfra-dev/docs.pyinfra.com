@@ -329,6 +329,71 @@ Returns the OS version according to ``uname``.
 Returns the path environment variable of the current user.
 
 
+.. _facts:server.SecurityLimits:
+
+:code:`server.SecurityLimits`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SecurityLimits)
+
+Returns a list of security limits on the target host.
+
+.. code:: python
+
+    [
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        }
+    ]
+
+
 .. _facts:server.Selinux:
 
 :code:`server.Selinux`

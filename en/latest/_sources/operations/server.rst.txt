@@ -336,6 +336,35 @@ Generate, upload and execute a local script template on the remote host.
     )
 
 
+.. _operations:server.security_limit:
+
+:code:`server.security_limit`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Edit /etc/security/limits.conf configuration.
+
+.. code:: python
+
+    server.security_limit(domain, limit_type, item, value)
+
++ **domain**: the domain (user, group, or wildcard) for the limit
++ **limit_type**: the type of limit (hard or soft)
++ **item**: the item to limit (e.g., nofile, nproc)
++ **value**: the value for the limit
+
+**Example:**
+
+.. code:: python
+
+    security_limit(
+        name="Set nofile limit for all users",
+        domain='*',
+        limit_type='soft',
+        item='nofile',
+        value='1024',
+    )
+
+
 .. _operations:server.service:
 
 :code:`server.service`

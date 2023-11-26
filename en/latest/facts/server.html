@@ -147,6 +147,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-os"><code class="code docutils literal notranslate"><span class="pre">server.Os</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-osversion"><code class="code docutils literal notranslate"><span class="pre">server.OsVersion</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-path"><code class="code docutils literal notranslate"><span class="pre">server.Path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-securitylimits"><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-selinux"><code class="code docutils literal notranslate"><span class="pre">server.Selinux</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.Sysctl</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-user"><code class="code docutils literal notranslate"><span class="pre">server.User</span></code></a></li>
@@ -419,6 +420,65 @@ release files.</p>
 </pre></div>
 </div>
 <p>Returns the path environment variable of the current user.</p>
+</div>
+<div class="section" id="server-securitylimits">
+<span id="facts-server-securitylimits"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code><a class="headerlink" href="#server-securitylimits" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SecurityLimits</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a list of security limits on the target host.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;nofile&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;1048576&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;nofile&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;1048576&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;nofile&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;1048576&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;nofile&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;1048576&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;memlock&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;unlimited&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;memlock&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;unlimited&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;memlock&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;unlimited&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;limit_type&quot;</span><span class="p">:</span> <span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;memlock&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;unlimited&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="server-selinux">
 <span id="facts-server-selinux"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Selinux</span></code><a class="headerlink" href="#server-selinux" title="Permalink to this headline">¶</a></h2>
