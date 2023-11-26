@@ -466,7 +466,7 @@ Add/remove/update system users & their ssh `authorized_keys`.
     server.user(
         user, present=True, home=None, shell=None, group=None, groups=None, public_keys=None,
         delete_keys=False, ensure_home=True, create_home=False, system=False, uid=None,
-        comment=None, add_deploy_dir=True, unique=True,
+        comment=None, add_deploy_dir=True, unique=True, password=None,
     )
 
 + **user**: name of the user to ensure
@@ -484,6 +484,7 @@ Add/remove/update system users & their ssh `authorized_keys`.
 + **comment**: the user GECOS comment
 + **add_deploy_dir**: any public_key filenames are relative to the deploy directory
 + **unique**: prevent creating users with duplicate UID
++ **password**: set the encrypted password for the user
 
 Home directory:
     When ``ensure_home`` or ``public_keys`` are provided, ``home`` defaults to
