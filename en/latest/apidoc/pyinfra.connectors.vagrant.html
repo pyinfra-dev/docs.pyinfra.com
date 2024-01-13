@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>pyinfra.connectors.vagrant module &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.connectors.winrm module" href="pyinfra.connectors.winrm.html" />
@@ -48,7 +49,8 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" accesskey="U">pyinfra.connectors package</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" accesskey="U">pyinfra.connectors package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.connectors.vagrant module</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -84,7 +86,7 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
@@ -93,14 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
@@ -108,7 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -147,7 +149,12 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.vagrant module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.vagrant module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.vagrant.get_vagrant_config"><code class="docutils literal notranslate"><span class="pre">get_vagrant_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.vagrant.get_vagrant_options"><code class="docutils literal notranslate"><span class="pre">get_vagrant_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.vagrant.make_names_data"><code class="docutils literal notranslate"><span class="pre">make_names_data()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
@@ -174,32 +181,32 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="module-pyinfra.connectors.vagrant">
-<span id="pyinfra-connectors-vagrant-module"></span><h1>pyinfra.connectors.vagrant module<a class="headerlink" href="#module-pyinfra.connectors.vagrant" title="Permalink to this headline">¶</a></h1>
+<span id="pyinfra-connectors-vagrant-module"></span><h1>pyinfra.connectors.vagrant module<a class="headerlink" href="#module-pyinfra.connectors.vagrant" title="Permalink to this heading">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> connector reads the current Vagrant status and generates an
 inventory for any running VMs.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run on all hosts</span>
-pyinfra @vagrant ...
+pyinfra<span class="w"> </span>@vagrant<span class="w"> </span>...
 
 <span class="c1"># Run on a specific VM</span>
-pyinfra @vagrant/my-vm-name ...
+pyinfra<span class="w"> </span>@vagrant/my-vm-name<span class="w"> </span>...
 
 <span class="c1"># Run on multiple named VMs</span>
-pyinfra @vagrant/my-vm-name,@vagrant/another-vm-name ...
+pyinfra<span class="w"> </span>@vagrant/my-vm-name,@vagrant/another-vm-name<span class="w"> </span>...
 </pre></div>
 </div>
-<dl class="function">
-<dt id="pyinfra.connectors.vagrant.get_vagrant_config">
-<code class="descclassname">pyinfra.connectors.vagrant.</code><code class="descname">get_vagrant_config</code><span class="sig-paren">(</span><em>limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.get_vagrant_config" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.vagrant.get_vagrant_config">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.vagrant.</span></code><code class="sig-name descname"><span class="pre">get_vagrant_config</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.get_vagrant_config" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.vagrant.get_vagrant_options">
-<code class="descclassname">pyinfra.connectors.vagrant.</code><code class="descname">get_vagrant_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.get_vagrant_options" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.vagrant.get_vagrant_options">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.vagrant.</span></code><code class="sig-name descname"><span class="pre">get_vagrant_options</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.get_vagrant_options" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.vagrant.make_names_data">
-<code class="descclassname">pyinfra.connectors.vagrant.</code><code class="descname">make_names_data</code><span class="sig-paren">(</span><em>limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.make_names_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.vagrant.make_names_data">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.vagrant.</span></code><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.vagrant.make_names_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -242,7 +249,8 @@ pyinfra @vagrant/my-vm-name,@vagrant/another-vm-name ...
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" >pyinfra.connectors package</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" >pyinfra.connectors package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.connectors.vagrant module</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

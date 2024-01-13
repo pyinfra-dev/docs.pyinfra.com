@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>Deploy Execution &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <link rel="shortcut icon" href="_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Help &amp; Support" href="support.html" />
@@ -46,7 +47,8 @@
         <li class="right" >
           <a href="api/facts.html" title="Writing Facts"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deploy Execution</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -82,7 +84,7 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using-operations.html">Using Operations</a></li>
@@ -91,14 +93,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
@@ -122,7 +124,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -148,7 +150,7 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="deploy-execution">
-<h1>Deploy Execution<a class="headerlink" href="#deploy-execution" title="Permalink to this headline">¶</a></h1>
+<h1>Deploy Execution<a class="headerlink" href="#deploy-execution" title="Permalink to this heading">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> executes in two main phases: <strong>fact gathering</strong> and <strong>executing operations</strong>. This split is what enables <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to execute dry runs (<code class="docutils literal notranslate"><span class="pre">--dry</span></code>) and output a “diff” of commands &amp; files (<code class="docutils literal notranslate"><span class="pre">--debug-operations</span></code>) to update a servers state as defined.</p>
 <dl class="docutils">
 <dt><strong>Fact gathering</strong>:</dt><dd>During this phase information is collected from the remote servers and compared to the desired state defined by the user (ie a file of operations). This phase is <strong>read only</strong> and collects most of the information needed to execute the deploy.</dd>
@@ -156,9 +158,9 @@
 </dl>
 <p>This two phase deploy process enables <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to do some really interesting things, however there are some limitations to consider.</p>
 <div class="section" id="detailed-lifecycle-of-executing-the-pyinfra-cli">
-<h2>Detailed lifecycle of executing the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> CLI<a class="headerlink" href="#detailed-lifecycle-of-executing-the-pyinfra-cli" title="Permalink to this headline">¶</a></h2>
+<h2>Detailed lifecycle of executing the <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> CLI<a class="headerlink" href="#detailed-lifecycle-of-executing-the-pyinfra-cli" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="setup-connect">
-<h3>Setup &amp; connect<a class="headerlink" href="#setup-connect" title="Permalink to this headline">¶</a></h3>
+<h3>Setup &amp; connect<a class="headerlink" href="#setup-connect" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li>Parse &amp; validate CLI arguments, inventory file, group data files, commands</li>
 <li>Create <code class="docutils literal notranslate"><span class="pre">Inventory</span></code>, <code class="docutils literal notranslate"><span class="pre">Config</span></code> and <code class="docutils literal notranslate"><span class="pre">State</span></code> objects<ul>
@@ -170,7 +172,7 @@
 </ul>
 </div>
 <div class="section" id="fact-gathering-operation-preparation">
-<h3>Fact gathering / operation preparation<a class="headerlink" href="#fact-gathering-operation-preparation" title="Permalink to this headline">¶</a></h3>
+<h3>Fact gathering / operation preparation<a class="headerlink" href="#fact-gathering-operation-preparation" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li>Loop through each deploy file:<ul>
 <li>Loop through each host and execute the file</li>
@@ -181,7 +183,7 @@
 </ul>
 </div>
 <div class="section" id="operation-execution">
-<h3>Operation execution<a class="headerlink" href="#operation-execution" title="Permalink to this headline">¶</a></h3>
+<h3>Operation execution<a class="headerlink" href="#operation-execution" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li>Generate order of operations<ul>
 <li>Uses line numbers in CLI mode (ie - works like the user would expect)</li>
@@ -197,7 +199,7 @@
 </ul>
 </div>
 <div class="section" id="completion">
-<h3>Completion<a class="headerlink" href="#completion" title="Permalink to this headline">¶</a></h3>
+<h3>Completion<a class="headerlink" href="#completion" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li>Disconnect from all the target hosts</li>
 <li>Write out the results to the user</li>
@@ -205,9 +207,9 @@
 </div>
 </div>
 <div class="section" id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="interdependent-operations">
-<h3>Interdependent operations<a class="headerlink" href="#interdependent-operations" title="Permalink to this headline">¶</a></h3>
+<h3>Interdependent operations<a class="headerlink" href="#interdependent-operations" title="Permalink to this heading">¶</a></h3>
 <p>The major disadvantage to separating the deploy into two phases comes into effect where operations rely on each other - i.e. the changes of one operation will affect a later operations facts. Consider the following example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
@@ -242,19 +244,19 @@
 <p>The addition of <code class="docutils literal notranslate"><span class="pre">assume_present</span></code> will force <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to remove the file without checking if it exists first.</p>
 </div>
 <div class="section" id="dynamic-operations">
-<h3>Dynamic operations<a class="headerlink" href="#dynamic-operations" title="Permalink to this headline">¶</a></h3>
+<h3>Dynamic operations<a class="headerlink" href="#dynamic-operations" title="Permalink to this heading">¶</a></h3>
 <p>Sometimes it is impossible to know all the facts before executing operations. For example the unique identifier for the server that a package generates, which happens inside an operation. This requires reading this state (the identifier) from the server <em>during</em> the deploy.</p>
 <p>See the <a class="reference internal" href="examples/dynamic_execution_deploy.html"><span class="doc">Dynamic Execution during Deploy</span></a> example.</p>
 </div>
 <div class="section" id="loops-cycle-errors">
-<h3>Loops &amp; Cycle Errors<a class="headerlink" href="#loops-cycle-errors" title="Permalink to this headline">¶</a></h3>
+<h3>Loops &amp; Cycle Errors<a class="headerlink" href="#loops-cycle-errors" title="Permalink to this heading">¶</a></h3>
 <p>In CLI mode <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses a single DAG to determine the order in which operations are executed. While this is very effective and executing in an order users would expect, certain loops result in cycles within the DAG which raise an error. This can be fixed using the <code class="docutils literal notranslate"><span class="pre">host.loop</span></code> function as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
     <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Do a thing&quot;</span><span class="p">,</span> <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="technical-walk-through">
-<h4>Technical walk through<a class="headerlink" href="#technical-walk-through" title="Permalink to this headline">¶</a></h4>
+<h4>Technical walk through<a class="headerlink" href="#technical-walk-through" title="Permalink to this heading">¶</a></h4>
 <p>In the below section we’ll walk through an example of the problem described above by looking at operations that would generate a cycle and the resulting DAG, and then the fix. First up let’s consider this example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
@@ -285,7 +287,7 @@
 </div>
 </div>
 <div class="section" id="deploy-state">
-<h2>Deploy State<a class="headerlink" href="#deploy-state" title="Permalink to this headline">¶</a></h2>
+<h2>Deploy State<a class="headerlink" href="#deploy-state" title="Permalink to this heading">¶</a></h2>
 <p>At the center of a <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> deployment is a state object. This object holds the inventory of hosts and data, operations to execute and status of the execution.</p>
 <ul class="simple">
 <li>All hosts (or those matching the <code class="docutils literal notranslate"><span class="pre">-limit</span></code>) are connected to and flagged as both <strong>activated</strong> and <strong>active</strong>.</li>
@@ -333,7 +335,8 @@
         <li class="right" >
           <a href="api/facts.html" title="Writing Facts"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deploy Execution</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

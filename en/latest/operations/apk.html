@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>Apk Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Apt Operations" href="apt.html" />
@@ -47,7 +48,8 @@
           <a href="../operations.html" title="Operations Index"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Apk Operations</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -83,7 +85,7 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
@@ -92,7 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
@@ -142,7 +144,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
@@ -150,7 +152,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -176,11 +178,11 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="apk-operations">
-<h1>Apk Operations<a class="headerlink" href="#apk-operations" title="Permalink to this headline">¶</a></h1>
+<h1>Apk Operations<a class="headerlink" href="#apk-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage apk packages.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/apk.html#facts-apk-apkpackages"><span class="std std-ref">apk.ApkPackages</span></a>.</p>
 <div class="section" id="apk-packages">
-<span id="operations-apk-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.packages</span></code><a class="headerlink" href="#apk-packages" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apk-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.packages</span></code><a class="headerlink" href="#apk-packages" title="Permalink to this heading">¶</a></h2>
 <p>Add/remove/update apk packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apk</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -213,7 +215,7 @@
 </div>
 </div>
 <div class="section" id="apk-update">
-<span id="operations-apk-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.update</span></code><a class="headerlink" href="#apk-update" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apk-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.update</span></code><a class="headerlink" href="#apk-update" title="Permalink to this heading">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -224,7 +226,7 @@
 </div>
 </div>
 <div class="section" id="apk-upgrade">
-<span id="operations-apk-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.upgrade</span></code><a class="headerlink" href="#apk-upgrade" title="Permalink to this headline">¶</a></h2>
+<span id="operations-apk-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apk.upgrade</span></code><a class="headerlink" href="#apk-upgrade" title="Permalink to this heading">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
@@ -276,7 +278,8 @@
           <a href="../operations.html" title="Operations Index"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Apk Operations</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

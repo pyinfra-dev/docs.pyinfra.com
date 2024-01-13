@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>pyinfra.connectors.ssh module &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.connectors.terraform module" href="pyinfra.connectors.terraform.html" />
@@ -48,7 +49,8 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" accesskey="U">pyinfra.connectors package</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" accesskey="U">pyinfra.connectors package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.connectors.ssh module</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -84,7 +86,7 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
@@ -93,14 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
@@ -108,7 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -141,7 +143,17 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.ssh module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.Meta"><code class="docutils literal notranslate"><span class="pre">Meta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.check_can_rsync"><code class="docutils literal notranslate"><span class="pre">check_can_rsync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.connect"><code class="docutils literal notranslate"><span class="pre">connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.get_file"><code class="docutils literal notranslate"><span class="pre">get_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.make_names_data"><code class="docutils literal notranslate"><span class="pre">make_names_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.put_file"><code class="docutils literal notranslate"><span class="pre">put_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.rsync"><code class="docutils literal notranslate"><span class="pre">rsync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.ssh.run_shell_command"><code class="docutils literal notranslate"><span class="pre">run_shell_command()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
@@ -174,141 +186,141 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="module-pyinfra.connectors.ssh">
-<span id="pyinfra-connectors-ssh-module"></span><h1>pyinfra.connectors.ssh module<a class="headerlink" href="#module-pyinfra.connectors.ssh" title="Permalink to this headline">¶</a></h1>
+<span id="pyinfra-connectors-ssh-module"></span><h1>pyinfra.connectors.ssh module<a class="headerlink" href="#module-pyinfra.connectors.ssh" title="Permalink to this heading">¶</a></h1>
 <p>Connect to hosts over SSH. This is the default connector and all targets default
 to this meaning you do not need to specify it - ie the following two commands
 are identical:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra my-host.net ...
-pyinfra @ssh/my-host.net ...
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>my-host.net<span class="w"> </span>...
+pyinfra<span class="w"> </span>@ssh/my-host.net<span class="w"> </span>...
 </pre></div>
 </div>
-<dl class="class">
-<dt id="pyinfra.connectors.ssh.Meta">
-<em class="property">class </em><code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">Meta</code><a class="headerlink" href="#pyinfra.connectors.ssh.Meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyinfra.api.connectors.BaseConnectorMeta</span></code></a></p>
-<dl class="class">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys">
-<em class="property">class </em><code class="descname">DataKeys</code><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">Meta</span></code><a class="headerlink" href="#pyinfra.connectors.ssh.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnectorMeta</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">DataKeys</span></code><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.allow_agent">
-<code class="descname">allow_agent</code><em class="property"> = 'Allow using SSH agent'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.allow_agent" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.allow_agent">
+<code class="sig-name descname"><span class="pre">allow_agent</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Allow</span> <span class="pre">using</span> <span class="pre">SSH</span> <span class="pre">agent'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.allow_agent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.config_file">
-<code class="descname">config_file</code><em class="property"> = 'Custom SSH config file'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.config_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.config_file">
+<code class="sig-name descname"><span class="pre">config_file</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Custom</span> <span class="pre">SSH</span> <span class="pre">config</span> <span class="pre">file'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.config_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.forward_agent">
-<code class="descname">forward_agent</code><em class="property"> = 'Enable SSH forward agent'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.forward_agent" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.forward_agent">
+<code class="sig-name descname"><span class="pre">forward_agent</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Enable</span> <span class="pre">SSH</span> <span class="pre">forward</span> <span class="pre">agent'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.forward_agent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.hostname">
-<code class="descname">hostname</code><em class="property"> = 'SSH hostname'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.hostname" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.hostname">
+<code class="sig-name descname"><span class="pre">hostname</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SSH</span> <span class="pre">hostname'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.hostname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.key">
-<code class="descname">key</code><em class="property"> = 'Key file to use for authentication'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.key" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.key">
+<code class="sig-name descname"><span class="pre">key</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Key</span> <span class="pre">file</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">for</span> <span class="pre">authentication'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.key_password">
-<code class="descname">key_password</code><em class="property"> = 'Key file password'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.key_password" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.key_password">
+<code class="sig-name descname"><span class="pre">key_password</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Key</span> <span class="pre">file</span> <span class="pre">password'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.key_password" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.known_hosts_file">
-<code class="descname">known_hosts_file</code><em class="property"> = 'Custom SSH known hosts file'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.known_hosts_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.known_hosts_file">
+<code class="sig-name descname"><span class="pre">known_hosts_file</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Custom</span> <span class="pre">SSH</span> <span class="pre">known</span> <span class="pre">hosts</span> <span class="pre">file'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.known_hosts_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.look_for_keys">
-<code class="descname">look_for_keys</code><em class="property"> = 'Allow looking up users keys'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.look_for_keys" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.look_for_keys">
+<code class="sig-name descname"><span class="pre">look_for_keys</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Allow</span> <span class="pre">looking</span> <span class="pre">up</span> <span class="pre">users</span> <span class="pre">keys'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.look_for_keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.paramiko_connect_kwargs">
-<code class="descname">paramiko_connect_kwargs</code><em class="property"> = &quot;Override keyword arguments passed into paramiko's `SSHClient.connect`&quot;</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.paramiko_connect_kwargs" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.paramiko_connect_kwargs">
+<code class="sig-name descname"><span class="pre">paramiko_connect_kwargs</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Override</span> <span class="pre">keyword</span> <span class="pre">arguments</span> <span class="pre">passed</span> <span class="pre">into</span> <span class="pre">paramiko's</span> <span class="pre">`SSHClient.connect`&quot;</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.paramiko_connect_kwargs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.password">
-<code class="descname">password</code><em class="property"> = 'Password to use for authentication'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.password" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.password">
+<code class="sig-name descname"><span class="pre">password</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Password</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">for</span> <span class="pre">authentication'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.password" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.port">
-<code class="descname">port</code><em class="property"> = 'SSH port'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.port" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.port">
+<code class="sig-name descname"><span class="pre">port</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SSH</span> <span class="pre">port'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.port" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.strict_host_key_checking">
-<code class="descname">strict_host_key_checking</code><em class="property"> = 'Override strict host keys check setting'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.strict_host_key_checking" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.strict_host_key_checking">
+<code class="sig-name descname"><span class="pre">strict_host_key_checking</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Override</span> <span class="pre">strict</span> <span class="pre">host</span> <span class="pre">keys</span> <span class="pre">check</span> <span class="pre">setting'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.strict_host_key_checking" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.DataKeys.user">
-<code class="descname">user</code><em class="property"> = 'User to SSH as'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.handles_execution">
-<code class="descname">handles_execution</code><em class="property"> = True</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyinfra.connectors.ssh.Meta.keys_prefix">
-<code class="descname">keys_prefix</code><em class="property"> = 'ssh'</em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.keys_prefix" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.DataKeys.user">
+<code class="sig-name descname"><span class="pre">user</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'User</span> <span class="pre">to</span> <span class="pre">SSH</span> <span class="pre">as'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.DataKeys.user" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.check_can_rsync">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">check_can_rsync</code><span class="sig-paren">(</span><em>host: Host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.check_can_rsync" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.handles_execution">
+<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.connect">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">connect</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.connect" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.Meta.keys_prefix">
+<code class="sig-name descname"><span class="pre">keys_prefix</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ssh'</span></em><a class="headerlink" href="#pyinfra.connectors.ssh.Meta.keys_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.check_can_rsync">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">check_can_rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.check_can_rsync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.connect">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect to a single host. Returns the SSH client if successful. Stateless by
 design so can be run in parallel.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.get_file">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">get_file</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>remote_filename: str</em>, <em>filename_or_io</em>, <em>remote_temp_filename=None</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>su_user=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.get_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.get_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">get_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">sudo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">sudo_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">su_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.get_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a file from the remote host using SFTP. Supports download files
 with sudo by copying to a temporary directory with read permissions,
 downloading and then removing the copy.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.make_names_data">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">make_names_data</code><span class="sig-paren">(</span><em>hostname</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.make_names_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.make_names_data">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">hostname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.make_names_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.put_file">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">put_file</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>filename_or_io</em>, <em>remote_filename</em>, <em>remote_temp_filename=None</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>doas: bool = False</em>, <em>doas_user=None</em>, <em>su_user=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.put_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.put_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">put_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">sudo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">sudo_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">doas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">doas_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">su_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.put_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload file-ios to the specified host using SFTP. Supports uploading files
 with sudo by uploading to a temporary directory then moving &amp; chowning.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.rsync">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">rsync</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>src: str</em>, <em>dest: str</em>, <em>flags</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>sudo: bool = False</em>, <em>sudo_user=None</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.rsync" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.rsync">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">src</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">flags</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">sudo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">sudo_user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">ignored_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.rsync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.connectors.ssh.run_shell_command">
-<code class="descclassname">pyinfra.connectors.ssh.</code><code class="descname">run_shell_command</code><span class="sig-paren">(</span><em>state: State</em>, <em>host: Host</em>, <em>command</em>, <em>get_pty: bool = False</em>, <em>timeout=None</em>, <em>stdin=None</em>, <em>success_exit_codes=None</em>, <em>print_output: bool = False</em>, <em>print_input: bool = False</em>, <em>return_combined_output: bool = False</em>, <em>**command_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.run_shell_command" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.ssh.run_shell_command">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.ssh.</span></code><code class="sig-name descname"><span class="pre">run_shell_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">command</span></span></em>, <em><span class="n"><span class="pre">get_pty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">stdin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">success_exit_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">return_combined_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.ssh.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a command on the specified host.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first simple">
@@ -370,7 +382,8 @@ stdout and stderr are both lists of strings from each buffer.</p>
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" >pyinfra.connectors package</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="pyinfra.connectors.html" >pyinfra.connectors package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.connectors.ssh module</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

@@ -18,7 +18,8 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 
     files.block(
         path, content=None, present=True, line=None, backup=False, escape_regex_characters=False,
-        before=False, after=False, marker=None, begin=None, end=None,
+        try_prevent_shell_expansion=False, before=False, after=False, marker=None, begin=None,
+        end=None,
     )
 
 + **path**: target remote file
@@ -29,6 +30,7 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 + **line**: regex before or after which the content should be added if it doesn't exist.
 + **backup**: whether to backup the file (see ``files.line``). Default False.
 + **escape_regex_characters**: whether to escape regex characters from the matching line
++ **try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
 + **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
 + **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
 + **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
@@ -45,12 +47,15 @@ Content prepended or appended if ``line`` not specified
 
 Removal ignores ``content`` and ``line``
 
+Preventing shell expansion works by wrapping the content in '`' before passing to `awk`.
+WARNING: This will break if the content contains raw single quotes.
+
 **Examples:**
 
 .. code:: python
 
     # add entry to /etc/host
-    files.marked_block(
+    files.block(
         name="add IP address for red server",
         path="/etc/hosts",
         content="10.0.0.1 mars-one",
@@ -59,7 +64,7 @@ Removal ignores ``content`` and ``line``
     )
 
     # have two entries in /etc/host
-    files.marked_block(
+    files.block(
         name="add IP address for red server",
         path="/etc/hosts",
         content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
@@ -68,20 +73,28 @@ Removal ignores ``content`` and ``line``
     )
 
     # remove marked entry from /etc/hosts
-    files.marked_block(
+    files.block(
         name="remove all 10.* addresses from /etc/hosts",
         path="/etc/hosts",
         present=False
     )
 
     # add out of date warning to web page
-    files.marked_block(
+    files.block(
         name="add out of date warning to web page",
         path="/var/www/html/something.html",
         content= "<p>Warning: this page is out of date.</p>",
         regex=".*<body>.*",
         after=True
         marker="<!-- {mark} PYINFRA BLOCK -->",
+    )
+
+    # put complex alias into .zshrc
+    files.block(
+        path="/home/user/.zshrc",
+        content="eval $(thefuck -a)",
+        try_prevent_shell_expansion=True,
+        marker="## {mark} ALIASES ##"
     )
 
 
@@ -146,7 +159,7 @@ Download files from remote locations using ``curl`` or ``wget``.
 
     files.download(
         src, dest, user=None, group=None, mode=None, cache_time=None, force=False, sha256sum=None,
-        sha1sum=None, md5sum=None, headers=None, insecure=False,
+        sha1sum=None, md5sum=None, headers=None, insecure=False, proxy=None,
     )
 
 + **src**: source URL of the file
@@ -161,6 +174,7 @@ Download files from remote locations using ``curl`` or ``wget``.
 + **md5sum**: md5 hash to checksum the downloaded file against
 + **headers**: optional dictionary of headers to set for the HTTP request
 + **insecure**: disable SSL verification for the HTTP request
++ **proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
 
 **Example:**
 
