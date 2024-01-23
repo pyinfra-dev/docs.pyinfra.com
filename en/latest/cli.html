@@ -100,12 +100,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#ad-hoc-command-execution">Ad-hoc command execution</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-debugging-distributed-services-using-pyinfra">Example: debugging distributed services using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-debugging-distributed-services-using-pyinfra">Example: debugging distributed services using pyinfra</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#executing-ad-hoc-operations">Executing ad-hoc operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-managing-packages-with-ad-hoc-pyinfra-commands">Example: managing packages with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-managing-services-with-ad-hoc-pyinfra-commands">Example: managing services with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-managing-packages-with-ad-hoc-pyinfra-commands">Example: managing packages with ad-hoc pyinfra commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-managing-services-with-ad-hoc-pyinfra-commands">Example: managing services with ad-hoc pyinfra commands</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#shell-autocompletion">Shell Autocompletion</a></li>
@@ -122,11 +122,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -155,10 +155,10 @@
           
   <div class="section" id="using-the-cli">
 <h1>Using the CLI<a class="headerlink" href="#using-the-cli" title="Permalink to this heading">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> is an extremely powerful tool for ad-hoc execution and management of remote servers.</p>
+<p>pyinfra is an extremely powerful tool for ad-hoc execution and management of remote servers.</p>
 <div class="section" id="cli-arguments-options">
 <h2>CLI arguments &amp; options<a class="headerlink" href="#cli-arguments-options" title="Permalink to this heading">¶</a></h2>
-<p>As described in the <a class="reference internal" href="getting-started.html"><span class="doc std std-doc">getting started page</span></a>, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> needs an <strong>inventory</strong> and some <strong>operations</strong>. These are used with the CLI as below:</p>
+<p>As described in the <a class="reference internal" href="getting-started.html"><span class="doc std std-doc">getting started page</span></a>, pyinfra needs an <strong>inventory</strong> and some <strong>operations</strong>. These are used with the CLI as below:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>pyinfra<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INVENTORY<span class="w"> </span>OPERATIONS...
 
 <span class="c1"># INVENTORY</span>
@@ -188,7 +188,7 @@ pyinfra<span class="w"> </span>INVENTORY<span class="w"> </span>debug-inventory
 </div>
 <div class="section" id="verbosity">
 <h3>Verbosity<a class="headerlink" href="#verbosity" title="Permalink to this heading">¶</a></h3>
-<p>By default <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> only prints high level information (this host connected, this operation started), this can be increased as follows:</p>
+<p>By default pyinfra only prints high level information (this host connected, this operation started), this can be increased as follows:</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">-v</span></code>: print out facts collected as well as noop information (package X already installed)</li>
 <li><code class="docutils literal notranslate"><span class="pre">-vv</span></code>: as above plus print shell input to the remote host</li>
@@ -198,7 +198,7 @@ pyinfra<span class="w"> </span>INVENTORY<span class="w"> </span>debug-inventory
 </div>
 <div class="section" id="inventory">
 <h2>Inventory<a class="headerlink" href="#inventory" title="Permalink to this heading">¶</a></h2>
-<p>When using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> inventory can be provided directly via the command line or <a class="reference internal" href="#./deploys.html#inventory"><span class="xref myst">defined in a file</span></a>. Both support the full range of <a class="reference internal" href="connectors.html"><span class="doc std std-doc">connectors</span></a> and multiple hosts. Some CLI examples:</p>
+<p>When using pyinfra inventory can be provided directly via the command line or <a class="reference internal" href="#./deploys.html#inventory"><span class="xref myst">defined in a file</span></a>. Both support the full range of <a class="reference internal" href="connectors.html"><span class="doc std std-doc">connectors</span></a> and multiple hosts. Some CLI examples:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load inventory hosts from a file</span>
 pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>...
 
@@ -235,15 +235,15 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
 </div>
 <div class="section" id="ad-hoc-command-execution">
 <h2>Ad-hoc command execution<a class="headerlink" href="#ad-hoc-command-execution" title="Permalink to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can execute shell commands on remote hosts by using <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">exec</span></code>. For example:</p>
+<p>pyinfra can execute shell commands on remote hosts by using <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">exec</span></code>. For example:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span>my_command_goes_here<span class="w"> </span>--some-argument
 </pre></div>
 </div>
 <p>Note:
 Anything on the right hand side of the <code class="docutils literal notranslate"><span class="pre">--</span></code> will be passed into the target</p>
 <div class="section" id="example-debugging-distributed-services-using-pyinfra">
-<h3>Example: debugging distributed services using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code><a class="headerlink" href="#example-debugging-distributed-services-using-pyinfra" title="Permalink to this heading">¶</a></h3>
-<p>One of <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>’s top design features is its ability to return remote command output in real-time. This can be used to debug N remote services, and is perfect for debugging distributed services.</p>
+<h3>Example: debugging distributed services using pyinfra<a class="headerlink" href="#example-debugging-distributed-services-using-pyinfra" title="Permalink to this heading">¶</a></h3>
+<p>One of pyinfra’s top design features is its ability to return remote command output in real-time. This can be used to debug N remote services, and is perfect for debugging distributed services.</p>
 <p>For example - a large Elasticsearch cluster. It can be useful to stream the log of every instance in parallel, which can be achieved easily like so:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--sudo<span class="w"> </span>--<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/elasticsearch/elasticsearch.log
 </pre></div>
@@ -252,9 +252,9 @@ Anything on the right hand side of the <code class="docutils literal notranslate
 </div>
 <div class="section" id="executing-ad-hoc-operations">
 <h2>Executing ad-hoc operations<a class="headerlink" href="#executing-ad-hoc-operations" title="Permalink to this heading">¶</a></h2>
-<p>In addition to executing simple commands, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can execute any of it’s builtin operations on remote hosts direct via the CLI.</p>
+<p>In addition to executing simple commands, pyinfra can execute any of it’s builtin operations on remote hosts direct via the CLI.</p>
 <div class="section" id="example-managing-packages-with-ad-hoc-pyinfra-commands">
-<h3>Example: managing packages with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-managing-packages-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h3>
+<h3>Example: managing packages with ad-hoc pyinfra commands<a class="headerlink" href="#example-managing-packages-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h3>
 <p>For example, here we ensure that <code class="docutils literal notranslate"><span class="pre">nginx</span></code> is installed on the remote servers:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ubuntu example</span>
 pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>apt.packages<span class="w"> </span>nginx<span class="w"> </span><span class="nv">sudo</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">update</span><span class="o">=</span><span class="nb">true</span>
@@ -265,13 +265,13 @@ pyinfra<span class="w"> </span>inventory2.py<span class="w"> </span>yum.packages
 </div>
 </div>
 <div class="section" id="example-managing-services-with-ad-hoc-pyinfra-commands">
-<h3>Example: managing services with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-managing-services-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h3>
-<p>Now that nginx is installed on the box, we can use <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to control the <code class="docutils literal notranslate"><span class="pre">nginx</span></code> service - here we ensure it’s running and enabled to start on system boot:</p>
+<h3>Example: managing services with ad-hoc pyinfra commands<a class="headerlink" href="#example-managing-services-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h3>
+<p>Now that nginx is installed on the box, we can use pyinfra to control the <code class="docutils literal notranslate"><span class="pre">nginx</span></code> service - here we ensure it’s running and enabled to start on system boot:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>init.service<span class="w"> </span>nginx<span class="w"> </span><span class="nv">running</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="nv">enabled</span><span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 <div class="section" id="example-rebooting-with-ad-hoc-pyinfra-commands">
-<h4>Example: rebooting with ad-hoc <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> commands<a class="headerlink" href="#example-rebooting-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h4>
+<h4>Example: rebooting with ad-hoc pyinfra commands<a class="headerlink" href="#example-rebooting-with-ad-hoc-pyinfra-commands" title="Permalink to this heading">¶</a></h4>
 <p>We can reboot instances a couple of ways using adhoc commands (assuming <em>sudo</em> is enabled in inventory.py):</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># using server.reboot()</span>
 pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>server.reboot<span class="w"> </span><span class="nv">reboot_timeout</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">delay</span><span class="o">=</span><span class="m">0</span>

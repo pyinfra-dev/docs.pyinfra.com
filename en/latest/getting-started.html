@@ -87,10 +87,8 @@
         <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ad-hoc-commands-with-pyinfra">Ad-hoc commands with <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#state-definitions">State definitions</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#ad-hoc-commands-with-pyinfra">Ad-hoc commands with pyinfra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#state-definitions">State definitions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-a-deploy">Create a Deploy</a></li>
 </ul>
 </li>
@@ -109,11 +107,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -142,23 +140,20 @@
           
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
-<p>This guide should help describe the basics of deploying stuff with <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>.</p>
-<p>Install <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> with <a class="reference external" href="https://pipxproject.github.io/pipx/">pipx</a> (recommended) or <code class="docutils literal notranslate"><span class="pre">pip</span></code> (see <a class="reference internal" href="install.html"><span class="doc">full install instructions</span></a>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipx<span class="w"> </span>install<span class="w"> </span>pyinfra
+<p>This guide should help describe the basics of deploying stuff with pyinfra. Start by installing pyinfra with <code class="docutils literal notranslate"><span class="pre">pip</span></code> (see <a class="reference internal" href="install.html"><span class="doc">full install instructions</span></a>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyinfra
 </pre></div>
 </div>
 <p>To do something with pyinfra you need two things:</p>
 <dl class="docutils">
-<dt><a class="reference internal" href="inventory-data.html"><span class="doc">Inventory</span></a>:</dt><dd><p>Hosts, groups and data. Hosts are targets for <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to execute commands or state changes (server via SSH, container via Docker, etc). Hosts can be attached to groups, and data can then be assigned to both the groups of hosts and individual hosts.</p>
-<p>By default <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> assumes hosts can be reached over SSH. <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can connect to other systems using <a class="reference internal" href="connectors.html"><span class="doc">connectors</span></a>, for example: a Docker container or the local machine.</p>
-</dd>
-<dt><a class="reference internal" href="using-operations.html"><span class="doc">Operations</span></a>:</dt><dd><p>Commands to execute or state to apply to the target hosts in the inventory. These can be simple shell commands “execute the <code class="docutils literal notranslate"><span class="pre">uptime</span></code> command” or state definitions such as “ensure the <code class="docutils literal notranslate"><span class="pre">iftop</span></code> apt package is installed”.</p>
-<p>Stateful operations will not generate changes unless required by diff-ing the target state against the state defined by operation arguments.</p>
+<dt><a class="reference internal" href="inventory-data.html"><span class="doc">Inventory</span></a>:</dt><dd>Hosts, groups and data. Hosts are targets for pyinfra to execute commands or state changes (server via SSH, container via Docker, etc). Hosts can be assigned to groups, and data can then be assigned to both groups and individual hosts.</dd>
+<dt><a class="reference internal" href="using-operations.html"><span class="doc">Operations</span></a>:</dt><dd><p>Commands to execute or state to apply to the target hosts in the inventory. These can be simple shell commands <em>“execute the uptime command”</em> or state definitions <em>“ensure the iftop apt package is installed”</em>.</p>
+<p>State definition operations will not make changes unless required by diff-ing the target state against the state of the operation.</p>
 </dd>
 </dl>
 <div class="section" id="ad-hoc-commands-with-pyinfra">
-<h2>Ad-hoc commands with <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code><a class="headerlink" href="#ad-hoc-commands-with-pyinfra" title="Permalink to this heading">¶</a></h2>
-<p>You can start <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> immediately with some ad-hoc command execution. The CLI always takes arguments in order <code class="docutils literal notranslate"><span class="pre">INVENTORY</span></code> then <code class="docutils literal notranslate"><span class="pre">OPERATIONS</span></code>. You can target a SSH server, Docker container or the local machine for quick testing:</p>
+<h2>Ad-hoc commands with pyinfra<a class="headerlink" href="#ad-hoc-commands-with-pyinfra" title="Permalink to this heading">¶</a></h2>
+<p>You can start pyinfra immediately with some ad-hoc command execution. The CLI always takes arguments in order <code class="docutils literal notranslate"><span class="pre">INVENTORY</span></code> then <code class="docutils literal notranslate"><span class="pre">OPERATIONS</span></code>. You can target a SSH server, Docker container or the local machine for quick testing:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>INVENTORY<span class="w"> </span>OPERATIONS...
 
 <span class="c1"># Execute over SSH</span>
@@ -171,10 +166,11 @@ pyinfra<span class="w"> </span>@docker/ubuntu:18.04<span class="w"> </span><span
 pyinfra<span class="w"> </span>@local<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
 </pre></div>
 </div>
-<p>When you run this <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> connects (or spins up a container), runs the echo command and prints the output. The <a class="reference internal" href="cli.html"><span class="doc">CLI page</span></a> contains more <a class="reference internal" href="cli.html#ad-hoc-command-execution"><span class="std std-ref">examples of ad-hoc commands</span></a>.</p>
+<p>When you run this pyinfra connects (or spins up a container), runs the echo command and prints the output. The <a class="reference internal" href="cli.html"><span class="doc">CLI page</span></a> contains more <a class="reference internal" href="cli.html#ad-hoc-command-execution"><span class="std std-ref">examples of ad-hoc commands</span></a>.</p>
+</div>
 <div class="section" id="state-definitions">
-<h3>State definitions<a class="headerlink" href="#state-definitions" title="Permalink to this heading">¶</a></h3>
-<p>Operations can be used to define the desired state of target hosts. Where possible, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will then use the state to determine what, if any, changes need to be made to have targets reach that state. This means that when you run these commands for a second time, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> won’t need to do execute anything because the target is already up to date.</p>
+<h2>State definitions<a class="headerlink" href="#state-definitions" title="Permalink to this heading">¶</a></h2>
+<p>Operations can be used to define the desired state of target hosts. pyinfra will then determine what, if any, changes need to be made and apply them. This means that when you run these operations for a second time, pyinfra won’t need to do do anything because the target is already up to date.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure a package is installed on a Centos 8 instance</span>
 pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>dnf.packages<span class="w"> </span>vim
 
@@ -182,18 +178,18 @@ pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>dnf.packages
 pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>init.systemd<span class="w"> </span>httpd<span class="w"> </span><span class="nv">running</span><span class="o">=</span>False<span class="w"> </span><span class="nv">_sudo</span><span class="o">=</span>True
 </pre></div>
 </div>
-<p>In this case you can re-run the above commands and in the second instance <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will report no changes need to be made.</p>
+<p>In this case you can re-run the above commands and the second time pyinfra will report no changes need to be made.</p>
 <div class="note admonition">
 <p class="first admonition-title">Note for Docker users</p>
-<p class="last">When using <code class="docutils literal notranslate"><span class="pre">&#64;docker/IMAGE</span></code> syntax, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will use a new container each run (meaning there will always be changes). You can use the container from the first run in the second (<code class="docutils literal notranslate"><span class="pre">&#64;docker/CTID</span></code>) to test the state change handling.</p>
-</div>
+<p class="last">When using <code class="docutils literal notranslate"><span class="pre">&#64;docker/IMAGE</span></code> syntax, pyinfra will use a new container each run (meaning there will always be changes). You can use the image from the first run in the second (<code class="docutils literal notranslate"><span class="pre">&#64;docker/IMAGEID</span></code>) to test the state change handling.</p>
 </div>
 </div>
 <div class="section" id="create-a-deploy">
 <h2>Create a Deploy<a class="headerlink" href="#create-a-deploy" title="Permalink to this heading">¶</a></h2>
 <p>A deploy is a collection of inventories and operations defined in Python files. These deploys can be saved and reused (committed to git, etc). Think of a deploy like Ansible’s playbook or Chef’s cookbook.</p>
 <p>To get started create an <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code> containing our hosts to target:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my-server.net&quot;</span><span class="p">,</span> <span class="s2">&quot;@docker/ubuntu:18.04&quot;</span><span class="p">]</span>  <span class="c1"># define a group as a list of hosts</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a group as a list of hosts</span>
+<span class="n">my_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my-server.net&quot;</span><span class="p">,</span> <span class="s2">&quot;@docker/ubuntu:18.04&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Now create a <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code> containing our operations to execute:</p>
@@ -211,7 +207,7 @@ pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>init.systemd
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py
 </pre></div>
 </div>
-<p>That’s the basics of <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>!</p>
+<p>That’s the basics of pyinfra!</p>
 <p>Some good next steps:</p>
 <ul class="simple">
 <li><a class="reference internal" href="using-operations.html"><span class="doc">Using Operations</span></a></li>
