@@ -127,15 +127,9 @@
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sysvinit Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sysvinit-enable"><code class="code docutils literal notranslate"><span class="pre">sysvinit.enable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sysvinit-service"><code class="code docutils literal notranslate"><span class="pre">sysvinit.service</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -180,68 +174,6 @@
 <h1>Sysvinit Operations<a class="headerlink" href="#sysvinit-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage sysvinit services (<code class="docutils literal notranslate"><span class="pre">/etc/init.d</span></code>).</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-findlinks"><span class="std std-ref">files.FindLinks</span></a>, <a class="reference internal" href="../facts/sysvinit.html#facts-sysvinit-initdstatus"><span class="std std-ref">sysvinit.InitdStatus</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-linuxdistribution"><span class="std std-ref">server.LinuxDistribution</span></a>.</p>
-<div class="section" id="sysvinit-enable">
-<span id="operations-sysvinit-enable"></span><h2><code class="code docutils literal notranslate"><span class="pre">sysvinit.enable</span></code><a class="headerlink" href="#sysvinit-enable" title="Permalink to this heading">¶</a></h2>
-<p>Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sysvinit</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span>
-    <span class="n">service</span><span class="p">,</span> <span class="n">start_priority</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">stop_priority</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">start_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="n">stop_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>service</strong>: name of the service to enable</li>
-<li><strong>start_priority</strong>: priority to start the service</li>
-<li><strong>stop_priority</strong>: priority to stop the service</li>
-<li><strong>start_levels</strong>: which runlevels should the service run when enabled</li>
-<li><strong>stop_levels</strong>: which runlevels should the service stop when enabled</li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">init</span><span class="o">.</span><span class="n">d_enable</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Finer control on which runlevels rsyslog should run&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">start_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="n">stop_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="sysvinit-service">
-<span id="operations-sysvinit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">sysvinit.service</span></code><a class="headerlink" href="#sysvinit-service" title="Permalink to this heading">¶</a></h2>
-<p>Manage the state of SysV Init (/etc/init.d) services.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sysvinit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>running</strong>: whether the service should be running</li>
-<li><strong>restarted</strong>: whether the service should be restarted</li>
-<li><strong>reloaded</strong>: whether the service should be reloaded</li>
-<li><strong>enabled</strong>: whether this service should be enabled/disabled</li>
-<li><strong>command</strong>: command (eg. reload) to run like: <code class="docutils literal notranslate"><span class="pre">/etc/init.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></li>
-</ul>
-<dl class="docutils">
-<dt>Enabled:</dt><dd><p>Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
-support enabling/disabling services:</p>
-<ul class="simple">
-<li>Ubuntu/Debian (<code class="docutils literal notranslate"><span class="pre">update-rc.d</span></code>)</li>
-<li>CentOS/Fedora/RHEL (<code class="docutils literal notranslate"><span class="pre">chkconfig</span></code>)</li>
-<li>Gentoo (<code class="docutils literal notranslate"><span class="pre">rc-update</span></code>)</li>
-</ul>
-<p>For other distributions and more granular service control, see the
-<code class="docutils literal notranslate"><span class="pre">sysvinit.enable</span></code> operation.</p>
-</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sysvinit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Restart and enable rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">restarted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 

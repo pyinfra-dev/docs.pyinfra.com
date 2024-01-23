@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.connectors.util module" href="pyinfra.connectors.util.html" />
-    <link rel="prev" title="pyinfra.connectors.ssh module" href="pyinfra.connectors.ssh.html" />
+    <link rel="prev" title="pyinfra.connectors.ssh_util module" href="pyinfra.connectors.ssh_util.html" />
   
    
 
@@ -45,7 +45,7 @@
           <a href="pyinfra.connectors.util.html" title="pyinfra.connectors.util module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.ssh.html" title="pyinfra.connectors.ssh module"
+          <a href="pyinfra.connectors.ssh_util.html" title="pyinfra.connectors.ssh_util module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -136,25 +137,23 @@
 <li class="toctree-l3 current"><a class="reference internal" href="pyinfra.connectors.html#submodules">Submodules</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.terraform module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.terraform.make_names_data"><code class="docutils literal notranslate"><span class="pre">make_names_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.terraform.TerraformInventoryConnector"><code class="docutils literal notranslate"><span class="pre">TerraformInventoryConnector</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.terraform.show_warning"><code class="docutils literal notranslate"><span class="pre">show_warning()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -181,6 +180,10 @@
           
   <div class="section" id="module-pyinfra.connectors.terraform">
 <span id="pyinfra-connectors-terraform-module"></span><h1>pyinfra.connectors.terraform module<a class="headerlink" href="#module-pyinfra.connectors.terraform" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.terraform.TerraformInventoryConnector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.terraform.</span></code><code class="sig-name descname"><span class="pre">TerraformInventoryConnector</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.terraform.TerraformInventoryConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyinfra.connectors.base.html#pyinfra.connectors.base.BaseConnector" title="pyinfra.connectors.base.BaseConnector"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnector</span></code></a></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This connector is in alpha and may change in future releases.</p>
@@ -209,10 +212,14 @@ CLI flags.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyinfra</span> <span class="nd">@terraform</span><span class="o">/</span><span class="n">server_group</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">server_group_node_ips</span> <span class="o">...</span>
 </pre></div>
 </div>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyinfra.connectors.terraform.make_names_data">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.terraform.</span></code><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">output_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.terraform.make_names_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.connectors.terraform.TerraformInventoryConnector.make_names_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">output_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.terraform.TerraformInventoryConnector.make_names_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates hosts/data/groups information for inventory. This allows a
+single connector reference to generate multiple target hosts.</p>
+</dd></dl>
+
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyinfra.connectors.terraform.show_warning">
@@ -227,8 +234,8 @@ CLI flags.</p>
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="pyinfra.connectors.ssh.html">
-          <span aria-hidden="true">&larr;</span> pyinfra.connectors.ssh module
+        <li class="previous"><a href="pyinfra.connectors.ssh_util.html">
+          <span aria-hidden="true">&larr;</span> pyinfra.connectors.ssh_util module
         </a></li>
       
         <li class="next"><a href="pyinfra.connectors.util.html">
@@ -255,7 +262,7 @@ CLI flags.</p>
           <a href="pyinfra.connectors.util.html" title="pyinfra.connectors.util module"
              >next</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.ssh.html" title="pyinfra.connectors.ssh module"
+          <a href="pyinfra.connectors.ssh_util.html" title="pyinfra.connectors.ssh_util module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>

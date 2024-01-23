@@ -112,15 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Mysql Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-database"><code class="code docutils literal notranslate"><span class="pre">mysql.database</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-dump"><code class="code docutils literal notranslate"><span class="pre">mysql.dump</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-load"><code class="code docutils literal notranslate"><span class="pre">mysql.load</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-privileges"><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-sql"><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mysql-user"><code class="code docutils literal notranslate"><span class="pre">mysql.user</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mysql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
@@ -138,8 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -195,191 +185,6 @@
 </dl>
 <p>See the example/mysql.py</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqldatabases"><span class="std std-ref">mysql.MysqlDatabases</span></a>, <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqlusergrants"><span class="std std-ref">mysql.MysqlUserGrants</span></a>, <a class="reference internal" href="../facts/mysql.html#facts-mysql-mysqlusers"><span class="std std-ref">mysql.MysqlUsers</span></a>.</p>
-<div class="section" id="mysql-database">
-<span id="operations-mysql-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.database</span></code><a class="headerlink" href="#mysql-database" title="Permalink to this heading">¶</a></h2>
-<p>Add/remove MySQL databases.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">database</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">collate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-    <span class="n">user_privileges</span><span class="o">=</span><span class="s2">&quot;ALL&quot;</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>name</strong>: the name of the database</li>
-<li><strong>present</strong>: whether the database should exist or not</li>
-<li><strong>collate</strong>: the collate to use when creating the database</li>
-<li><strong>charset</strong>: the charset to use when creating the database</li>
-<li><strong>user</strong>: MySQL user to grant privileges on this database to</li>
-<li><strong>user_hostname</strong>: the hostname of the MySQL user to grant</li>
-<li><strong>user_privileges</strong>: privileges to grant to any specified user</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-<dl class="docutils">
-<dt>Collate/charset:</dt><dd>these will only be applied if the database does not exist - ie pyinfra
-will not attempt to alter the existing databases collate/character sets.</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra_stuff database&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">user_privileges</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;SELECT&quot;</span><span class="p">,</span> <span class="s2">&quot;INSERT&quot;</span><span class="p">],</span>
-    <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="mysql-dump">
-<span id="operations-mysql-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.dump</span></code><a class="headerlink" href="#mysql-dump" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Dump a MySQL database into a <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file. Requires <code class="docutils literal notranslate"><span class="pre">mysqldump</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">dest</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>dest</strong>: name of the file to dump the SQL to</li>
-<li><strong>database</strong>: name of the database to dump</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dump the pyinfra_stuff database&quot;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="mysql-load">
-<span id="operations-mysql-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.load</span></code><a class="headerlink" href="#mysql-load" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Load <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file into a database.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>src</strong>: the filename to read from</li>
-<li><strong>database</strong>: name of the database to import into</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import the pyinfra_stuff dump into pyinfra_stuff_copy&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff_copy&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="mysql-privileges">
-<span id="operations-mysql-privileges"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Permalink to this heading">¶</a></h2>
-<p>Add/remove MySQL privileges for a user, either global, database or table specific.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">privileges</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">privileges</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">with_grant_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>user</strong>: name of the user to manage privileges for</li>
-<li><strong>privileges</strong>: list of privileges the user should have (see also: <code class="docutils literal notranslate"><span class="pre">with_grant_option</span></code> argument)</li>
-<li><strong>user_hostname</strong>: the hostname of the user</li>
-<li><strong>database</strong>: name of the database to grant privileges to (defaults to all)</li>
-<li><strong>table</strong>: name of the table to grant privileges to (defaults to all)</li>
-<li><strong>flush</strong>: whether to flush (and update) the privileges table after any changes</li>
-<li><strong>with_grant_option</strong>: whether the grant option privilege should be set</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-</div>
-<div class="section" id="mysql-sql">
-<span id="operations-mysql-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Execute arbitrary SQL against MySQL.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>sql</strong>: SQL command(s) to execute</li>
-<li><strong>database</strong>: optional database to open the connection with</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-</div>
-<div class="section" id="mysql-user">
-<span id="operations-mysql-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.user</span></code><a class="headerlink" href="#mysql-user" title="Permalink to this heading">¶</a></h2>
-<p>Add/remove/update MySQL users.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">user</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user_hostname</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">privileges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">require</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">require_cipher</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_issuer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_subject</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">max_connections</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_queries_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">max_connections_per_hour</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>user</strong>: the name of the user</li>
-<li><strong>present</strong>: whether the user should exist or not</li>
-<li><strong>user_hostname</strong>: the hostname of the user</li>
-<li><strong>password</strong>: the password of the user (if created)</li>
-<li><strong>privileges</strong>: the global privileges for this user</li>
-<li><strong>mysql_*</strong>: global module arguments, see above</li>
-</ul>
-<dl class="docutils">
-<dt>Hostname:</dt><dd>this + <code class="docutils literal notranslate"><span class="pre">name</span></code> makes the username - so changing this will create a new
-user, rather than update users with the same <code class="docutils literal notranslate"><span class="pre">name</span></code>.</dd>
-<dt>Password:</dt><dd>will only be applied if the user does not exist - ie pyinfra cannot
-detect if the current password doesn’t match the one provided, so won’t
-attempt to change it.</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Create a user with resource limits</span>
-<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">max_connections</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-    <span class="n">max_updates_per_hour</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Create a user that requires SSL for connections</span>
-<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
-    <span class="n">require</span><span class="o">=</span><span class="s2">&quot;SSL&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Create a user that requires a specific certificate</span>
-<span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra@localhost MySQL user&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
-    <span class="n">require</span><span class="o">=</span><span class="s2">&quot;X509&quot;</span><span class="p">,</span>
-    <span class="n">require_issuer</span><span class="o">=</span><span class="s2">&quot;/C=SE/ST=Stockholm...&quot;</span><span class="p">,</span>
-    <span class="n">require_cipher</span><span class="o">=</span><span class="s2">&quot;EDH-RSA-DES-CBC3-SHA&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 

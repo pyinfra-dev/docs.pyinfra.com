@@ -124,17 +124,12 @@
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Snap Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#snap-package"><code class="code docutils literal notranslate"><span class="pre">snap.package</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Snap Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -179,58 +174,6 @@
 <h1>Snap Operations<a class="headerlink" href="#snap-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage snap packages. See <a class="reference external" href="https://snapcraft.io/">https://snapcraft.io/</a></p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/snap.html#facts-snap-snappackage"><span class="std std-ref">snap.SnapPackage</span></a>, <a class="reference internal" href="../facts/snap.html#facts-snap-snappackages"><span class="std std-ref">snap.SnapPackages</span></a>.</p>
-<div class="section" id="snap-package">
-<span id="operations-snap-package"></span><h2><code class="code docutils literal notranslate"><span class="pre">snap.package</span></code><a class="headerlink" href="#snap-package" title="Permalink to this heading">¶</a></h2>
-<p>Install/remove a snap package</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;latest/stable&quot;</span><span class="p">,</span> <span class="n">classic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>packages</strong>: List of packages</li>
-<li><strong>channel</strong>: tracking channel</li>
-<li><strong>classic</strong>: Use classic confinement</li>
-<li><strong>present</strong>: whether the package should be installed</li>
-</ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">classic</span></code>:</dt><dd>Allows access to your system’s resources in much the same way traditional
-packages do. This option corresponds to the <code class="docutils literal notranslate"><span class="pre">--classic</span></code> argument.</dd>
-</dl>
-<p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install vlc snap</span>
-<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install vlc&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="s2">&quot;vlc&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Install multiple snaps</span>
-<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install vlc and hello-world&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vlc&quot;</span><span class="p">,</span> <span class="s2">&quot;hello-world&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="c1"># Remove vlc</span>
-<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove vlc&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="s2">&quot;vlc&quot;</span><span class="p">,</span>
-    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Install LXD using &quot;4.0/stable&quot; channel</span>
-<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install LXD 4.0/stable&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd&quot;</span><span class="p">],</span>
-    <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;4.0/stable&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Install neovim with classic confinement</span>
-<span class="n">snap</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Neovim&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nvim&quot;</span><span class="p">],</span>
-    <span class="n">classic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 

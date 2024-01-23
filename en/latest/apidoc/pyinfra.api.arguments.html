@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="pyinfra.api.command module" href="pyinfra.api.command.html" />
+    <link rel="next" title="pyinfra.api.arguments_typed module" href="pyinfra.api.arguments_typed.html" />
     <link rel="prev" title="API Reference" href="../api/reference.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pyinfra.api.command.html" title="pyinfra.api.command module"
+          <a href="pyinfra.api.arguments_typed.html" title="pyinfra.api.arguments_typed module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../api/reference.html" title="API Reference"
@@ -117,14 +117,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.arguments module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.AllArguments"><code class="docutils literal notranslate"><span class="pre">AllArguments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.ArgumentMeta"><code class="docutils literal notranslate"><span class="pre">ArgumentMeta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.ConnectorArguments"><code class="docutils literal notranslate"><span class="pre">ConnectorArguments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.ExecutionArguments"><code class="docutils literal notranslate"><span class="pre">ExecutionArguments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.MetaArguments"><code class="docutils literal notranslate"><span class="pre">MetaArguments</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.generate_env"><code class="docutils literal notranslate"><span class="pre">generate_env()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.get_execution_kwarg_keys"><code class="docutils literal notranslate"><span class="pre">get_execution_kwarg_keys()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.get_executor_kwarg_keys"><code class="docutils literal notranslate"><span class="pre">get_executor_kwarg_keys()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.pop_global_arguments"><code class="docutils literal notranslate"><span class="pre">pop_global_arguments()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.show_legacy_argument_host_data_warning"><code class="docutils literal notranslate"><span class="pre">show_legacy_argument_host_data_warning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.arguments.show_legacy_argument_warning"><code class="docutils literal notranslate"><span class="pre">show_legacy_argument_warning()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -139,21 +141,19 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -180,24 +180,69 @@
           
   <div class="section" id="module-pyinfra.api.arguments">
 <span id="pyinfra-api-arguments-module"></span><h1>pyinfra.api.arguments module<a class="headerlink" href="#module-pyinfra.api.arguments" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.AllArguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">AllArguments</span></code><a class="headerlink" href="#pyinfra.api.arguments.AllArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.arguments.ConnectorArguments" title="pyinfra.api.arguments.ConnectorArguments"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectorArguments</span></code></a>, <a class="reference internal" href="#pyinfra.api.arguments.MetaArguments" title="pyinfra.api.arguments.MetaArguments"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetaArguments</span></code></a>, <a class="reference internal" href="#pyinfra.api.arguments.ExecutionArguments" title="pyinfra.api.arguments.ExecutionArguments"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionArguments</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.AllArguments.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.api.arguments.AllArguments.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ArgumentMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">ArgumentMeta</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">description</span></span></em>, <em><span class="n"><span class="pre">default</span></span></em>, <em><span class="n"><span class="pre">handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.arguments.ArgumentMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ArgumentMeta.default">
+<code class="sig-name descname"><span class="pre">default</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Config'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.arguments.ArgumentMeta.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ArgumentMeta.description">
+<code class="sig-name descname"><span class="pre">description</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.api.arguments.ArgumentMeta.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ArgumentMeta.handler">
+<code class="sig-name descname"><span class="pre">handler</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Config'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.arguments.ArgumentMeta.handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ConnectorArguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">ConnectorArguments</span></code><a class="headerlink" href="#pyinfra.api.arguments.ConnectorArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.ExecutionArguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">ExecutionArguments</span></code><a class="headerlink" href="#pyinfra.api.arguments.ExecutionArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.MetaArguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">MetaArguments</span></code><a class="headerlink" href="#pyinfra.api.arguments.MetaArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.arguments.MetaArguments.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.api.arguments.MetaArguments.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="pyinfra.api.arguments.generate_env">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">generate_env</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.config.html#pyinfra.api.config.Config" title="pyinfra.api.config.Config"><span class="pre">Config</span></a></span></em>, <em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.arguments.generate_env" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyinfra.api.arguments.get_execution_kwarg_keys">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">get_execution_kwarg_keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.arguments.get_execution_kwarg_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyinfra.api.arguments.get_executor_kwarg_keys">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">get_executor_kwarg_keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.arguments.get_executor_kwarg_keys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">generate_env</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.config.html#pyinfra.api.config.Config" title="pyinfra.api.config.Config"><span class="pre">Config</span></a></span></em>, <em><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pyinfra.api.arguments.generate_env" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyinfra.api.arguments.pop_global_arguments">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">pop_global_arguments</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">keys_to_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.arguments.pop_global_arguments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">pop_global_arguments</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'State'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Host'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">keys_to_check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyinfra.api.arguments.AllArguments" title="pyinfra.api.arguments.AllArguments"><span class="pre">AllArguments</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.arguments.pop_global_arguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pop and return operation global keyword arguments, in preferred order:</p>
 <ul class="simple">
 <li>From the current context (a direct &#64;operator or &#64;deploy function being called)</li>
@@ -205,24 +250,7 @@
 <li>From the host data variables</li>
 <li>From the config variables</li>
 </ul>
-<p>Note this function is only called directly in the &#64;operation &amp; &#64;deploy decorator
-wrappers which the user should pass global arguments prefixed “_”. This is to
-avoid any clashes with operation and deploy functions both internal and third
-party.</p>
-<p>This is a bit strange because internally pyinfra uses non-_-prefixed arguments,
-and this function is responsible for the translation between the two.</p>
-<p>TODO: is this weird-ness acceptable? Is it worth updating internal use to _prefix?</p>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyinfra.api.arguments.show_legacy_argument_host_data_warning">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">show_legacy_argument_host_data_warning</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.arguments.show_legacy_argument_host_data_warning" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyinfra.api.arguments.show_legacy_argument_warning">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.arguments.</span></code><code class="sig-name descname"><span class="pre">show_legacy_argument_warning</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">key</span></span></em>, <em><span class="n"><span class="pre">call_location</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.arguments.show_legacy_argument_warning" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 
@@ -236,8 +264,8 @@ and this function is responsible for the translation between the two.</p>
           <span aria-hidden="true">&larr;</span> API Reference
         </a></li>
       
-        <li class="next"><a href="pyinfra.api.command.html">
-          pyinfra.api.command module <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="pyinfra.api.arguments_typed.html">
+          pyinfra.api.arguments_typed module <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -257,7 +285,7 @@ and this function is responsible for the translation between the two.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pyinfra.api.command.html" title="pyinfra.api.command module"
+          <a href="pyinfra.api.arguments_typed.html" title="pyinfra.api.arguments_typed module"
              >next</a> |</li>
         <li class="right" >
           <a href="../api/reference.html" title="API Reference"

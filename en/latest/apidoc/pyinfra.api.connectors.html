@@ -117,11 +117,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.connectors module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.connectors.BaseConnectorMeta"><code class="docutils literal notranslate"><span class="pre">BaseConnectorMeta</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.connectors.get_all_connectors"><code class="docutils literal notranslate"><span class="pre">get_all_connectors()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.connectors.get_execution_connector"><code class="docutils literal notranslate"><span class="pre">get_execution_connector()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.connectors.get_execution_connectors"><code class="docutils literal notranslate"><span class="pre">get_execution_connectors()</span></code></a></li>
@@ -137,21 +137,19 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -178,33 +176,6 @@
           
   <div class="section" id="module-pyinfra.api.connectors">
 <span id="pyinfra-api-connectors-module"></span><h1>pyinfra.api.connectors module<a class="headerlink" href="#module-pyinfra.api.connectors" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyinfra.api.connectors.BaseConnectorMeta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.connectors.</span></code><code class="sig-name descname"><span class="pre">BaseConnectorMeta</span></code><a class="headerlink" href="#pyinfra.api.connectors.BaseConnectorMeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyinfra.api.connectors.BaseConnectorMeta.DataKeys">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">DataKeys</span></code><a class="headerlink" href="#pyinfra.api.connectors.BaseConnectorMeta.DataKeys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.api.connectors.BaseConnectorMeta.handles_execution">
-<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyinfra.api.connectors.BaseConnectorMeta.handles_execution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.connectors.BaseConnectorMeta.keys">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">keys</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.BaseConnectorMeta.keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.api.connectors.BaseConnectorMeta.keys_prefix">
-<code class="sig-name descname"><span class="pre">keys_prefix</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#pyinfra.api.connectors.BaseConnectorMeta.keys_prefix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="pyinfra.api.connectors.get_all_connectors">
 <code class="sig-prename descclassname"><span class="pre">pyinfra.api.connectors.</span></code><code class="sig-name descname"><span class="pre">get_all_connectors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.connectors.get_all_connectors" title="Permalink to this definition">¶</a></dt>

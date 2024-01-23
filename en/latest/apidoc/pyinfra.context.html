@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.local module" href="pyinfra.local.html" />
-    <link rel="prev" title="pyinfra.connectors.winrm module" href="pyinfra.connectors.winrm.html" />
+    <link rel="prev" title="pyinfra.connectors.vagrant module" href="pyinfra.connectors.vagrant.html" />
   
    
 
@@ -45,7 +45,7 @@
           <a href="pyinfra.local.html" title="pyinfra.local module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.winrm.html" title="pyinfra.connectors.winrm module"
+          <a href="pyinfra.connectors.vagrant.html" title="pyinfra.connectors.vagrant module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li>
@@ -117,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -131,21 +132,19 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.context module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.context.ContextManager"><code class="docutils literal notranslate"><span class="pre">ContextManager</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.context.ContextObject"><code class="docutils literal notranslate"><span class="pre">ContextObject</span></code></a></li>
@@ -234,6 +233,11 @@ are imported and used throughout pyinfra and end user deploy code (CLI mode).</p
 <dt class="sig sig-object py" id="pyinfra.context.container">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.context.</span></code><code class="sig-name descname"><span class="pre">container</span></code><a class="headerlink" href="#pyinfra.context.container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.context.container.module">
+<code class="sig-name descname"><span class="pre">module</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.context.container.module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -249,8 +253,8 @@ are imported and used throughout pyinfra and end user deploy code (CLI mode).</p
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="pyinfra.connectors.winrm.html">
-          <span aria-hidden="true">&larr;</span> pyinfra.connectors.winrm module
+        <li class="previous"><a href="pyinfra.connectors.vagrant.html">
+          <span aria-hidden="true">&larr;</span> pyinfra.connectors.vagrant module
         </a></li>
       
         <li class="next"><a href="pyinfra.local.html">
@@ -277,7 +281,7 @@ are imported and used throughout pyinfra and end user deploy code (CLI mode).</p
           <a href="pyinfra.local.html" title="pyinfra.local module"
              >next</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.winrm.html" title="pyinfra.connectors.winrm module"
+          <a href="pyinfra.connectors.vagrant.html" title="pyinfra.connectors.vagrant module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>

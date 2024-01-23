@@ -1,15 +1,11 @@
 ``@docker`` Connector
 ---------------------
 
+The docker connector allows you to build Docker images or modify running
+Docker containers. You can pass either an image name or existing container ID:
 
-The ``@docker`` connector allows you to build Docker images, or modify running
-Docker containers, using ``pyinfra``. You can pass either an image name or
-existing container ID:
-
-+ Image - will create a container from the image, execute operations and save
-    into a new image
-+ Existing container ID - will simply execute operations against the container,
-    leaving it up afterwards
++ Image - will create a container from the image, execute operations and save into a new image
++ Existing container ID - will execute operations against the container, leaving it running
 
 
 .. code:: shell
@@ -26,14 +22,24 @@ existing container ID:
 Usage
 ~~~~~
 
-.. code:: python
+.. code:: shell
 
     pyinfra @docker/identifier ...
 
 Available Data
 ~~~~~~~~~~~~~~
 
-.. code:: python
+The following keys can be set as host or group data to control how this connector interacts with the target.
 
-    docker_identifier  # ID of container or image to target
-    docker_container_id  # ID of container to target, overrides ``docker_identifier``
+.. list-table::
+   :header-rows: 1
+   :widths: 25 45 15 15
+
+   * - Key
+     - Description
+     - Type
+     - Default
+   * - ``docker_identifier``
+     - ID of container or image to start from
+     - ``str``
+     -

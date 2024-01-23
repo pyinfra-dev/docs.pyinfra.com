@@ -126,16 +126,10 @@
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Systemd Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#systemd-daemon-reload"><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#systemd-service"><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -180,61 +174,6 @@
 <h1>Systemd Operations<a class="headerlink" href="#systemd-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage systemd services.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdenabled"><span class="std std-ref">systemd.SystemdEnabled</span></a>, <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdstatus"><span class="std std-ref">systemd.SystemdStatus</span></a>.</p>
-<div class="section" id="systemd-daemon-reload">
-<span id="operations-systemd-daemon-reload"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Reload the systemd daemon to read unit file changes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
-<li><strong>machine</strong>: the machine name to connect to</li>
-<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
-</ul>
-</div>
-<div class="section" id="systemd-service">
-<span id="operations-systemd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Permalink to this heading">¶</a></h2>
-<p>Manage the state of systemd managed units.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>service</strong>: name of the systemd unit to manage</li>
-<li><strong>running</strong>: whether the unit should be running</li>
-<li><strong>restarted</strong>: whether the unit should be restarted</li>
-<li><strong>reloaded</strong>: whether the unit should be reloaded</li>
-<li><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;name&gt;</span> <span class="pre">&lt;command&gt;</span></code></li>
-<li><strong>enabled</strong>: whether this unit should be enabled/disabled on boot</li>
-<li><strong>daemon_reload</strong>: reload the systemd daemon to read updated unit files</li>
-<li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
-<li><strong>machine</strong>: the machine name to connect to</li>
-<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
-</ul>
-<p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Restart and enable the dnsmasq service&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;dnsmasq.service&quot;</span><span class="p">,</span>
-    <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">restarted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable logrotate timer&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;logrotate.timer&quot;</span><span class="p">,</span>
-    <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 
