@@ -116,7 +116,12 @@
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Pip Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pip Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pip-packages"><code class="code docutils literal notranslate"><span class="pre">pip.packages</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip-venv"><code class="code docutils literal notranslate"><span class="pre">pip.venv</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip-virtualenv"><code class="code docutils literal notranslate"><span class="pre">pip.virtualenv</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
@@ -130,6 +135,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +146,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -175,6 +182,81 @@
 <p>Manage pip (python) packages. Compatible globally or inside
 a virtualenv (virtual environment).</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/pip.html#facts-pip-pippackages"><span class="std std-ref">pip.PipPackages</span></a>.</p>
+<div class="section" id="pip-packages">
+<span id="operations-pip-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.packages</span></code><a class="headerlink" href="#pip-packages" title="Permalink to this heading">¶</a></h2>
+<p>Install/remove/update pip packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">requirements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pip</span><span class="o">=</span><span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="n">virtualenv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">virtualenv_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_install_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
+<li><strong>requirements</strong>: location of requirements file to install/uninstall</li>
+<li><strong>pip</strong>: name or path of the pip directory to use</li>
+<li><strong>virtualenv</strong>: root directory of virtualenv to work in</li>
+<li><strong>virtualenv_kwargs</strong>: dictionary of arguments to pass to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code></li>
+<li><strong>extra_install_args</strong>: additional arguments to the pip install command</li>
+</ul>
+<dl class="docutils">
+<dt>Virtualenv:</dt><dd>This will be created if it does not exist already. <code class="docutils literal notranslate"><span class="pre">virtualenv_kwargs</span></code>
+will be passed to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code> which can be used to control how
+the env is created.</dd>
+<dt>Versions:</dt><dd>Package versions can be pinned like pip: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;==&lt;version&gt;</span></code>.</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install pyinfra into a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">],</span>
+    <span class="n">virtualenv</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pip-venv">
+<span id="operations-pip-venv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.venv</span></code><a class="headerlink" href="#pip-venv" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove Python virtualenvs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site_packages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>python</strong>: python interpreter to use</li>
+<li><strong>site_packages</strong>: give access to the global site-packages</li>
+<li><strong>always_copy</strong>: always copy files rather than symlinking</li>
+<li><strong>present</strong>: whether the virtualenv should exist</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pip-virtualenv">
+<span id="operations-pip-virtualenv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.virtualenv</span></code><a class="headerlink" href="#pip-virtualenv" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove Python virtualenvs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">virtualenv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">venv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">site_packages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>python</strong>: python interpreter to use</li>
+<li><strong>venv</strong>: use standard venv module instead of virtualenv</li>
+<li><strong>site_packages</strong>: give access to the global site-packages</li>
+<li><strong>always_copy</strong>: always copy files rather than symlinking</li>
+<li><strong>present</strong>: whether the virtualenv should exist</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">virtualenv</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

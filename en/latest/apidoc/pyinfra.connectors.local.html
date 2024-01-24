@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="pyinfra.connectors.ssh module" href="pyinfra.connectors.ssh.html" />
+    <link rel="next" title="pyinfra.connectors.mech module" href="pyinfra.connectors.mech.html" />
     <link rel="prev" title="pyinfra.connectors.dockerssh module" href="pyinfra.connectors.dockerssh.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.ssh.html" title="pyinfra.connectors.ssh module"
+          <a href="pyinfra.connectors.mech.html" title="pyinfra.connectors.mech module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="pyinfra.connectors.dockerssh.html" title="pyinfra.connectors.dockerssh module"
@@ -104,11 +104,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
@@ -118,7 +118,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -137,22 +136,31 @@
 <li class="toctree-l3 current"><a class="reference internal" href="pyinfra.connectors.html#submodules">Submodules</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.local module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.LocalConnector"><code class="docutils literal notranslate"><span class="pre">LocalConnector</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.Meta"><code class="docutils literal notranslate"><span class="pre">Meta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.check_can_rsync"><code class="docutils literal notranslate"><span class="pre">check_can_rsync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.connect"><code class="docutils literal notranslate"><span class="pre">connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.get_file"><code class="docutils literal notranslate"><span class="pre">get_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.make_names_data"><code class="docutils literal notranslate"><span class="pre">make_names_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.put_file"><code class="docutils literal notranslate"><span class="pre">put_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.rsync"><code class="docutils literal notranslate"><span class="pre">rsync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.local.run_shell_command"><code class="docutils literal notranslate"><span class="pre">run_shell_command()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -179,75 +187,73 @@
           
   <div class="section" id="module-pyinfra.connectors.local">
 <span id="pyinfra-connectors-local-module"></span><h1>pyinfra.connectors.local module<a class="headerlink" href="#module-pyinfra.connectors.local" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">LocalConnector</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyinfra.connectors.base.html#pyinfra.connectors.base.BaseConnector" title="pyinfra.connectors.base.BaseConnector"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnector</span></code></a></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> connector executes changes on the local machine using subprocesses.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.check_can_rsync">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">check_can_rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.check_can_rsync" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">Meta</span></code><a class="headerlink" href="#pyinfra.connectors.local.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnectorMeta</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.Meta.handles_execution">
+<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.connectors.local.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.get_file">
-<code class="sig-name descname"><span class="pre">get_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.get_file" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.check_can_rsync">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">check_can_rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.check_can_rsync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.connect">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.get_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">get_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.get_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a local file by copying it to a temporary location and then writing
 it to our filename or IO object.</p>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Returns</dt><dd class="field-body">Indicating success or failure</dd>
-<dt class="field-name">Return type</dt><dd class="field-body">bool</dd>
-</dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.handles_execution">
-<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.handles_execution" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.make_names_data">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.make_names_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.make_names_data">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.make_names_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates hosts/data/groups information for inventory. This allows a
-single connector reference to generate multiple target hosts.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.put_file">
-<code class="sig-name descname"><span class="pre">put_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.put_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.put_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">put_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.put_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload a local file or IO object by copying it to a temporary directory
 and then writing it to the upload location.</p>
-<dl class="docutils field-list" frame="void" rules="none">
-<dt class="field-name">Returns</dt><dd class="field-body">Indicating success or failure</dd>
-<dt class="field-name">Return type</dt><dd class="field-body">bool</dd>
-</dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.rsync">
-<code class="sig-name descname"><span class="pre">rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">src</span></span></em>, <em><span class="n"><span class="pre">dest</span></span></em>, <em><span class="n"><span class="pre">flags</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.rsync" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.rsync">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">rsync</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">src</span></span></em>, <em><span class="n"><span class="pre">dest</span></span></em>, <em><span class="n"><span class="pre">flags</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.rsync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.local.LocalConnector.run_shell_command">
-<code class="sig-name descname"><span class="pre">run_shell_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.command.html#pyinfra.api.command.StringCommand" title="pyinfra.api.command.StringCommand"><span class="pre">StringCommand</span></a></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Unpack</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.connectors.util.html#pyinfra.connectors.util.CommandOutput" title="pyinfra.connectors.util.CommandOutput"><span class="pre">CommandOutput</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.connectors.local.LocalConnector.run_shell_command" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.local.run_shell_command">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.local.</span></code><code class="sig-name descname"><span class="pre">run_shell_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">command</span></span></em>, <em><span class="n"><span class="pre">get_pty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">stdin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">success_exit_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">return_combined_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.local.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a command on the local machine.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first simple">
-<li><strong>command</strong> (<a class="reference internal" href="pyinfra.api.command.html#pyinfra.api.command.StringCommand" title="pyinfra.api.command.StringCommand"><em>StringCommand</em></a>) – actual command to execute</li>
-<li><strong>print_output</strong> (<em>bool</em>) – whether to print command output</li>
-<li><strong>print_input</strong> (<em>bool</em>) – whether to print command input</li>
-<li><strong>arguments</strong> – (ConnectorArguments): connector global arguments</li>
+<li><strong>state</strong> (<code class="docutils literal notranslate"><span class="pre">pyinfra.api.State</span></code> object) – state object for this command</li>
+<li><strong>host</strong> (<code class="docutils literal notranslate"><span class="pre">pyinfra.api.Host</span></code> object) – the target host</li>
+<li><strong>command</strong> (<em>string</em>) – actual command to execute</li>
+<li><strong>sudo</strong> (<em>boolean</em>) – whether to wrap the command with sudo</li>
+<li><strong>sudo_user</strong> (<em>string</em>) – user to sudo to</li>
+<li><strong>env</strong> (<em>dict</em>) – environment variables to set</li>
+<li><strong>timeout</strong> (<em>int</em>) – timeout for this command to complete before erroring</li>
 </ul>
 </dd>
-<dt class="field-name">Returns</dt><dd class="field-body"><p class="first">(bool, CommandOutput)
-Bool indicating success and CommandOutput with stdout/stderr lines.</p>
+<dt class="field-name">Returns</dt><dd class="field-body"><p class="first">(exit_code, stdout, stderr)
+stdout and stderr are both lists of strings from each buffer.</p>
 </dd>
 <dt class="field-name">Return type</dt><dd class="field-body"><p class="first last">tuple</p>
 </dd>
 </dl>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -262,8 +268,8 @@ Bool indicating success and CommandOutput with stdout/stderr lines.</p>
           <span aria-hidden="true">&larr;</span> pyinfra.connectors.dockerssh module
         </a></li>
       
-        <li class="next"><a href="pyinfra.connectors.ssh.html">
-          pyinfra.connectors.ssh module <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="pyinfra.connectors.mech.html">
+          pyinfra.connectors.mech module <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -283,7 +289,7 @@ Bool indicating success and CommandOutput with stdout/stderr lines.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pyinfra.connectors.ssh.html" title="pyinfra.connectors.ssh module"
+          <a href="pyinfra.connectors.mech.html" title="pyinfra.connectors.mech module"
              >next</a> |</li>
         <li class="right" >
           <a href="pyinfra.connectors.dockerssh.html" title="pyinfra.connectors.dockerssh module"

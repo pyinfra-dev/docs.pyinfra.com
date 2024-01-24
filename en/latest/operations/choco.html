@@ -104,7 +104,11 @@
 <li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Choco Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Choco Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#choco-install"><code class="code docutils literal notranslate"><span class="pre">choco.install</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choco-packages"><code class="code docutils literal notranslate"><span class="pre">choco.packages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
@@ -130,6 +134,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +145,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +180,41 @@
 <h1>Choco Operations<a class="headerlink" href="#choco-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage <code class="docutils literal notranslate"><span class="pre">choco</span></code> (Chocolatey) packages (<a class="reference external" href="https://chocolatey.org">https://chocolatey.org</a>).</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/choco.html#facts-choco-chocopackages"><span class="std std-ref">choco.ChocoPackages</span></a>.</p>
+<div class="section" id="choco-install">
+<span id="operations-choco-install"></span><h2><code class="code docutils literal notranslate"><span class="pre">choco.install</span></code><a class="headerlink" href="#choco-install" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Install <code class="docutils literal notranslate"><span class="pre">choco</span></code> (Chocolatey).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choco-packages">
+<span id="operations-choco-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">choco.packages</span></code><a class="headerlink" href="#choco-packages" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove/update <code class="docutils literal notranslate"><span class="pre">choco</span></code> packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">choco</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
+</ul>
+<dl class="docutils">
+<dt>Versions:</dt><dd>Package versions can be pinned like gem: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;:&lt;version&gt;</span></code>.</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: Assumes that &#39;choco&#39; is installed and</span>
+<span class="c1">#       user has Administrator permission.</span>
+<span class="n">choco</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Notepad++&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;notepadplusplus&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

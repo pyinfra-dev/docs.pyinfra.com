@@ -111,7 +111,10 @@
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Lxd Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lxd Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lxd-container"><code class="code docutils literal notranslate"><span class="pre">lxd.container</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
@@ -130,6 +133,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +144,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +179,28 @@
 <h1>Lxd Operations<a class="headerlink" href="#lxd-operations" title="Permalink to this heading">¶</a></h1>
 <p>The LXD modules manage LXD containers</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/lxd.html#facts-lxd-lxdcontainers"><span class="std std-ref">lxd.LxdContainers</span></a>.</p>
+<div class="section" id="lxd-container">
+<span id="operations-lxd-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">lxd.container</span></code><a class="headerlink" href="#lxd-container" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove LXD containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lxd</span><span class="o">.</span><span class="n">container</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;ubuntu:16.04&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: does not check if an existing container is based on the specified
+image.</p>
+<ul class="simple">
+<li><strong>id</strong>: name/identifier for the container</li>
+<li><strong>image</strong>: image to base the container on</li>
+<li><strong>present</strong>: whether the container should be present or absent</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lxd</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add an ubuntu container&quot;</span><span class="p">,</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;ubuntu19&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;ubuntu:19.10&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

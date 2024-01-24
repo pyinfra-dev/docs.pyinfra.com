@@ -103,11 +103,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
@@ -117,16 +117,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.html">pyinfra.api.connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.deploy.html">pyinfra.api.deploy module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.exceptions module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.ArgumentTypeError"><code class="docutils literal notranslate"><span class="pre">ArgumentTypeError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.ConnectError"><code class="docutils literal notranslate"><span class="pre">ConnectError</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.ConnectorDataTypeError"><code class="docutils literal notranslate"><span class="pre">ConnectorDataTypeError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.DeployError"><code class="docutils literal notranslate"><span class="pre">DeployError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.InventoryError"><code class="docutils literal notranslate"><span class="pre">InventoryError</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.exceptions.NoConnectorError"><code class="docutils literal notranslate"><span class="pre">NoConnectorError</span></code></a></li>
@@ -146,19 +143,21 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -186,24 +185,10 @@
   <div class="section" id="module-pyinfra.api.exceptions">
 <span id="pyinfra-api-exceptions-module"></span><h1>pyinfra.api.exceptions module<a class="headerlink" href="#module-pyinfra.api.exceptions" title="Permalink to this heading">¶</a></h1>
 <dl class="py exception">
-<dt class="sig sig-object py" id="pyinfra.api.exceptions.ArgumentTypeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">ArgumentTypeError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.ArgumentTypeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
-<p>Raised when global arguments are passed with invalid types.</p>
-</dd></dl>
-
-<dl class="py exception">
 <dt class="sig sig-object py" id="pyinfra.api.exceptions.ConnectError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">ConnectError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.ConnectError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a></p>
 <p>Exception raised when connecting fails.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="pyinfra.api.exceptions.ConnectorDataTypeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">ConnectorDataTypeError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.ConnectorDataTypeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
-<p>Raised when host connector data has invalid types.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -223,21 +208,21 @@
 <dl class="py exception">
 <dt class="sig sig-object py" id="pyinfra.api.exceptions.NoConnectorError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">NoConnectorError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.NoConnectorError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
 <p>Raised when a requested connector is missing.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="pyinfra.api.exceptions.NoGroupError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">NoGroupError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.NoGroupError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">KeyError</span></code></p>
-<p>Raised when an inventory is missing a group.</p>
+<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
+<p>Raise when an inventory is missing a group.</p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py" id="pyinfra.api.exceptions.NoHostError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.exceptions.</span></code><code class="sig-name descname"><span class="pre">NoHostError</span></code><a class="headerlink" href="#pyinfra.api.exceptions.NoHostError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">KeyError</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#pyinfra.api.exceptions.PyinfraError" title="pyinfra.api.exceptions.PyinfraError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PyinfraError</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
 <p>Raised when an inventory is missing a host.</p>
 </dd></dl>
 

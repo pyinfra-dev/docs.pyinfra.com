@@ -6,3 +6,51 @@ Manage ``choco`` (Chocolatey) packages (https://chocolatey.org).
 
 
 Facts used in these operations: :ref:`facts:choco.ChocoPackages`.
+
+.. _operations:choco.install:
+
+:code:`choco.install`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Install ``choco`` (Chocolatey).
+
+.. code:: python
+
+    choco.install()
+
+
+.. _operations:choco.packages:
+
+:code:`choco.packages`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update ``choco`` packages.
+
+.. code:: python
+
+    choco.packages(packages=None, present=True, latest=False)
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
+
+Versions:
+    Package versions can be pinned like gem: ``<pkg>:<version>``.
+
+**Example:**
+
+.. code:: python
+
+    # Note: Assumes that 'choco' is installed and
+    #       user has Administrator permission.
+    choco.packages(
+        name="Install Notepad++",
+        packages=["notepadplusplus"],
+    )
+

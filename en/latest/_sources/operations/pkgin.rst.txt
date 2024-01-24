@@ -6,3 +6,75 @@ Manage pkgin packages.
 
 
 Facts used in these operations: :ref:`facts:pkgin.PkginPackages`.
+
+.. _operations:pkgin.packages:
+
+:code:`pkgin.packages`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update pkgin packages.
+
+.. code:: python
+
+    pkgin.packages(packages=None, present=True, latest=False, update=False, upgrade=False)
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``pkgin update`` before installing packages
++ **upgrade**: run ``pkgin upgrade`` before installing packages
+
+**Examples:**
+
+.. code:: python
+
+    # Update package list and install packages
+    pkgin.packages(
+        name="Install tmux and Vim",
+        packages=["tmux", "vim"],
+        update=True,
+    )
+
+    # Install the latest versions of packages (always check)
+    pkgin.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
+
+
+.. _operations:pkgin.update:
+
+:code:`pkgin.update`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Updates pkgin repositories.
+
+.. code:: python
+
+    pkgin.update()
+
+
+.. _operations:pkgin.upgrade:
+
+:code:`pkgin.upgrade`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Upgrades all pkgin packages.
+
+.. code:: python
+
+    pkgin.upgrade()
+

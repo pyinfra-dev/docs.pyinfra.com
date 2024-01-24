@@ -104,11 +104,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
@@ -118,7 +118,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -137,23 +136,30 @@
 <li class="toctree-l3 current"><a class="reference internal" href="pyinfra.connectors.html#submodules">Submodules</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.connectors.docker module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.ConnectorData"><code class="docutils literal notranslate"><span class="pre">ConnectorData</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.DockerConnector"><code class="docutils literal notranslate"><span class="pre">DockerConnector</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.Meta"><code class="docutils literal notranslate"><span class="pre">Meta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.connect"><code class="docutils literal notranslate"><span class="pre">connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.disconnect"><code class="docutils literal notranslate"><span class="pre">disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.get_file"><code class="docutils literal notranslate"><span class="pre">get_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.make_names_data"><code class="docutils literal notranslate"><span class="pre">make_names_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.put_file"><code class="docutils literal notranslate"><span class="pre">put_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.connectors.docker.run_shell_command"><code class="docutils literal notranslate"><span class="pre">run_shell_command()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -180,26 +186,18 @@
           
   <div class="section" id="module-pyinfra.connectors.docker">
 <span id="pyinfra-connectors-docker-module"></span><h1>pyinfra.connectors.docker module<a class="headerlink" href="#module-pyinfra.connectors.docker" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.ConnectorData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">ConnectorData</span></code><a class="headerlink" href="#pyinfra.connectors.docker.ConnectorData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.ConnectorData.docker_identifier">
-<code class="sig-name descname"><span class="pre">docker_identifier</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.connectors.docker.ConnectorData.docker_identifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">DockerConnector</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyinfra.connectors.base.html#pyinfra.connectors.base.BaseConnector" title="pyinfra.connectors.base.BaseConnector"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnector</span></code></a></p>
-<p>The docker connector allows you to build Docker images or modify running
-Docker containers. You can pass either an image name or existing container ID:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector allows you to build Docker images, or modify running
+Docker containers, using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>. You can pass either an image name or
+existing container ID:</p>
 <ul class="simple">
-<li>Image - will create a container from the image, execute operations and save into a new image</li>
-<li>Existing container ID - will execute operations against the container, leaving it running</li>
+<li><dl class="first docutils">
+<dt>Image - will create a container from the image, execute operations and save</dt><dd>into a new image</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Existing container ID - will simply execute operations against the container,</dt><dd>leaving it up afterwards</dd>
+</dl>
+</li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
 pyinfra<span class="w"> </span>@docker/alpine:3.8<span class="w"> </span>...
@@ -211,81 +209,71 @@ pyinfra<span class="w"> </span>@docker/alpine:3.8,@docker/ubuntu:bionic<span cla
 pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
 </pre></div>
 </div>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.connect">
-<code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.connect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connect this connector instance.</p>
-</dd></dl>
-
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">Meta</span></code><a class="headerlink" href="#pyinfra.connectors.docker.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyinfra.api.connectors.html#pyinfra.api.connectors.BaseConnectorMeta" title="pyinfra.api.connectors.BaseConnectorMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConnectorMeta</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta.DataKeys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">DataKeys</span></code><a class="headerlink" href="#pyinfra.connectors.docker.Meta.DataKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.container_id">
-<code class="sig-name descname"><span class="pre">container_id</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.container_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta.DataKeys.container_id">
+<code class="sig-name descname"><span class="pre">container_id</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ID</span> <span class="pre">of</span> <span class="pre">container</span> <span class="pre">to</span> <span class="pre">target,</span> <span class="pre">overrides</span> <span class="pre">``docker_identifier``'</span></em><a class="headerlink" href="#pyinfra.connectors.docker.Meta.DataKeys.container_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.data">
-<code class="sig-name descname"><span class="pre">data</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyinfra.connectors.docker.ConnectorData" title="pyinfra.connectors.docker.ConnectorData"><span class="pre">ConnectorData</span></a></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta.DataKeys.identifier">
+<code class="sig-name descname"><span class="pre">identifier</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ID</span> <span class="pre">of</span> <span class="pre">container</span> <span class="pre">or</span> <span class="pre">image</span> <span class="pre">to</span> <span class="pre">target'</span></em><a class="headerlink" href="#pyinfra.connectors.docker.Meta.DataKeys.identifier" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.data_cls">
-<code class="sig-name descname"><span class="pre">data_cls</span></code><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.data_cls" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#pyinfra.connectors.docker.ConnectorData" title="pyinfra.connectors.docker.ConnectorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectorData</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.data_meta">
-<code class="sig-name descname"><span class="pre">data_meta</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.connectors.base.html#pyinfra.connectors.base.DataMeta" title="pyinfra.connectors.base.DataMeta"><span class="pre">DataMeta</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'docker_identifier':</span> <span class="pre">&lt;pyinfra.connectors.base.DataMeta</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.data_meta" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta.handles_execution">
+<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.connectors.docker.Meta.handles_execution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.disconnect">
-<code class="sig-name descname"><span class="pre">disconnect</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disconnect this connector instance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.Meta.keys_prefix">
+<code class="sig-name descname"><span class="pre">keys_prefix</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'docker'</span></em><a class="headerlink" href="#pyinfra.connectors.docker.Meta.keys_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.get_file">
-<code class="sig-name descname"><span class="pre">get_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.get_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.connect">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.disconnect">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">disconnect</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span></em>, <em><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.get_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">get_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.get_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a file from the target Docker container by copying it to a temporary
 location and then reading that into our final file/IO object.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.handles_execution">
-<code class="sig-name descname"><span class="pre">handles_execution</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.handles_execution" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.make_names_data">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.make_names_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.local">
-<code class="sig-name descname"><span class="pre">local</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.connectors.local.html#pyinfra.connectors.local.LocalConnector" title="pyinfra.connectors.local.LocalConnector"><span class="pre">LocalConnector</span></a></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.local" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.make_names_data">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">make_names_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.make_names_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates hosts/data/groups information for inventory. This allows a
-single connector reference to generate multiple target hosts.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.no_stop">
-<code class="sig-name descname"><span class="pre">no_stop</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.no_stop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.put_file">
-<code class="sig-name descname"><span class="pre">put_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.put_file" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.put_file">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">put_file</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">filename_or_io</span></span></em>, <em><span class="n"><span class="pre">remote_filename</span></span></em>, <em><span class="n"><span class="pre">remote_temp_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.put_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upload a file/IO object to the target Docker container by copying it to a
 temporary location and then uploading it into the container using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">cp</span></code>.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.connectors.docker.DockerConnector.run_shell_command">
-<code class="sig-name descname"><span class="pre">run_shell_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.command.html#pyinfra.api.command.StringCommand" title="pyinfra.api.command.StringCommand"><span class="pre">StringCommand</span></a></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Unpack</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'ConnectorArguments'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.connectors.util.html#pyinfra.connectors.util.CommandOutput" title="pyinfra.connectors.util.CommandOutput"><span class="pre">CommandOutput</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.connectors.docker.DockerConnector.run_shell_command" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.connectors.docker.run_shell_command">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.connectors.docker.</span></code><code class="sig-name descname"><span class="pre">run_shell_command</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">command</span></span></em>, <em><span class="n"><span class="pre">get_pty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">stdin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">success_exit_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">print_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">print_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="n"><span class="pre">return_combined_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">command_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.connectors.docker.run_shell_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-</dd></dl>
 
 </div>
 

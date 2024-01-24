@@ -103,7 +103,10 @@
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cargo Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cargo Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cargo-packages"><code class="code docutils literal notranslate"><span class="pre">cargo.packages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
@@ -130,6 +133,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +144,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +179,21 @@
 <h1>Cargo Operations<a class="headerlink" href="#cargo-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage cargo (aka Rust) packages.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/cargo.html#facts-cargo-cargopackages"><span class="std std-ref">cargo.CargoPackages</span></a>.</p>
+<div class="section" id="cargo-packages">
+<span id="operations-cargo-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">cargo.packages</span></code><a class="headerlink" href="#cargo-packages" title="Permalink to this heading">¶</a></h2>
+<p>Install/remove/update cargo packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cargo</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be present</li>
+<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
+</ul>
+<dl class="docutils">
+<dt>Versions:</dt><dd>Package versions can be pinned like cargo: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</dd>
+</dl>
+</div>
 </div>
 
 

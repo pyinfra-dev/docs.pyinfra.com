@@ -112,11 +112,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -145,8 +145,8 @@
           
   <div class="section" id="inventory-data">
 <h1>Inventory &amp; Data<a class="headerlink" href="#inventory-data" title="Permalink to this heading">¶</a></h1>
-<p>A pyinfra inventory provides hosts, groups and data. Host are the things pyinfra will make changes to (think a SSH daemon on a server, a Docker container or the local machine). Hosts can be attached to groups, and data can then be assigned to both the groups and individual hosts.</p>
-<p>By default pyinfra assumes hosts are SSH servers and the name of the host is used as the SSH hostname. Prefixing the name of the host with <code class="docutils literal notranslate"><span class="pre">&#64;&lt;connector-name&gt;/</span></code> is used to activate alternative connectors. See: <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> inventory provides hosts, groups and data. Host are the targets <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will execute commands or state changes on (think a SSH daemon on a server, a Docker container or the local machine). Hosts can be attached to groups, and data can then be assigned to both the groups of hosts and individual hosts.</p>
+<p>By default <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> assumes hosts are SSH servers and the name of the host is used as the SSH hostname. Prefixing the name of the host with <code class="docutils literal notranslate"><span class="pre">&#64;&lt;connector-name&gt;/</span></code> is used to activate alternative connectors. See: <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a>.</p>
 <div class="section" id="inventory-files">
 <h2>Inventory Files<a class="headerlink" href="#inventory-files" title="Permalink to this heading">¶</a></h2>
 <p>Inventory files contain groups of hosts. Groups are defined as a <code class="docutils literal notranslate"><span class="pre">list</span></code>. For example, this inventory creates two groups, <code class="docutils literal notranslate"><span class="pre">app_servers</span></code> and <code class="docutils literal notranslate"><span class="pre">db_servers</span></code>:</p>
@@ -162,7 +162,7 @@
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>If you save this file as <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>, you can then use it in when executing pyinfra:</p>
+<p>If you save this file as <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>, you can then use it in when executing <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>OPERATIONS...
 </pre></div>
 </div>
@@ -173,7 +173,7 @@
 </div>
 <div class="section" id="limiting-inventory-at-runtime">
 <h2>Limiting inventory at runtime<a class="headerlink" href="#limiting-inventory-at-runtime" title="Permalink to this heading">¶</a></h2>
-<p>It is possible to limit the inventory at execution time using the <code class="docutils literal notranslate"><span class="pre">--limit</span></code> argument. This makes pyinfra only execute operations against targets matching the limit. Multiple limits can be provided and a limit may refer to a group or glob-style match against host names. A few examples:</p>
+<p>It is possible to limit the inventory at execution time using the <code class="docutils literal notranslate"><span class="pre">--limit</span></code> argument. This makes <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> only execute operations against targets matching the limit. Multiple limits can be provided and a limit may refer to a group or glob-style match against host names. A few examples:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only execute against @local</span>
 pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<span class="w"> </span>--limit<span class="w"> </span>@local
 
@@ -263,7 +263,7 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
 </div>
 <div class="section" id="external-sources-for-data">
 <h2>External Sources for Data<a class="headerlink" href="#external-sources-for-data" title="Permalink to this heading">¶</a></h2>
-<p>Because pyinfra is configured in Python, you can pull in data from pretty much anywhere just using other Python packages.</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> is configured in Python, you can pull in data from pretty much anywhere just using other Python packages.</p>
 </div>
 </div>
 

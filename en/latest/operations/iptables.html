@@ -109,7 +109,11 @@
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Iptables Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Iptables Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iptables-chain"><code class="code docutils literal notranslate"><span class="pre">iptables.chain</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iptables-rule"><code class="code docutils literal notranslate"><span class="pre">iptables.rule</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
@@ -130,6 +134,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +145,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +180,80 @@
 <h1>Iptables Operations<a class="headerlink" href="#iptables-operations" title="Permalink to this heading">¶</a></h1>
 <p>The iptables modules handles iptables rules</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/iptables.html#facts-iptables-ip6tableschains"><span class="std std-ref">iptables.Ip6tablesChains</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-ip6tablesrules"><span class="std std-ref">iptables.Ip6tablesRules</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-iptableschains"><span class="std std-ref">iptables.IptablesChains</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-iptablesrules"><span class="std std-ref">iptables.IptablesRules</span></a>.</p>
+<div class="section" id="iptables-chain">
+<span id="operations-iptables-chain"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.chain</span></code><a class="headerlink" href="#iptables-chain" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove/update iptables chains.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>chain</strong>: the name of the chain</li>
+<li><strong>present</strong>: whether the chain should exist</li>
+<li><strong>table</strong>: the iptables table this chain should belong to</li>
+<li><strong>policy</strong>: the policy this table should have</li>
+<li><strong>version</strong>: whether to target iptables or ip6tables</li>
+</ul>
+<dl class="docutils">
+<dt>Policy:</dt><dd>These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).</dd>
+</dl>
+</div>
+<div class="section" id="iptables-rule">
+<span id="operations-iptables-rule"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.rule</span></code><a class="headerlink" href="#iptables-rule" title="Permalink to this heading">¶</a></h2>
+<p>Add/remove iptables rules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
+    <span class="n">chain</span><span class="p">,</span> <span class="n">jump</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">not_protocol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">in_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_in_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_out_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">to_destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_ports</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">destination_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extras</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>chain</strong>: the chain this rule should live in</li>
+<li><strong>jump</strong>: the target of the rule</li>
+<li><strong>table</strong>: the iptables table this rule should belong to</li>
+<li><strong>append</strong>: whether to append or insert the rule (if not present)</li>
+<li><strong>version</strong>: whether to target iptables or ip6tables</li>
+</ul>
+<p>Iptables args:</p>
+<ul class="simple">
+<li><strong>protocol/not_protocol</strong>: filter by protocol (tcp or udp)</li>
+<li><strong>source/not_source</strong>: filter by source IPs</li>
+<li><strong>destination/not_destination</strong>: filter by destination IPs</li>
+<li><strong>in_interface/not_in_interface</strong>: filter by incoming interface</li>
+<li><strong>out_interface/not_out_interface</strong>: filter by outgoing interface</li>
+<li><strong>to_destination</strong>: where to route to when jump=DNAT</li>
+<li><strong>to_source</strong>: where to route to when jump=SNAT</li>
+<li><strong>to_ports</strong>: where to route to when jump=REDIRECT</li>
+<li><strong>log_prefix</strong>: prefix for the log of this rule when jump=LOG</li>
+</ul>
+<p>Extras:</p>
+<ul class="simple">
+<li><strong>extras</strong>: a place to define iptables extension arguments (eg –limit, –physdev)</li>
+<li><strong>destination_port</strong>: destination port (requires protocol)</li>
+<li><strong>source_port</strong>: source port (requires protocol)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Block SSH traffic&quot;</span><span class="p">,</span>
+    <span class="n">chain</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+    <span class="n">jump</span><span class="o">=</span><span class="s2">&quot;DROP&quot;</span><span class="p">,</span>
+    <span class="n">destination_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;NAT traffic on from 8.8.8.8:53 to 8.8.4.4:8080&quot;</span><span class="p">,</span>
+    <span class="n">chain</span><span class="o">=</span><span class="s2">&quot;PREROUTING&quot;</span><span class="p">,</span>
+    <span class="n">jump</span><span class="o">=</span><span class="s2">&quot;DNAT&quot;</span><span class="p">,</span>
+    <span class="n">table</span><span class="o">=</span><span class="s2">&quot;nat&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span>
+    <span class="n">destination_port</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span>
+    <span class="n">to_destination</span><span class="o">=</span><span class="s2">&quot;8.8.4.4:8080&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

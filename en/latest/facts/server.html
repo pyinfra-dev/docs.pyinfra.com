@@ -152,7 +152,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-securitylimits"><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-selinux"><code class="code docutils literal notranslate"><span class="pre">server.Selinux</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.Sysctl</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#server-tmpdir"><code class="code docutils literal notranslate"><span class="pre">server.TmpDir</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-user"><code class="code docutils literal notranslate"><span class="pre">server.User</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-users"><code class="code docutils literal notranslate"><span class="pre">server.Users</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-which"><code class="code docutils literal notranslate"><span class="pre">server.Which</span></code></a></li>
@@ -163,6 +162,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Facts</a></li>
@@ -171,11 +172,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -495,7 +496,7 @@ release files.</p>
 </div>
 <div class="section" id="server-sysctl">
 <span id="facts-server-sysctl"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Sysctl</span></code><a class="headerlink" href="#server-sysctl" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sysctl</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sysctl</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dictionary of sysctl settings and values.</p>
@@ -508,13 +509,6 @@ release files.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="server-tmpdir">
-<span id="facts-server-tmpdir"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.TmpDir</span></code><a class="headerlink" href="#server-tmpdir" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">TmpDir</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns the temporary directory of the current server, if configured.</p>
 </div>
 <div class="section" id="server-user">
 <span id="facts-server-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.User</span></code><a class="headerlink" href="#server-user" title="Permalink to this heading">¶</a></h2>

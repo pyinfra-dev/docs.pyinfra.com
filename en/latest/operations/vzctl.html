@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Xbps Operations" href="xbps.html" />
+    <link rel="next" title="Windows Operations" href="windows.html" />
     <link rel="prev" title="Upstart Operations" href="upstart.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="xbps.html" title="Xbps Operations"
+          <a href="windows.html" title="Windows Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="upstart.html" title="Upstart Operations"
@@ -129,7 +129,19 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Vzctl Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vzctl Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-create"><code class="code docutils literal notranslate"><span class="pre">vzctl.create</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-delete"><code class="code docutils literal notranslate"><span class="pre">vzctl.delete</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-mount"><code class="code docutils literal notranslate"><span class="pre">vzctl.mount</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-restart"><code class="code docutils literal notranslate"><span class="pre">vzctl.restart</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-set"><code class="code docutils literal notranslate"><span class="pre">vzctl.set</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-start"><code class="code docutils literal notranslate"><span class="pre">vzctl.start</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-stop"><code class="code docutils literal notranslate"><span class="pre">vzctl.stop</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vzctl-unmount"><code class="code docutils literal notranslate"><span class="pre">vzctl.unmount</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +151,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +186,126 @@
 <h1>Vzctl Operations<a class="headerlink" href="#vzctl-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage OpenVZ containers with <code class="docutils literal notranslate"><span class="pre">vzctl</span></code>.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/vzctl.html#facts-vzctl-openvzcontainers"><span class="std std-ref">vzctl.OpenvzContainers</span></a>.</p>
+<div class="section" id="vzctl-create">
+<span id="operations-vzctl-create"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.create</span></code><a class="headerlink" href="#vzctl-create" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Create OpenVZ containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to create</li>
+</ul>
+</div>
+<div class="section" id="vzctl-delete">
+<span id="operations-vzctl-delete"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.delete</span></code><a class="headerlink" href="#vzctl-delete" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Delete OpenVZ containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to delete</li>
+</ul>
+</div>
+<div class="section" id="vzctl-mount">
+<span id="operations-vzctl-mount"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.mount</span></code><a class="headerlink" href="#vzctl-mount" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Mount OpenVZ container filesystems.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to mount</li>
+</ul>
+</div>
+<div class="section" id="vzctl-restart">
+<span id="operations-vzctl-restart"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.restart</span></code><a class="headerlink" href="#vzctl-restart" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Restart OpenVZ containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">restart</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to restart</li>
+<li><strong>force</strong>: whether to force container start</li>
+</ul>
+</div>
+<div class="section" id="vzctl-set">
+<span id="operations-vzctl-set"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.set</span></code><a class="headerlink" href="#vzctl-set" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Set OpenVZ container details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to set</li>
+<li><strong>save</strong>: whether to save the changes</li>
+<li><strong>settings</strong>: settings/arguments to apply to the container</li>
+</ul>
+<dl class="docutils">
+<dt>Settings/arguments:</dt><dd>these are mapped directly to <code class="docutils literal notranslate"><span class="pre">vztctl</span></code> arguments, eg
+<code class="docutils literal notranslate"><span class="pre">hostname='my-host.net'</span></code> becomes <code class="docutils literal notranslate"><span class="pre">--hostname</span> <span class="pre">my-host.net</span></code>.</dd>
+</dl>
+</div>
+<div class="section" id="vzctl-start">
+<span id="operations-vzctl-start"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.start</span></code><a class="headerlink" href="#vzctl-start" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Start OpenVZ containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to start</li>
+<li><strong>force</strong>: whether to force container start</li>
+</ul>
+</div>
+<div class="section" id="vzctl-stop">
+<span id="operations-vzctl-stop"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.stop</span></code><a class="headerlink" href="#vzctl-stop" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Stop OpenVZ containers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to stop</li>
+</ul>
+</div>
+<div class="section" id="vzctl-unmount">
+<span id="operations-vzctl-unmount"></span><h2><code class="code docutils literal notranslate"><span class="pre">vzctl.unmount</span></code><a class="headerlink" href="#vzctl-unmount" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Unmount OpenVZ container filesystems.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vzctl</span><span class="o">.</span><span class="n">unmount</span><span class="p">(</span><span class="n">ctid</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>ctid</strong>: CTID of the container to unmount</li>
+</ul>
+</div>
 </div>
 
 
@@ -186,8 +318,8 @@
           <span aria-hidden="true">&larr;</span> Upstart Operations
         </a></li>
       
-        <li class="next"><a href="xbps.html">
-          Xbps Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="windows.html">
+          Windows Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -207,7 +339,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="xbps.html" title="Xbps Operations"
+          <a href="windows.html" title="Windows Operations"
              >next</a> |</li>
         <li class="right" >
           <a href="upstart.html" title="Upstart Operations"

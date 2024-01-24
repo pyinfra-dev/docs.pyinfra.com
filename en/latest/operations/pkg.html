@@ -117,7 +117,10 @@
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Pkg Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pkg Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pkg-packages"><code class="code docutils literal notranslate"><span class="pre">pkg.packages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
@@ -130,6 +133,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +144,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +179,34 @@
 <h1>Pkg Operations<a class="headerlink" href="#pkg-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage BSD packages and repositories. Note that BSD package names are case-sensitive.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-arch"><span class="std std-ref">server.Arch</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-osversion"><span class="std std-ref">server.OsVersion</span></a>, <a class="reference internal" href="../facts/pkg.html#facts-pkg-pkgpackages"><span class="std std-ref">pkg.PkgPackages</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<div class="section" id="pkg-packages">
+<span id="operations-pkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pkg.packages</span></code><a class="headerlink" href="#pkg-packages" title="Permalink to this heading">¶</a></h2>
+<p>Install/remove/update pkg packages. This will use <code class="docutils literal notranslate"><span class="pre">pkg</span> <span class="pre">...</span></code> where available
+(FreeBSD) and the <code class="docutils literal notranslate"><span class="pre">pkg_*</span></code> variants elsewhere.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pkg_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+<li><strong>pkg_path</strong>: the PKG_PATH environment variable to set</li>
+</ul>
+<dl class="docutils">
+<dt>pkg_path:</dt><dd><p>By default this is autogenerated as follows (tested/working for OpenBSD):
+<code class="docutils literal notranslate"><span class="pre">http://ftp.&lt;OS&gt;.org/pub/&lt;OS&gt;/&lt;VERSION&gt;/packages/&lt;ARCH&gt;/</span></code>. Note that OpenBSD’s
+official mirrors only hold the latest two versions packages.</p>
+<p>NetBSD/FreeBSD helpfully use their own directory structures, so the default won’t
+work.</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and Vim Addon Manager&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim-addon-manager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

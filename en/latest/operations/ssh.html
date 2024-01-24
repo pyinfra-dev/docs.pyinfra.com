@@ -125,11 +125,19 @@
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Ssh Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ssh Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-command"><code class="code docutils literal notranslate"><span class="pre">ssh.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-download"><code class="code docutils literal notranslate"><span class="pre">ssh.download</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-keyscan"><code class="code docutils literal notranslate"><span class="pre">ssh.keyscan</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-upload"><code class="code docutils literal notranslate"><span class="pre">ssh.upload</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +147,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -175,6 +183,92 @@
 <p>Execute commands and up/download files <em>from</em> the remote host.</p>
 <p>Eg: <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">-&gt;</span> <span class="pre">inventory-host.net</span> <span class="pre">&lt;-&gt;</span> <span class="pre">another-host.net</span></code></p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>.</p>
+<div class="section" id="ssh-command">
+<span id="operations-ssh-command"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.command</span></code><a class="headerlink" href="#ssh-command" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Execute commands on other servers over SSH.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong>: the hostname to connect to</li>
+<li><strong>command</strong>: the command to execute</li>
+<li><strong>user</strong>: connect with this user</li>
+<li><strong>port</strong>: connect to this port</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create file by running echo from host one to host two&quot;</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;two.example.com&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;echo &#39;one was here&#39; &gt; /tmp/one.txt&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;vagrant&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ssh-download">
+<span id="operations-ssh-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.download</span></code><a class="headerlink" href="#ssh-download" title="Permalink to this heading">¶</a></h2>
+<p>Download files from other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+    <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">local_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong>: hostname to upload to</li>
+<li><strong>filename</strong>: file to download</li>
+<li><strong>local_filename</strong>: where to download the file to (defaults to <code class="docutils literal notranslate"><span class="pre">filename</span></code>)</li>
+<li><strong>force</strong>: always download the file, even if present locally</li>
+<li><strong>port</strong>: connect to this port</li>
+<li><strong>user</strong>: connect with this user</li>
+<li><strong>ssh_keyscan</strong>: execute <code class="docutils literal notranslate"><span class="pre">ssh.keyscan</span></code> before uploading the file</li>
+</ul>
+</div>
+<div class="section" id="ssh-keyscan">
+<span id="operations-ssh-keyscan"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.keyscan</span></code><a class="headerlink" href="#ssh-keyscan" title="Permalink to this heading">¶</a></h2>
+<p>Check/add hosts to the <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code> file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong>: hostname that should have a key in <code class="docutils literal notranslate"><span class="pre">known_hosts</span></code></li>
+<li><strong>force</strong>: if the key already exists, remove and rescan</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set add server two to known_hosts on one&quot;</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;two.example.com&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ssh-upload">
+<span id="operations-ssh-upload"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.upload</span></code><a class="headerlink" href="#ssh-upload" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Upload files to other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
+    <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">remote_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_remote_sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong>: hostname to upload to</li>
+<li><strong>filename</strong>: file to upload</li>
+<li><strong>remote_filename</strong>: where to upload the file to (defaults to <code class="docutils literal notranslate"><span class="pre">filename</span></code>)</li>
+<li><strong>port</strong>: connect to this port</li>
+<li><strong>user</strong>: connect with this user</li>
+<li><strong>use_remote_sudo</strong>: upload to a temporary location and move using sudo</li>
+<li><strong>ssh_keyscan</strong>: execute <code class="docutils literal notranslate"><span class="pre">ssh.keyscan</span></code> before uploading the file</li>
+</ul>
+</div>
 </div>
 
 

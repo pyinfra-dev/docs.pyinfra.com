@@ -1,6 +1,7 @@
 ``@ssh`` Connector
 ------------------
 
+
 Connect to hosts over SSH. This is the default connector and all targets default
 to this meaning you do not need to specify it - ie the following two commands
 are identical:
@@ -13,110 +14,25 @@ are identical:
 Usage
 ~~~~~
 
-.. code:: shell
+.. code:: python
 
     pyinfra @ssh/hostname ...
 
 Available Data
 ~~~~~~~~~~~~~~
 
-The following keys can be set as host or group data to control how this connector interacts with the target.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 25 45 15 15
-
-   * - Key
-     - Description
-     - Type
-     - Default
-   * - ``ssh_hostname``
-     - SSH hostname
-     - ``str``
-     - 
-
-   * - ``ssh_port``
-     - SSH port
-     - ``int``
-     - 
-
-   * - ``ssh_user``
-     - SSH user
-     - ``str``
-     - 
-
-   * - ``ssh_password``
-     - SSH password
-     - ``str``
-     - 
-
-   * - ``ssh_key``
-     - SSH key filename
-     - ``str``
-     - 
-
-   * - ``ssh_key_password``
-     - SSH key password
-     - ``str``
-     - 
-
-   * - ``ssh_allow_agent``
-     - Whether to use any active SSH agent
-     - ``bool``
-     - ``True``
-
-   * - ``ssh_look_for_keys``
-     - Whether to look for private keys
-     - ``bool``
-     - ``True``
-
-   * - ``ssh_forward_agent``
-     - Whether to enable SSH forward agent
-     - ``bool``
-     - ``False``
-
-   * - ``ssh_config_file``
-     - SSH config filename
-     - ``str``
-     - 
-
-   * - ``ssh_known_hosts_file``
-     - SSH known_hosts filename
-     - ``str``
-     - 
-
-   * - ``ssh_strict_host_key_checking``
-     - SSH strict host key checking
-     - ``str``
-     - ``accept-new``
-
-   * - ``ssh_paramiko_connect_kwargs``
-     - Override keyword arguments passed into Paramiko's ``SSHClient.connect``
-     - ``dict``
-     -
-
-Examples
-~~~~~~~~
-
-An inventory file (``inventory.py``) containing a single SSH target with SSH
-forward agent enabled:
-
 .. code:: python
 
-    hosts = [
-        ("my-host.net", {"ssh_forward_agent": True}),
-    ]
-
-Multiple hosts sharing the same SSH username:
-
-.. code:: python
-
-    hosts = (
-        [
-            "my-host-1.net",
-            "my-host-2.net",
-        ],
-        {
-            "ssh_username": "ssh-user",
-        },
-    )
+    ssh_hostname  # SSH hostname
+    ssh_port  # SSH port
+    ssh_user  # User to SSH as
+    ssh_password  # Password to use for authentication
+    ssh_key  # Key file to use for authentication
+    ssh_key_password  # Key file password
+    ssh_allow_agent  # Allow using SSH agent
+    ssh_look_for_keys  # Allow looking up users keys
+    ssh_forward_agent  # Enable SSH forward agent
+    ssh_config_file  # Custom SSH config file
+    ssh_known_hosts_file  # Custom SSH known hosts file
+    ssh_strict_host_key_checking  # Override strict host keys check setting
+    ssh_paramiko_connect_kwargs  # Override keyword arguments passed into paramiko's `SSHClient.connect`

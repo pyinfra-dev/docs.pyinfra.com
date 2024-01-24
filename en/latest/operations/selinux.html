@@ -122,7 +122,13 @@
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Selinux Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Selinux Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-boolean"><code class="code docutils literal notranslate"><span class="pre">selinux.boolean</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-file-context"><code class="code docutils literal notranslate"><span class="pre">selinux.file_context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-file-context-mapping"><code class="code docutils literal notranslate"><span class="pre">selinux.file_context_mapping</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selinux-port"><code class="code docutils literal notranslate"><span class="pre">selinux.port</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
@@ -130,6 +136,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +147,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +182,93 @@
 <h1>Selinux Operations<a class="headerlink" href="#selinux-operations" title="Permalink to this heading">¶</a></h1>
 <p>Provides operations to set SELinux file contexts, booleans and port types.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/selinux.html#facts-selinux-filecontext"><span class="std std-ref">selinux.FileContext</span></a>, <a class="reference internal" href="../facts/selinux.html#facts-selinux-filecontextmapping"><span class="std std-ref">selinux.FileContextMapping</span></a>, <a class="reference internal" href="../facts/selinux.html#facts-selinux-seboolean"><span class="std std-ref">selinux.SEBoolean</span></a>, <a class="reference internal" href="../facts/selinux.html#facts-selinux-seport"><span class="std std-ref">selinux.SEPort</span></a>, <a class="reference internal" href="../facts/selinux.html#facts-selinux-seports"><span class="std std-ref">selinux.SEPorts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<div class="section" id="selinux-boolean">
+<span id="operations-selinux-boolean"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.boolean</span></code><a class="headerlink" href="#selinux-boolean" title="Permalink to this heading">¶</a></h2>
+<p>Set the specified SELinux boolean to the desired state.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span><span class="n">bool_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>boolean</strong>: name of an SELinux boolean</li>
+<li><strong>state</strong>: ‘on’ or ‘off’</li>
+<li><strong>persistent</strong>: whether to write updated policy or not</li>
+</ul>
+<p>Note: This operation requires root privileges.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to connect to LDAP server&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;httpd_can_network_connect&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+    <span class="n">persistent</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selinux-file-context">
+<span id="operations-selinux-file-context"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.file_context</span></code><a class="headerlink" href="#selinux-file-context" title="Permalink to this heading">¶</a></h2>
+<p>Set the SELinux type for the specified path to the specified value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">se_type</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>path</strong>: the target path (expression) for the context</li>
+<li><strong>se_type</strong>: the SELinux type for the given target</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow /foo/bar to be served by the web server&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/foo/bar&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;httpd_sys_content_t&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selinux-file-context-mapping">
+<span id="operations-selinux-file-context-mapping"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.file_context_mapping</span></code><a class="headerlink" href="#selinux-file-context-mapping" title="Permalink to this heading">¶</a></h2>
+<p>Set the SELinux file context mapping for paths matching the target.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context_mapping</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">se_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>target</strong>: the target path (expression) for the context</li>
+<li><strong>se_type</strong>: the SELinux type for the given target</li>
+<li><strong>present</strong>: whether to add or remove the target -&gt; context mapping</li>
+</ul>
+<p>Note: <cite>file_context</cite> does not change the SELinux file context for existing files
+so <cite>restorecon</cite> may need to be run manually if the file contexts cannot be created
+before the related files.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context_mapping</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to serve content from the /web directory&#39;</span><span class="p">,</span>
+    <span class="sa">r</span><span class="s1">&#39;/web(/.*)?&#39;</span><span class="p">,</span>
+    <span class="n">se_type</span><span class="o">=</span><span class="s1">&#39;httpd_sys_content_t&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selinux-port">
+<span id="operations-selinux-port"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.port</span></code><a class="headerlink" href="#selinux-port" title="Permalink to this heading">¶</a></h2>
+<p>Set the SELinux type for the specified protocol and port.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">port</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">port_num</span><span class="p">,</span> <span class="n">se_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>protocol</strong>: the protocol: (udp|tcp|sctp|dccp)</li>
+<li><strong>port</strong>: the port</li>
+<li><strong>se_type</strong>: the SELinux type for the given port</li>
+<li><strong>present</strong>: whether to add or remove the SELinux type for the port</li>
+</ul>
+<p>Note: This operation requires root privileges.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">port</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to provide service on port 2222&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tcp&#39;</span><span class="p">,</span>
+    <span class="mi">2222</span><span class="p">,</span>
+    <span class="s1">&#39;http_port_t&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

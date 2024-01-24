@@ -108,7 +108,13 @@
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Git Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Git Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git-bare-repo"><code class="code docutils literal notranslate"><span class="pre">git.bare_repo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-config"><code class="code docutils literal notranslate"><span class="pre">git.config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-repo"><code class="code docutils literal notranslate"><span class="pre">git.repo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-worktree"><code class="code docutils literal notranslate"><span class="pre">git.worktree</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -130,6 +136,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +147,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +182,190 @@
 <h1>Git Operations<a class="headerlink" href="#git-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage git repositories and configuration.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/git.html#facts-git-gitbranch"><span class="std std-ref">git.GitBranch</span></a>, <a class="reference internal" href="../facts/git.html#facts-git-gitconfig"><span class="std std-ref">git.GitConfig</span></a>, <a class="reference internal" href="../facts/git.html#facts-git-gittrackingbranch"><span class="std std-ref">git.GitTrackingBranch</span></a>.</p>
+<div class="section" id="git-bare-repo">
+<span id="operations-git-bare-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.bare_repo</span></code><a class="headerlink" href="#git-bare-repo" title="Permalink to this heading">¶</a></h2>
+<p>Create bare git repositories.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">bare_repo</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>path</strong>: path to the folder</li>
+<li><strong>present</strong>: whether the bare repository should exist</li>
+<li><strong>user</strong>: chown files to this user after</li>
+<li><strong>group</strong>: chown files to this group after</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">bare_repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create bare repo&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/home/git/test.git&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-config">
+<span id="operations-git-config"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.config</span></code><a class="headerlink" href="#git-config" title="Permalink to this heading">¶</a></h2>
+<p>Manage git config for a repository or globally.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">multi_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>key</strong>: the key of the config to ensure</li>
+<li><strong>value</strong>: the value this key should have</li>
+<li><strong>multi_value</strong>: Add the value rather than set it for settings that can have multiple values</li>
+<li><strong>repo</strong>: specify the git repo path to edit local config (defaults to global)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user name is set for a repo&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user.name&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Anon E. Mouse&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-repo">
+<span id="operations-git-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.repo</span></code><a class="headerlink" href="#git-repo" title="Permalink to this heading">¶</a></h2>
+<p>Clone/pull git repositories.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">recursive_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>src</strong>: the git source URL</li>
+<li><strong>dest</strong>: directory to clone to</li>
+<li><strong>branch</strong>: branch to pull/checkout</li>
+<li><strong>pull</strong>: pull any changes for the branch</li>
+<li><strong>rebase</strong>: when pulling, use <code class="docutils literal notranslate"><span class="pre">--rebase</span></code></li>
+<li><strong>user</strong>: chown files to this user after</li>
+<li><strong>group</strong>: chown files to this group after</li>
+<li><strong>ssh_keyscan</strong>: keyscan the remote host if not in known_hosts before clone/pull</li>
+<li><strong>update_submodules</strong>: update any git submodules</li>
+<li><strong>recursive_submodules</strong>: update git submodules recursively</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Clone repo&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://github.com/Fizzadar/pyinfra.git&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-worktree">
+<span id="operations-git-worktree"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.worktree</span></code><a class="headerlink" href="#git-worktree" title="Permalink to this heading">¶</a></h2>
+<p>Manage git worktrees.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">worktree</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detached</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">new_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">commitish</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">from_remote_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_repo_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>worktree</strong>: git working tree directory</li>
+<li><strong>repo</strong>: git main repository directory</li>
+<li><strong>detached</strong>: create a working tree with a detached HEAD</li>
+<li><strong>new_branch</strong>: local branch name created at the same time than the worktree</li>
+<li><strong>commitish</strong>: from which git commit, branch, … the worktree is created</li>
+<li><strong>pull</strong>: pull any changes from a remote branch if set</li>
+<li><strong>rebase</strong>: when pulling, use <code class="docutils literal notranslate"><span class="pre">--rebase</span></code></li>
+<li><strong>from_remote_branch</strong>: a 2-tuple <code class="docutils literal notranslate"><span class="pre">(remote,</span> <span class="pre">branch)</span></code> that identifies a remote branch</li>
+<li><strong>present</strong>: whether the working tree should exist</li>
+<li><strong>assume_repo_exists</strong>: whether to assume the main repo exists</li>
+<li><strong>force</strong>: remove unclean working tree if should not exist</li>
+<li><strong>user</strong>: chown files to this user after</li>
+<li><strong>group</strong>: chown files to this group after</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree from the current repo `HEAD`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree from the commit `4e091aa0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;4e091aa0&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree with a new local branch `v1.0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree from the commit 4e091aa0 with the new local branch `v1.0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;4e091aa0&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree with a detached `HEAD`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">detached</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree with a detached `HEAD` from commit `4e091aa0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;4e091aa0&quot;</span><span class="p">,</span>
+    <span class="n">detached</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree from the existing local branch `v1.0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree with a new branch `v1.0` that tracks `origin/v1.0`&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">new_branch</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;v1.0&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Pull an existing worktree already linked to a tracking branch&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Pull an existing worktree from a specific remote branch&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">from_remote_branch</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="s2">&quot;master&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove a worktree&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove an unclean worktree&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

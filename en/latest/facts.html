@@ -132,6 +132,8 @@
 <li class="toctree-l2"><a class="reference internal" href="facts/sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/upstart.html">Upstart Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/vzctl.html">Vzctl Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html">Windows Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html">Windows_Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/yum.html">Yum Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/zypper.html">Zypper Facts</a></li>
@@ -140,11 +142,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -173,7 +175,7 @@
           
   <div class="section" id="facts-index">
 <h1>Facts Index<a class="headerlink" href="#facts-index" title="Permalink to this heading">¶</a></h1>
-<p>pyinfra uses <strong>facts</strong> to determine the existing state of a remote server. Operations use this information to generate commands which alter the state. Facts are read-only and is populated at the beginning of the deploy.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> uses <strong>facts</strong> to determine the existing state of a remote server. Operations use this information to generate commands which alter the state. Facts are read-only and is populated at the beginning of the deploy.</p>
 <p>Facts can be executed/tested via the command line:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example how to get multiple facts from a server myhost.com</span>
 pyinfra<span class="w"> </span>myhost.com<span class="w"> </span>fact<span class="w"> </span>server.Date<span class="w"> </span>server.Hostname<span class="w"> </span>...
@@ -196,7 +198,7 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Want a new fact?</strong> Check out <a class="reference internal" href="api/operations.html"><span class="doc">the writing facts guide</span></a>.</p>
+<p><strong>Want a new fact?</strong> Check out <a class="reference internal" href="api/facts.html"><span class="doc">the writing facts guide</span></a>.</p>
 <p>Facts, like <a class="reference internal" href="operations.html"><span class="doc">operations</span></a>, are namespaced as different modules - shortcuts to each of these can be found in the sidebar.</p>
 <style type="text/css">
    #facts-index .toctree-wrapper > ul {
@@ -397,7 +399,6 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-securitylimits"><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-selinux"><code class="code docutils literal notranslate"><span class="pre">server.Selinux</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.Sysctl</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-tmpdir"><code class="code docutils literal notranslate"><span class="pre">server.TmpDir</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-user"><code class="code docutils literal notranslate"><span class="pre">server.User</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-users"><code class="code docutils literal notranslate"><span class="pre">server.Users</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-which"><code class="code docutils literal notranslate"><span class="pre">server.Which</span></code></a></li>
@@ -424,6 +425,41 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/vzctl.html">Vzctl Facts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="facts/vzctl.html#vzctl-openvzcontainers"><code class="code docutils literal notranslate"><span class="pre">vzctl.OpenvzContainers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="facts/windows.html">Windows Facts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-aliases"><code class="code docutils literal notranslate"><span class="pre">windows.Aliases</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-bios"><code class="code docutils literal notranslate"><span class="pre">windows.Bios</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-computerinfo"><code class="code docutils literal notranslate"><span class="pre">windows.ComputerInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-date"><code class="code docutils literal notranslate"><span class="pre">windows.Date</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-home"><code class="code docutils literal notranslate"><span class="pre">windows.Home</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-hostname"><code class="code docutils literal notranslate"><span class="pre">windows.Hostname</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-hotfixes"><code class="code docutils literal notranslate"><span class="pre">windows.Hotfixes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-installerapplications"><code class="code docutils literal notranslate"><span class="pre">windows.InstallerApplications</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-lastreboot"><code class="code docutils literal notranslate"><span class="pre">windows.LastReboot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-localdrivesinfo"><code class="code docutils literal notranslate"><span class="pre">windows.LocalDrivesInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-localgroups"><code class="code docutils literal notranslate"><span class="pre">windows.LocalGroups</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-loggedinuserinfo"><code class="code docutils literal notranslate"><span class="pre">windows.LoggedInUserInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-logonsessioninfo"><code class="code docutils literal notranslate"><span class="pre">windows.LogonSessionInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-networkconfiguration"><code class="code docutils literal notranslate"><span class="pre">windows.NetworkConfiguration</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-os"><code class="code docutils literal notranslate"><span class="pre">windows.Os</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-osversion"><code class="code docutils literal notranslate"><span class="pre">windows.OsVersion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-processes"><code class="code docutils literal notranslate"><span class="pre">windows.Processes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-processors"><code class="code docutils literal notranslate"><span class="pre">windows.Processors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-service"><code class="code docutils literal notranslate"><span class="pre">windows.Service</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-services"><code class="code docutils literal notranslate"><span class="pre">windows.Services</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-systemtype"><code class="code docutils literal notranslate"><span class="pre">windows.SystemType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows.html#windows-where"><code class="code docutils literal notranslate"><span class="pre">windows.Where</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="facts/windows_files.html">Windows_Files Facts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-directory"><code class="code docutils literal notranslate"><span class="pre">windows_files.Directory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-file"><code class="code docutils literal notranslate"><span class="pre">windows_files.File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-link"><code class="code docutils literal notranslate"><span class="pre">windows_files.Link</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-md5file"><code class="code docutils literal notranslate"><span class="pre">windows_files.Md5File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-sha1file"><code class="code docutils literal notranslate"><span class="pre">windows_files.Sha1File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-sha256file"><code class="code docutils literal notranslate"><span class="pre">windows_files.Sha256File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/windows_files.html#windows-files-tempdir"><code class="code docutils literal notranslate"><span class="pre">windows_files.TempDir</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="facts/xbps.html">Xbps Facts</a><ul>

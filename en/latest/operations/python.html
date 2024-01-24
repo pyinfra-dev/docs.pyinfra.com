@@ -121,7 +121,11 @@
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-call"><code class="code docutils literal notranslate"><span class="pre">python.call</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-raise-exception"><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
@@ -130,6 +134,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +145,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -173,6 +179,67 @@
   <div class="section" id="python-operations">
 <h1>Python Operations<a class="headerlink" href="#python-operations" title="Permalink to this heading">¶</a></h1>
 <p>The Python module allows you to execute Python code within the context of a deploy.</p>
+<div class="section" id="python-call">
+<span id="operations-python-call"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.call</span></code><a class="headerlink" href="#python-call" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Execute a Python function within a deploy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>function</strong>: the function to execute</li>
+<li><strong>args</strong>: arguments to pass to the function</li>
+<li><strong>kwargs</strong>: keyword arguments to pass to the function</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;echo hello&#39;</span>
+    <span class="k">if</span> <span class="n">hello</span><span class="p">:</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="o">**</span><span class="n">hello</span><span class="o">**</span>
+
+    <span class="n">status</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">run_shell_command</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">SUDO</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">True</span>  <span class="c1"># ensure the command executed OK</span>
+
+    <span class="k">if</span> <span class="s1">&#39;hello &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stdout</span><span class="p">):</span>  <span class="c1"># stdout/stderr is a *list* of lines</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;`</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">` problem with callback stdout:</span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s1"> stderr:</span><span class="si">{</span><span class="n">stderr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run my_callback function&quot;</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">my_callback</span><span class="p">,</span>
+    <span class="n">hello</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-raise-exception">
+<span id="operations-python-raise-exception"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code><a class="headerlink" href="#python-raise-exception" title="Permalink to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="first admonition-title">Stateless operation</p>
+<p class="last">This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Raise a Python exception within a deploy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>exception</strong>: the exception class to raise</li>
+<li><strong>args</strong>: arguments passed to the exception creation</li>
+<li><strong>kwargs</strong>: keyword arguments passed to the exception creation</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Raise NotImplementedError exception&quot;</span><span class="p">,</span>
+    <span class="n">exception</span><span class="o">=</span><span class="ne">NotImplementedError</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;This is not implemented&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

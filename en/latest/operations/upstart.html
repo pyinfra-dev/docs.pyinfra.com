@@ -128,8 +128,13 @@
 <li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Upstart Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Upstart Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#upstart-service"><code class="code docutils literal notranslate"><span class="pre">upstart.service</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -139,11 +144,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -174,6 +179,27 @@
 <h1>Upstart Operations<a class="headerlink" href="#upstart-operations" title="Permalink to this heading">¶</a></h1>
 <p>Manage upstart services.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/upstart.html#facts-upstart-upstartstatus"><span class="std std-ref">upstart.UpstartStatus</span></a>.</p>
+<div class="section" id="upstart-service">
+<span id="operations-upstart-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">upstart.service</span></code><a class="headerlink" href="#upstart-service" title="Permalink to this heading">¶</a></h2>
+<p>Manage the state of upstart managed services.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">upstart</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>service</strong>: name of the service to manage</li>
+<li><strong>running</strong>: whether the service should be running</li>
+<li><strong>restarted</strong>: whether the service should be restarted</li>
+<li><strong>reloaded</strong>: whether the service should be reloaded</li>
+<li><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></li>
+<li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
+</ul>
+<dl class="docutils">
+<dt>Enabling/disabling services:</dt><dd>Upstart jobs define runlevels in their config files - as such there is no way to
+edit/list these without fiddling with the config. So pyinfra simply manages the
+existence of a <code class="docutils literal notranslate"><span class="pre">/etc/init/&lt;service&gt;.override</span></code> file, and sets its content to
+“manual” to disable automatic start of services.</dd>
+</dl>
+</div>
 </div>
 
 
