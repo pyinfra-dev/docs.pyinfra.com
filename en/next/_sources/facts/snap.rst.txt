@@ -1,0 +1,58 @@
+Snap Facts
+----------
+
+See also: :doc:`../operations/snap`.
+
+.. _facts:snap.SnapBaseFact:
+
+:code:`snap.SnapBaseFact`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SnapBaseFact)
+
+
+.. _facts:snap.SnapPackage:
+
+:code:`snap.SnapPackage`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SnapPackage, package)
+
+Returns information for an installed snap package
+
+.. code:: python
+
+    {
+        "name": "lxd",
+        "publisher": "Canonical✓",
+        "snap-id": "J60k4JY0HppjwOjW8dZdYc8obXKxujRu",
+        "channel": "4.0/stable",
+        "version": "4.0.9"
+    }
+
+
+.. _facts:snap.SnapPackages:
+
+:code:`snap.SnapPackages`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SnapPackages)
+
+Returns a list of installed snap packages:
+
+.. code:: python
+
+    [
+        "core",
+        "core18",
+        "core20",
+        "lxd",
+        "snapd"
+    ]
+

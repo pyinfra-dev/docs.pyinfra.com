@@ -5,6 +5,11 @@ Pip Operations
 Manage pip (python) packages. Compatible globally or inside
 a virtualenv (virtual environment).
 
+
+Facts used in these operations: :ref:`facts:files.File`, :ref:`facts:pip.PipPackages`.
+
+.. _operations:pip.packages:
+
 :code:`pip.packages`
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -13,7 +18,7 @@ Install/remove/update pip packages.
 .. code:: python
 
     pip.packages(
-        packages=None, present=True, latest=False, requirements=None, pip='pip', virtualenv=None,
+        packages=None, present=True, latest=False, requirements=None, pip="pip", virtualenv=None,
         virtualenv_kwargs=None, extra_install_args=None,
     )
 
@@ -34,16 +39,18 @@ Virtualenv:
 Versions:
     Package versions can be pinned like pip: ``<pkg>==<version>``.
 
-Example:
+**Example:**
 
 .. code:: python
 
     pip.packages(
-        name='Install pyinfra into a virtualenv',
-        packages=['pyinfra'],
-        virtualenv='/usr/local/bin/venv',
+        name="Install pyinfra into a virtualenv",
+        packages=["pyinfra"],
+        virtualenv="/usr/local/bin/venv",
     )
 
+
+.. _operations:pip.venv:
 
 :code:`pip.venv`
 ~~~~~~~~~~~~~~~~
@@ -59,15 +66,17 @@ Add/remove Python virtualenvs.
 + **always_copy**: always copy files rather than symlinking
 + **present**: whether the virtualenv should exist
 
-Example:
+**Example:**
 
 .. code:: python
 
     pip.venv(
-        name='Create a virtualenv',
-        path='/usr/local/bin/venv',
+        name="Create a virtualenv",
+        path="/usr/local/bin/venv",
     )
 
+
+.. _operations:pip.virtualenv:
 
 :code:`pip.virtualenv`
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -84,12 +93,12 @@ Add/remove Python virtualenvs.
 + **always_copy**: always copy files rather than symlinking
 + **present**: whether the virtualenv should exist
 
-Example:
+**Example:**
 
 .. code:: python
 
     pip.virtualenv(
-        name='Create a virtualenv',
-        path='/usr/local/bin/venv',
+        name="Create a virtualenv",
+        path="/usr/local/bin/venv",
     )
 

@@ -4,8 +4,16 @@ Python Operations
 
 The Python module allows you to execute Python code within the context of a deploy.
 
+.. _operations:python.call:
+
 :code:`python.call`
 ~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Execute a Python function within a deploy.
 
@@ -14,15 +22,14 @@ Execute a Python function within a deploy.
     python.call(function)
 
 + **function**: the function to execute
-+ **args**: additional arguments to pass to the function
-+ **kwargs**: additional keyword arguments to pass to the function
++ **args**: arguments to pass to the function
++ **kwargs**: keyword arguments to pass to the function
 
-Callback functions args passed the state, host, and any args/kwargs passed
-into the operation directly, eg:
+**Example:**
 
 .. code:: python
 
-    def my_callback(state, host, hello=None):
+    def my_callback(hello=None):
         command = 'echo hello'
         if hello:
             command = command + ' ' + **hello**
@@ -36,15 +43,40 @@ into the operation directly, eg:
             )
 
     python.call(
-        name='Run my_callback function',
+        name="Run my_callback function",
         function=my_callback,
-        hello='world',
+        hello="world",
     )
 
 
+.. _operations:python.raise_exception:
+
 :code:`python.raise_exception`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Raise a Python exception within a deploy.
+
 .. code:: python
 
     python.raise_exception(exception)
+
++ **exception**: the exception class to raise
++ **args**: arguments passed to the exception creation
++ **kwargs**: keyword arguments passed to the exception creation
+
+**Example**:
+
+.. code:: python
+
+    python.raise_exception(
+        name="Raise NotImplementedError exception",
+        exception=NotImplementedError,
+        message="This is not implemented",
+    )
 

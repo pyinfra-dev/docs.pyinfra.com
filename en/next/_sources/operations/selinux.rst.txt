@@ -1,0 +1,122 @@
+Selinux Operations
+------------------
+
+
+Provides operations to set SELinux file contexts, booleans and port types.
+
+
+Facts used in these operations: :ref:`facts:selinux.FileContext`, :ref:`facts:selinux.FileContextMapping`, :ref:`facts:selinux.SEBoolean`, :ref:`facts:selinux.SEPort`, :ref:`facts:selinux.SEPorts`, :ref:`facts:server.Which`.
+
+.. _operations:selinux.boolean:
+
+:code:`selinux.boolean`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Set the specified SELinux boolean to the desired state.
+
+.. code:: python
+
+    selinux.boolean(bool_name, value, persistent=False)
+
++ **boolean**: name of an SELinux boolean
++ **state**: 'on' or 'off'
++ **persistent**: whether to write updated policy or not
+
+Note: This operation requires root privileges.
+
+**Example:**
+
+.. code:: python
+
+    selinux.boolean(
+        name='Allow Apache to connect to LDAP server',
+        'httpd_can_network_connect',
+        'on',
+        persistent=True
+    )
+
+
+.. _operations:selinux.file_context:
+
+:code:`selinux.file_context`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Set the SELinux type for the specified path to the specified value.
+
+.. code:: python
+
+    selinux.file_context(path, se_type)
+
++ **path**: the target path (expression) for the context
++ **se_type**: the SELinux type for the given target
+
+**Example:**
+
+.. code:: python
+
+    selinux.file_context(
+        name='Allow /foo/bar to be served by the web server',
+        '/foo/bar',
+        'httpd_sys_content_t'
+    )
+
+
+.. _operations:selinux.file_context_mapping:
+
+:code:`selinux.file_context_mapping`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Set the SELinux file context mapping for paths matching the target.
+
+.. code:: python
+
+    selinux.file_context_mapping(target, se_type=None, present=True)
+
++ **target**: the target path (expression) for the context
++ **se_type**: the SELinux type for the given target
++ **present**: whether to add or remove the target -> context mapping
+
+Note: `file_context` does not change the SELinux file context for existing files
+so `restorecon` may need to be run manually if the file contexts cannot be created
+before the related files.
+
+**Example:**
+
+.. code:: python
+
+    selinux.file_context_mapping(
+        name='Allow Apache to serve content from the /web directory',
+        r'/web(/.*)?',
+        se_type='httpd_sys_content_t'
+    )
+
+
+.. _operations:selinux.port:
+
+:code:`selinux.port`
+~~~~~~~~~~~~~~~~~~~~
+
+Set the SELinux type for the specified protocol and port.
+
+.. code:: python
+
+    selinux.port(protocol, port_num, se_type=None, present=True)
+
++ **protocol**: the protocol: (udp|tcp|sctp|dccp)
++ **port**: the port
++ **se_type**: the SELinux type for the given port
++ **present**: whether to add or remove the SELinux type for the port
+
+Note: This operation requires root privileges.
+
+**Example:**
+
+.. code:: python
+
+    selinux.port(
+        name='Allow Apache to provide service on port 2222',
+        'tcp',
+        2222,
+        'http_port_t',
+    )
+

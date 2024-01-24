@@ -6,8 +6,19 @@ Execute commands and up/download files *from* the remote host.
 
 Eg: ``pyinfra -> inventory-host.net <-> another-host.net``
 
+
+Facts used in these operations: :ref:`facts:files.File`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Home`.
+
+.. _operations:ssh.command:
+
 :code:`ssh.command`
 ~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Execute commands on other servers over SSH.
 
@@ -20,17 +31,19 @@ Execute commands on other servers over SSH.
 + **user**: connect with this user
 + **port**: connect to this port
 
-Example:
+**Example:**
 
 .. code:: python
 
     ssh.command(
-        name='Create file by running echo from host one to host two',
-        hostname='two.example.com',
-        command='echo "one was here" > /tmp/one.txt',
-        user='vagrant',
+        name="Create file by running echo from host one to host two",
+        hostname="two.example.com",
+        command="echo 'one was here' > /tmp/one.txt",
+        user="vagrant",
     )
 
+
+.. _operations:ssh.download:
 
 :code:`ssh.download`
 ~~~~~~~~~~~~~~~~~~~~
@@ -53,6 +66,8 @@ Download files from other servers using ``scp``.
 + **ssh_keyscan**: execute ``ssh.keyscan`` before uploading the file
 
 
+.. _operations:ssh.keyscan:
+
 :code:`ssh.keyscan`
 ~~~~~~~~~~~~~~~~~~~
 
@@ -65,18 +80,26 @@ Check/add hosts to the ``~/.ssh/known_hosts`` file.
 + **hostname**: hostname that should have a key in ``known_hosts``
 + **force**: if the key already exists, remove and rescan
 
-Example:
+**Example:**
 
 .. code:: python
 
     ssh.keyscan(
-        name='Set add server two to known_hosts on one',
-        hostname='two.example.com',
+        name="Set add server two to known_hosts on one",
+        hostname="two.example.com",
     )
 
 
+.. _operations:ssh.upload:
+
 :code:`ssh.upload`
 ~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Upload files to other servers using ``scp``.
 

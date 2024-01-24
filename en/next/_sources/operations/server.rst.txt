@@ -5,6 +5,11 @@ Server Operations
 The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.
 
+
+Facts used in these operations: :ref:`facts:server.Crontab`, :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Hostname`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
+
+.. _operations:server.crontab:
+
 :code:`server.crontab`
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -13,8 +18,8 @@ Add/remove/update crontab entries.
 .. code:: python
 
     server.crontab(
-        command, present=True, user=None, cron_name=None, minute='*', hour='*', month='*',
-        day_of_week='*', day_of_month='*', special_time=None, interpolate_variables=False,
+        command, present=True, user=None, cron_name=None, minute="*", hour="*", month="*",
+        day_of_week="*", day_of_month="*", special_time=None, interpolate_variables=False,
     )
 
 + **command**: the command for the cron
@@ -38,20 +43,22 @@ Special times:
     When provided, ``special_time`` will be used instead of any values passed in
     for ``minute``/``hour``/``month``/``day_of_week``/``day_of_month``.
 
-Example:
+**Example:**
 
 .. code:: python
 
     # simple example for a crontab
     server.crontab(
-        name='Backup /etc weekly',
-        command='/bin/tar cf /tmp/etc_bup.tar /etc',
-        name='backup_etc',
+        name="Backup /etc weekly",
+        command="/bin/tar cf /tmp/etc_bup.tar /etc",
+        name="backup_etc",
         day_of_week=0,
         hour=1,
         minute=0,
     )
 
+
+.. _operations:server.group:
 
 :code:`server.group`
 ~~~~~~~~~~~~~~~~~~~~
@@ -65,26 +72,29 @@ Add/remove system groups.
 + **group**: name of the group to ensure
 + **present**: whether the group should be present or not
 + **system**: whether to create a system group
++ **gid**: use a specific groupid number
 
 System users:
     System users don't exist on BSD, so the argument is ignored for BSD targets.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     server.group(
-        name='Create docker group',
-        group='docker',
+        name="Create docker group",
+        group="docker",
     )
 
     # multiple groups
-    for group in ['wheel', 'lusers']:
+    for group in ["wheel", "lusers"]:
         server.group(
-            name=f'Create the group {group}',
+            name=f"Create the group {group}",
             group=group,
         )
 
+
+.. _operations:server.hostname:
 
 :code:`server.hostname`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,20 +112,52 @@ Hostname file:
     The hostname file only matters no systems that do not have ``hostnamectl``,
     which is part of ``systemd``.
 
-    By default pyinfra will auto detect this by targetting ``/etc/hostname``
+    By default pyinfra will auto detect this by targeting ``/etc/hostname``
     on Linux and ``/etc/myname`` on OpenBSD.
 
     To completely disable writing the hostname file, set ``hostname_file=False``.
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.hostname(
-        name='Set the hostname',
-        hostname='server1.example.com',
+        name="Set the hostname",
+        hostname="server1.example.com",
     )
 
+
+.. _operations:server.locale:
+
+:code:`server.locale`
+~~~~~~~~~~~~~~~~~~~~~
+
+Enable/Disable locale.
+
+.. code:: python
+
+    server.locale(locale, present=True)
+
++ **locale**: name of the locale to enable/disable
++ **present**: whether this locale should be present or not
+
+**Examples:**
+
+.. code:: python
+
+    server.locale(
+        name="Ensure en_GB.UTF-8 locale is not present",
+        locale="en_GB.UTF-8",
+        present=False,
+    )
+
+    server.locale(
+        name="Ensure en_GB.UTF-8 locale is present",
+        locale="en_GB.UTF-8",
+    )
+
+
+.. _operations:server.modprobe:
 
 :code:`server.modprobe`
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,15 +172,17 @@ Load/unload kernel modules.
 + **present**: whether the module should be loaded or not
 + **force**: whether to force any add/remove modules
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.modprobe(
-        name='Silly example for modprobe',
-        module='floppy',
+        name="Silly example for modprobe",
+        module="floppy",
     )
 
+
+.. _operations:server.mount:
 
 :code:`server.mount`
 ~~~~~~~~~~~~~~~~~~~~
@@ -147,7 +191,7 @@ Manage mounted filesystems.
 
 .. code:: python
 
-    server.mount(path, mounted=True, options=None)
+    server.mount(path, mounted=True, options=None, device=None, fs_type=None)
 
 + **path**: the path of the mounted filesystem
 + **mounted**: whether the filesystem should be mounted
@@ -162,11 +206,13 @@ Options:
     that you should use the `files.line operation <./files.html#files-line>`_.
 
 
+.. _operations:server.packages:
+
 :code:`server.packages`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Add or remove system packages. This command checks for the presence of all the
-system package managers ``pyinfra`` can handle and executes the relevant operation.
+system package managers pyinfra can handle and executes the relevant operation.
 
 .. code:: python
 
@@ -175,18 +221,26 @@ system package managers ``pyinfra`` can handle and executes the relevant operati
 + **packages**: list of packages to ensure
 + **present**: whether the packages should be installed
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.packages(
-        name='Install Vim and vimpager',
-        packages=['vimpager', 'vim'],
+        name="Install Vim and vimpager",
+        packages=["vimpager", "vim"],
     )
 
 
+.. _operations:server.reboot:
+
 :code:`server.reboot`
 ~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Reboot the server and wait for reconnection.
 
@@ -198,51 +252,75 @@ Reboot the server and wait for reconnection.
 + **interval**: interval (s) between reconnect attempts
 + **reboot_timeout**: total time before giving up reconnecting
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.reboot(
-        name='Reboot the server and wait to reconnect',
+        name="Reboot the server and wait to reconnect",
         delay=60,
         reboot_timeout=600,
     )
 
 
+.. _operations:server.script:
+
 :code:`server.script`
 ~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Upload and execute a local script on the remote host.
 
 .. code:: python
 
-    server.script(src)
+    server.script(src, args=())
 
 + **src**: local script filename to upload & execute
++ **args**: iterable to pass as arguments to the script
 
-Example:
+**Example:**
 
 .. code:: python
 
     # Note: This assumes there is a file in files/hello.bash locally.
     server.script(
-        name='Hello',
-        src='files/hello.bash',
+        name="Hello",
+        src="files/hello.bash",
+    )
+
+    # Example passing arguments to the script
+    server.script(
+        name="Hello",
+        src="files/hello.bash",
+        args=("do-something", "with-this"),
     )
 
 
+.. _operations:server.script_template:
+
 :code:`server.script_template`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Generate, upload and execute a local script template on the remote host.
 
 .. code:: python
 
-    server.script_template(src)
+    server.script_template(src, args=())
 
 + **src**: local script template filename
 
-Example:
+**Example:**
 
 .. code:: python
 
@@ -252,17 +330,48 @@ Example:
     # Note: This assumes there is a file in templates/hello2.bash.j2 locally.
     some_var = 'blah blah blah '
     server.script_template(
-        name='Hello from script',
-        src='templates/hello2.bash.j2',
+        name="Hello from script",
+        src="templates/hello2.bash.j2",
         some_var=some_var,
     )
 
+
+.. _operations:server.security_limit:
+
+:code:`server.security_limit`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Edit /etc/security/limits.conf configuration.
+
+.. code:: python
+
+    server.security_limit(domain, limit_type, item, value)
+
++ **domain**: the domain (user, group, or wildcard) for the limit
++ **limit_type**: the type of limit (hard or soft)
++ **item**: the item to limit (e.g., nofile, nproc)
++ **value**: the value for the limit
+
+**Example:**
+
+.. code:: python
+
+    security_limit(
+        name="Set nofile limit for all users",
+        domain='*',
+        limit_type='soft',
+        item='nofile',
+        value='1024',
+    )
+
+
+.. _operations:server.service:
 
 :code:`server.service`
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Manage the state of services. This command checks for the presence of all the
-Linux init systems ``pyinfra`` can handle and executes the relevant operation.
+Linux init systems pyinfra can handle and executes the relevant operation.
 
 .. code:: python
 
@@ -275,19 +384,27 @@ Linux init systems ``pyinfra`` can handle and executes the relevant operation.
 + **command**: custom command execute
 + **enabled**: whether this service should be enabled/disabled on boot
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.service(
-        name='Enable open-vm-tools service',
-        service='open-vm-tools',
+        name="Enable open-vm-tools service",
+        service="open-vm-tools",
         enabled=True,
     )
 
 
+.. _operations:server.shell:
+
 :code:`server.shell`
 ~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Run raw shell code on server during a deploy. If the command would
 modify data that would be in a fact, the fact would not be updated
@@ -299,15 +416,17 @@ since facts are only run at the start of a deploy.
 
 + **commands**: command or list of commands to execute on the remote server
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.shell(
-        name='Run lxd auto init',
-        commands=['lxd init --auto'],
+        name="Run lxd auto init",
+        commands=["lxd init --auto"],
     )
 
+
+.. _operations:server.sysctl:
 
 :code:`server.sysctl`
 ~~~~~~~~~~~~~~~~~~~~~
@@ -316,24 +435,26 @@ Edit sysctl configuration.
 
 .. code:: python
 
-    server.sysctl(key, value, persist=False, persist_file='/etc/sysctl.conf')
+    server.sysctl(key, value, persist=False, persist_file="/etc/sysctl.conf")
 
 + **key**: name of the sysctl setting to ensure
 + **value**: the value or list of values the sysctl should be
 + **persist**: whether to write this sysctl to the config
 + **persist_file**: file to write the sysctl to persist on reboot
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.sysctl(
-        name='Change the fs.file-max value',
-        key='fs.file-max',
+        name="Change the fs.file-max value",
+        key="fs.file-max",
         value=100000,
         persist=True,
     )
 
+
+.. _operations:server.user:
 
 :code:`server.user`
 ~~~~~~~~~~~~~~~~~~~
@@ -344,8 +465,8 @@ Add/remove/update system users & their ssh `authorized_keys`.
 
     server.user(
         user, present=True, home=None, shell=None, group=None, groups=None, public_keys=None,
-        delete_keys=False, ensure_home=True, system=False, uid=None, comment=None,
-        add_deploy_dir=True, unique=True,
+        delete_keys=False, ensure_home=True, create_home=False, system=False, uid=None,
+        comment=None, add_deploy_dir=True, unique=True, password=None,
     )
 
 + **user**: name of the user to ensure
@@ -357,62 +478,109 @@ Add/remove/update system users & their ssh `authorized_keys`.
 + **public_keys**: list of public keys to attach to this user, ``home`` must be specified
 + **delete_keys**: whether to remove any keys not specified in ``public_keys``
 + **ensure_home**: whether to ensure the ``home`` directory exists
++ **create_home**: whether to new user create home directories from the system skeleton
 + **system**: whether to create a system account
++ **uid**: use a specific userid number
 + **comment**: the user GECOS comment
 + **add_deploy_dir**: any public_key filenames are relative to the deploy directory
 + **unique**: prevent creating users with duplicate UID
++ **password**: set the encrypted password for the user
 
 Home directory:
     When ``ensure_home`` or ``public_keys`` are provided, ``home`` defaults to
-    ``/home/{name}``.
+    ``/home/{name}``. When ``create_home`` is ``True`` any newly created users
+    will be created with the ``-m`` flag to build a new home directory from the
+    systems skeleton directory.
 
 Public keys:
     These can be provided as strings containing the public key or as a path to
-    a public key file which ``pyinfra`` will read.
+    a public key file which pyinfra will read.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     server.user(
-        name='Ensure user is removed',
-        user='kevin',
+        name="Ensure user is removed",
+        user="kevin",
         present=False,
     )
 
     server.user(
-        name='Ensure myweb user exists',
-        user='myweb',
-        shell='/bin/bash',
+        name="Ensure myweb user exists",
+        user="myweb",
+        shell="/bin/bash",
     )
 
     # multiple users
-    for user in ['kevin', 'bob']:
+    for user in ["kevin", "bob"]:
         server.user(
-            name=f'Ensure user {user} is removed',
+            name=f"Ensure user {user} is removed",
             user=user,
             present=False,
         )
 
 
+.. _operations:server.user_authorized_keys:
+
+:code:`server.user_authorized_keys`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Manage `authorized_keys` of system users.
+
+.. code:: python
+
+    server.user_authorized_keys(
+        user, public_keys, group=None, delete_keys=False, authorized_key_directory=None,
+        authorized_key_filename=None,
+    )
+
++ **user**: name of the user to ensure
++ **public_keys**: list of public keys to attach to this user, ``home`` must be specified
++ **group**: the users primary group
++ **delete_keys**: whether to remove any keys not specified in ``public_keys``
+
+Public keys:
+    These can be provided as strings containing the public key or as a path to
+    a public key file which pyinfra will read.
+
+**Examples:**
+
+.. code:: python
+
+    server.user_authorized_keys(
+        name="Ensure user has a public key",
+        user="kevin",
+        public_keys=["ed25519..."],
+    )
+
+
+.. _operations:server.wait:
+
 :code:`server.wait`
 ~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Waits for a port to come active on the target machine. Requires netstat, checks every
 second.
 
 .. code:: python
 
-    server.wait(port=None)
+    server.wait(port)
 
 + **port**: port number to wait for
 
-Example:
+**Example:**
 
 .. code:: python
 
     server.wait(
-        name='Wait for webserver to start',
+        name="Wait for webserver to start",
         port=80,
     )
 

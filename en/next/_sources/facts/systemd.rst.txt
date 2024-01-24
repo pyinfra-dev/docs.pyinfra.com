@@ -1,6 +1,10 @@
 Systemd Facts
 -------------
 
+See also: :doc:`../operations/systemd`.
+
+.. _facts:systemd.SystemdEnabled:
+
 :code:`systemd.SystemdEnabled`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -8,10 +12,18 @@ Systemd Facts
 
     host.get_fact(SystemdEnabled, user_mode=False, machine=None, user_name=None)
 
+Returns a dictionary map of systemd units to booleans indicating whether they are enabled.
 
-Returns a dict of name -> whether enabled for systemd managed services.
+.. code:: python
+
+    {
+        "ssh.service": True,
+        "containerd.service": True,
+        "apt-daily.timer": False,
+    }
 
 
+.. _facts:systemd.SystemdStatus:
 
 :code:`systemd.SystemdStatus`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,7 +32,16 @@ Returns a dict of name -> whether enabled for systemd managed services.
 
     host.get_fact(SystemdStatus, user_mode=False, machine=None, user_name=None)
 
+Returns a dictionary map of systemd units to booleans indicating whether they are active.
 
-Returns a dict of name -> status for systemd managed services.
++ **user_mode**: whether to use user mode
++ **machine**: machine name
 
+.. code:: python
+
+    {
+        "ssh.service": True,
+        "containerd.service": True,
+        "apt-daily.timer": False,
+    }
 

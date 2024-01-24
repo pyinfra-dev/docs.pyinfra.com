@@ -1,8 +1,16 @@
 Puppet Operations
 -----------------
 
+.. _operations:puppet.agent:
+
 :code:`puppet.agent`
 ~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Run puppet agent
 
@@ -17,7 +25,7 @@ Note: Either 'USE_SUDO_LOGIN=True' or 'USE_SU_LOGIN=True'
 for puppet.agent() as `puppet` is added to the path in
 the .bash_profile.
 
-Example:
+**Example:**
 
 .. code:: python
 
@@ -26,7 +34,7 @@ Example:
     # We also expect a return code of:
     # 0=no changes or 2=changes applied
     puppet.agent(
-        name='Run the puppet agent',
+        name="Run the puppet agent",
         success_exit_codes=[0, 2],
     )
 

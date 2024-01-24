@@ -1,28 +1,29 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
     <title>pyinfra.api.facts module &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.api.host module" href="pyinfra.api.host.html" />
@@ -47,7 +48,8 @@
           <a href="pyinfra.api.exceptions.html" title="pyinfra.api.exceptions module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.api.facts module</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -64,9 +66,11 @@
         </a>
         
 <form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
-  <input id="docsearch-input" name="q" type="text" class="form-control" placeholder="Search...">
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
 </form>
       </div>
 
@@ -81,36 +85,54 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploys.html">Writing Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../deploy_process.html">Executing Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Building Connectors</a></li>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connectors.html">pyinfra.api.connectors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.deploy.html">pyinfra.api.deploy module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.exceptions.html">pyinfra.api.exceptions module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.facts module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.facts module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.FactBase"><code class="docutils literal notranslate"><span class="pre">FactBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.ShortFactBase"><code class="docutils literal notranslate"><span class="pre">ShortFactBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.get_fact"><code class="docutils literal notranslate"><span class="pre">get_fact()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.get_facts"><code class="docutils literal notranslate"><span class="pre">get_facts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.get_host_fact"><code class="docutils literal notranslate"><span class="pre">get_host_fact()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.facts.get_short_facts"><code class="docutils literal notranslate"><span class="pre">get_short_facts()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.host.html">pyinfra.api.host module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.inventory.html">pyinfra.api.inventory module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.operation.html">pyinfra.api.operation module</a></li>
@@ -118,33 +140,25 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.version.html">pyinfra.version module</a></li>
 </ul>
 </li>
-</ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 </ul>
 
     </div>
@@ -157,109 +171,106 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/1.x/apidoc/pyinfra.api.facts.html"><strong>1.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/apidoc/pyinfra.api.facts.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
   <div class="section" id="module-pyinfra.api.facts">
-<span id="pyinfra-api-facts-module"></span><h1>pyinfra.api.facts module<a class="headerlink" href="#module-pyinfra.api.facts" title="Permalink to this headline">¶</a></h1>
+<span id="pyinfra-api-facts-module"></span><h1>pyinfra.api.facts module<a class="headerlink" href="#module-pyinfra.api.facts" title="Permalink to this heading">¶</a></h1>
 <p>The pyinfra facts API. Facts enable pyinfra to collect remote server state which
 is used to “diff” with the desired state, producing the final commands required
 for a deploy.</p>
-<dl class="class">
-<dt id="pyinfra.api.facts.FactBase">
-<em class="property">class </em><code class="descclassname">pyinfra.api.facts.</code><code class="descname">FactBase</code><a class="headerlink" href="#pyinfra.api.facts.FactBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="pyinfra.api.facts.FactBase.abstract">
-<code class="descname">abstract</code><em class="property"> = True</em><a class="headerlink" href="#pyinfra.api.facts.FactBase.abstract" title="Permalink to this definition">¶</a></dt>
+<p>Note that the facts API does <em>not</em> use the global currently in context host so
+it’s possible to call facts on hosts out of context (ie give me the IP of this
+other host B while I operate on this host A).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">FactBase</span></code><a class="headerlink" href="#pyinfra.api.facts.FactBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.abstract">
+<code class="sig-name descname"><span class="pre">abstract</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.abstract" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.facts.FactBase.default">
-<em class="property">static </em><code class="descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.FactBase.default" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.command">
+<code class="sig-name descname"><span class="pre">command</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.default">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">default</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#pyinfra.api.facts.FactBase.default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the default attribute to be a type (eg list/dict).</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.api.facts.FactBase.name">
-<code class="descname">name</code><em class="property"> = 'pyinfra.api.facts.FactBase'</em><a class="headerlink" href="#pyinfra.api.facts.FactBase.name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.facts.FactBase.process">
-<em class="property">static </em><code class="descname">process</code><span class="sig-paren">(</span><em>output</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.FactBase.process" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.process">
+<code class="sig-name descname"><span class="pre">process</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="headerlink" href="#pyinfra.api.facts.FactBase.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.facts.FactBase.process_pipeline">
-<code class="descname">process_pipeline</code><span class="sig-paren">(</span><em>args</em>, <em>output</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.FactBase.process_pipeline" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.process_pipeline">
+<code class="sig-name descname"><span class="pre">process_pipeline</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">args</span></span></em>, <em><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.FactBase.process_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.api.facts.FactBase.requires_command">
-<code class="descname">requires_command</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.facts.FactBase.requires_command" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.requires_command">
+<code class="sig-name descname"><span class="pre">requires_command</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.requires_command" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="pyinfra.api.facts.FactBase.shell_executable">
-<code class="descname">shell_executable</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.facts.FactBase.shell_executable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyinfra.api.facts.FactNameMeta">
-<em class="property">class </em><code class="descclassname">pyinfra.api.facts.</code><code class="descname">FactNameMeta</code><span class="sig-paren">(</span><em>name</em>, <em>bases</em>, <em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.FactNameMeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyinfra.api.facts.ShortFactBase">
-<em class="property">class </em><code class="descclassname">pyinfra.api.facts.</code><code class="descname">ShortFactBase</code><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="pyinfra.api.facts.ShortFactBase.fact">
-<code class="descname">fact</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase.fact" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyinfra.api.facts.ShortFactBase.name">
-<code class="descname">name</code><em class="property"> = 'pyinfra.api.facts.ShortFactBase'</em><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase.name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.shell_executable">
+<code class="sig-name descname"><span class="pre">shell_executable</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.shell_executable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.create_host_fact">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">create_host_fact</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>name</em>, <em>data</em>, <em>args=None</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.create_host_fact" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.facts.ShortFactBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">ShortFactBase</span></code><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.ShortFactBase.fact">
+<code class="sig-name descname"><span class="pre">fact</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyinfra.api.facts.FactBase" title="pyinfra.api.facts.FactBase"><span class="pre">FactBase</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase.fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.delete_host_fact">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">delete_host_fact</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>name</em>, <em>args=None</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.delete_host_fact" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.facts.ShortFactBase.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.get_fact">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">get_fact</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>cls</em>, <em>args=None</em>, <em>kwargs=None</em>, <em>ensure_hosts=None</em>, <em>apply_failed_hosts=True</em>, <em>fact_hash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_fact" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.facts.ShortFactBase.process_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">process_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.ShortFactBase.process_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.get_facts">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">get_facts</code><span class="sig-paren">(</span><em>state</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_facts" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.facts.get_fact">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">get_fact</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyinfra.api.facts.FactBase" title="pyinfra.api.facts.FactBase"><span class="pre">FactBase</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">ensure_hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">apply_failed_hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#pyinfra.api.facts.get_fact" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.get_host_fact">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">get_host_fact</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>name</em>, <em>args=None</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_host_fact" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.facts.get_facts">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">get_facts</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_facts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.facts.get_short_facts">
-<code class="descclassname">pyinfra.api.facts.</code><code class="descname">get_short_facts</code><span class="sig-paren">(</span><em>state</em>, <em>host</em>, <em>short_fact</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_short_facts" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.facts.get_host_fact">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">get_host_fact</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">cls</span></span></em>, <em><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#pyinfra.api.facts.get_host_fact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.facts.get_short_facts">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.facts.</span></code><code class="sig-name descname"><span class="pre">get_short_facts</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">short_fact</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.facts.get_short_facts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -301,29 +312,37 @@ for a deploy.</p>
           <a href="pyinfra.api.exceptions.html" title="pyinfra.api.exceptions module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.api.facts module</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
   });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
 </script>
 <script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-  <script type="text/javascript"> docsearch({
-      apiKey: 'e2522266be34dfb8a0044c09cbf4c8b3',
-      indexName: 'pyinfra',
-      inputSelector: '#docsearch-input',
-      algoliaOptions: {
-        'facetFilters': ["version:next", "lang:en"],
-      },
-      debug: false,
-  });
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:next", "lang:en"],
+        },
+        debug: false,
+    });
   </script>
 
 

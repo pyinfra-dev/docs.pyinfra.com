@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+  <meta name="docsearch:version" content="next" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>Using Operations &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="_static/logo_small.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Inventory &amp; Data" href="inventory-data.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inventory-data.html" title="Inventory &amp; Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Operations</a></li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="index.html" class="text-logo">
+            <img src="_static/logo_small.png" />
+            pyinfra <small>next</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="index.html" class="text-logo">
+            <img src="_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#global-arguments">Global Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-host-object">The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#host-group-data">Host &amp; Group Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-facts">Host Facts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-inventory-object">The <code class="docutils literal notranslate"><span class="pre">inventory</span></code> Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-changes-output">Operation Changes &amp; Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#operation-output">Operation Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nested-operations">Nested Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#include-multiple-files">Include Multiple Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-config-object">The <code class="docutils literal notranslate"><span class="pre">config</span></code> Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enforcing-requirements">Enforcing Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/using-operations.html"><strong>2.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="using-operations">
+<h1>Using Operations<a class="headerlink" href="#using-operations" title="Permalink to this heading">¶</a></h1>
+<p>Operations tell pyinfra what to do, for example the <code class="docutils literal notranslate"><span class="pre">server.shell</span></code> operation instructs pyinfra to execute a shell command. Most operations define state rather than actions - so instead of “start this service” you say “this service should be running” - pyinfra will make changes if needed.</p>
+<p>For example, these two operations will ensure that user <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> exists with home directory <code class="docutils literal notranslate"><span class="pre">/home/pyinfra</span></code>, and that the <code class="docutils literal notranslate"><span class="pre">/var/log/pyinfra.log</span></code> file exists and is owned by that user:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span><span class="p">,</span> <span class="n">files</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create pyinfra user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">home</span><span class="o">=</span><span class="s2">&quot;/home/pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create pyinfra log file&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/var/log/pyinfra.log&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;644&quot;</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Uses <a class="reference internal" href="operations/files.html"><span class="doc">Files Operations</span></a> and <a class="reference internal" href="operations/server.html"><span class="doc">Server Operations</span></a>. You can see all available operations in the <a class="reference internal" href="operations.html"><span class="doc">Operations Index</span></a>. If you save the file as <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code> you can test it out using Docker:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@docker/ubuntu:20.04<span class="w"> </span>deploy.py
+</pre></div>
+</div>
+<div class="section" id="global-arguments">
+<h2>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this heading">¶</a></h2>
+<p>Global arguments are covered in detail here: <a class="reference internal" href="arguments.html"><span class="doc">Global Arguments</span></a>. There is a set of arguments available to all operations to control authentication (<code class="docutils literal notranslate"><span class="pre">_sudo</span></code>, etc) and operation execution (<code class="docutils literal notranslate"><span class="pre">_shell_executable</span></code>, etc):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+
+<span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update apt repositories&quot;</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-host-object">
+<h2>The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object<a class="headerlink" href="#the-host-object" title="Permalink to this heading">¶</a></h2>
+<p>pyinfra provides a global <code class="docutils literal notranslate"><span class="pre">host</span></code> object that can be used to retrieve information and metadata about the current host target. At all times the <code class="docutils literal notranslate"><span class="pre">host</span></code> variable represents the current host context, so you can think about the deploy code executing on individual hosts at a time.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code> object has <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">groups</span></code> attributes which can be used to control operation flow:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;control-plane-1&quot;</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="k">if</span> <span class="s2">&quot;control-plane&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<div class="section" id="host-group-data">
+<h3>Host &amp; Group Data<a class="headerlink" href="#host-group-data" title="Permalink to this heading">¶</a></h3>
+<p>Adding data to inventories is covered in detail here: <a class="reference internal" href="inventory-data.html"><span class="doc">Inventory &amp; Data</span></a>. Data can be accessed within operations using the <code class="docutils literal notranslate"><span class="pre">host.data</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
+
+<span class="c1"># Ensure the state of a user based on host/group data</span>
+<span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Setup the app user&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_user</span><span class="p">,</span>
+    <span class="n">home</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_dir</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="host-facts">
+<h3>Host Facts<a class="headerlink" href="#host-facts" title="Permalink to this heading">¶</a></h3>
+<p>Facts allow you to use information about the target host to control and configure operations. A good example is switching between <code class="docutils literal notranslate"><span class="pre">apt</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">yum</span></code> depending on the Linux distribution. Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be retreived using the <code class="docutils literal notranslate"><span class="pre">host.get_fact</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">LinuxName</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">yum</span>
+
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;CentOS&quot;</span><span class="p">:</span>
+    <span class="n">yum</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nano via yum&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nano&quot;</span><span class="p">],</span>
+        <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="facts.html"><span class="doc">Facts Index</span></a> for a full list of available facts and arguments.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change. See: <a class="reference external" href="deploy-process.html#using-host-facts">using host facts</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-inventory-object">
+<h2>The <code class="docutils literal notranslate"><span class="pre">inventory</span></code> Object<a class="headerlink" href="#the-inventory-object" title="Permalink to this heading">¶</a></h2>
+<p>Like <code class="docutils literal notranslate"><span class="pre">host</span></code>, there is an <code class="docutils literal notranslate"><span class="pre">inventory</span></code> object that can be used to access the entire inventory of hosts. This is useful when you need facts or data from another host like the hostname of another server:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">inventory</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Hostname</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">files</span>
+
+<span class="c1"># Get the other host, load the hostname fact</span>
+<span class="n">db_host</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">get_host</span><span class="p">(</span><span class="s2">&quot;postgres-main&quot;</span><span class="p">)</span>
+<span class="n">db_hostname</span> <span class="o">=</span> <span class="n">db_host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Hostname</span><span class="p">)</span>
+
+<span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Generate app config&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/app-config.j2.yaml&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/myapp/config.yaml&quot;</span><span class="p">,</span>
+    <span class="n">db_hostname</span><span class="o">=</span><span class="n">db_hostname</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operation-changes-output">
+<h2>Operation Changes &amp; Output<a class="headerlink" href="#operation-changes-output" title="Permalink to this heading">¶</a></h2>
+<p>All operations return an operation meta object which provides information about the changes the operation <em>will</em> execute. This can be used to control other operations via the <code class="docutils literal notranslate"><span class="pre">_if_changed</span></code> argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
+
+<span class="n">create_user</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create user myuser&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myuser&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bootstrap user&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span>
+    <span class="n">_if_changed</span><span class="o">=</span><span class="n">create_user</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="operation-output">
+<h3>Operation Output<a class="headerlink" href="#operation-output" title="Permalink to this heading">¶</a></h3>
+<p>pyinfra doesn’t immediately execute operations meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;echo output&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="c1"># result.stdout raises exception here, but works inside callback()</span>
+
+<span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Execute callback function&quot;</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="nested-operations">
+<h2>Nested Operations<a class="headerlink" href="#nested-operations" title="Permalink to this heading">¶</a></h2>
+<p>Nested operations are called during the execution phase within a callback function passed into a <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a>. Calling a nested operation immediately executes it on the target machine. This is useful in complex scenarios where one operation output is required in another.</p>
+<p>Because nested operations are executed immediately, the output is always available right away:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
+
+<span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+        <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;echo output&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Execute callback function&quot;</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="include-multiple-files">
+<h2>Include Multiple Files<a class="headerlink" href="#include-multiple-files" title="Permalink to this heading">¶</a></h2>
+<p>Including files can be used to break out operations across multiple files. Files can be included using <code class="docutils literal notranslate"><span class="pre">local.include</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">local</span>
+
+<span class="c1"># Include &amp; call all the operations in tasks/install_something.py</span>
+<span class="n">local</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;tasks/install_something.py&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See more in <a class="reference internal" href="examples/groups_roles.html"><span class="doc">examples: groups &amp; roles</span></a>.</p>
+</div>
+<div class="section" id="the-config-object">
+<h2>The <code class="docutils literal notranslate"><span class="pre">config</span></code> Object<a class="headerlink" href="#the-config-object" title="Permalink to this heading">¶</a></h2>
+<p>Like <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">inventory</span></code>, <code class="docutils literal notranslate"><span class="pre">config</span></code> can be used to set global defaults for operations. For example, to use sudo in all operations following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">config</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">SUDO</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># all operations below will use sudo by default (unless overridden by `_sudo=False`)</span>
+</pre></div>
+</div>
+<div class="section" id="enforcing-requirements">
+<h3>Enforcing Requirements<a class="headerlink" href="#enforcing-requirements" title="Permalink to this heading">¶</a></h3>
+<p>The config object can be used to enforce a pyinfra version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Require a certain pyinfra version</span>
+<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PYINFRA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;~=1.1&quot;</span>
+
+<span class="c1"># Require certain packages</span>
+<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PACKAGES</span> <span class="o">=</span> <span class="s2">&quot;requirements.txt&quot;</span>  <span class="c1"># path relative to the current working directory</span>
+<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PACKAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;pyinfra~=1.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pyinfra-docker~=1.0&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>A great way to learn more about writing pyinfra deploys is to see some in action. There’s a number of resources for this:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Fizzadar/pyinfra/tree/2.x/examples">the pyinfra examples folder on GitHub</a> - a general collection of all kinds of example deploy</li>
+<li><a class="reference internal" href="examples.html"><span class="doc">the example deploys in this documentation</span></a> - these highlight specific common patterns</li>
+</ul>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="getting-started.html">
+          <span aria-hidden="true">&larr;</span> Getting Started
+        </a></li>
+      
+        <li class="next"><a href="inventory-data.html">
+          Inventory &amp; Data <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inventory-data.html" title="Inventory &amp; Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getting-started.html" title="Getting Started"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Operations</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:next", "lang:en"],
+        },
+        debug: false,
+    });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>

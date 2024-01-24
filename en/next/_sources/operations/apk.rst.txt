@@ -4,6 +4,11 @@ Apk Operations
 
 Manage apk packages.
 
+
+Facts used in these operations: :ref:`facts:apk.ApkPackages`.
+
+.. _operations:apk.packages:
+
 :code:`apk.packages`
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -22,27 +27,35 @@ Add/remove/update apk packages.
 Versions:
     Package versions can be pinned like apk: ``<pkg>=<version>``.
 
-Examples:
+**Examples:**
 
 .. code:: python
 
     # Update package list and install packages
     apk.packages(
-        name='Install Asterisk and Vim',
-        packages=['asterisk', 'vim'],
+        name="Install Asterisk and Vim",
+        packages=["asterisk", "vim"],
         update=True,
     )
 
     # Install the latest versions of packages (always check)
     apk.packages(
-        name='Install latest Vim',
-        packages=['vim'],
+        name="Install latest Vim",
+        packages=["vim"],
         latest=True,
     )
 
 
+.. _operations:apk.update:
+
 :code:`apk.update`
 ~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Updates apk repositories.
 
@@ -51,8 +64,16 @@ Updates apk repositories.
     apk.update()
 
 
+.. _operations:apk.upgrade:
+
 :code:`apk.upgrade`
 ~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
 
 Upgrades all apk packages.
 
