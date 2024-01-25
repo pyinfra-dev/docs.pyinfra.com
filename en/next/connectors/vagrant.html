@@ -148,8 +148,18 @@
           
   <div class="section" id="vagrant-connector">
 <h1><code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> Connector<a class="headerlink" href="#vagrant-connector" title="Permalink to this heading">¶</a></h1>
-<p>Helper class that provides a standard way to create an ABC using
-inheritance.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> connector reads the current Vagrant status and generates an
+inventory for any running VMs.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run on all hosts</span>
+pyinfra<span class="w"> </span>@vagrant<span class="w"> </span>...
+
+<span class="c1"># Run on a specific VM</span>
+pyinfra<span class="w"> </span>@vagrant/my-vm-name<span class="w"> </span>...
+
+<span class="c1"># Run on multiple named VMs</span>
+pyinfra<span class="w"> </span>@vagrant/my-vm-name,@vagrant/another-vm-name<span class="w"> </span>...
+</pre></div>
+</div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@vagrant/limit<span class="w"> </span>...

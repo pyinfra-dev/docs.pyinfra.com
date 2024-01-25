@@ -130,20 +130,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.api.operations.html">pyinfra.api.operations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.api.util.html">pyinfra.api.util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apidoc/pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -170,28 +156,34 @@
           
   <div class="section" id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h1>
-<p>The pyinfra API is designed like this:</p>
-<ul class="simple">
+<p>The pyinfra API is designed to be used as follows:</p>
+<ol class="arabic simple">
 <li><dl class="first docutils">
-<dt>A set of classes storing state</dt><dd><ul>
-<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.State</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.Inventory</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.Host</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.Config</span></code></li>
+<dt>Create the state we are going to operate on, this consists of:</dt><dd><ul>
+<li>An inventory <code class="docutils literal notranslate"><span class="pre">pyinfra.api.Inventory</span></code> containing hosts <code class="docutils literal notranslate"><span class="pre">pyinfra.api.Host</span></code>, plus any data</li>
+<li>A config <code class="docutils literal notranslate"><span class="pre">pyinfra.api.Config</span></code> for global flag</li>
+<li>A state <code class="docutils literal notranslate"><span class="pre">pyinfra.api.State</span></code> that combines the inventory &amp; config</li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>A set of modules that implement functionality:</dt><dd><ul>
-<li><code class="docutils literal notranslate"><span class="pre">operation.py</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">operations.py</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">ssh.py</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">facts.py</span></code></li>
+<dt>Now state is setup, we define operations:</dt><dd><ul>
+<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.operation.add_op</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.add_deploy</span></code></li>
 </ul>
 </dd>
 </dl>
 </li>
+<li><dl class="first docutils">
+<dt>Now that’s done, we execute it:</dt><dd><ul>
+<li><code class="docutils literal notranslate"><span class="pre">pyinfra.api.operations.run_ops</span></code></li>
 </ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Currently the best example of this in action is in <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra/blob/3.x/pyinfra_cli/main.py">pyinfra’s own main.py</a>.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Core API</span></p>
 <ul>
@@ -210,20 +202,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.api.operations.html">pyinfra.api.operations module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.api.util.html">pyinfra.api.util module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.base.html">pyinfra.connectors.base module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.ssh_util.html">pyinfra.connectors.ssh_util module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apidoc/pyinfra.progress.html">pyinfra.progress module</a></li>

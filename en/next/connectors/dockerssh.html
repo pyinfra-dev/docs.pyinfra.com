@@ -148,8 +148,15 @@
           
   <div class="section" id="dockerssh-connector">
 <h1><code class="docutils literal notranslate"><span class="pre">&#64;dockerssh</span></code> Connector<a class="headerlink" href="#dockerssh-connector" title="Permalink to this heading">¶</a></h1>
-<p>Helper class that provides a standard way to create an ABC using
-inheritance.</p>
+<p><strong>Note</strong>: this connector is in beta!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;dockerssh</span></code> connector allows you to run commands on Docker containers on a remote machine.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
+pyinfra<span class="w"> </span>@dockerssh/remotehost:alpine:3.8<span class="w"> </span>...
+
+<span class="c1"># pyinfra can run on multiple Docker images in parallel</span>
+pyinfra<span class="w"> </span>@dockerssh/remotehost:alpine:3.8,@dockerssh/remotehost:ubuntu:bionic<span class="w"> </span>...
+</pre></div>
+</div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@dockerssh/host_image_str<span class="w"> </span>...
