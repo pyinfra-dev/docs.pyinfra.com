@@ -5,7 +5,98 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+
+.. _operations:files.block:
+
+:code:`files.block`
+~~~~~~~~~~~~~~~~~~~
+
+Ensure content, surrounded by the appropriate markers, is present (or not) in the file.
+
+.. code:: python
+
+    files.block(
+        path, content=None, present=True, line=None, backup=False, escape_regex_characters=False,
+        try_prevent_shell_expansion=False, before=False, after=False, marker=None, begin=None,
+        end=None,
+    )
+
++ **path**: target remote file
++ **content**: what should be present in the file (between markers).
++ **present**: whether the content should be present in the file
++ **before**: should the content be added before ``line`` if it doesn't exist
++ **after**: should the content be added after ``line`` if it doesn't exist
++ **line**: regex before or after which the content should be added if it doesn't exist.
++ **backup**: whether to backup the file (see ``files.line``). Default False.
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
++ **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
++ **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
++ **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
+
+Content appended if ``line`` not found in the file
+    If ``content`` is not in the file but is required (``present=True``) and ``line`` is not
+    found in the file, ``content`` (surrounded by markers) will be appended to the file.  The
+    file is created if necessary.
+
+Content prepended or appended if ``line`` not specified
+    If ``content`` is not in the file but is required and ``line`` was not provided the content
+    will either be  prepended to the file (if both ``before`` and ``after``
+    are ``True``) or appended to the file (if both are ``False``).
+
+Removal ignores ``content`` and ``line``
+
+Preventing shell expansion works by wrapping the content in '`' before passing to `awk`.
+WARNING: This will break if the content contains raw single quotes.
+
+**Examples:**
+
+.. code:: python
+
+    # add entry to /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one",
+        before=True,
+        regex=".*localhost",
+    )
+
+    # have two entries in /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
+        before=True,
+        regex=".*localhost",
+    )
+
+    # remove marked entry from /etc/hosts
+    files.block(
+        name="remove all 10.* addresses from /etc/hosts",
+        path="/etc/hosts",
+        present=False
+    )
+
+    # add out of date warning to web page
+    files.block(
+        name="add out of date warning to web page",
+        path="/var/www/html/something.html",
+        content= "<p>Warning: this page is out of date.</p>",
+        regex=".*<body>.*",
+        after=True
+        marker="<!-- {mark} PYINFRA BLOCK -->",
+    )
+
+    # put complex alias into .zshrc
+    files.block(
+        path="/home/user/.zshrc",
+        content="eval $(thefuck -a)",
+        try_prevent_shell_expansion=True,
+        marker="## {mark} ALIASES ##"
+    )
+
 
 .. _operations:files.directory:
 
@@ -68,7 +159,7 @@ Download files from remote locations using ``curl`` or ``wget``.
 
     files.download(
         src, dest, user=None, group=None, mode=None, cache_time=None, force=False, sha256sum=None,
-        sha1sum=None, md5sum=None,
+        sha1sum=None, md5sum=None, headers=None, insecure=False, proxy=None,
     )
 
 + **src**: source URL of the file
@@ -81,6 +172,9 @@ Download files from remote locations using ``curl`` or ``wget``.
 + **sha256sum**: sha256 hash to checksum the downloaded file against
 + **sha1sum**: sha1 hash to checksum the downloaded file against
 + **md5sum**: md5 hash to checksum the downloaded file against
++ **headers**: optional dictionary of headers to set for the HTTP request
++ **insecure**: disable SSL verification for the HTTP request
++ **proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
 
 **Example:**
 
@@ -140,6 +234,41 @@ Add/remove/update files.
     )
 
 
+.. _operations:files.flags:
+
+:code:`files.flags`
+~~~~~~~~~~~~~~~~~~~
+
+Set/clear file flags.
+
+.. code:: python
+
+    files.flags(path, flags=None, present=True)
+
++ **path**: path of the remote folder
++ **flags**: a list of the file flags to be set or cleared
++ **present**: whether the flags should be set or cleared
+
+**Examples:**
+
+.. code:: python
+
+    files.flags(
+        name="Ensure ~/Library is visible in the GUI",
+        path="~/Library",
+        flags="hidden",
+        present=False
+    )
+
+    files.directory(
+        name="Ensure no one can change these files",
+        path="/something/very/important",
+        flags=["uchg", "schg"],
+        present=True,
+        _sudo=True
+    )
+
+
 .. _operations:files.get:
 
 :code:`files.get`
@@ -190,6 +319,7 @@ Ensure lines in files using grep to locate and sed to replace.
     files.line(
         path, line, present=True, replace=None, flags=None, backup=False,
         interpolate_variables=False, escape_regex_characters=False, assume_present=False,
+        ensure_newline=False,
     )
 
 + **path**: target remote file to edit
@@ -201,6 +331,7 @@ Ensure lines in files using grep to locate and sed to replace.
 + **interpolate_variables**: whether to interpolate variables in ``replace``
 + **assume_present**: whether to assume a matching line already exists in the file
 + **escape_regex_characters**: whether to escape regex characters from the matching line
++ **ensure_newline**: ensures that the appended line is on a new line
 
 Regex line matching:
     Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
@@ -220,6 +351,11 @@ Append:
     If ``line`` is not in the file but we want it (``present`` set to ``True``), then
     it will be append to the end of the file.
 
+Ensure new line:
+    This will ensure that the ``line`` being appended is always on a seperate new
+    line in case the file doesn't end with a newline character.
+
+
 **Examples:**
 
 .. code:: python
@@ -227,12 +363,12 @@ Append:
     # prepare to do some maintenance
     maintenance_line = "SYSTEM IS DOWN FOR MAINTENANCE"
     files.line(
-        name="Add the down-for-maintence line in /etc/motd",
+        name="Add the down-for-maintenance line in /etc/motd",
         path="/etc/motd",
         line=maintenance_line,
     )
 
-    # Then, after the mantenance is done, remove the maintenance line
+    # Then, after the maintenance is done, remove the maintenance line
     files.line(
         name="Remove the down-for-maintenance line in /etc/motd",
         path="/etc/motd",
@@ -348,7 +484,7 @@ Upload a local file, or file-like object, to the remote system.
 + **dest**: remote filename to upload to
 + **user**: user to own the files
 + **group**: group to own the files
-+ **mode**: permissions of the files
++ **mode**: permissions of the files, use ``True`` to copy the local file
 + **add_deploy_dir**: src is relative to the deploy directory
 + **create_remote_dir**: create the remote directory if it doesn't exist
 + **force**: always upload the file, even if the remote copy matches
@@ -357,6 +493,10 @@ Upload a local file, or file-like object, to the remote system.
 ``dest``:
     If this is a directory that already exists on the remote side, the local
     file will be uploaded to that directory with the same filename.
+
+``mode``:
+    When set to ``True`` the permissions of the local file are applied to the
+    remote file after the upload is complete.
 
 ``create_remote_dir``:
     If the remote directory does not exist it will be created using the same
@@ -443,7 +583,8 @@ the ``rsync`` binary on your system.
 
 .. important::
     The ``files.rsync`` operation is in alpha, and only supported using SSH
-    or ``@local`` connectors.
+    or ``@local`` connectors. When using the SSH connector, rsync will automatically use the
+    StrictHostKeyChecking setting, config and known_hosts file (when specified).
 
 .. caution::
     When using SSH, the ``files.rsync`` operation only supports the ``sudo`` and ``sudo_user``
@@ -461,8 +602,8 @@ remove extra files on the remote side, but not extra directories.
 .. code:: python
 
     files.sync(
-        src, dest, user=None, group=None, mode=None, delete=False, exclude=None, exclude_dir=None,
-        add_deploy_dir=True,
+        src, dest, user=None, group=None, mode=None, dir_mode=None, delete=False, exclude=None,
+        exclude_dir=None, add_deploy_dir=True,
     )
 
 + **src**: local directory to sync
@@ -470,6 +611,7 @@ remove extra files on the remote side, but not extra directories.
 + **user**: user to own the files and directories
 + **group**: group to own the files and directories
 + **mode**: permissions of the files
++ **dir_mode**: permissions of the directories
 + **delete**: delete remote files not present locally
 + **exclude**: string or list/tuple of strings to match & exclude files (eg *.pyc)
 + **exclude_dir**: string or list/tuple of strings to match & exclude directories (eg node_modules)

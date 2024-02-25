@@ -152,24 +152,67 @@ Gets & returns a dict of network devices. See the ``ipv4_addresses`` and
 ``ipv6_addresses`` facts for easier-to-use shortcuts to get device addresses.
 
 .. code:: python
-
-    {
-        "eth0": {
-            "ipv4": {
-                "address": "127.0.0.1",
-                "broadcast": "127.0.0.13",
-                # Only one of these will exist:
-                "netmask": "255.255.255.255",
-                "mask_bits": 32,
-            },
-            "ipv6": {
-                "address": "fe80::a00:27ff:fec3:36f0",
-                "mask_bits": 64,
-                "additional_ips": [{
-                    "address": "fe80::",
-                    "mask_bits": 128,
-                }],
-            }
+    "enp1s0": {
+        "ether": "12:34:56:78:9A:BC",
+        "mtu": 1500,
+        "state": "UP",
+        "ipv4": {
+            "address": "192.168.1.100",
+            "mask_bits": 24,
+            "netmask": "255.255.255.0"
         },
+        "ipv6": {
+            "address": "2001:db8:85a3::8a2e:370:7334",
+            "mask_bits": 64,
+            "additional_ips": [
+                {
+                    "address": "fe80::1234:5678:9abc:def0",
+                    "mask_bits": 64
+                }
+            ]
+        }
+    },
+    "incusbr0": {
+        "ether": "DE:AD:BE:EF:CA:FE",
+        "mtu": 1500,
+        "state": "UP",
+        "ipv4": {
+            "address": "10.0.0.1",
+            "mask_bits": 24,
+            "netmask": "255.255.255.0"
+        },
+        "ipv6": {
+            "address": "fe80::dead:beef:cafe:babe",
+            "mask_bits": 64,
+            "additional_ips": [
+                {
+                    "address": "2001:db8:1234:5678::1",
+                    "mask_bits": 64
+                }
+            ]
+        }
+    },
+    "lo": {
+        "mtu": 65536,
+        "state": "UP",
+        "ipv6": {
+            "address": "::1",
+            "mask_bits": 128
+        }
+    },
+    "veth98806fd6": {
+        "ether": "AA:BB:CC:DD:EE:FF",
+        "mtu": 1500,
+        "state": "UP"
+    },
+    "vethda29df81": {
+        "ether": "11:22:33:44:55:66",
+        "mtu": 1500,
+        "state": "UP"
+    },
+    "wlo1": {
+        "ether": "77:88:99:AA:BB:CC",
+        "mtu": 1500,
+        "state": "UNKNOWN"
     }
 

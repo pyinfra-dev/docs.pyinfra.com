@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>Using Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <link rel="shortcut icon" href="_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Inventory &amp; Data" href="inventory-data.html" />
@@ -46,7 +47,8 @@
         <li class="right" >
           <a href="getting-started.html" title="Getting Started"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Operations</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -82,7 +84,7 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using Operations</a><ul>
@@ -109,15 +111,16 @@
 <li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
@@ -125,7 +128,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -144,7 +147,7 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="using-operations">
-<h1>Using Operations<a class="headerlink" href="#using-operations" title="Permalink to this headline">¶</a></h1>
+<h1>Using Operations<a class="headerlink" href="#using-operations" title="Permalink to this heading">¶</a></h1>
 <p>Operations tell <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> what to do, for example the <code class="docutils literal notranslate"><span class="pre">server.shell</span></code> operation instructs <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to execute a shell command. Most operations define state rather than actions - so instead of “start this service” you say “this service should be running” - <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will only execute commands if needed.</p>
 <p>For example, these operations will ensure that user <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> exists with home directory <code class="docutils literal notranslate"><span class="pre">/home/pyinfra</span></code>, and that the <code class="docutils literal notranslate"><span class="pre">/var/log/pyinfra.log</span></code> file exists and is owned by that user:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import pyinfra modules, each containing operations to use</span>
@@ -167,7 +170,7 @@
 </pre></div>
 </div>
 <p>Uses <a class="reference internal" href="operations/files.html"><span class="doc">Files Operations</span></a> and <a class="reference internal" href="operations/server.html"><span class="doc">Server Operations</span></a>. You can see all available operations in the <a class="reference internal" href="operations.html"><span class="doc">Operations Index</span></a>. If you save the file as <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code> you can test it out using Docker:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra @docker/ubuntu:20.04 deploy.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@docker/ubuntu:20.04<span class="w"> </span>deploy.py
 </pre></div>
 </div>
 <div class="admonition important">
@@ -175,7 +178,7 @@
 <p class="last">Operations that rely on one another (interdependency) must be treated with caution. See: <a class="reference external" href="deploy-process.html#limitations">deploy limitations</a>.</p>
 </div>
 <div class="section" id="global-arguments">
-<h2>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this headline">¶</a></h2>
+<h2>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this heading">¶</a></h2>
 <p>Global arguments are covered in detail here: <a class="reference internal" href="arguments.html"><span class="doc">Global Arguments</span></a>. There is a set of arguments available to all operations to control authentication (<code class="docutils literal notranslate"><span class="pre">_sudo</span></code>, etc) and operation execution (<code class="docutils literal notranslate"><span class="pre">_shell_executable</span></code>, etc):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
 
@@ -188,7 +191,7 @@
 </div>
 </div>
 <div class="section" id="the-host-object">
-<h2>The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object<a class="headerlink" href="#the-host-object" title="Permalink to this headline">¶</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object<a class="headerlink" href="#the-host-object" title="Permalink to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> provides a global <code class="docutils literal notranslate"><span class="pre">host</span></code> object that can be used to retrieve information and metadata about the current host target. At all times the <code class="docutils literal notranslate"><span class="pre">host</span></code> variable represents the current host context, so you can think about the deploy code executing on individual hosts at a time.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">host</span></code> object has <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">groups</span></code> attributes which can be used to control operation flow:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
@@ -201,7 +204,7 @@
 </pre></div>
 </div>
 <div class="section" id="host-facts">
-<h3>Host Facts<a class="headerlink" href="#host-facts" title="Permalink to this headline">¶</a></h3>
+<h3>Host Facts<a class="headerlink" href="#host-facts" title="Permalink to this heading">¶</a></h3>
 <p>Facts allow you to use information about the target host to control and configure operations. A good example is switching between <code class="docutils literal notranslate"><span class="pre">apt</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">yum</span></code> depending on the Linux distribution. Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be collected using <code class="docutils literal notranslate"><span class="pre">host.get_fact(...)</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
 <span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">LinuxName</span>
@@ -218,7 +221,7 @@
 <p>See <a class="reference internal" href="facts.html"><span class="doc">Facts Index</span></a> for a full list of available facts and arguments.</p>
 </div>
 <div class="section" id="host-group-data">
-<h3>Host &amp; Group Data<a class="headerlink" href="#host-group-data" title="Permalink to this headline">¶</a></h3>
+<h3>Host &amp; Group Data<a class="headerlink" href="#host-group-data" title="Permalink to this heading">¶</a></h3>
 <p>Adding data to inventories is covered in detail here: <a class="reference internal" href="inventory-data.html"><span class="doc">Inventory &amp; Data</span></a>. Data can be accessed within operations via the <code class="docutils literal notranslate"><span class="pre">host.data</span></code> attribute:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
 <span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
@@ -234,7 +237,7 @@
 </div>
 </div>
 <div class="section" id="the-inventory-object">
-<h2>The <code class="docutils literal notranslate"><span class="pre">inventory</span></code> Object<a class="headerlink" href="#the-inventory-object" title="Permalink to this headline">¶</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">inventory</span></code> Object<a class="headerlink" href="#the-inventory-object" title="Permalink to this heading">¶</a></h2>
 <p>Like <code class="docutils literal notranslate"><span class="pre">host</span></code>, there is an <code class="docutils literal notranslate"><span class="pre">inventory</span></code> object that can be used to access the entire inventory of hosts. This is useful when you need facts or data from another host like the IP address of another node:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">inventory</span>
 <span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Hostname</span>
@@ -254,7 +257,7 @@
 </div>
 </div>
 <div class="section" id="operation-changes-output">
-<h2>Operation Changes &amp; Output<a class="headerlink" href="#operation-changes-output" title="Permalink to this headline">¶</a></h2>
+<h2>Operation Changes &amp; Output<a class="headerlink" href="#operation-changes-output" title="Permalink to this heading">¶</a></h2>
 <p>All operations return an operation meta object which provides information about the changes the operation <em>will</em> execute. The meta object provides <code class="docutils literal notranslate"><span class="pre">changes</span></code> (integer) and <code class="docutils literal notranslate"><span class="pre">changed</span></code> (boolean) attributes initially. This can be used to control subsequent operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
 
@@ -269,7 +272,7 @@
 </pre></div>
 </div>
 <div class="section" id="operation-output">
-<h3>Operation Output<a class="headerlink" href="#operation-output" title="Permalink to this headline">¶</a></h3>
+<h3>Operation Output<a class="headerlink" href="#operation-output" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> doesn’t immediately execute normal operations meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
@@ -291,7 +294,7 @@
 </div>
 </div>
 <div class="section" id="nested-operations">
-<h2>Nested Operations<a class="headerlink" href="#nested-operations" title="Permalink to this headline">¶</a></h2>
+<h2>Nested Operations<a class="headerlink" href="#nested-operations" title="Permalink to this heading">¶</a></h2>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last"><strong>Nested operations are currently in beta</strong>. Nested operations should be kept to a minimum as they cannot be tracked as changes prior to execution.</p>
@@ -316,7 +319,7 @@
 </div>
 </div>
 <div class="section" id="include-multiple-files">
-<h2>Include Multiple Files<a class="headerlink" href="#include-multiple-files" title="Permalink to this headline">¶</a></h2>
+<h2>Include Multiple Files<a class="headerlink" href="#include-multiple-files" title="Permalink to this heading">¶</a></h2>
 <p>Including files can be used to break out operations across multiple files. Files can be included using <code class="docutils literal notranslate"><span class="pre">local.include</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">local</span>
 
@@ -327,7 +330,7 @@
 <p>See more in <a class="reference internal" href="examples/groups_roles.html"><span class="doc">examples: groups &amp; roles</span></a>.</p>
 </div>
 <div class="section" id="the-config-object">
-<h2>The <code class="docutils literal notranslate"><span class="pre">config</span></code> Object<a class="headerlink" href="#the-config-object" title="Permalink to this headline">¶</a></h2>
+<h2>The <code class="docutils literal notranslate"><span class="pre">config</span></code> Object<a class="headerlink" href="#the-config-object" title="Permalink to this heading">¶</a></h2>
 <p>Like <code class="docutils literal notranslate"><span class="pre">host</span></code> and <code class="docutils literal notranslate"><span class="pre">inventory</span></code>, <code class="docutils literal notranslate"><span class="pre">config</span></code> can be used to set global defaults for operations. For example, to use sudo in all operations following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">config</span>
 
@@ -337,7 +340,7 @@
 </pre></div>
 </div>
 <div class="section" id="enforcing-requirements">
-<h3>Enforcing Requirements<a class="headerlink" href="#enforcing-requirements" title="Permalink to this headline">¶</a></h3>
+<h3>Enforcing Requirements<a class="headerlink" href="#enforcing-requirements" title="Permalink to this heading">¶</a></h3>
 <p>The config object can be used to enforce a <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Require a certain pyinfra version</span>
 <span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PYINFRA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;~=1.1&quot;</span>
@@ -353,10 +356,10 @@
 </div>
 </div>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p>A great way to learn more about writing <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> deploys is to see some in action. There’s a number of resources for this:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/Fizzadar/pyinfra/tree/master/examples">the pyinfra examples folder on GitHub</a> - a general collection of all kinds of example deploy</li>
+<li><a class="reference external" href="https://github.com/Fizzadar/pyinfra/tree/2.x/examples">the pyinfra examples folder on GitHub</a> - a general collection of all kinds of example deploy</li>
 <li><a class="reference internal" href="examples.html"><span class="doc">the example deploys in this documentation</span></a> - these highlight specific common patterns</li>
 </ul>
 </div>
@@ -398,7 +401,8 @@
         <li class="right" >
           <a href="getting-started.html" title="Getting Started"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Operations</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

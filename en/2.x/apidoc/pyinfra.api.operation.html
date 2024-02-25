@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -17,12 +18,12 @@
     <title>pyinfra.api.operation module &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="shortcut icon" href="../_static/logo_small.png"/>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="pyinfra.api.operations module" href="pyinfra.api.operations.html" />
@@ -47,7 +48,8 @@
           <a href="pyinfra.api.inventory.html" title="pyinfra.api.inventory module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.api.operation module</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -83,22 +85,23 @@
       <div class="sphinxsidebar">
         <div class="sidebar-block">
     <div class="sidebar-toc">
-        <p class="caption"><span class="caption-text">Using pyinfra</span></p>
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Deploy Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 </ul>
-<p class="caption"><span class="caption-text">How pyinfra Works</span></p>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
@@ -106,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Meta</span></p>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -123,7 +126,13 @@
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.facts.html">pyinfra.api.facts module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.host.html">pyinfra.api.host module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.inventory.html">pyinfra.api.inventory module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.operation module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.operation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.operation.OperationMeta"><code class="docutils literal notranslate"><span class="pre">OperationMeta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.operation.add_op"><code class="docutils literal notranslate"><span class="pre">add_op()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.operation.operation"><code class="docutils literal notranslate"><span class="pre">operation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.operation.show_state_host_arguments_warning"><code class="docutils literal notranslate"><span class="pre">show_state_host_arguments_warning()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.operations.html">pyinfra.api.operations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.state.html">pyinfra.api.state module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
@@ -161,50 +170,50 @@
         <div class="document clearer body" role="main">
           
   <div class="section" id="module-pyinfra.api.operation">
-<span id="pyinfra-api-operation-module"></span><h1>pyinfra.api.operation module<a class="headerlink" href="#module-pyinfra.api.operation" title="Permalink to this headline">¶</a></h1>
+<span id="pyinfra-api-operation-module"></span><h1>pyinfra.api.operation module<a class="headerlink" href="#module-pyinfra.api.operation" title="Permalink to this heading">¶</a></h1>
 <p>Operations are the core of pyinfra. The <code class="docutils literal notranslate"><span class="pre">&#64;operation</span></code> wrapper intercepts calls
 to the function and instead diff against the remote server, outputting commands
 to the deploy state. This is then run later by pyinfra’s <code class="docutils literal notranslate"><span class="pre">__main__</span></code> or the
 <a class="reference internal" href="pyinfra.api.operations.html"><span class="doc">pyinfra.api.operations module</span></a> module.</p>
-<dl class="class">
-<dt id="pyinfra.api.operation.OperationMeta">
-<em class="property">class </em><code class="descclassname">pyinfra.api.operation.</code><code class="descname">OperationMeta</code><span class="sig-paren">(</span><em>hash=None</em>, <em>commands=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.OperationMeta" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.operation.</span></code><code class="sig-name descname"><span class="pre">OperationMeta</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">hash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">commands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.OperationMeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="pyinfra.api.operation.OperationMeta.combined_output_lines">
-<code class="descname">combined_output_lines</code><em class="property"> = None</em><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.combined_output_lines" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.combined_output_lines">
+<code class="sig-name descname"><span class="pre">combined_output_lines</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.combined_output_lines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.operation.OperationMeta.set_combined_output_lines">
-<code class="descname">set_combined_output_lines</code><span class="sig-paren">(</span><em>combined_output_lines</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.set_combined_output_lines" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.set_combined_output_lines">
+<code class="sig-name descname"><span class="pre">set_combined_output_lines</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">combined_output_lines</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.set_combined_output_lines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.operation.OperationMeta.stderr">
-<em class="property">property </em><code class="descname">stderr</code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stderr" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.stderr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">stderr</span></code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stderr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.operation.OperationMeta.stderr_lines">
-<em class="property">property </em><code class="descname">stderr_lines</code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stderr_lines" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.stderr_lines">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">stderr_lines</span></code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stderr_lines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.operation.OperationMeta.stdout">
-<em class="property">property </em><code class="descname">stdout</code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stdout" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.stdout">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">stdout</span></code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stdout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyinfra.api.operation.OperationMeta.stdout_lines">
-<em class="property">property </em><code class="descname">stdout_lines</code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stdout_lines" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyinfra.api.operation.OperationMeta.stdout_lines">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">stdout_lines</span></code><a class="headerlink" href="#pyinfra.api.operation.OperationMeta.stdout_lines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.operation.add_op">
-<code class="descclassname">pyinfra.api.operation.</code><code class="descname">add_op</code><span class="sig-paren">(</span><em>state</em>, <em>op_func</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.add_op" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.operation.add_op">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.operation.</span></code><code class="sig-name descname"><span class="pre">add_op</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em><span class="n"><span class="pre">op_func</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.add_op" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare &amp; add an operation to <code class="docutils literal notranslate"><span class="pre">pyinfra.state</span></code> by executing it on all hosts.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
@@ -217,17 +226,17 @@ to the deploy state. This is then run later by pyinfra’s <code class="docutils
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.operation.operation">
-<code class="descclassname">pyinfra.api.operation.</code><code class="descname">operation</code><span class="sig-paren">(</span><em>func=None</em>, <em>pipeline_facts=None</em>, <em>is_idempotent=True</em>, <em>idempotent_notice=None</em>, <em>frame_offset=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.operation" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.operation.operation">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.operation.</span></code><code class="sig-name descname"><span class="pre">operation</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">pipeline_facts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">is_idempotent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="n"><span class="pre">idempotent_notice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">frame_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.operation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator that takes a simple module function and turn it into the internal
 operation representation that consists of a list of commands + options
 (sudo, (sudo|su)_user, env).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyinfra.api.operation.show_state_host_arguments_warning">
-<code class="descclassname">pyinfra.api.operation.</code><code class="descname">show_state_host_arguments_warning</code><span class="sig-paren">(</span><em>call_location</em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.show_state_host_arguments_warning" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyinfra.api.operation.show_state_host_arguments_warning">
+<code class="sig-prename descclassname"><span class="pre">pyinfra.api.operation.</span></code><code class="sig-name descname"><span class="pre">show_state_host_arguments_warning</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">call_location</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.operation.show_state_host_arguments_warning" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -269,7 +278,8 @@ operation representation that consists of a list of commands + options
           <a href="pyinfra.api.inventory.html" title="pyinfra.api.inventory module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../api/reference.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyinfra.api.operation module</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

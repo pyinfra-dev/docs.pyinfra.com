@@ -104,10 +104,11 @@ Add/remove brew taps.
 
 .. code:: python
 
-    brew.tap(src, present=True)
+    brew.tap(src=None, present=True, url=None)
 
 + **src**: the name of the tap
 + **present**: whether this tap should be present or not
++ **url**: the url of the tap. See https://docs.brew.sh/Taps
 
 **Examples:**
 
@@ -116,6 +117,19 @@ Add/remove brew taps.
     brew.tap(
         name="Add a brew tap",
         src="includeos/includeos",
+    )
+
+    # Just url is equivalent to
+    # `brew tap kptdev/kpt https://github.com/kptdev/kpt`
+    brew.tap(
+        url="https://github.com/kptdev/kpt",
+    )
+
+    # src and url is equivalent to
+    # `brew tap example/project https://github.example.com/project`
+    brew.tap(
+        src="example/project",
+        url="https://github.example.com/project",
     )
 
     # Multiple taps
