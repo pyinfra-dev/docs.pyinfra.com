@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+  <meta name="docsearch:version" content="3.x" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>Packaging Deploys &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Writing Connectors" href="connectors.html" />
+    <link rel="prev" title="How pyinfra Works" href="../deploy-process.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="connectors.html" title="Writing Connectors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../deploy-process.html" title="How pyinfra Works"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Packaging Deploys</a></li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+            pyinfra <small>3.x</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Packaging Deploys</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-arguments">Global Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-in-deploys">Data in Deploys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/api/deploys.html"><strong>2.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="packaging-deploys">
+<h1>Packaging Deploys<a class="headerlink" href="#packaging-deploys" title="Permalink to this heading">¶</a></h1>
+<p>Operations in pyinfra execute low-level system tools (filesystem, systemd, package manager, etc). A <strong>deploy</strong> is a higher level abstraction, combining one or more operations together to setup and configure something (docker, certbot, nginx, etc).</p>
+<p>Deploys are usually defined by the user (see <a class="reference internal" href="../using-operations.html"><span class="doc std std-doc">Using Operations</span></a>). It is also possible to package deploys as Python modules making them reusable and shareable via <a class="reference external" href="https://pypi.org/">pypi</a>. These can then be imported into your own deploy code and utilised.</p>
+<p>Packaging a deploy essentially requires two changes from the usual deploy code:</p>
+<ul class="simple">
+<li>Wrap everything in a function decorated with <code class="docutils literal notranslate"><span class="pre">&#64;deploy(NAME)</span></code></li>
+</ul>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+
+<span class="nd">@deploy</span><span class="p">(</span><span class="s2">&quot;Install MariaDB&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
+    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install MariaDB apt package&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mariadb-server&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>This could then be used like so:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">packaged_deploy</span> <span class="kn">import</span> <span class="n">install_mariadb</span>
+<span class="n">install_mariadb</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Fizzadar/pyinfra-docker"><code class="docutils literal notranslate"><span class="pre">pyinfra-docker</span></code></a> is a basic, no argument deploy that simply installs Docker</li>
+<li><a class="reference external" href="https://github.com/grantstephens/pyinfra-prometheus"><code class="docutils literal notranslate"><span class="pre">pyinfra-prometheus</span></code></a> is a more complex package containing multiple deploys that can be used to install Prometheus instances and various exporter services</li>
+</ul>
+</div>
+<div class="section" id="global-arguments">
+<h2>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this heading">¶</a></h2>
+<p>Deploys accept the same <a class="reference internal" href="#../deploys.html#global-arguments"><span class="xref myst">global arguments as as operations</span></a> and they apply to every operation call within that deploy. Taking the above example:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">packaged_deploy</span> <span class="kn">import</span> <span class="n">install_mariadb</span>
+<span class="n">install_mariadb</span><span class="p">(</span><span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-in-deploys">
+<h2>Data in Deploys<a class="headerlink" href="#data-in-deploys" title="Permalink to this heading">¶</a></h2>
+<p>Deploys can define their own set of data defaults. Any user provided host or group data with the same name will take precedent. This enables deploys to provide their own sensible default options and enable end-users to customise this by modifying group/host data.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+
+<span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;mariadb_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nd">@deploy</span><span class="p">(</span><span class="s2">&quot;Install mariadb&quot;</span><span class="p">,</span> <span class="n">data_defaults</span><span class="o">=</span><span class="n">DEFAULTS</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
+    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install MariaDB apt package&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mariadb-server=</span><span class="si">{</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mariadb_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="../deploy-process.html">
+          <span aria-hidden="true">&larr;</span> How pyinfra Works
+        </a></li>
+      
+        <li class="next"><a href="connectors.html">
+          Writing Connectors <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="connectors.html" title="Writing Connectors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../deploy-process.html" title="How pyinfra Works"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Packaging Deploys</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
+</script>
+<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:3.x", "lang:en"],
+        },
+        debug: false,
+    });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>

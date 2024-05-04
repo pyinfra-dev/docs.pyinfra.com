@@ -1,0 +1,234 @@
+Files Facts
+-----------
+
+
+The files facts provide information about the filesystem and it's contents on the target host.
+
+See also: :doc:`../operations/files`.
+
+.. _facts:files.Block:
+
+:code:`files.Block`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Block, path, marker=None, begin=None, end=None)
+
+Returns a (possibly empty) list of the lines found between the markers.
+
+.. code:: python
+
+    [
+        "xray: one",
+        "alpha: two"
+    ]
+
+If the ``path`` doesn't exist
+    returns ``None``
+
+If the ``path`` exists but the markers are not found
+    returns ``[]``
+
+
+.. _facts:files.Directory:
+
+:code:`files.Directory`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Directory, path)
+
+Returns information about a directory on the remote system:
+
+.. code:: python
+
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "mode": 644,
+    }
+
+If the path does not exist:
+    returns ``None``
+
+If the path exists but is not a directory:
+    returns ``False``
+
+
+.. _facts:files.File:
+
+:code:`files.File`
+~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(File, path)
+
+Returns information about a file on the remote system:
+
+.. code:: python
+
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "mode": 644,
+        "size": 3928,
+    }
+
+If the path does not exist:
+    returns ``None``
+
+If the path exists but is not a file:
+    returns ``False``
+
+
+.. _facts:files.FindDirectories:
+
+:code:`files.FindDirectories`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FindDirectories, path, quote_path=True)
+
+Returns a list of directories from a start path, recursively using ``find``.
+
+
+.. _facts:files.FindFiles:
+
+:code:`files.FindFiles`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FindFiles, path, quote_path=True)
+
+Returns a list of files from a start path, recursively using ``find``.
+
+
+.. _facts:files.FindInFile:
+
+:code:`files.FindInFile`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FindInFile, path, pattern, interpolate_variables=False)
+
+Checks for the existence of text in a file using grep. Returns a list of matching
+lines if the file exists, and ``None`` if the file does not.
+
+
+.. _facts:files.FindLinks:
+
+:code:`files.FindLinks`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FindLinks, path, quote_path=True)
+
+Returns a list of links from a start path, recursively using ``find``.
+
+
+.. _facts:files.Flags:
+
+:code:`files.Flags`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Flags, path)
+
+Returns a list of the file flags set for the specified file or directory.
+
+
+.. _facts:files.Link:
+
+:code:`files.Link`
+~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Link, path)
+
+Returns information about a link on the remote system:
+
+.. code:: python
+
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "link_target": "/path/to/link/target"
+    }
+
+If the path does not exist:
+    returns ``None``
+
+If the path exists but is not a link:
+    returns ``False``
+
+
+.. _facts:files.Md5File:
+
+:code:`files.Md5File`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Md5File, path)
+
+Returns an MD5 hash of a file, or ``None`` if the file does not exist.
+
+
+.. _facts:files.Sha1File:
+
+:code:`files.Sha1File`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Sha1File, path)
+
+Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
+``None`` if the file doest not exist.
+
+
+.. _facts:files.Sha256File:
+
+:code:`files.Sha256File`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Sha256File, path)
+
+Returns a SHA256 hash of a file, or ``None`` if the file does not exist.
+
+
+.. _facts:files.Socket:
+
+:code:`files.Socket`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Socket, path)
+
+Returns information about a socket on the remote system:
+
+.. code:: python
+
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+    }
+
+If the path does not exist:
+    returns ``None``
+
+If the path exists but is not a socket:
+    returns ``False``
+

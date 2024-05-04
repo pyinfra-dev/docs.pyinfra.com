@@ -1,0 +1,502 @@
+Server Facts
+------------
+
+See also: :doc:`../operations/server`.
+
+.. _facts:server.Arch:
+
+:code:`server.Arch`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Arch)
+
+Returns the system architecture according to ``uname``.
+
+
+.. _facts:server.Command:
+
+:code:`server.Command`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Command, command)
+
+Returns the raw output lines of a given command.
+
+
+.. _facts:server.Crontab:
+
+:code:`server.Crontab`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Crontab, user=None)
+
+Returns a dictionary of cron command -> execution time.
+
+.. code:: python
+
+    {
+        "/path/to/command": {
+            "minute": "*",
+            "hour": "*",
+            "month": "*",
+            "day_of_month": "*",
+            "day_of_week": "*",
+        },
+        "echo another command": {
+            "special_time": "@daily",
+        },
+    }
+
+
+.. _facts:server.Date:
+
+:code:`server.Date`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Date)
+
+Returns the current datetime on the server.
+
+
+.. _facts:server.Groups:
+
+:code:`server.Groups`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Groups)
+
+Returns a list of groups on the system.
+
+
+.. _facts:server.HasGui:
+
+:code:`server.HasGui`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(HasGui)
+
+Returns a boolean indicating the remote side has GUI capabilities. Linux only.
+
+
+.. _facts:server.Home:
+
+:code:`server.Home`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Home)
+
+Returns the home directory of the current user.
+
+
+.. _facts:server.Hostname:
+
+:code:`server.Hostname`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Hostname)
+
+Returns the current hostname of the server.
+
+
+.. _facts:server.Kernel:
+
+:code:`server.Kernel`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Kernel)
+
+Returns the kernel name according to ``uname``.
+
+
+.. _facts:server.KernelModules:
+
+:code:`server.KernelModules`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(KernelModules)
+
+Returns a dictionary of kernel module name -> info.
+
+.. code:: python
+
+    {
+        "module_name": {
+            "size": 0,
+            "instances": 0,
+            "state": "Live",
+        },
+    }
+
+
+.. _facts:server.KernelVersion:
+
+:code:`server.KernelVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(KernelVersion)
+
+Returns the kernel version according to ``uname``.
+
+
+.. _facts:server.LinuxDistribution:
+
+:code:`server.LinuxDistribution`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxDistribution)
+
+Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
+Fedora & Gentoo currently. Also contains any key/value items located in
+release files.
+
+.. code:: python
+
+    {
+        "name": "Ubuntu",
+        "major": 20,
+        "minor": 04,
+        "release_meta": {
+            "CODENAME": "focal",
+            "ID_LIKE": "debian",
+            ...
+        }
+    }
+
+
+.. _facts:server.LinuxGui:
+
+:code:`server.LinuxGui`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxGui)
+
+Returns a list of available Linux GUIs.
+
+
+.. _facts:server.LinuxName:
+
+:code:`server.LinuxName`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxName)
+
+Returns the name of the Linux distribution. Shortcut for
+``host.get_fact(LinuxDistribution)['name']``.
+
+
+.. _facts:server.Locales:
+
+:code:`server.Locales`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Locales)
+
+Returns installed locales on the target host.
+
+.. code:: python
+
+    ["C.UTF-8", "en_US.UTF-8"]
+
+
+.. _facts:server.LsbRelease:
+
+:code:`server.LsbRelease`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LsbRelease)
+
+Returns a dictionary of release information using ``lsb_release``.
+
+.. code:: python
+
+    {
+        "id": "Ubuntu",
+        "description": "Ubuntu 18.04.2 LTS",
+        "release": "18.04",
+        "codename": "bionic",
+        ...
+    }
+
+
+.. _facts:server.MacosVersion:
+
+:code:`server.MacosVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(MacosVersion)
+
+Returns the installed MacOS version.
+
+
+.. _facts:server.Mounts:
+
+:code:`server.Mounts`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Mounts)
+
+Returns a dictionary of mounted filesystems and information.
+
+.. code:: python
+
+    {
+        "/": {
+            "device": "/dev/mv2",
+            "type": "ext4",
+            "options": [
+                "rw",
+                "relatime"
+            ]
+        },
+    }
+
+
+.. _facts:server.Os:
+
+:code:`server.Os`
+~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Os)
+
+Returns the OS name according to ``uname``.
+
+.. warning::
+    This fact is deprecated/renamed, please use the ``server.Kernel`` fact.
+
+
+.. _facts:server.OsVersion:
+
+:code:`server.OsVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OsVersion)
+
+Returns the OS version according to ``uname``.
+
+.. warning::
+    This fact is deprecated/renamed, please use the ``server.KernelVersion`` fact.
+
+
+.. _facts:server.Path:
+
+:code:`server.Path`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Path)
+
+Returns the path environment variable of the current user.
+
+
+.. _facts:server.SecurityLimits:
+
+:code:`server.SecurityLimits`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SecurityLimits)
+
+Returns a list of security limits on the target host.
+
+.. code:: python
+
+    [
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        }
+    ]
+
+
+.. _facts:server.Selinux:
+
+:code:`server.Selinux`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Selinux)
+
+Discovers the SELinux related facts on the target host.
+
+.. code:: python
+
+    {
+        "mode": "enabled",
+    }
+
+
+.. _facts:server.Sysctl:
+
+:code:`server.Sysctl`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Sysctl, keys=None)
+
+Returns a dictionary of sysctl settings and values.
+
+.. code:: python
+
+    {
+        "fs.inotify.max_queued_events": 16384,
+        "fs.inode-state": [
+            44565,
+            360,
+        ],
+    }
+
+
+.. _facts:server.TmpDir:
+
+:code:`server.TmpDir`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(TmpDir)
+
+Returns the temporary directory of the current server, if configured.
+
+
+.. _facts:server.User:
+
+:code:`server.User`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(User)
+
+Returns the name of the current user.
+
+
+.. _facts:server.Users:
+
+:code:`server.Users`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Users)
+
+Returns a dictionary of users -> details.
+
+.. code:: python
+
+    {
+        "user_name": {
+            "comment": "Full Name",
+            "home": "/home/user_name",
+            "shell": "/bin/bash,
+            "group": "main_user_group",
+            "groups": [
+                "other",
+                "groups"
+            ],
+            "uid": user_id,
+            "gid": main_user_group_id,
+            "lastlog": last_login_time,
+            "password": encrypted_password,
+        },
+    }
+
+
+.. _facts:server.Which:
+
+:code:`server.Which`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Which, command)
+
+Returns the path of a given command, if available.
+

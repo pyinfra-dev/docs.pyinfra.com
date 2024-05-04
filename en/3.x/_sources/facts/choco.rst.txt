@@ -1,0 +1,34 @@
+Choco Facts
+-----------
+
+See also: :doc:`../operations/choco`.
+
+.. _facts:choco.ChocoPackages:
+
+:code:`choco.ChocoPackages`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(ChocoPackages)
+
+Returns a dict of installed choco (Chocolatey) packages:
+
+.. code:: python
+
+    {
+        "package_name": ["version"],
+    }
+
+
+.. _facts:choco.ChocoVersion:
+
+:code:`choco.ChocoVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(ChocoVersion)
+
+Returns the choco (Chocolatey) version.
+

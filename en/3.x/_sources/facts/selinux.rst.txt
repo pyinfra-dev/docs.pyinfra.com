@@ -1,0 +1,86 @@
+Selinux Facts
+-------------
+
+See also: :doc:`../operations/selinux`.
+
+.. _facts:selinux.FileContext:
+
+:code:`selinux.FileContext`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FileContext, path)
+
+Returns structured SELinux file context data for a specified file
+or ``None`` if the file does not exist.
+
+.. code:: python
+
+    {
+        "user": "system_u",
+        "role": "object_r",
+        "type": "default_t",
+        "level": "s0",
+    }
+
+
+.. _facts:selinux.FileContextMapping:
+
+:code:`selinux.FileContextMapping`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(FileContextMapping, target)
+
+Returns structured SELinux file context data for the specified target path prefix
+using the same format as :ref:`selinux.FileContext`.  If there is no mapping, it returns ``{}``
+Note: This fact requires root privileges.
+
+
+.. _facts:selinux.SEBoolean:
+
+:code:`selinux.SEBoolean`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SEBoolean, boolean)
+
+Returns the status of a SELinux Boolean as a string (``on`` or ``off``).
+If ``boolean`` does not exist, ``SEBoolean`` returns the empty string.
+
+
+.. _facts:selinux.SEPort:
+
+:code:`selinux.SEPort`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SEPort, protocol, port)
+
+Returns the SELinux 'type' for the specified protocol ``(tcp|udp|dccp|sctp)`` and port number.
+If no type has been set, ``SEPort`` returns the empty string.
+Note: ``policycoreutils-dev`` must be installed for this to work.
+
+
+.. _facts:selinux.SEPorts:
+
+:code:`selinux.SEPorts`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SEPorts, )
+
+Returns the SELinux 'type' definitions for ``(tcp|udp|dccp|sctp)`` ports.
+Note: This fact requires root privileges.
+
+.. code:: python
+    {
+        "tcp": { 22: "ssh_port_t", ...},
+        "udp": { ...}
+    }
+

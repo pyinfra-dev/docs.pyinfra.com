@@ -1,0 +1,178 @@
+Yum Operations
+--------------
+
+
+Manage yum packages and repositories. Note that yum package names are case-sensitive.
+
+
+Facts used in these operations: :ref:`facts:rpm.RpmPackageProvides`, :ref:`facts:rpm.RpmPackages`.
+
+.. _operations:yum.key:
+
+:code:`yum.key`
+~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Add yum gpg keys with ``rpm``.
+
+.. code:: python
+
+    yum.key(src)
+
++ **src**: filename or URL
+
+Note:
+    always returns one command, not state checking
+
+**Example:**
+
+.. code:: python
+
+    linux_id = host.get_fact(LinuxDistribution)["release_meta"].get("ID")
+    yum.key(
+        name="Add the Docker CentOS gpg key",
+        src=f"https://download.docker.com/linux/{linux_id}/gpg",
+    )
+
+
+.. _operations:yum.packages:
+
+:code:`yum.packages`
+~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update yum packages & updates.
+
+.. code:: python
+
+    yum.packages(
+        packages=None, present=True, latest=False, update=False, clean=False, nobest=False,
+        extra_install_args=None, extra_uninstall_args=None,
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``yum update`` before installing packages
++ **clean**: run ``yum clean all`` before installing packages
++ **nobest**: add the no best option to install
++ **extra_install_args**: additional arguments to the yum install command
++ **extra_uninstall_args**: additional arguments to the yum uninstall command
+
+Versions:
+    Package versions can be pinned as follows: ``<pkg>=<version>``
+
+**Examples:**
+
+.. code:: python
+
+    # Update package list and install packages
+    yum.packages(
+        name="Install Vim and Vim enhanced",
+        packages=["vim-enhanced", "vim"],
+        update=True,
+    )
+
+    # Install the latest versions of packages (always check)
+    yum.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
+
+
+.. _operations:yum.repo:
+
+:code:`yum.repo`
+~~~~~~~~~~~~~~~~
+
+Add/remove/update yum repositories.
+
+.. code:: python
+
+    yum.repo(
+        src, present=True, baseurl=None, description=None, enabled=True, gpgcheck=True,
+        gpgkey=None,
+    )
+
++ **src**: URL or name for the ``.repo``   file
++ **present**: whether the ``.repo`` file should be present
++ **baseurl**: the baseurl of the repo (if ``name`` is not a URL)
++ **description**: optional verbose description
++ **enabled**: whether this repo is enabled
++ **gpgcheck**: whether set ``gpgcheck=1``
++ **gpgkey**: the URL to the gpg key for this repo
+
+``Baseurl``/``description``/``gpgcheck``/``gpgkey``:
+    These are only valid when ``src`` is a filename (ie not a URL). This is
+    for manual construction of repository files. Use a URL to download and
+    install remote repository files.
+
+**Examples:**
+
+.. code:: python
+
+    # Download a repository file
+    yum.repo(
+        name="Install Docker-CE repo via URL",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
+    )
+
+    # Create the repository file from baseurl/etc
+    yum.repo(
+        name="Add the Docker CentOS repo",
+        src="DockerCE",
+        baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
+    )
+
+
+.. _operations:yum.rpm:
+
+:code:`yum.rpm`
+~~~~~~~~~~~~~~~
+
+Add/remove ``.rpm`` file packages.
+
+.. code:: python
+
+    yum.rpm(src, present=True)
+
++ **src**: filename or URL of the ``.rpm`` package
++ **present**: whether ore not the package should exist on the system
+
+URL sources with ``present=False``:
+    If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
+    package as the file won't exist until mid-deploy.
+
+**Example:**
+
+.. code:: python
+
+    major_version = host.get_fact(LinuxDistribution)["major"]
+    dnf.rpm(
+       name="Install EPEL rpm to enable EPEL repo",
+       src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_version}.noarch.rpm",
+    )
+
+
+.. _operations:yum.update:
+
+:code:`yum.update`
+~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Updates all yum packages.
+
+.. code:: python
+
+    yum.update()
+

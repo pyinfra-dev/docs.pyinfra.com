@@ -1,0 +1,22 @@
+Gem Facts
+---------
+
+See also: :doc:`../operations/gem`.
+
+.. _facts:gem.GemPackages:
+
+:code:`gem.GemPackages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(GemPackages)
+
+Returns a dict of installed gem packages:
+
+.. code:: python
+
+    {
+        'package_name': ['version'],
+    }
+

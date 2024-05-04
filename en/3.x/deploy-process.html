@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+  <meta name="docsearch:version" content="3.x" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>How pyinfra Works &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="_static/logo_small.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Packaging Deploys" href="api/deploys.html" />
+    <link rel="prev" title="Zypper Facts" href="facts/zypper.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/deploys.html" title="Packaging Deploys"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="facts/zypper.html" title="Zypper Facts"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="index.html" class="text-logo">
+            <img src="_static/logo_small.png" />
+            pyinfra <small>3.x</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="index.html" class="text-logo">
+            <img src="_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How pyinfra Works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-pyinfra-detects-changes-orders-operations">How pyinfra Detects Changes &amp; Orders Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-does-this-matter">When does this matter?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-host-facts">Using Host Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-operation-changes">Checking Operation Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/deploy-process.html"><strong>2.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="how-pyinfra-works">
+<h1>How pyinfra Works<a class="headerlink" href="#how-pyinfra-works" title="Permalink to this heading">¶</a></h1>
+<p>pyinfra executes in five of stages:</p>
+<ol class="arabic simple">
+<li><strong>Setup</strong> phase, read the inventory / data</li>
+<li><strong>Connect</strong> to the targets in the inventory</li>
+<li><strong>Prepare</strong> by detecting changes and determining operation order</li>
+<li><strong>Execute</strong> the changes on the targets</li>
+<li><strong>Disconnect</strong> and cleanup</li>
+</ol>
+<p>Every time you run pyinfra it steps through each of these stages with the goal of updating the inventory to match the commands or state provided. Most of these stages are simple to reason about. The one exception to this is the <strong>prepare</strong>, or change detection, phase which is used to define the order operations are executed.</p>
+<div class="section" id="how-pyinfra-detects-changes-orders-operations">
+<h2>How pyinfra Detects Changes &amp; Orders Operations<a class="headerlink" href="#how-pyinfra-detects-changes-orders-operations" title="Permalink to this heading">¶</a></h2>
+<p>Below we’ll look at an in depth example that explains why the prepare / ordering stage is so critical. This example deploys a single database server and three webservers, here’s the inventory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">web_servers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;web-01&quot;</span><span class="p">,</span> <span class="s2">&quot;web-02&quot;</span><span class="p">,</span> <span class="s2">&quot;web-03&quot;</span><span class="p">]</span>
+<span class="n">db_server</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;db-01&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>And here’s the deploy code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install base debugging packages&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;htop&quot;</span><span class="p">,</span> <span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
+    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cache_time</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="s2">&quot;db_server&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+    <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install postgres server&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;postgresql-server&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="s2">&quot;web_servers&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+    <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The deploy code is written as if executing a single host. To execute it over multiple hosts requires pyinfra to run the code once for each host. We can’t do this host by host or pyinfra would be really slow. But if we do it in parallel we can’t ensure operations run in expected order.</p>
+<p>The aim is that each operation runs in order, stopping at the end of operation until all hosts have completed or failed it before moving onto the next. So operations are sequential but each individual operation is executed on all hosts in parallel, like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install base debugging packages&quot;</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">,</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install postgres server&quot;</span> <span class="n">on</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span>
+<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Upload postgres pg_hba config&quot;</span> <span class="n">on</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span>
+<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install nginx&quot;</span> <span class="n">on</span> <span class="n">web</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Upload nginx config&quot;</span> <span class="n">on</span> <span class="n">web</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To make this possible we have to first execute the code to generate the order and then execute the actual operations. This is why deploy code is always executed before any changes are made.</p>
+</div>
+<div class="section" id="when-does-this-matter">
+<h2>When does this matter?<a class="headerlink" href="#when-does-this-matter" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="using-host-facts">
+<h3>Using Host Facts<a class="headerlink" href="#using-host-facts" title="Permalink to this heading">¶</a></h3>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change.</p>
+</div>
+<p>Let’s look at an example - the deploy code here is bad but highlights the ordering problems:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">facts</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
+    <span class="n">operations</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+        <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The critical thing to remember is that when you execute <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">INVENTORY</span> <span class="pre">deploy.py</span></code> the deploy code is run <em>before</em> the operations are actually executed. This enables pyinfra to figure out the correct order for operations (see below for a detailed explanation).</p>
+<p>The problem here is the conditional check:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">facts</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>This gets executed <em>before</em> the <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> install, and evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code>. But at execution time this would actually become <code class="docutils literal notranslate"><span class="pre">True</span></code>. The solution is simple - rely on pyinfra’s operations to describe the desired state and always call the second:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case when the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation is executed pyinfra will check if the file is present and remove it if so, and do nothing if not.</p>
+</div>
+<div class="section" id="checking-operation-changes">
+<h3>Checking Operation Changes<a class="headerlink" href="#checking-operation-changes" title="Permalink to this heading">¶</a></h3>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">Always use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument when checking for previous operation changes.</p>
+</div>
+<p>Let’s use a simple example as above with add a conditional reload based on the outcome of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">operations</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
+    <span class="n">operation</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
+        <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+        <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>As above, the problem here is again the conditional check:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Since this gets executed before nginx is installed by <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> operation, the value of <code class="docutils literal notranslate"><span class="pre">remove_default_site.changed</span></code> at this stage is <code class="docutils literal notranslate"><span class="pre">False</span></code> but at execution time this would become <code class="docutils literal notranslate"><span class="pre">True</span></code>, exactly like the fact example above. The solution here is to use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument to delay the check until execution time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">operations</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">operations</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+    <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_if</span><span class="o">=</span><span class="n">remove_default_site</span><span class="o">.</span><span class="n">did_change</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="facts/zypper.html">
+          <span aria-hidden="true">&larr;</span> Zypper Facts
+        </a></li>
+      
+        <li class="next"><a href="api/deploys.html">
+          Packaging Deploys <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/deploys.html" title="Packaging Deploys"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="facts/zypper.html" title="Zypper Facts"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:3.x", "lang:en"],
+        },
+        debug: false,
+    });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>
