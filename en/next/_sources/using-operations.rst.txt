@@ -152,7 +152,7 @@ All operations return an operation meta object which provides information about 
 Operation Output
 ~~~~~~~~~~~~~~~~
 
-pyinfra doesn't immediately execute operations meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the :ref:`operations:python.call` operation.
+pyinfra doesn't immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the :ref:`operations:python.call` operation.
 
 .. code:: python
 
@@ -216,7 +216,7 @@ See more in :doc:`examples: groups & roles <./examples/groups_roles>`.
 The ``config`` Object
 ---------------------
 
-Like ``host`` and ``inventory``, ``config`` can be used to set global defaults for operations. For example, to use sudo in all operations following:
+Like ``host`` and ``inventory``, ``config`` can be used to set global defaults for operations. For example, to use sudo in all following operations:
 
 .. code:: python
 

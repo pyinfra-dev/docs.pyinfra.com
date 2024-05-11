@@ -150,10 +150,10 @@
           
   <div class="section" id="writing-facts-operations">
 <h1>Writing Facts &amp; Operations<a class="headerlink" href="#writing-facts-operations" title="Permalink to this heading">¶</a></h1>
-<p>Operations &amp; facts the building blocks pyinfra uses to make changes to hosts, this document describes how you can write your own to extend pyinfra’s functionality.</p>
+<p>Operations &amp; facts are the building blocks pyinfra uses to make changes to hosts. This document describes how you can write your own to extend pyinfra’s functionality.</p>
 <div class="section" id="operations">
 <h2>Operations<a class="headerlink" href="#operations" title="Permalink to this heading">¶</a></h2>
-<p><a class="reference internal" href="../operations.html"><span class="doc std std-doc">Operations</span></a> are defined as Python functions. They are passed the current deploy state, the target host and any operation arguments. Operation functions read state from the host, comparing it to the arguments, and yield commands.</p>
+<p><a class="reference internal" href="../operations.html"><span class="doc std std-doc">Operations</span></a> are defined as Python functions. They are passed the current deploy state, the target host, and any operation arguments. Operation functions read state from the host, compare it to the arguments, and yield commands.</p>
 <div class="section" id="input-arguments">
 <h3>Input: arguments<a class="headerlink" href="#input-arguments" title="Permalink to this heading">¶</a></h3>
 <p>Operations can accept any arguments except <code class="docutils literal notranslate"><span class="pre">name</span></code> and those starting with <code class="docutils literal notranslate"><span class="pre">_</span></code> which are reserved for internal use.</p>
@@ -231,7 +231,7 @@ and a <code class="docutils literal notranslate"><span class="pre">process</span
 passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data. Facts can output anything, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <p>Fact classes may provide a <code class="docutils literal notranslate"><span class="pre">default</span></code> function that takes no arguments (except <code class="docutils literal notranslate"><span class="pre">self</span></code>). The return value of this function is used if an error
 occurs during fact collection. Additionally, a <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> variable can be set on the fact that specifies a command that must be available
-on the host to collect the fact. If this command is not present on the host the fact will be set to the default, or empty if no <code class="docutils literal notranslate"><span class="pre">default</span></code> function
+on the host to collect the fact. If this command is not present on the host, the fact will be set to the default, or empty if no <code class="docutils literal notranslate"><span class="pre">default</span></code> function
 is available.</p>
 <div class="section" id="importing-using-facts">
 <h3>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Permalink to this heading">¶</a></h3>
