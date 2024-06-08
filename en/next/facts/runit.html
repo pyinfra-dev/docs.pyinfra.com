@@ -15,7 +15,7 @@
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Apt Facts &#8212; pyinfra  documentation</title>
+    <title>Runit Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Brew Facts" href="brew.html" />
-    <link rel="prev" title="Apk Facts" href="apk.html" />
+    <link rel="next" title="Selinux Facts" href="selinux.html" />
+    <link rel="prev" title="Rpm Facts" href="rpm.html" />
   
    
 
@@ -42,14 +42,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="brew.html" title="Brew Facts"
+          <a href="selinux.html" title="Selinux Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="apk.html" title="Apk Facts"
+          <a href="rpm.html" title="Rpm Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Apt Facts</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Runit Facts</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -101,11 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../facts.html">Facts Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Facts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Apt Facts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#apt-aptkeys"><code class="code docutils literal notranslate"><span class="pre">apt.AptKeys</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apt-aptsources"><code class="code docutils literal notranslate"><span class="pre">apt.AptSources</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Facts</a></li>
@@ -131,7 +127,11 @@
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Facts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Runit Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#runit-runitmanaged"><code class="code docutils literal notranslate"><span class="pre">runit.RunitManaged</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runit-runitstatus"><code class="code docutils literal notranslate"><span class="pre">runit.RunitStatus</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Facts</a></li>
@@ -172,44 +172,42 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/facts/apt.html"><strong>2.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/facts/runit.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="apt-facts">
-<h1>Apt Facts<a class="headerlink" href="#apt-facts" title="Permalink to this heading">¶</a></h1>
-<p>See also: <a class="reference internal" href="../operations/apt.html"><span class="doc">Apt Operations</span></a>.</p>
-<div class="section" id="apt-aptkeys">
-<span id="facts-apt-aptkeys"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.AptKeys</span></code><a class="headerlink" href="#apt-aptkeys" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptKeys</span><span class="p">)</span>
+  <div class="section" id="runit-facts">
+<h1>Runit Facts<a class="headerlink" href="#runit-facts" title="Permalink to this heading">¶</a></h1>
+<p>See also: <a class="reference internal" href="../operations/runit.html"><span class="doc">Runit Operations</span></a>.</p>
+<div class="section" id="runit-runitmanaged">
+<span id="facts-runit-runitmanaged"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.RunitManaged</span></code><a class="headerlink" href="#runit-runitmanaged" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RunitManaged</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">svdir</span><span class="o">=</span><span class="s1">&#39;/var/service&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns information on GPG keys apt has in its keychain:</p>
+<p>Returns a set of all services managed by runit</p>
+<ul class="simple">
+<li><strong>service</strong>: optionally check only for a single service</li>
+<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
+</ul>
+</div>
+<div class="section" id="runit-runitstatus">
+<span id="facts-runit-runitstatus"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.RunitStatus</span></code><a class="headerlink" href="#runit-runitstatus" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RunitStatus</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">svdir</span><span class="o">=</span><span class="s1">&#39;/var/service&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a dict of name -&gt; status for runit services.</p>
+<ul class="simple">
+<li><strong>service</strong>: optionally check only for a single service</li>
+<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;KEY-ID&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Oxygem &lt;hello@oxygem.com&gt;&quot;</span>
-    <span class="p">},</span>
+    <span class="s1">&#39;agetty-tty1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>     <span class="c1"># service is running</span>
+    <span class="s1">&#39;dhcpcd&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>         <span class="c1"># service is down</span>
+    <span class="s1">&#39;wpa_supplicant&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># service is managed, but not running or down,</span>
+                             <span class="c1"># possibly in a fail state</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="apt-aptsources">
-<span id="facts-apt-aptsources"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.AptSources</span></code><a class="headerlink" href="#apt-aptsources" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns a list of installed apt sources:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;deb&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://archive.ubuntu.org&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;distribution&quot;</span><span class="p">:</span> <span class="s2">&quot;trusty&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;components&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;multiverse&quot;</span><span class="p">],</span>
-    <span class="p">},</span>
-<span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -221,12 +219,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="apk.html">
-          <span aria-hidden="true">&larr;</span> Apk Facts
+        <li class="previous"><a href="rpm.html">
+          <span aria-hidden="true">&larr;</span> Rpm Facts
         </a></li>
       
-        <li class="next"><a href="brew.html">
-          Brew Facts <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="selinux.html">
+          Selinux Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -246,14 +244,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="brew.html" title="Brew Facts"
+          <a href="selinux.html" title="Selinux Facts"
              >next</a> |</li>
         <li class="right" >
-          <a href="apk.html" title="Apk Facts"
+          <a href="rpm.html" title="Rpm Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Apt Facts</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Runit Facts</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

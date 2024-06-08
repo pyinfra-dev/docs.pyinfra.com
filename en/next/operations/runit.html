@@ -15,7 +15,7 @@
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Puppet Operations &#8212; pyinfra  documentation</title>
+    <title>Runit Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python Operations" href="python.html" />
-    <link rel="prev" title="Postgresql Operations" href="postgresql.html" />
+    <link rel="next" title="Selinux Operations" href="selinux.html" />
+    <link rel="prev" title="Python Operations" href="python.html" />
   
    
 
@@ -42,14 +42,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="python.html" title="Python Operations"
+          <a href="selinux.html" title="Selinux Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="postgresql.html" title="Postgresql Operations"
+          <a href="python.html" title="Python Operations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Puppet Operations</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Runit Operations</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -121,12 +121,15 @@
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Puppet Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#puppet-agent"><code class="code docutils literal notranslate"><span class="pre">puppet.agent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Runit Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#runit-auto"><code class="code docutils literal notranslate"><span class="pre">runit.auto</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runit-manage"><code class="code docutils literal notranslate"><span class="pre">runit.manage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runit-service"><code class="code docutils literal notranslate"><span class="pre">runit.service</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runit-wait-runsv"><code class="code docutils literal notranslate"><span class="pre">runit.wait_runsv</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
@@ -169,42 +172,95 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/operations/puppet.html"><strong>2.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/operations/runit.html"><strong>2.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="puppet-operations">
-<h1>Puppet Operations<a class="headerlink" href="#puppet-operations" title="Permalink to this heading">¶</a></h1>
-<div class="section" id="puppet-agent">
-<span id="operations-puppet-agent"></span><h2><code class="code docutils literal notranslate"><span class="pre">puppet.agent</span></code><a class="headerlink" href="#puppet-agent" title="Permalink to this heading">¶</a></h2>
+  <div class="section" id="runit-operations">
+<h1>Runit Operations<a class="headerlink" href="#runit-operations" title="Permalink to this heading">¶</a></h1>
+<p>Manage runit services.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/runit.html#facts-runit-runitmanaged"><span class="std std-ref">runit.RunitManaged</span></a>, <a class="reference internal" href="../facts/runit.html#facts-runit-runitstatus"><span class="std std-ref">runit.RunitStatus</span></a>.</p>
+<div class="section" id="runit-auto">
+<span id="operations-runit-auto"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.auto</span></code><a class="headerlink" href="#runit-auto" title="Permalink to this heading">¶</a></h2>
+<p>Start service automatically by managing the <code class="docutils literal notranslate"><span class="pre">service/down</span></code> file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">auto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sourcedir</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>service</strong>: name of the service to manage</li>
+<li><strong>auto</strong>: whether the service should start automatically</li>
+<li><strong>sourcedir</strong>: where to search for available services</li>
+</ul>
+</div>
+<div class="section" id="runit-manage">
+<span id="operations-runit-manage"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.manage</span></code><a class="headerlink" href="#runit-manage" title="Permalink to this heading">¶</a></h2>
+<p>Manage runit svdir links.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">manage</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">managed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">svdir</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>service</strong>: name of the service to manage</li>
+<li><strong>managed</strong>: whether the link should exist</li>
+<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
+<li><strong>sourcedir</strong>: where to search for available services</li>
+</ul>
+</div>
+<div class="section" id="runit-service">
+<span id="operations-runit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.service</span></code><a class="headerlink" href="#runit-service" title="Permalink to this heading">¶</a></h2>
+<p>Manage the state of runit services.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+    <span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">managed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">svdir</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first"><strong>service</strong>: name of the service to manage</p>
+</li>
+<li><p class="first"><strong>running</strong>: whether the service should be running</p>
+</li>
+<li><p class="first"><strong>restarted</strong>: whether the service should be restarted</p>
+</li>
+<li><p class="first"><strong>reloaded</strong>: whether the service should be reloaded</p>
+</li>
+<li><p class="first"><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">sv</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;service&gt;</span></code></p>
+</li>
+<li><p class="first"><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p>
+</li>
+<li><p class="first"><strong>managed</strong>: whether runit should manage this service</p>
+<p>For services to be controlled, they first need to be managed by runit by
+adding a symlink to the service in <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>.
+By setting <code class="docutils literal notranslate"><span class="pre">managed=False</span></code> the symlink will be removed.
+Other options won’t have any effect after that.
+Although the <code class="docutils literal notranslate"><span class="pre">&lt;service&gt;/down</span></code> file can still be controlled with the
+<code class="docutils literal notranslate"><span class="pre">enabled</span></code> option.</p>
+</li>
+<li><p class="first"><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p>
+<p>An alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code> can be specified. This can be used for user services.</p>
+</li>
+<li><p class="first"><strong>sourcedir</strong>: where to search for available services</p>
+<p>An alternative directory for available services can be specified.
+Example: <code class="docutils literal notranslate"><span class="pre">sourcedir=/etc/sv.local</span></code> for services managed by the administrator.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="runit-wait-runsv">
+<span id="operations-runit-wait-runsv"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.wait_runsv</span></code><a class="headerlink" href="#runit-wait-runsv" title="Permalink to this heading">¶</a></h2>
 <div class="important admonition">
 <p class="first admonition-title">Stateless operation</p>
 <p class="last">This operation will always execute commands and is not idempotent.</p>
 </div>
-<p>Run puppet agent</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">puppet</span><span class="o">.</span><span class="n">agent</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<p>Wait for runsv for <code class="docutils literal notranslate"><span class="pre">service</span></code> to be available.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">wait_runsv</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">svdir</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>server</strong>: master server URL</li>
-<li><strong>port</strong>: puppet master port</li>
+<li><strong>service</strong>: name of the service to manage</li>
+<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
+<li><strong>timeout</strong>: time in seconds to wait</li>
 </ul>
-<p>Note: Either ‘USE_SUDO_LOGIN=True’ or ‘USE_SU_LOGIN=True’
-for puppet.agent() as <cite>puppet</cite> is added to the path in
-the .bash_profile.</p>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">puppet</span><span class="o">.</span><span class="n">agent</span><span class="p">()</span>
-
-<span class="c1"># We also expect a return code of:</span>
-<span class="c1"># 0=no changes or 2=changes applied</span>
-<span class="n">puppet</span><span class="o">.</span><span class="n">agent</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run the puppet agent&quot;</span><span class="p">,</span>
-    <span class="n">success_exit_codes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -214,12 +270,12 @@ the .bash_profile.</p>
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="postgresql.html">
-          <span aria-hidden="true">&larr;</span> Postgresql Operations
+        <li class="previous"><a href="python.html">
+          <span aria-hidden="true">&larr;</span> Python Operations
         </a></li>
       
-        <li class="next"><a href="python.html">
-          Python Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="selinux.html">
+          Selinux Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -239,14 +295,14 @@ the .bash_profile.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="python.html" title="Python Operations"
+          <a href="selinux.html" title="Selinux Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="postgresql.html" title="Postgresql Operations"
+          <a href="python.html" title="Python Operations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Puppet Operations</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Runit Operations</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
