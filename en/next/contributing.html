@@ -114,14 +114,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#guides">Guides</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#branches">Branches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dev-setup">Dev Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tests">Tests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#end-to-end-tests">End to End Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev-setup">Dev Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#code-style-type-checking">Code Style &amp; Type Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests">Tests</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#generate-documentation">Generate Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#code-style">Code Style</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
@@ -161,7 +159,7 @@
 <div class="section" id="branches">
 <h2>Branches<a class="headerlink" href="#branches" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li>There is a branch per major version, ie <code class="docutils literal notranslate"><span class="pre">2.x</span></code>, that tracks the latest release of that version</li>
+<li>There is a branch per major version, ie <code class="docutils literal notranslate"><span class="pre">3.x</span></code>, that tracks the latest release of that version</li>
 <li>Changes should generally be based off the latest major branch, unless fixing an old version</li>
 </ul>
 </div>
@@ -178,16 +176,25 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:Fizzadar/
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[dev]&#39;</span>
 </pre></div>
 </div>
+<div class="section" id="code-style-type-checking">
+<h3>Code Style &amp; Type Checking<a class="headerlink" href="#code-style-type-checking" title="Permalink to this heading">¶</a></h3>
+<p>Code style is enforced via Black, isort and flake8. Types are checked with mypy currently, and pyright is recommended for local development though currently optional. There is a script to run the linting &amp; type-checking:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scripts/dev-lint.sh
+</pre></div>
+</div>
 </div>
 <div class="section" id="tests">
-<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">¶</a></h2>
-<p>GitHub will run all the test suites as part of any pull requests, here’s how you can run them locally:</p>
+<h3>Tests<a class="headerlink" href="#tests" title="Permalink to this heading">¶</a></h3>
+<p>GitHub will run all the test suites as part of any pull requests. There’s a handy script that runs the unit tests:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scripts/dev-test.sh
+</pre></div>
+</div>
 <div class="section" id="unit-tests">
-<h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">¶</a></h3>
+<h4>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">¶</a></h4>
 <p>Use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to run the unit tests, or <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--cov</span></code> to run with coverage. Pull requests are expected to be tested and not drop overall project coverage by &gt;1%.</p>
 </div>
 <div class="section" id="end-to-end-tests">
-<h3>End to End Tests<a class="headerlink" href="#end-to-end-tests" title="Permalink to this heading">¶</a></h3>
+<h4>End to End Tests<a class="headerlink" href="#end-to-end-tests" title="Permalink to this heading">¶</a></h4>
 <p>The end to end tests are also executed via <code class="docutils literal notranslate"><span class="pre">pytest</span></code> but not selected by default, options/usage:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run local e2e tests (works on Linux / MacOS, no Windows yet)</span>
 pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_local
@@ -196,6 +203,7 @@ pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_local
 pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_ssh
 pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_docker
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -209,10 +217,6 @@ pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_docker
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>-d<span class="w"> </span>docs/build/
 </pre></div>
 </div>
-</div>
-<div class="section" id="code-style">
-<h2>Code Style<a class="headerlink" href="#code-style" title="Permalink to this heading">¶</a></h2>
-<p>Code is linted using <code class="docutils literal notranslate"><span class="pre">flake8</span></code> and uses the <code class="docutils literal notranslate"><span class="pre">black</span></code> / <code class="docutils literal notranslate"><span class="pre">isort</span></code> codestyles. To check you can just run <code class="docutils literal notranslate"><span class="pre">flake8</span></code> from the root directory.</p>
 </div>
 </div>
 
