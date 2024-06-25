@@ -124,8 +124,10 @@
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Facts</a></li>
@@ -137,8 +139,6 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Facts</a></li>
@@ -147,11 +147,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -183,7 +183,7 @@
 <p>See also: <a class="reference internal" href="../operations/systemd.html"><span class="doc">Systemd Operations</span></a>.</p>
 <div class="section" id="systemd-systemdenabled">
 <span id="facts-systemd-systemdenabled"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.SystemdEnabled</span></code><a class="headerlink" href="#systemd-systemdenabled" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SystemdEnabled</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SystemdEnabled</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dictionary map of systemd units to booleans indicating whether they are enabled.</p>
@@ -197,7 +197,7 @@
 </div>
 <div class="section" id="systemd-systemdstatus">
 <span id="facts-systemd-systemdstatus"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.SystemdStatus</span></code><a class="headerlink" href="#systemd-systemdstatus" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SystemdStatus</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SystemdStatus</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">services</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dictionary map of systemd units to booleans indicating whether they are active.</p>
@@ -256,6 +256,8 @@
         <li class="nav-item nav-item-this"><a href="">Systemd Facts</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -266,7 +268,6 @@
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

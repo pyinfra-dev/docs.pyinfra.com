@@ -103,11 +103,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
@@ -117,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.command.html">pyinfra.api.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.config.html">pyinfra.api.config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.connect.html">pyinfra.api.connect module</a></li>
@@ -131,25 +132,14 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">pyinfra.api.state module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.BaseStateCallback"><code class="docutils literal notranslate"><span class="pre">BaseStateCallback</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.StateHostMeta"><code class="docutils literal notranslate"><span class="pre">StateHostMeta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.StateHostResults"><code class="docutils literal notranslate"><span class="pre">StateHostResults</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.StateOperationHostData"><code class="docutils literal notranslate"><span class="pre">StateOperationHostData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.StateOperationMeta"><code class="docutils literal notranslate"><span class="pre">StateOperationMeta</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyinfra.api.state.StateStage"><code class="docutils literal notranslate"><span class="pre">StateStage</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.util.html">pyinfra.api.util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.html">pyinfra.connectors package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ansible.html">pyinfra.connectors.ansible module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.chroot.html">pyinfra.connectors.chroot module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.docker.html">pyinfra.connectors.docker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.dockerssh.html">pyinfra.connectors.dockerssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.local.html">pyinfra.connectors.local module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.mech.html">pyinfra.connectors.mech module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.pyinfrawinrmsession.html">pyinfra.connectors.pyinfrawinrmsession package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.ssh.html">pyinfra.connectors.ssh module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.html">pyinfra.connectors.sshuserclient package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.client.html">pyinfra.connectors.sshuserclient.client module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.sshuserclient.config.html">pyinfra.connectors.sshuserclient.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.terraform.html">pyinfra.connectors.terraform module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.util.html">pyinfra.connectors.util module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.vagrant.html">pyinfra.connectors.vagrant module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyinfra.connectors.winrm.html">pyinfra.connectors.winrm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.context.html">pyinfra.context module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.local.html">pyinfra.local module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.progress.html">pyinfra.progress module</a></li>
@@ -229,7 +219,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyinfra.api.state.State">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">State</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory" title="pyinfra.api.inventory.Inventory"><span class="pre">Inventory</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.config.html#pyinfra.api.config.Config" title="pyinfra.api.config.Config"><span class="pre">Config</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">State</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Inventory'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Config'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">check_for_changes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Manages state for a pyinfra deploy.</p>
 <dl class="py method">
@@ -241,6 +231,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.add_callback_handler">
 <code class="sig-name descname"><span class="pre">add_callback_handler</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.add_callback_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.check_for_changes">
+<code class="sig-name descname"><span class="pre">check_for_changes</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.api.state.State.check_for_changes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -264,6 +259,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.current_stage">
+<code class="sig-name descname"><span class="pre">current_stage</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyinfra.api.state.StateStage" title="pyinfra.api.state.StateStage"><span class="pre">StateStage</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyinfra.api.state.State.current_stage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.cwd">
 <code class="sig-name descname"><span class="pre">cwd</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.state.State.cwd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -275,13 +275,18 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.state.State.get_op_data">
-<code class="sig-name descname"><span class="pre">get_op_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_op_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.api.state.State.get_meta_for_host">
+<code class="sig-name descname"><span class="pre">get_meta_for_host</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyinfra.api.state.StateHostMeta" title="pyinfra.api.state.StateHostMeta"><span class="pre">StateHostMeta</span></a></span></span><a class="headerlink" href="#pyinfra.api.state.State.get_meta_for_host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.get_op_data_for_host">
+<code class="sig-name descname"><span class="pre">get_op_data_for_host</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyinfra.api.state.StateOperationHostData" title="pyinfra.api.state.StateOperationHostData"><span class="pre">StateOperationHostData</span></a></span></span><a class="headerlink" href="#pyinfra.api.state.State.get_op_data_for_host" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.get_op_meta">
-<code class="sig-name descname"><span class="pre">get_op_meta</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_op_meta" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_op_meta</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyinfra.api.state.StateOperationMeta" title="pyinfra.api.state.StateOperationMeta"><span class="pre">StateOperationMeta</span></a></span></span><a class="headerlink" href="#pyinfra.api.state.State.get_op_meta" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -290,14 +295,23 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.state.State.get_temp_filename">
-<code class="sig-name descname"><span class="pre">get_temp_filename</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">hash_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">hash_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.get_temp_filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a temporary filename for this deploy.</p>
-</dd></dl>
+<dt class="sig sig-object py" id="pyinfra.api.state.State.get_results_for_host">
+<code class="sig-name descname"><span class="pre">get_results_for_host</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyinfra.api.state.StateHostResults" title="pyinfra.api.state.StateHostResults"><span class="pre">StateHostResults</span></a></span></span><a class="headerlink" href="#pyinfra.api.state.State.get_results_for_host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.get_warning_counter">
+<code class="sig-name descname"><span class="pre">get_warning_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyinfra.api.state.State.get_warning_counter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.increment_warning_counter">
+<code class="sig-name descname"><span class="pre">increment_warning_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.state.State.increment_warning_counter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.init">
-<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory" title="pyinfra.api.inventory.Inventory"><span class="pre">Inventory</span></a></span></em>, <em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.config.html#pyinfra.api.config.Config" title="pyinfra.api.config.Config"><span class="pre">Config</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">initial_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.inventory.html#pyinfra.api.inventory.Inventory" title="pyinfra.api.inventory.Inventory"><span class="pre">Inventory</span></a></span></em>, <em><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Config'</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em><span class="n"><span class="pre">initial_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -324,11 +338,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.pool">
 <code class="sig-name descname"><span class="pre">pool</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Pool</span></em><a class="headerlink" href="#pyinfra.api.state.State.pool" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.state.State.preserve_loop_order">
-<code class="sig-name descname"><span class="pre">preserve_loop_order</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.preserve_loop_order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -362,18 +371,174 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.state.State.set_op_data">
-<code class="sig-name descname"><span class="pre">set_op_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">op_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.set_op_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.api.state.State.set_op_data_for_host">
+<code class="sig-name descname"><span class="pre">set_op_data_for_host</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em>, <em><span class="n"><span class="pre">op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">op_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyinfra.api.state.StateOperationHostData" title="pyinfra.api.state.StateOperationHostData"><span class="pre">StateOperationHostData</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.set_op_data_for_host" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pyinfra.api.state.State.to_dict">
-<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.to_dict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="pyinfra.api.state.State.set_stage">
+<code class="sig-name descname"><span class="pre">set_stage</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyinfra.api.state.StateStage" title="pyinfra.api.state.StateStage"><span class="pre">StateStage</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.state.State.set_stage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.should_check_for_changes">
+<code class="sig-name descname"><span class="pre">should_check_for_changes</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.should_check_for_changes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.should_raise_failed_hosts">
+<code class="sig-name descname"><span class="pre">should_raise_failed_hosts</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'State'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.state.State.should_raise_failed_hosts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.State.stage_warnings">
+<code class="sig-name descname"><span class="pre">stage_warnings</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyinfra.api.state.StateStage" title="pyinfra.api.state.StateStage"><span class="pre">StateStage</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#pyinfra.api.state.State.stage_warnings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.state.State.trigger_callbacks">
 <code class="sig-name descname"><span class="pre">trigger_callbacks</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">method_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.State.trigger_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">StateHostMeta</span></code><a class="headerlink" href="#pyinfra.api.state.StateHostMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostMeta.op_hashes">
+<code class="sig-name descname"><span class="pre">op_hashes</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.state.StateHostMeta.op_hashes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostMeta.ops">
+<code class="sig-name descname"><span class="pre">ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostMeta.ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostMeta.ops_change">
+<code class="sig-name descname"><span class="pre">ops_change</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostMeta.ops_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostMeta.ops_no_change">
+<code class="sig-name descname"><span class="pre">ops_no_change</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostMeta.ops_no_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">StateHostResults</span></code><a class="headerlink" href="#pyinfra.api.state.StateHostResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults.error_ops">
+<code class="sig-name descname"><span class="pre">error_ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostResults.error_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults.ignored_error_ops">
+<code class="sig-name descname"><span class="pre">ignored_error_ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostResults.ignored_error_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults.ops">
+<code class="sig-name descname"><span class="pre">ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostResults.ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults.partial_ops">
+<code class="sig-name descname"><span class="pre">partial_ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostResults.partial_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateHostResults.success_ops">
+<code class="sig-name descname"><span class="pre">success_ops</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyinfra.api.state.StateHostResults.success_ops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationHostData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">StateOperationHostData</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">command_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">&quot;Callable[[],</span> <span class="pre">Iterator['PyinfraCommand']]&quot;</span></span></span></em>, <em><span class="n"><span class="pre">global_arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">&quot;'AllArguments'&quot;</span></span></span></em>, <em><span class="n"><span class="pre">operation_meta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">&quot;'OperationMeta'&quot;</span></span></span></em>, <em><span class="n"><span class="pre">parent_op_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.StateOperationHostData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationHostData.command_generator">
+<code class="sig-name descname"><span class="pre">command_generator</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'PyinfraCommand'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.state.StateOperationHostData.command_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationHostData.global_arguments">
+<code class="sig-name descname"><span class="pre">global_arguments</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.arguments.html#pyinfra.api.arguments.AllArguments" title="pyinfra.api.arguments.AllArguments"><span class="pre">AllArguments</span></a></em><a class="headerlink" href="#pyinfra.api.state.StateOperationHostData.global_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationHostData.operation_meta">
+<code class="sig-name descname"><span class="pre">operation_meta</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.operation.html#pyinfra.api.operation.OperationMeta" title="pyinfra.api.operation.OperationMeta"><span class="pre">OperationMeta</span></a></em><a class="headerlink" href="#pyinfra.api.state.StateOperationHostData.operation_meta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationHostData.parent_op_hash">
+<code class="sig-name descname"><span class="pre">parent_op_hash</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyinfra.api.state.StateOperationHostData.parent_op_hash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">StateOperationMeta</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">op_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.StateOperationMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationMeta.args">
+<code class="sig-name descname"><span class="pre">args</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.state.StateOperationMeta.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationMeta.global_arguments">
+<code class="sig-name descname"><span class="pre">global_arguments</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.arguments.html#pyinfra.api.arguments.AllArguments" title="pyinfra.api.arguments.AllArguments"><span class="pre">AllArguments</span></a></em><a class="headerlink" href="#pyinfra.api.state.StateOperationMeta.global_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationMeta.names">
+<code class="sig-name descname"><span class="pre">names</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.state.StateOperationMeta.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateOperationMeta.op_order">
+<code class="sig-name descname"><span class="pre">op_order</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.state.StateOperationMeta.op_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.state.</span></code><code class="sig-name descname"><span class="pre">StateStage</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.state.StateStage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage.Connect">
+<code class="sig-name descname"><span class="pre">Connect</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#pyinfra.api.state.StateStage.Connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage.Disconnect">
+<code class="sig-name descname"><span class="pre">Disconnect</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyinfra.api.state.StateStage.Disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage.Execute">
+<code class="sig-name descname"><span class="pre">Execute</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#pyinfra.api.state.StateStage.Execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage.Prepare">
+<code class="sig-name descname"><span class="pre">Prepare</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyinfra.api.state.StateStage.Prepare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.state.StateStage.Setup">
+<code class="sig-name descname"><span class="pre">Setup</span></code><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyinfra.api.state.StateStage.Setup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -421,6 +586,8 @@
         <li class="nav-item nav-item-this"><a href="">pyinfra.api.state module</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -431,7 +598,6 @@
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

@@ -97,9 +97,9 @@ Returns a boolean indicating the remote side has GUI capabilities. Linux only.
 
 .. code:: python
 
-    host.get_fact(Home)
+    host.get_fact(Home, user='')
 
-Returns the home directory of the current user.
+Returns the home directory of the given user, or the current user if no user is given.
 
 
 .. _facts:server.Hostname:
@@ -419,7 +419,7 @@ Discovers the SELinux related facts on the target host.
 
 .. code:: python
 
-    host.get_fact(Sysctl)
+    host.get_fact(Sysctl, keys=None)
 
 Returns a dictionary of sysctl settings and values.
 
@@ -432,6 +432,18 @@ Returns a dictionary of sysctl settings and values.
             360,
         ],
     }
+
+
+.. _facts:server.TmpDir:
+
+:code:`server.TmpDir`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(TmpDir)
+
+Returns the temporary directory of the current server, if configured.
 
 
 .. _facts:server.User:

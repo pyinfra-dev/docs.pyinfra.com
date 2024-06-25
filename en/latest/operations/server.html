@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
@@ -119,9 +120,11 @@
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#server-crontab"><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code></a></li>
@@ -149,8 +152,6 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
@@ -160,11 +161,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -195,7 +196,7 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Permalink to this heading">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
 <div class="section" id="server-crontab">
 <span id="operations-server-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this heading">¶</a></h2>
 <p>Add/remove/update crontab entries.</p>
@@ -358,7 +359,7 @@ that you should use the <a class="reference external" href="./files.html#files-l
 <div class="section" id="server-packages">
 <span id="operations-server-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code><a class="headerlink" href="#server-packages" title="Permalink to this heading">¶</a></h2>
 <p>Add or remove system packages. This command checks for the presence of all the
-system package managers <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can handle and executes the relevant operation.</p>
+system package managers pyinfra can handle and executes the relevant operation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -473,7 +474,7 @@ system package managers <code class="docutils literal notranslate"><span class="
     <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
     <span class="n">limit_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span>
     <span class="n">item</span><span class="o">=</span><span class="s1">&#39;nofile&#39;</span><span class="p">,</span>
-    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -481,7 +482,7 @@ system package managers <code class="docutils literal notranslate"><span class="
 <div class="section" id="server-service">
 <span id="operations-server-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.service</span></code><a class="headerlink" href="#server-service" title="Permalink to this heading">¶</a></h2>
 <p>Manage the state of services. This command checks for the presence of all the
-Linux init systems <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> can handle and executes the relevant operation.</p>
+Linux init systems pyinfra can handle and executes the relevant operation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -581,7 +582,7 @@ since facts are only run at the start of a deploy.</p>
 will be created with the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag to build a new home directory from the
 systems skeleton directory.</dd>
 <dt>Public keys:</dt><dd>These can be provided as strings containing the public key or as a path to
-a public key file which <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will read.</dd>
+a public key file which pyinfra will read.</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
@@ -623,7 +624,7 @@ a public key file which <code class="docutils literal notranslate"><span class="
 </ul>
 <dl class="docutils">
 <dt>Public keys:</dt><dd>These can be provided as strings containing the public key or as a path to
-a public key file which <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> will read.</dd>
+a public key file which pyinfra will read.</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span>
@@ -699,6 +700,8 @@ second.</p>
         <li class="nav-item nav-item-this"><a href="">Server Operations</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -709,7 +712,6 @@ second.</p>
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

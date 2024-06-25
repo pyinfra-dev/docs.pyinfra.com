@@ -98,7 +98,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../connectors.html">Connectors Index</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ansible.html"><code class="docutils literal notranslate"><span class="pre">&#64;ansible</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chroot.html"><code class="docutils literal notranslate"><span class="pre">&#64;chroot</span></code> Connector</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
@@ -107,11 +106,9 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dockerssh.html"><code class="docutils literal notranslate"><span class="pre">&#64;dockerssh</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="local.html"><code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> Connector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mech.html"><code class="docutils literal notranslate"><span class="pre">&#64;mech</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ssh.html"><code class="docutils literal notranslate"><span class="pre">&#64;ssh</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="terraform.html"><code class="docutils literal notranslate"><span class="pre">&#64;terraform</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vagrant.html"><code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> Connector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="winrm.html"><code class="docutils literal notranslate"><span class="pre">&#64;winrm</span></code> Connector</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
@@ -119,11 +116,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -152,18 +149,11 @@
           
   <div class="section" id="docker-connector">
 <h1><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector<a class="headerlink" href="#docker-connector" title="Permalink to this heading">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector allows you to build Docker images, or modify running
-Docker containers, using <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>. You can pass either an image name or
-existing container ID:</p>
+<p>The docker connector allows you to build Docker images or modify running
+Docker containers. You can pass either an image name or existing container ID:</p>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>Image - will create a container from the image, execute operations and save</dt><dd>into a new image</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>Existing container ID - will simply execute operations against the container,</dt><dd>leaving it up afterwards</dd>
-</dl>
-</li>
+<li>Image - will create a new container from the image, execute operations         against it, save into a new Docker image and remove the container</li>
+<li>Existing container ID - will execute operations against the running         container, leaving it running</li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
 pyinfra<span class="w"> </span>@docker/alpine:3.8<span class="w"> </span>...
@@ -177,16 +167,35 @@ pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyinfra</span> <span class="nd">@docker</span><span class="o">/</span><span class="n">identifier</span> <span class="o">...</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@docker/name<span class="w"> </span>...
 </pre></div>
 </div>
 </div>
 <div class="section" id="available-data">
 <h2>Available Data<a class="headerlink" href="#available-data" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker_identifier</span>  <span class="c1"># ID of container or image to target</span>
-<span class="n">docker_container_id</span>  <span class="c1"># ID of container to target, overrides ``docker_identifier``</span>
-</pre></div>
-</div>
+<p>The following keys can be set as host or group data to control how this connector interacts with the target.</p>
+<table class="table table-bordered">
+<colgroup>
+<col width="25%" />
+<col width="45%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">docker_identifier</span></code></td>
+<td>ID of container or image to start from</td>
+<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -231,6 +240,8 @@ pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
         <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -241,7 +252,6 @@ pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

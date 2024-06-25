@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Selinux Facts" href="selinux.html" />
+    <link rel="next" title="Runit Facts" href="runit.html" />
     <link rel="prev" title="Postgresql Facts" href="postgresql.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="selinux.html" title="Selinux Facts"
+          <a href="runit.html" title="Runit Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="postgresql.html" title="Postgresql Facts"
@@ -124,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Rpm Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#rpm-rpmpackage"><code class="code docutils literal notranslate"><span class="pre">rpm.RpmPackage</span></code></a></li>
@@ -131,6 +132,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#rpm-rpmpackages"><code class="code docutils literal notranslate"><span class="pre">rpm.RpmPackages</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Facts</a></li>
@@ -138,8 +140,6 @@
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows.html">Windows Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="windows_files.html">Windows_Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Facts</a></li>
@@ -148,11 +148,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -183,7 +183,7 @@
 <h1>Rpm Facts<a class="headerlink" href="#rpm-facts" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="rpm-rpmpackage">
 <span id="facts-rpm-rpmpackage"></span><h2><code class="code docutils literal notranslate"><span class="pre">rpm.RpmPackage</span></code><a class="headerlink" href="#rpm-rpmpackage" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RpmPackage</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RpmPackage</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns information on a .rpm file:</p>
@@ -196,7 +196,7 @@
 </div>
 <div class="section" id="rpm-rpmpackageprovides">
 <span id="facts-rpm-rpmpackageprovides"></span><h2><code class="code docutils literal notranslate"><span class="pre">rpm.RpmPackageProvides</span></code><a class="headerlink" href="#rpm-rpmpackageprovides" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RpmPackageProvides</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RpmPackageProvides</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a list of packages that provide the specified capability (command, file, etc).</p>
@@ -225,8 +225,8 @@
           <span aria-hidden="true">&larr;</span> Postgresql Facts
         </a></li>
       
-        <li class="next"><a href="selinux.html">
-          Selinux Facts <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="runit.html">
+          Runit Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -246,7 +246,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="selinux.html" title="Selinux Facts"
+          <a href="runit.html" title="Runit Facts"
              >next</a> |</li>
         <li class="right" >
           <a href="postgresql.html" title="Postgresql Facts"
@@ -256,6 +256,8 @@
         <li class="nav-item nav-item-this"><a href="">Rpm Facts</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -266,7 +268,6 @@
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

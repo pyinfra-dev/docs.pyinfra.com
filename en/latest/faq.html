@@ -96,6 +96,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-the-name-of-the-current-host">How do I get the name of the current host?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-use-sudo-in-an-operation">How do I use sudo in an operation?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-chmod-or-chown-a-file-directory-link">How do I chmod or chown a file/directory/link?</a></li>
 </ul>
 </li>
 </ul>
@@ -108,11 +109,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -143,22 +144,38 @@
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="how-do-i-get-the-name-of-the-current-host">
 <h2>How do I get the name of the current host?<a class="headerlink" href="#how-do-i-get-the-name-of-the-current-host" title="Permalink to this heading">¶</a></h2>
-<p>The currently executing host can be fetched from a global context variable within operation code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<p>The currently executing host can be fetched from the <code class="docutils literal notranslate"><span class="pre">host</span></code> context variable. If you need the hostname the <code class="docutils literal notranslate"><span class="pre">server.Hostname</span></code> fact can be used to get that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the name of the host as defined in the inventory</span>
+<span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span>
 
-<span class="n">host</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># the name of the host, as defined in the inventory</span>
+<span class="c1"># Get the actual current hostname from the host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Hostname</span>
+<span class="n">hostname</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Hostname</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="how-do-i-use-sudo-in-an-operation">
 <h2>How do I use sudo in an operation?<a class="headerlink" href="#how-do-i-use-sudo-in-an-operation" title="Permalink to this heading">¶</a></h2>
-<p>Sudo is controlled by one of the <a class="reference internal" href="arguments.html"><span class="doc">Global Arguments</span></a>, there are a number of additional arguments to control sudo execution:</p>
+<p>Sudo is controlled by one of the <a class="reference external" href="arguments.html#privilege-user-escalation">privilege and user escalation arguments</a>, there are a number of additional arguments to control sudo execution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
     <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;someuser&quot;</span><span class="p">,</span>    <span class="c1"># sudo to this user</span>
     <span class="n">_use_sudo_login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>     <span class="c1"># use a login shell when sudo-ing</span>
     <span class="n">_preserve_sudo_env</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># preserve the environment when sudo-ing</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-do-i-chmod-or-chown-a-file-directory-link">
+<h2>How do I chmod or chown a file/directory/link?<a class="headerlink" href="#how-do-i-chmod-or-chown-a-file-directory-link" title="Permalink to this heading">¶</a></h2>
+<p>Use the LINK <code class="docutils literal notranslate"><span class="pre">files.file</span></code>, <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> or <code class="docutils literal notranslate"><span class="pre">files.link</span></code> operations to set the permissions and ownership of files, directories &amp; links:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/default/elasticsearch&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="mi">644</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -205,6 +222,8 @@
         <li class="nav-item nav-item-this"><a href="">Frequently Asked Questions</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -215,7 +234,6 @@
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 
