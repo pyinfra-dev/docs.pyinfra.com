@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Server Operations" href="server.html" />
-    <link rel="prev" title="Python Operations" href="python.html" />
+    <link rel="prev" title="Runit Operations" href="runit.html" />
   
    
 
@@ -45,7 +45,7 @@
           <a href="server.html" title="Server Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="python.html" title="Python Operations"
+          <a href="runit.html" title="Runit Operations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li>
@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
@@ -123,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Selinux Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#selinux-boolean"><code class="code docutils literal notranslate"><span class="pre">selinux.boolean</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#selinux-file-context"><code class="code docutils literal notranslate"><span class="pre">selinux.file_context</span></code></a></li>
@@ -189,7 +191,7 @@
 </div>
 <ul class="simple">
 <li><strong>boolean</strong>: name of an SELinux boolean</li>
-<li><strong>state</strong>: ‘on’ or ‘off’</li>
+<li><strong>value</strong>: desired state of the boolean</li>
 <li><strong>persistent</strong>: whether to write updated policy or not</li>
 </ul>
 <p>Note: This operation requires root privileges.</p>
@@ -197,7 +199,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to connect to LDAP server&#39;</span><span class="p">,</span>
     <span class="s1">&#39;httpd_can_network_connect&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+    <span class="n">Boolean</span><span class="o">.</span><span class="n">ON</span><span class="p">,</span>
     <span class="n">persistent</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </pre></div>
@@ -261,7 +263,7 @@ before the related files.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">port</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to provide service on port 2222&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;tcp&#39;</span><span class="p">,</span>
+    <span class="n">Protocol</span><span class="o">.</span><span class="n">TCP</span><span class="p">,</span>
     <span class="mi">2222</span><span class="p">,</span>
     <span class="s1">&#39;http_port_t&#39;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -276,8 +278,8 @@ before the related files.</p>
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="python.html">
-          <span aria-hidden="true">&larr;</span> Python Operations
+        <li class="previous"><a href="runit.html">
+          <span aria-hidden="true">&larr;</span> Runit Operations
         </a></li>
       
         <li class="next"><a href="server.html">
@@ -304,13 +306,15 @@ before the related files.</p>
           <a href="server.html" title="Server Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="python.html" title="Python Operations"
+          <a href="runit.html" title="Runit Operations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Selinux Operations</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -321,7 +325,6 @@ before the related files.</p>
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

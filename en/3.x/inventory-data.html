@@ -145,8 +145,8 @@
           
   <div class="section" id="inventory-data">
 <h1>Inventory &amp; Data<a class="headerlink" href="#inventory-data" title="Permalink to this heading">¶</a></h1>
-<p>A pyinfra inventory provides hosts, groups and data. Host are the things pyinfra will make changes to (think a SSH daemon on a server, a Docker container or the local machine). Hosts can be attached to groups, and data can then be assigned to both the groups and individual hosts.</p>
-<p>By default pyinfra assumes hosts are SSH servers and the name of the host is used as the SSH hostname. Prefixing the name of the host with <code class="docutils literal notranslate"><span class="pre">&#64;&lt;connector-name&gt;/</span></code> is used to activate alternative connectors. See: <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a>.</p>
+<p>A pyinfra inventory provides hosts, groups and data. Hosts are the things pyinfra will make changes to (think a SSH daemon on a server, a Docker container or the local machine). Hosts can be attached to groups, and data can then be assigned to both the groups and individual hosts.</p>
+<p>By default, pyinfra assumes hosts are SSH servers and the name of the host is used as the SSH hostname. Prefixing the name of the host with <code class="docutils literal notranslate"><span class="pre">&#64;&lt;connector-name&gt;/</span></code> is used to activate alternative connectors. See: <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a>.</p>
 <div class="section" id="inventory-files">
 <h2>Inventory Files<a class="headerlink" href="#inventory-files" title="Permalink to this heading">¶</a></h2>
 <p>Inventory files contain groups of hosts. Groups are defined as a <code class="docutils literal notranslate"><span class="pre">list</span></code>. For example, this inventory creates two groups, <code class="docutils literal notranslate"><span class="pre">app_servers</span></code> and <code class="docutils literal notranslate"><span class="pre">db_servers</span></code>:</p>
@@ -197,7 +197,7 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>This can then be used in operations files:</p>
+<p>This data can then be used in operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
 
 <span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;install_postgres&quot;</span><span class="p">):</span>
@@ -214,7 +214,7 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
 <span class="n">app_dir</span> <span class="o">=</span> <span class="s2">&quot;/opt/pyinfra&quot;</span>
 </pre></div>
 </div>
-<p>These can then be used in operations:</p>
+<p>These variables can then be used in operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
@@ -245,7 +245,7 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
 </div>
 <div class="section" id="connecting-with-data">
 <h2>Connecting with Data<a class="headerlink" href="#connecting-with-data" title="Permalink to this heading">¶</a></h2>
-<p>Data can be used to configure connectors, for example setting SSH connection details can be done like so:</p>
+<p>Data can be used to configure connectors. For example, setting SSH connection details can be done like so:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh_user</span> <span class="o">=</span> <span class="s2">&quot;ubuntu&quot;</span>
 <span class="n">ssh_key</span> <span class="o">=</span> <span class="s2">&quot;~/.ssh/some_key&quot;</span>
 <span class="n">ssh_key_password</span> <span class="o">=</span> <span class="s2">&quot;password for key&quot;</span>
@@ -307,6 +307,8 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
         <li class="nav-item nav-item-this"><a href="">Inventory &amp; Data</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -317,7 +319,6 @@ pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<spa
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

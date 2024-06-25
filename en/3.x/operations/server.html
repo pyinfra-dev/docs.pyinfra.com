@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
@@ -123,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#server-crontab"><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code></a></li>
@@ -194,7 +196,7 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Permalink to this heading">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-crontab"><span class="std std-ref">server.Crontab</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
 <div class="section" id="server-crontab">
 <span id="operations-server-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this heading">¶</a></h2>
 <p>Add/remove/update crontab entries.</p>
@@ -472,7 +474,7 @@ system package managers pyinfra can handle and executes the relevant operation.<
     <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
     <span class="n">limit_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span>
     <span class="n">item</span><span class="o">=</span><span class="s1">&#39;nofile&#39;</span><span class="p">,</span>
-    <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -698,6 +700,8 @@ second.</p>
         <li class="nav-item nav-item-this"><a href="">Server Operations</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -708,7 +712,6 @@ second.</p>
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 

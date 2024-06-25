@@ -19,7 +19,7 @@ Set the specified SELinux boolean to the desired state.
     selinux.boolean(bool_name, value, persistent=False)
 
 + **boolean**: name of an SELinux boolean
-+ **state**: 'on' or 'off'
++ **value**: desired state of the boolean
 + **persistent**: whether to write updated policy or not
 
 Note: This operation requires root privileges.
@@ -31,7 +31,7 @@ Note: This operation requires root privileges.
     selinux.boolean(
         name='Allow Apache to connect to LDAP server',
         'httpd_can_network_connect',
-        'on',
+        Boolean.ON,
         persistent=True
     )
 
@@ -115,7 +115,7 @@ Note: This operation requires root privileges.
 
     selinux.port(
         name='Allow Apache to provide service on port 2222',
-        'tcp',
+        Protocol.TCP,
         2222,
         'http_port_t',
     )
