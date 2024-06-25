@@ -103,9 +103,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dockerssh.html"><code class="docutils literal notranslate"><span class="pre">&#64;dockerssh</span></code> Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="local.html"><code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> Connector</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">&#64;ssh</span></code> Connector</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#available-data">Available Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-data">Available Data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="terraform.html"><code class="docutils literal notranslate"><span class="pre">&#64;terraform</span></code> Connector</a></li>
@@ -139,13 +138,6 @@
     
       <div id="right-column">
         
-          
-            <div class="admonition important">
-                <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/2.x/connectors/ssh.html"><strong>2.x</strong></a> is the latest release version available.</p>
-            </div>
-          
-        
         <div class="document clearer body" role="main">
           
   <div class="section" id="ssh-connector">
@@ -157,9 +149,27 @@ are identical:</p>
 pyinfra<span class="w"> </span>@ssh/my-host.net<span class="w"> </span>...
 </pre></div>
 </div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@ssh/name<span class="w"> </span>...
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>An inventory file (<code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>) containing a single SSH target with SSH
+forward agent enabled:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;my-host.net&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ssh_forward_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Multiple hosts sharing the same SSH username:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;my-host-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;my-host-2.net&quot;</span><span class="p">],</span>
+    <span class="p">{</span><span class="s2">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh-user&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Multiple hosts with different SSH usernames:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;my-host-1.net&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh-user&quot;</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">&quot;my-host-2.net&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;other-user&quot;</span><span class="p">}),</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -263,28 +273,6 @@ pyinfra<span class="w"> </span>@ssh/my-host.net<span class="w"> </span>...
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
-<p>An inventory file (<code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>) containing a single SSH target with SSH
-forward agent enabled:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">&quot;my-host.net&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ssh_forward_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}),</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-<p>Multiple hosts sharing the same SSH username:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">[</span>
-        <span class="s2">&quot;my-host-1.net&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;my-host-2.net&quot;</span><span class="p">,</span>
-    <span class="p">],</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;ssh_username&quot;</span><span class="p">:</span> <span class="s2">&quot;ssh-user&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 

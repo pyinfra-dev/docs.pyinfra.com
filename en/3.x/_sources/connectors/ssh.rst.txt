@@ -10,13 +10,35 @@ are identical:
     pyinfra my-host.net ...
     pyinfra @ssh/my-host.net ...
 
-Usage
-~~~~~
+Examples
+~~~~~~~~
 
-.. code:: shell
+An inventory file (``inventory.py``) containing a single SSH target with SSH
+forward agent enabled:
 
-    pyinfra @ssh/name ...
+.. code:: python
 
+    hosts = [
+        ("my-host.net", {"ssh_forward_agent": True}),
+    ]
+
+Multiple hosts sharing the same SSH username:
+
+.. code:: python
+
+    hosts = (
+        ["my-host-1.net", "my-host-2.net"],
+        {"ssh_username": "ssh-user"},
+    )
+
+Multiple hosts with different SSH usernames:
+
+.. code:: python
+
+    hosts = [
+        ("my-host-1.net", {"ssh_username": "ssh-user"}),
+        ("my-host-2.net", {"ssh_username": "other-user"}),
+    ]
 Available Data
 ~~~~~~~~~~~~~~
 
@@ -109,29 +131,3 @@ The following keys can be set as host or group data to control how this connecto
      - Upper bound for random delay between retries
      - ``float``
      - ``0.5``
-
-Examples
-~~~~~~~~
-
-An inventory file (``inventory.py``) containing a single SSH target with SSH
-forward agent enabled:
-
-.. code:: python
-
-    hosts = [
-        ("my-host.net", {"ssh_forward_agent": True}),
-    ]
-
-Multiple hosts sharing the same SSH username:
-
-.. code:: python
-
-    hosts = (
-        [
-            "my-host-1.net",
-            "my-host-2.net",
-        ],
-        {
-            "ssh_username": "ssh-user",
-        },
-    )
