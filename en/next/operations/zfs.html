@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+  <meta name="docsearch:version" content="next" />
+  <meta name="docsearch:language" content="en" />
+  
+    <title>Zfs Operations &#8212; pyinfra  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="icon" href="../_static/logo_small.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Zypper Operations" href="zypper.html" />
+    <link rel="prev" title="Yum Operations" href="yum.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="zypper.html" title="Zypper Operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="yum.html" title="Yum Operations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Zfs Operations</a></li> 
+      </ul>
+    </div>
+  <div class="container-wrapper">
+    <header>
+      <nav>
+        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
+      </nav>
+
+      <div id="header-sidebar">
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+            pyinfra <small>next</small>
+        </a>
+        
+<form id="main-search" class="form-inline" action="../search.html" method="GET" role="form">
+  <div id="docsearch">
+    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </div>
+</form>
+      </div>
+
+      <div id="mobile-toggle">
+        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+        <a href="../index.html" class="text-logo">
+            <img src="../_static/logo_small.png" />
+        </a>
+      </div>
+    </header>
+    <div id="left-column">
+      <div class="sphinxsidebar">
+        <div class="sidebar-block">
+    <div class="sidebar-toc">
+        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using-operations.html">Using Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../inventory-data.html">Inventory &amp; Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arguments.html">Global Arguments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Using the CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brew.html">Brew Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snap.html">Snap Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssh.html">Ssh Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Zfs Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zfs-dataset"><code class="code docutils literal notranslate"><span class="pre">zfs.dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zfs-filesystem"><code class="code docutils literal notranslate"><span class="pre">zfs.filesystem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zfs-snapshot"><code class="code docutils literal notranslate"><span class="pre">zfs.snapshot</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zfs-volume"><code class="code docutils literal notranslate"><span class="pre">zfs.volume</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Help &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
+</ul>
+
+    </div>
+</div>
+      </div>
+    </div>
+    
+      <div id="right-column">
+        
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/operations/zfs.html"><strong>3.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
+        <div class="document clearer body" role="main">
+          
+  <div class="section" id="zfs-operations">
+<h1>Zfs Operations<a class="headerlink" href="#zfs-operations" title="Permalink to this heading">¶</a></h1>
+<p>Manage ZFS filesystems.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/zfs.html#facts-zfs-datasets"><span class="std std-ref">zfs.Datasets</span></a>.</p>
+<div class="section" id="zfs-dataset">
+<span id="operations-zfs-dataset"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.dataset</span></code><a class="headerlink" href="#zfs-dataset" title="Permalink to this heading">¶</a></h2>
+<p>Create, destroy or set properties on a  ZFS dataset (e.g. filesystem,
+volume, snapshot).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volume_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>dataset_name</strong>: name of the filesystem to operate on</li>
+<li><strong>present</strong>: whether the named filesystem should exist</li>
+<li><strong>recursive</strong>: whether to create parent datasets, or destroy child datasets</li>
+<li><strong>sparse</strong>: for volumes, whether to create a sparse volume with no allocation</li>
+<li><strong>volume_size</strong>: the size of the volume</li>
+<li><strong>properties</strong>: the ZFS properties that should be set on the dataset.</li>
+<li><a href="#id1"><span class="problematic" id="id2">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<dl class="docutils">
+<dt>zfs.dataset(</dt><dd>“tank/srv”,
+mountpoint=”/srv”,
+compression=”lz4”,
+properties={“com.sun:auto_snapshot”: “true”}</dd>
+</dl>
+<p>)
+zfs.dataset(“tank/vm-disks/db_srv_04”, volume_size=”32G”) # creates a volume
+zfs.dataset(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#48;old_version">tank/home<span>&#64;</span>old_version</a>”, present=False)</p>
+</div>
+<div class="section" id="zfs-filesystem">
+<span id="operations-zfs-filesystem"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.filesystem</span></code><a class="headerlink" href="#zfs-filesystem" title="Permalink to this heading">¶</a></h2>
+<p>Create or destroy a ZFS filesystem, or modify its properties.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="n">fs_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>fs_name</strong>: name of the volume to operate on</li>
+<li><strong>present</strong>: whether the named volume should exist</li>
+<li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
+<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
+<li><a href="#id3"><span class="problematic" id="id4">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<p>zfs.filesystem(“tank/vm-disks/db_srv_04”, “32G”)</p>
+</div>
+<div class="section" id="zfs-snapshot">
+<span id="operations-zfs-snapshot"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.snapshot</span></code><a class="headerlink" href="#zfs-snapshot" title="Permalink to this heading">¶</a></h2>
+<p>Create or destroy a ZFS snapshot, or modify its properties.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="n">snapshot_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>dataset_name</strong>: name of the filesystem to operate on</li>
+<li><strong>present</strong>: whether the named filesystem should exist</li>
+<li><strong>recursive</strong>: whether to snapshot child datasets</li>
+<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
+<li><a href="#id5"><span class="problematic" id="id6">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<p>zfs.snapshot(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#48;weekly_backup">tank/home<span>&#64;</span>weekly_backup</a>”)</p>
+</div>
+<div class="section" id="zfs-volume">
+<span id="operations-zfs-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.volume</span></code><a class="headerlink" href="#zfs-volume" title="Permalink to this heading">¶</a></h2>
+<p>Create or destroy a ZFS volume, or modify its properties.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume_name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>volume_name</strong>: name of the volume to operate on</li>
+<li><strong>size</strong>: the size of the volume</li>
+<li><strong>sparse</strong>: create a sparse volume</li>
+<li><strong>present</strong>: whether the named volume should exist</li>
+<li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
+<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
+<li><a href="#id7"><span class="problematic" id="id8">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<p>zfs.volume(“tank/vm-disks/db_srv_04”, “32G”)</p>
+</div>
+</div>
+
+
+        </div>
+          
+  <nav class="footer-relations">
+    <ul class="pager">
+      
+        <li class="previous"><a href="yum.html">
+          <span aria-hidden="true">&larr;</span> Yum Operations
+        </a></li>
+      
+        <li class="next"><a href="zypper.html">
+          Zypper Operations <span aria-hidden="true">&rarr;</span>
+        </a></li>
+      
+    </ul>
+  </nav>
+    <div class="clearer"></div>
+  
+      </div>
+      <div class="clearfix"></div>
+  </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="zypper.html" title="Zypper Operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="yum.html" title="Yum Operations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Zfs Operations</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $("a#toggle-menu").click(function () {
+    $("#left-column").slideToggle(100);
+  });
+
+  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
+  if (currentIndexItem) {
+    currentIndexItem.scrollIntoView({'block': 'center'});
+  }
+</script>
+  <div class="footer">
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script type="text/javascript">
+    docsearch({
+        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
+        appId: 'XXGX6EX4KA',
+        indexName: 'pyinfra',
+        container: '#docsearch',
+        searchParameters: {
+          facetFilters: ["version:next", "lang:en"],
+        },
+        debug: false,
+    });
+  </script>
+
+
+
+  
+    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
+  
+
+  </body>
+</html>
