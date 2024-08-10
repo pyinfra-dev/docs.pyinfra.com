@@ -1,0 +1,46 @@
+Flatpak Operations
+------------------
+
+
+Manage flatpak packages. See https://www.flatpak.org/
+
+
+Facts used in these operations: :ref:`facts:flatpak.FlatpakPackages`.
+
+.. _operations:flatpak.package:
+
+:code:`flatpak.package`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Install/remove a flatpak package
+
+.. code:: python
+
+    flatpak.package(packages=None, present=True)
+
++ **packages**: List of packages
++ **present**: whether the package should be installed
+
+**Examples:**
+
+.. code:: python
+
+    # Install vlc flatpak
+    flatpak.package(
+        name="Install vlc",
+        packages="org.videolan.VLC",
+    )
+
+    # Install multiple flatpaks
+    flatpak.package(
+        name="Install vlc and kodi",
+        packages=["org.videolan.VLC", "tv.kodi.Kodi"],
+    )
+
+    # Remove vlc
+    flatpak.package(
+        name="Remove vlc",
+        packages="org.videolan.VLC",
+        present=False,
+    )
+
