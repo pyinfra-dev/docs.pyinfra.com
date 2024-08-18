@@ -15,7 +15,7 @@
   <meta name="docsearch:version" content="3.x" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Python Operations &#8212; pyinfra  documentation</title>
+    <title>Flatpak Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Runit Operations" href="runit.html" />
-    <link rel="prev" title="Puppet Operations" href="puppet.html" />
+    <link rel="next" title="Gem Operations" href="gem.html" />
+    <link rel="prev" title="Files Operations" href="files.html" />
   
    
 
@@ -42,14 +42,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="runit.html" title="Runit Operations"
+          <a href="gem.html" title="Gem Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="puppet.html" title="Puppet Operations"
+          <a href="files.html" title="Files Operations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" accesskey="U">Operations Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Python Operations</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Flatpak Operations</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -108,7 +108,10 @@
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Flatpak Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flatpak-packages"><code class="code docutils literal notranslate"><span class="pre">flatpak.packages</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
@@ -124,11 +127,7 @@
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="puppet.html">Puppet Operations</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#python-call"><code class="code docutils literal notranslate"><span class="pre">python.call</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#python-raise-exception"><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">Server Operations</a></li>
@@ -172,66 +171,38 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="python-operations">
-<h1>Python Operations<a class="headerlink" href="#python-operations" title="Permalink to this heading">¶</a></h1>
-<p>The Python module allows you to execute Python code within the context of a deploy.</p>
-<div class="section" id="python-call">
-<span id="operations-python-call"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.call</span></code><a class="headerlink" href="#python-call" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Execute a Python function within a deploy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+  <div class="section" id="flatpak-operations">
+<h1>Flatpak Operations<a class="headerlink" href="#flatpak-operations" title="Permalink to this heading">¶</a></h1>
+<p>Manage flatpak packages. See <a class="reference external" href="https://www.flatpak.org/">https://www.flatpak.org/</a></p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/flatpak.html#facts-flatpak-flatpakpackages"><span class="std std-ref">flatpak.FlatpakPackages</span></a>.</p>
+<div class="section" id="flatpak-packages">
+<span id="operations-flatpak-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">flatpak.packages</span></code><a class="headerlink" href="#flatpak-packages" title="Permalink to this heading">¶</a></h2>
+<p>Install/remove a flatpak package</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">flatpak</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>function</strong>: the function to execute</li>
-<li><strong>args</strong>: arguments to pass to the function</li>
-<li><strong>kwargs</strong>: keyword arguments to pass to the function</li>
+<li><strong>packages</strong>: List of packages</li>
+<li><strong>present</strong>: whether the package should be installed</li>
 </ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;echo hello&#39;</span>
-    <span class="k">if</span> <span class="n">hello</span><span class="p">:</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="o">**</span><span class="n">hello</span><span class="o">**</span>
-
-    <span class="n">status</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">run_shell_command</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">SUDO</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">True</span>  <span class="c1"># ensure the command executed OK</span>
-
-    <span class="k">if</span> <span class="s1">&#39;hello &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stdout</span><span class="p">):</span>  <span class="c1"># stdout/stderr is a *list* of lines</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;`</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">` problem with callback stdout:</span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s1"> stderr:</span><span class="si">{</span><span class="n">stderr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run my_callback function&quot;</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">my_callback</span><span class="p">,</span>
-    <span class="n">hello</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install vlc flatpak</span>
+<span class="n">flatpak</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install vlc&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="s2">&quot;org.videolan.VLC&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="python-raise-exception">
-<span id="operations-python-raise-exception"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code><a class="headerlink" href="#python-raise-exception" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Raise a Python exception within a deploy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><strong>exception</strong>: the exception class to raise</li>
-<li><strong>args</strong>: arguments passed to the exception creation</li>
-<li><strong>kwargs</strong>: keyword arguments passed to the exception creation</li>
-</ul>
-<p><strong>Example</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Raise NotImplementedError exception&quot;</span><span class="p">,</span>
-    <span class="n">exception</span><span class="o">=</span><span class="ne">NotImplementedError</span><span class="p">,</span>
-    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;This is not implemented&quot;</span><span class="p">,</span>
+
+<span class="c1"># Install multiple flatpaks</span>
+<span class="n">flatpak</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install vlc and kodi&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;org.videolan.VLC&quot;</span><span class="p">,</span> <span class="s2">&quot;tv.kodi.Kodi&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Remove vlc</span>
+<span class="n">flatpak</span><span class="o">.</span><span class="n">package</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove vlc&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="s2">&quot;org.videolan.VLC&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -244,12 +215,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="puppet.html">
-          <span aria-hidden="true">&larr;</span> Puppet Operations
+        <li class="previous"><a href="files.html">
+          <span aria-hidden="true">&larr;</span> Files Operations
         </a></li>
       
-        <li class="next"><a href="runit.html">
-          Runit Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="gem.html">
+          Gem Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -269,14 +240,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="runit.html" title="Runit Operations"
+          <a href="gem.html" title="Gem Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="puppet.html" title="Puppet Operations"
+          <a href="files.html" title="Files Operations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../operations.html" >Operations Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Python Operations</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Flatpak Operations</a></li> 
       </ul>
     </div>
 <script type="text/javascript" src="../_static/js/jquery.min.js"></script>
