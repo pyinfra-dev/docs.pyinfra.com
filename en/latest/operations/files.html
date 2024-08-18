@@ -711,7 +711,7 @@ can be done for example with <code class="docutils literal notranslate"><span cl
 <div class="section" id="files-template">
 <span id="operations-files-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.template</span></code><a class="headerlink" href="#files-template" title="Permalink to this heading">¶</a></h2>
 <p>Generate a template using jinja2 and write it to the remote system.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">jinja_env_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -721,11 +721,15 @@ can be done for example with <code class="docutils literal notranslate"><span cl
 <li><strong>group</strong>: group to own the files</li>
 <li><strong>mode</strong>: permissions of the files</li>
 <li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
+<li><strong>jinja_env_kwargs</strong>: keyword arguments to be passed into the jinja Environment()</li>
 </ul>
 <dl class="docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
 if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">jinja_env_kwargs</span></code>:</dt><dd>To have more control over how jinja2 renders your template, you can pass
+a dict with arguments that will be passed as keyword args to the jinja2
+<a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</dd>
 <dt>Notes:</dt><dd><p>Common convention is to store templates in a “templates” directory and
 have a filename suffix with ‘.j2’ (for jinja2).</p>
 <p>For information on the template syntax, see
