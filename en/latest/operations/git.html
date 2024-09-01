@@ -278,7 +278,7 @@
 <li><strong>from_remote_branch</strong>: a 2-tuple <code class="docutils literal notranslate"><span class="pre">(remote,</span> <span class="pre">branch)</span></code> that identifies a remote branch</li>
 <li><strong>present</strong>: whether the working tree should exist</li>
 <li><strong>assume_repo_exists</strong>: whether to assume the main repo exists</li>
-<li><strong>force</strong>: remove unclean working tree if should not exist</li>
+<li><strong>force</strong>: whether to use <code class="docutils literal notranslate"><span class="pre">--force</span></code> when adding/removing worktrees</li>
 <li><strong>user</strong>: chown files to this user after</li>
 <li><strong>group</strong>: chown files to this group after</li>
 </ul>
@@ -294,6 +294,14 @@
     <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
     <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/hotfix&quot;</span><span class="p">,</span>
     <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;4e091aa0&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a worktree from the tag `4e091aa0`, even if already registered&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/master&quot;</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra/2.x&quot;</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="o">=</span><span class="s2">&quot;2.x&quot;</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 
 <span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
