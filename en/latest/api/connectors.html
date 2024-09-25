@@ -107,6 +107,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Connectors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#inventory-connector">Inventory Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#executing-connector">Executing Connector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pyproject-toml">pyproject.toml</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Facts &amp; Operations</a></li>
@@ -221,6 +222,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: indicating success or failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pyproject-toml">
+<h2>pyproject.toml<a class="headerlink" href="#pyproject-toml" title="Permalink to this heading">¶</a></h2>
+<p>In order for pyinfra to gain knowledge about your connector, you need to add the following snippet to your connector’s <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project.entry-points.</span><span class="s1">&#39;pyinfra.connectors&#39;</span><span class="k">]</span>
+<span class="c1"># Key = Entry point name</span>
+<span class="c1"># Value = module_path:class_name</span>
+<span class="n">custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pyinfra_custom_connector.connector:LoggingConnector&#39;</span>
 </pre></div>
 </div>
 </div>
