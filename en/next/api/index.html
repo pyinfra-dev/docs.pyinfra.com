@@ -107,6 +107,8 @@
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#full-example">Full Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -136,7 +138,65 @@
   <div class="section" id="using-the-api">
 <h1>Using the API<a class="headerlink" href="#using-the-api" title="Permalink to this heading">¶</a></h1>
 <p>In addition to <a class="reference internal" href="../cli.html"><span class="doc">the pyinfra CLI</span></a>, pyinfra provides a full Python API. As of <code class="docutils literal notranslate"><span class="pre">v3</span></code> this API can be considered mostly stable. See the <a class="reference internal" href="reference.html"><span class="doc">API Reference</span></a>.</p>
-<p><a class="reference external" href="https://github.com/pyinfra-dev/pyinfra-examples/blob/main/.old/api_deploy.py">An example of how to use the API can be found here</a>. Note: this is not yet tested and pending future updates.</p>
+<p>You can also reference <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra/blob/3.x/pyinfra_cli/main.py">pyinfra’s own main.py</a>, and the <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra/tree/3.x/pyinfra/api">pyinfra API source code</a>.</p>
+</div>
+<div class="section" id="full-example">
+<h1>Full Example<a class="headerlink" href="#full-example" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/pyinfra-dev/pyinfra-examples/blob/main/.old/api_deploy.py">A full example of how to use the API can be found here</a>. (Note: this is not yet tested and is pending future updates)</p>
+</div>
+<div class="section" id="basic-localhost-example">
+<h1>Basic Localhost Example<a class="headerlink" href="#basic-localhost-example" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.connect</span> <span class="kn">import</span> <span class="n">connect_all</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.operation</span> <span class="kn">import</span> <span class="n">add_op</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.operations</span> <span class="kn">import</span> <span class="n">run_ops</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.facts</span> <span class="kn">import</span> <span class="n">get_facts</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Os</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
+
+<span class="c1"># Define your inventory (@local means execute on localhost using subprocess)</span>
+<span class="c1"># https://docs.pyinfra.com/en/3.x/apidoc/pyinfra.api.inventory.html</span>
+<span class="n">inventory</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">(([</span><span class="s2">&quot;@local&quot;</span><span class="p">],</span> <span class="p">{}))</span>
+
+<span class="c1"># Define any config you need</span>
+<span class="c1"># https://docs.pyinfra.com/en/3.x/apidoc/pyinfra.api.config.html</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">SUDO</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Set up the state object</span>
+<span class="c1"># https://docs.pyinfra.com/en/3.x/apidoc/pyinfra.api.state.html</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">inventory</span><span class="o">=</span><span class="n">inventory</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+
+<span class="c1"># Connect to all the hosts</span>
+<span class="n">connect_all</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+<span class="c1"># Start adding operations</span>
+<span class="n">result1</span> <span class="o">=</span> <span class="n">add_op</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">home</span><span class="o">=</span><span class="s2">&quot;/home/pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">shell</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">result2</span> <span class="o">=</span> <span class="n">add_op</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run some shell commands&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;whoami&quot;</span><span class="p">,</span> <span class="s2">&quot;echo $PATH&quot;</span><span class="p">,</span> <span class="s2">&quot;bash --version&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># And finally we run the ops</span>
+<span class="n">run_ops</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+<span class="c1"># add_op returns an OperationMeta for each op, letting you access stdout, stderr, etc. after they run</span>
+<span class="n">host</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">hosts</span><span class="o">.</span><span class="n">inventory</span><span class="p">[</span><span class="s1">&#39;@local&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result1</span><span class="o">.</span><span class="n">changed</span><span class="p">,</span> <span class="n">result1</span><span class="p">[</span><span class="n">host</span><span class="p">]</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">result1</span><span class="p">[</span><span class="n">host</span><span class="p">]</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result2</span><span class="o">.</span><span class="n">changed</span><span class="p">,</span> <span class="n">result2</span><span class="p">[</span><span class="n">host</span><span class="p">]</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">result2</span><span class="p">[</span><span class="n">host</span><span class="p">]</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+<span class="c1"># We can also get facts for all the hosts</span>
+<span class="c1"># https://docs.pyinfra.com/en/3.x/apidoc/pyinfra.api.facts.html</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_facts</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">Os</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 
 
