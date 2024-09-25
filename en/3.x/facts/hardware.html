@@ -160,6 +160,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -292,6 +294,71 @@
 </div>
 <p>Gets &amp; returns a dict of network devices. See the <code class="docutils literal notranslate"><span class="pre">ipv4_addresses</span></code> and
 <code class="docutils literal notranslate"><span class="pre">ipv6_addresses</span></code> facts for easier-to-use shortcuts to get device addresses.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;enp1s0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;12:34:56:78:9A:BC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;2001:db8:85a3::8a2e:370:7334&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="s2">&quot;additional_ips&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::1234:5678:9abc:def0&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;incusbr0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;DE:AD:BE:EF:CA:FE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::dead:beef:cafe:babe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="s2">&quot;additional_ips&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;2001:db8:1234:5678::1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;lo&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;::1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">128</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;veth98806fd6&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;AA:BB:CC:DD:EE:FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;vethda29df81&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;11:22:33:44:55:66&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;wlo1&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;77:88:99:AA:BB:CC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -155,6 +155,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -192,18 +194,19 @@ volume, snapshot).</p>
 <li><strong>sparse</strong>: for volumes, whether to create a sparse volume with no allocation</li>
 <li><strong>volume_size</strong>: the size of the volume</li>
 <li><strong>properties</strong>: the ZFS properties that should be set on the dataset.</li>
-<li><a href="#id1"><span class="problematic" id="id2">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
 </ul>
 <p><strong>Examples:</strong></p>
-<dl class="docutils">
-<dt>zfs.dataset(</dt><dd>“tank/srv”,
-mountpoint=”/srv”,
-compression=”lz4”,
-properties={“com.sun:auto_snapshot”: “true”}</dd>
-</dl>
-<p>)
-zfs.dataset(“tank/vm-disks/db_srv_04”, volume_size=”32G”) # creates a volume
-zfs.dataset(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#48;old_version">tank/home<span>&#64;</span>old_version</a>”, present=False)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span>
+    <span class="s2">&quot;tank/srv&quot;</span><span class="p">,</span>
+    <span class="n">mountpoint</span><span class="o">=</span><span class="s2">&quot;/srv&quot;</span><span class="p">,</span>
+    <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;lz4&quot;</span><span class="p">,</span>
+    <span class="n">properties</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;com.sun:auto_snapshot&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="s2">&quot;tank/vm-disks/db_srv_04&quot;</span><span class="p">,</span> <span class="n">volume_size</span><span class="o">=</span><span class="s2">&quot;32G&quot;</span><span class="p">)</span> <span class="c1"># creates a volume</span>
+<span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="s2">&quot;tank/home@old_version&quot;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="zfs-filesystem">
 <span id="operations-zfs-filesystem"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.filesystem</span></code><a class="headerlink" href="#zfs-filesystem" title="Permalink to this heading">¶</a></h2>
@@ -216,10 +219,12 @@ zfs.dataset(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#4
 <li><strong>present</strong>: whether the named volume should exist</li>
 <li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
 <li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><a href="#id3"><span class="problematic" id="id4">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
 </ul>
 <p><strong>Examples:</strong></p>
-<p>zfs.filesystem(“tank/vm-disks/db_srv_04”, “32G”)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="s2">&quot;tank/vm-disks/db_srv_04&quot;</span><span class="p">,</span> <span class="s2">&quot;32G&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="zfs-snapshot">
 <span id="operations-zfs-snapshot"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.snapshot</span></code><a class="headerlink" href="#zfs-snapshot" title="Permalink to this heading">¶</a></h2>
@@ -232,10 +237,12 @@ zfs.dataset(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#4
 <li><strong>present</strong>: whether the named filesystem should exist</li>
 <li><strong>recursive</strong>: whether to snapshot child datasets</li>
 <li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><a href="#id5"><span class="problematic" id="id6">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
 </ul>
 <p><strong>Examples:</strong></p>
-<p>zfs.snapshot(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#48;weekly_backup">tank/home<span>&#64;</span>weekly_backup</a>”)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="s2">&quot;tank/home@weekly_backup&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="zfs-volume">
 <span id="operations-zfs-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.volume</span></code><a class="headerlink" href="#zfs-volume" title="Permalink to this heading">¶</a></h2>
@@ -250,10 +257,12 @@ zfs.dataset(”<a class="reference external" href="mailto:tank/home&#37;&#52;&#4
 <li><strong>present</strong>: whether the named volume should exist</li>
 <li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
 <li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><a href="#id7"><span class="problematic" id="id8">**</span></a>extra_props: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
 </ul>
 <p><strong>Examples:</strong></p>
-<p>zfs.volume(“tank/vm-disks/db_srv_04”, “32G”)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="s2">&quot;tank/vm-disks/db_srv_04&quot;</span><span class="p">,</span> <span class="s2">&quot;32G&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -107,6 +107,8 @@
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#full-example">Full Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul class="current">
@@ -119,6 +121,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#remote-systems">Remote Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrading-pyinfra-from-2-x-3-x">Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">2.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">3.x</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrading-pyinfra-from-1-x-2-x">Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">1.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">2.x</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading-pyinfra-from-0-x-1-x">Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">0.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">1.x</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#rename-the-modules-module">Rename the modules module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#naming-operations">Naming operations</a></li>
@@ -183,10 +187,38 @@
 </ul>
 </li>
 <li>OpenSUSE (leap15 + tumbleweed)</li>
-<li>macOS 10.15 (with <a class="reference internal" href="#connectors.html#local"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> connector</span></a>)</li>
-<li>Docker (with <a class="reference internal" href="#connectors.html#docker"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector</span></a>)</li>
+<li>macOS 10.15 (with <a class="reference internal" href="connectors/local.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> connector</span></a>)</li>
+<li>Docker (with <a class="reference internal" href="connectors/docker.html"><span class="doc std std-doc"><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> connector</span></a>)</li>
 </ul>
 <p>In general, the only requirement on the remote side is shell access. POSIX commands are used where possible for facts and operations, so most of the <code class="docutils literal notranslate"><span class="pre">server</span></code> and <code class="docutils literal notranslate"><span class="pre">files</span></code> operations should work anywhere POSIX.</p>
+</div>
+<div class="section" id="upgrading-pyinfra-from-2-x-3-x">
+<h2>Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">2.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">3.x</span></code><a class="headerlink" href="#upgrading-pyinfra-from-2-x-3-x" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li>Rename <code class="docutils literal notranslate"><span class="pre">_use_sudo_password</span></code> argument to <code class="docutils literal notranslate"><span class="pre">_sudo_password</span></code></li>
+<li>Deploy decorator must be called:</li>
+</ul>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># Old, 2.x decorator</span>
+<span class="nd">@deploy</span>
+<span class="k">def</span> <span class="nf">mydeploy</span><span class="p">():</span>
+    <span class="o">...</span>
+
+<span class="c1"># New, 3.x decorator</span>
+<span class="nd">@deploy</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">mydeploy</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Remove <code class="docutils literal notranslate"><span class="pre">&#64;winrm</span></code> connector, will come back as <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra-windows"><code class="docutils literal notranslate"><span class="pre">pyinfra-windows</span></code></a></li>
+</ul>
+</div>
+<div class="section" id="upgrading-pyinfra-from-1-x-2-x">
+<h2>Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">1.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">2.x</span></code><a class="headerlink" href="#upgrading-pyinfra-from-1-x-2-x" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li>Python 2.7 (finally!), 3.5 support dropped, Python 3.6 is now the minimum required version</li>
+<li>The “deploy directory” concept has been removed - everything now executes from the current working directory which removes the ambiguous magic v1 used to pick a deploy directory. A new –chdir CLI flag has been added to set the working directory before pyinfra executes</li>
+</ul>
 </div>
 <div class="section" id="upgrading-pyinfra-from-0-x-1-x">
 <h2>Upgrading pyinfra from <code class="docutils literal notranslate"><span class="pre">0.x</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">1.x</span></code><a class="headerlink" href="#upgrading-pyinfra-from-0-x-1-x" title="Permalink to this heading">¶</a></h2>
