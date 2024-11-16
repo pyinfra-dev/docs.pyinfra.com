@@ -209,8 +209,8 @@
 </div>
 <div class="section" id="git-config">
 <span id="operations-git-config"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.config</span></code><a class="headerlink" href="#git-config" title="Permalink to this heading">¶</a></h2>
-<p>Manage git config for a repository or globally.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">multi_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<p>Manage git config at repository, user or system level.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">multi_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -218,13 +218,29 @@
 <li><strong>value</strong>: the value this key should have</li>
 <li><strong>multi_value</strong>: Add the value rather than set it for settings that can have multiple values</li>
 <li><strong>repo</strong>: specify the git repo path to edit local config (defaults to global)</li>
+<li><strong>system</strong>: whether, when <code class="docutils literal notranslate"><span class="pre">repo</span></code> is unspecified, to work at system level (or default to global)</li>
 </ul>
-<p><strong>Example:</strong></p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user name is set for a repo&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Always prune specified repo&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fetch.prune&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user name is set for all repos of specified user&quot;</span><span class="p">,</span>
     <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user.name&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Anon E. Mouse&quot;</span><span class="p">,</span>
-    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;anon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure same date format for all users&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;log.date&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;iso&quot;</span><span class="p">,</span>
+    <span class="n">system</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </pre></div>
 </div>
