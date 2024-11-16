@@ -11,6 +11,7 @@ All operations in this module take four optional arguments:
     + ``psql_password``: the password for the connecting user
     + ``psql_host``: the hostname of the server to connect to
     + ``psql_port``: the port of the server to connect to
+    + ``psql_database``: the database on the server to connect to
 
 See example/postgresql.py for detailed example
 
@@ -32,7 +33,7 @@ Add/remove PostgreSQL databases.
         encoding: str | None=None, lc_collate: str | None=None, lc_ctype: str | None=None,
         tablespace: str | None=None, connection_limit: int | None=None,
         psql_user: str | None=None, psql_password: str | None=None, psql_host: str | None=None,
-        psql_port: int | None=None,
+        psql_port: int | None=None, psql_database: str | None=None,
     )
 
 + **name**: name of the database
@@ -80,12 +81,11 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
 .. code:: python
 
     postgres.dump(
-        dest: str, database: str | None=None, psql_user: str | None=None,
-        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+        dest: str, psql_user: str | None=None, psql_password: str | None=None,
+        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
     )
 
 + **dest**: name of the file to dump the SQL to
-+ **database**: name of the database to dump
 + **psql_***: global module arguments, see above
 
 **Example:**
@@ -95,7 +95,6 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
     postgresql.dump(
         name="Dump the pyinfra_stuff database",
         dest="/tmp/pyinfra_stuff.dump",
-        database="pyinfra_stuff",
         sudo_user="postgres",
     )
 
@@ -116,12 +115,11 @@ Load ``.sql`` file into a database.
 .. code:: python
 
     postgres.load(
-        src: str, database: str | None=None, psql_user: str | None=None,
-        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+        src: str, psql_user: str | None=None, psql_password: str | None=None,
+        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
     )
 
 + **src**: the filename to read from
-+ **database**: name of the database to import into
 + **psql_***: global module arguments, see above
 
 **Example:**
@@ -131,7 +129,6 @@ Load ``.sql`` file into a database.
     postgresql.load(
         name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
         src="/tmp/pyinfra_stuff.dump",
-        database="pyinfra_stuff_copy",
         sudo_user="postgres",
     )
 
@@ -150,6 +147,7 @@ Add/remove PostgreSQL roles.
         inherit=False, createdb=False, createrole=False, replication=False,
         connection_limit: int | None=None, psql_user: str | None=None,
         psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+        psql_database: str | None=None,
     )
 
 + **role**: name of the role
@@ -199,11 +197,10 @@ Execute arbitrary SQL against PostgreSQL.
 .. code:: python
 
     postgres.sql(
-        sql: str, database: str | None=None, psql_user: str | None=None,
-        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+        sql: str, psql_user: str | None=None, psql_password: str | None=None,
+        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
     )
 
 + **sql**: SQL command(s) to execute
-+ **database**: optional database to execute against
 + **psql_***: global module arguments, see above
 
