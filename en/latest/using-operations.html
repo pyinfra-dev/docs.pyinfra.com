@@ -350,6 +350,33 @@
 <span class="n">local</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;tasks/install_something.py&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Additional data can be passed across files via the <code class="docutils literal notranslate"><span class="pre">data</span></code> param to parameterize tasks and is available in <code class="docutils literal notranslate"><span class="pre">host.data</span></code>. For example <cite>tasks/create_user.py</cite> could look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">getpass</span> <span class="kn">import</span> <span class="n">getpass</span>
+
+<span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
+
+<span class="n">group</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">)</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Ensure </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2"> is present&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Ensure </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2"> is present&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And and be called by other deploy scripts or tasks:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">local</span>
+
+<span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;Joe&quot;</span><span class="p">)):</span>
+    <span class="n">local</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;tasks/create_user.py&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">})</span>
+</pre></div>
+</div>
 <p>See more in <a class="reference internal" href="examples/groups_roles.html"><span class="doc">examples: groups &amp; roles</span></a>.</p>
 </div>
 <div class="section" id="the-config-object">
