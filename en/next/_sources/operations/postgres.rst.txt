@@ -28,9 +28,11 @@ Add/remove PostgreSQL databases.
 .. code:: python
 
     postgres.database(
-        database, present=True, owner=None, template=None, encoding=None, lc_collate=None,
-        lc_ctype=None, tablespace=None, connection_limit=None, psql_user=None, psql_password=None,
-        psql_host=None, psql_port=None,
+        database: str, present=True, owner: str | None=None, template: str | None=None,
+        encoding: str | None=None, lc_collate: str | None=None, lc_ctype: str | None=None,
+        tablespace: str | None=None, connection_limit: int | None=None,
+        psql_user: str | None=None, psql_password: str | None=None, psql_host: str | None=None,
+        psql_port: int | None=None,
     )
 
 + **name**: name of the database
@@ -77,7 +79,10 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
 
 .. code:: python
 
-    postgres.dump(dest, database=None, psql_user=None, psql_password=None, psql_host=None, psql_port=None)
+    postgres.dump(
+        dest: str, database: str | None=None, psql_user: str | None=None,
+        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+    )
 
 + **dest**: name of the file to dump the SQL to
 + **database**: name of the database to dump
@@ -110,7 +115,10 @@ Load ``.sql`` file into a database.
 
 .. code:: python
 
-    postgres.load(src, database=None, psql_user=None, psql_password=None, psql_host=None, psql_port=None)
+    postgres.load(
+        src: str, database: str | None=None, psql_user: str | None=None,
+        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+    )
 
 + **src**: the filename to read from
 + **database**: name of the database to import into
@@ -138,9 +146,10 @@ Add/remove PostgreSQL roles.
 .. code:: python
 
     postgres.role(
-        role, present=True, password=None, login=True, superuser=False, inherit=False,
-        createdb=False, createrole=False, replication=False, connection_limit=None,
-        psql_user=None, psql_password=None, psql_host=None, psql_port=None,
+        role: str, present=True, password: str | None=None, login=True, superuser=False,
+        inherit=False, createdb=False, createrole=False, replication=False,
+        connection_limit: int | None=None, psql_user: str | None=None,
+        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
     )
 
 + **role**: name of the role
@@ -189,7 +198,10 @@ Execute arbitrary SQL against PostgreSQL.
 
 .. code:: python
 
-    postgres.sql(sql, database=None, psql_user=None, psql_password=None, psql_host=None, psql_port=None)
+    postgres.sql(
+        sql: str, database: str | None=None, psql_user: str | None=None,
+        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
+    )
 
 + **sql**: SQL command(s) to execute
 + **database**: optional database to execute against

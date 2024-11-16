@@ -24,7 +24,7 @@ Execute commands on other servers over SSH.
 
 .. code:: python
 
-    ssh.command(hostname, command, user=None, port=22)
+    ssh.command(hostname: str, command: str, user: str | None=None, port=22)
 
 + **hostname**: the hostname to connect to
 + **command**: the command to execute
@@ -53,8 +53,8 @@ Download files from other servers using ``scp``.
 .. code:: python
 
     ssh.download(
-        hostname, filename, local_filename=None, force=False, port=22, user=None,
-        ssh_keyscan=False,
+        hostname: str, filename: str, local_filename: str | None=None, force=False, port=22,
+        user: str | None=None, ssh_keyscan=False,
     )
 
 + **hostname**: hostname to upload to
@@ -75,7 +75,7 @@ Check/add hosts to the ``~/.ssh/known_hosts`` file.
 
 .. code:: python
 
-    ssh.keyscan(hostname, force=False, port=22)
+    ssh.keyscan(hostname: str, force=False, port=22)
 
 + **hostname**: hostname that should have a key in ``known_hosts``
 + **force**: if the key already exists, remove and rescan
@@ -106,8 +106,8 @@ Upload files to other servers using ``scp``.
 .. code:: python
 
     ssh.upload(
-        hostname, filename, remote_filename=None, port=22, user=None, use_remote_sudo=False,
-        ssh_keyscan=False,
+        hostname: str, filename: str, remote_filename: str | None=None, port=22,
+        user: str | None=None, use_remote_sudo=False, ssh_keyscan=False,
     )
 
 + **hostname**: hostname to upload to

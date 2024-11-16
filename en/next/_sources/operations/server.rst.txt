@@ -18,8 +18,9 @@ Add/remove/update crontab entries.
 .. code:: python
 
     server.crontab(
-        command, present=True, user=None, cron_name=None, minute="*", hour="*", month="*",
-        day_of_week="*", day_of_month="*", special_time=None, interpolate_variables=False,
+        command: str, present=True, user: str | None=None, cron_name: str | None=None, minute="*",
+        hour="*", month="*", day_of_week="*", day_of_month="*", special_time: str | None=None,
+        interpolate_variables=False,
     )
 
 + **command**: the command for the cron
@@ -67,7 +68,7 @@ Add/remove system groups.
 
 .. code:: python
 
-    server.group(group, present=True, system=False, gid=None)
+    server.group(group: str, present=True, system=False, gid: int | str | None=None)
 
 + **group**: name of the group to ensure
 + **present**: whether the group should be present or not
@@ -103,7 +104,7 @@ Set the system hostname using ``hostnamectl`` or ``hostname`` on older systems.
 
 .. code:: python
 
-    server.hostname(hostname, hostname_file=None)
+    server.hostname(hostname: str, hostname_file: str | None=None)
 
 + **hostname**: the hostname that should be set
 + **hostname_file**: the file that permanently sets the hostname
@@ -136,7 +137,7 @@ Enable/Disable locale.
 
 .. code:: python
 
-    server.locale(locale, present=True)
+    server.locale(locale: str, present=True)
 
 + **locale**: name of the locale to enable/disable
 + **present**: whether this locale should be present or not
@@ -166,7 +167,7 @@ Load/unload kernel modules.
 
 .. code:: python
 
-    server.modprobe(module, present=True, force=False)
+    server.modprobe(module: str, present=True, force=False)
 
 + **module**: name of the module to manage
 + **present**: whether the module should be loaded or not
@@ -191,7 +192,10 @@ Manage mounted filesystems.
 
 .. code:: python
 
-    server.mount(path, mounted=True, options=None, device=None, fs_type=None)
+    server.mount(
+        path: str, mounted=True, options: list[str] | None=None, device: str | None=None,
+        fs_type: str | None=None,
+    )
 
 + **path**: the path of the mounted filesystem
 + **mounted**: whether the filesystem should be mounted
@@ -216,7 +220,7 @@ system package managers pyinfra can handle and executes the relevant operation.
 
 .. code:: python
 
-    server.packages(packages, present=True)
+    server.packages(packages: str | list[str], present=True)
 
 + **packages**: list of packages to ensure
 + **present**: whether the packages should be installed
@@ -278,7 +282,7 @@ Upload and execute a local script on the remote host.
 
 .. code:: python
 
-    server.script(src, args=())
+    server.script(src: str, args=())
 
 + **src**: local script filename to upload & execute
 + **args**: iterable to pass as arguments to the script
@@ -316,7 +320,7 @@ Generate, upload and execute a local script template on the remote host.
 
 .. code:: python
 
-    server.script_template(src, args=())
+    server.script_template(src: str, args=())
 
 + **src**: local script template filename
 
@@ -345,7 +349,7 @@ Edit /etc/security/limits.conf configuration.
 
 .. code:: python
 
-    server.security_limit(domain, limit_type, item, value)
+    server.security_limit(domain: str, limit_type: str, item: str, value: int)
 
 + **domain**: the domain (user, group, or wildcard) for the limit
 + **limit_type**: the type of limit (hard or soft)
@@ -375,7 +379,10 @@ Linux init systems pyinfra can handle and executes the relevant operation.
 
 .. code:: python
 
-    server.service(service, running=True, restarted=False, reloaded=False, command=None, enabled=None)
+    server.service(
+        service: str, running=True, restarted=False, reloaded=False, command: str | None=None,
+        enabled: bool | None=None,
+    )
 
 + **service**: name of the service to manage
 + **running**: whether the service should be running
@@ -412,7 +419,7 @@ since facts are only run at the start of a deploy.
 
 .. code:: python
 
-    server.shell(commands)
+    server.shell(commands: str | list[str])
 
 + **commands**: command or list of commands to execute on the remote server
 
@@ -435,7 +442,10 @@ Edit sysctl configuration.
 
 .. code:: python
 
-    server.sysctl(key, value, persist=False, persist_file="/etc/sysctl.conf")
+    server.sysctl(
+        key: str, value: str | int | list[str | int], persist=False,
+        persist_file="/etc/sysctl.conf",
+    )
 
 + **key**: name of the sysctl setting to ensure
 + **value**: the value or list of values the sysctl should be
@@ -464,9 +474,11 @@ Add/remove/update system users & their ssh `authorized_keys`.
 .. code:: python
 
     server.user(
-        user, present=True, home=None, shell=None, group=None, groups=None, public_keys=None,
-        delete_keys=False, ensure_home=True, create_home=False, system=False, uid=None,
-        comment=None, add_deploy_dir=True, unique=True, password=None,
+        user: str, present=True, home: str | None=None, shell: str | None=None,
+        group: str | None=None, groups: list[str] | None=None,
+        public_keys: str | list[str] | None=None, delete_keys=False, ensure_home=True,
+        create_home=False, system=False, uid: int | None=None, comment: str | None=None,
+        add_deploy_dir=True, unique=True, password: str | None=None,
     )
 
 + **user**: name of the user to ensure
@@ -531,8 +543,8 @@ Manage `authorized_keys` of system users.
 .. code:: python
 
     server.user_authorized_keys(
-        user, public_keys, group=None, delete_keys=False, authorized_key_directory=None,
-        authorized_key_filename=None,
+        user: str, public_keys: str | list[str], group: str | None=None, delete_keys=False,
+        authorized_key_directory: str | None=None, authorized_key_filename: str | None=None,
     )
 
 + **user**: name of the user to ensure
@@ -571,7 +583,7 @@ second.
 
 .. code:: python
 
-    server.wait(port)
+    server.wait(port: int)
 
 + **port**: port number to wait for
 

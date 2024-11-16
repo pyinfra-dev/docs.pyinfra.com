@@ -16,7 +16,7 @@ Add/remove/update iptables chains.
 
 .. code:: python
 
-    iptables.chain(chain, present=True, table="filter", policy=None, version=4)
+    iptables.chain(chain: str, present=True, table="filter", policy: str | None=None, version=4)
 
 + **chain**: the name of the chain
 + **present**: whether the chain should exist
@@ -38,11 +38,14 @@ Add/remove iptables rules.
 .. code:: python
 
     iptables.rule(
-        chain, jump, present=True, table="filter", append=True, version=4, protocol=None,
-        not_protocol=None, source=None, not_source=None, destination=None, not_destination=None,
-        in_interface=None, not_in_interface=None, out_interface=None, not_out_interface=None,
-        to_destination=None, to_source=None, to_ports=None, log_prefix=None,
-        destination_port=None, source_port=None, extras="",
+        chain: str, jump: str, present: bool=True, table: str="filter", append: bool=True,
+        version: int=4, protocol: str | None=None, not_protocol: str | None=None,
+        source: str | None=None, not_source: str | None=None, destination: str | None=None,
+        not_destination: str | None=None, in_interface: str | None=None,
+        not_in_interface: str | None=None, out_interface: str | None=None,
+        not_out_interface: str | None=None, to_destination: str | None=None,
+        to_source: str | None=None, to_ports: int | str | None=None, log_prefix: str | None=None,
+        destination_port: int | None=None, source_port: int | None=None, extras: str="",
     )
 
 + **chain**: the chain this rule should live in

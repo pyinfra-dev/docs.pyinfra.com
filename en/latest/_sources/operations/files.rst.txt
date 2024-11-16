@@ -17,9 +17,10 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 .. code:: python
 
     files.block(
-        path, content=None, present=True, line=None, backup=False, escape_regex_characters=False,
-        try_prevent_shell_expansion=False, before=False, after=False, marker=None, begin=None,
-        end=None,
+        path: str, content: str | list[str] | None=None, present=True, line: str | None=None,
+        backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False,
+        before=False, after=False, marker: str | None=None, begin: str | None=None,
+        end: str | None=None,
     )
 
 + **path**: target remote file
@@ -108,8 +109,9 @@ Add/remove/update directories.
 .. code:: python
 
     files.directory(
-        path, present=True, user=None, group=None, mode=None, recursive=False, force=False,
-        force_backup=True, force_backup_dir=None,
+        path: str, present=True, user: str | None=None, group: str | None=None,
+        mode: int | str | None=None, recursive=False, force=False, force_backup=True,
+        force_backup_dir: str | None=None,
     )
 
 + **path**: path of the remote folder
@@ -157,8 +159,10 @@ Download files from remote locations using ``curl`` or ``wget``.
 .. code:: python
 
     files.download(
-        src, dest, user=None, group=None, mode=None, cache_time=None, force=False, sha256sum=None,
-        sha1sum=None, md5sum=None, headers=None, insecure=False, proxy=None,
+        src: str, dest: str, user: str | None=None, group: str | None=None, mode: str | None=None,
+        cache_time: int | None=None, force=False, sha256sum: str | None=None,
+        sha1sum: str | None=None, md5sum: str | None=None, headers: dict[str, str] | None=None,
+        insecure=False, proxy: str | None=None,
     )
 
 + **src**: source URL of the file
@@ -196,8 +200,9 @@ Add/remove/update files.
 .. code:: python
 
     files.file(
-        path, present=True, user=None, group=None, mode=None, touch=False, create_remote_dir=True,
-        force=False, force_backup=True, force_backup_dir=None,
+        path: str, present=True, user: str | None=None, group: str | None=None,
+        mode: int | str | None=None, touch=False, create_remote_dir=True, force=False,
+        force_backup=True, force_backup_dir: str | None=None,
     )
 
 + **path**: name/path of the remote file
@@ -241,7 +246,7 @@ Set/clear file flags.
 
 .. code:: python
 
-    files.flags(path, flags=None, present=True)
+    files.flags(path: str, flags: list[str] | None=None, present=True)
 
 + **path**: path of the remote folder
 + **flags**: a list of the file flags to be set or cleared
@@ -282,7 +287,7 @@ Download a file from the remote system.
 
 .. code:: python
 
-    files.get(src, dest, add_deploy_dir=True, create_local_dir=False, force=False)
+    files.get(src: str, dest: str, add_deploy_dir=True, create_local_dir=False, force=False)
 
 + **src**: the remote filename to download
 + **dest**: the local filename to download the file to
@@ -315,8 +320,9 @@ Ensure lines in files using grep to locate and sed to replace.
 .. code:: python
 
     files.line(
-        path, line, present=True, replace=None, flags=None, backup=False,
-        interpolate_variables=False, escape_regex_characters=False, ensure_newline=False,
+        path: str, line: str, present=True, replace: str | None=None,
+        flags: list[str] | None=None, backup=False, interpolate_variables=False,
+        escape_regex_characters=False, ensure_newline=False,
     )
 
 + **path**: target remote file to edit
@@ -409,8 +415,9 @@ Add/remove/update links.
 .. code:: python
 
     files.link(
-        path, target=None, present=True, user=None, group=None, symbolic=True,
-        create_remote_dir=True, force=False, force_backup=True, force_backup_dir=None,
+        path: str, target: str | None=None, present=True, user: str | None=None,
+        group: str | None=None, symbolic=True, create_remote_dir=True, force=False,
+        force_backup=True, force_backup_dir: str | None=None,
     )
 
 + **path**: the name of the link
@@ -454,7 +461,8 @@ Upload a local file, or file-like object, to the remote system.
 .. code:: python
 
     files.put(
-        src, dest, user=None, group=None, mode=None, add_deploy_dir=True, create_remote_dir=True,
+        src: str | IO[Any], dest: str, user: str | None=None, group: str | None=None,
+        mode: int | str | bool | None=None, add_deploy_dir=True, create_remote_dir=True,
         force=False, assume_exists=False,
     )
 
@@ -513,8 +521,8 @@ Replace contents of a file using ``sed``.
 .. code:: python
 
     files.replace(
-        path, text=None, replace=None, flags=None, backup=False, interpolate_variables=False,
-        match=None,
+        path: str, text: str | None=None, replace: str | None=None, flags: list[str] | None=None,
+        backup=False, interpolate_variables=False, match=None,
     )
 
 + **path**: target remote file to edit
@@ -557,7 +565,7 @@ the ``rsync`` binary on your system.
 
 .. code:: python
 
-    files.rsync(src, dest, flags=None)
+    files.rsync(src: str, dest: str, flags: list[str] | None=None)
 
 .. important::
     The ``files.rsync`` operation is in alpha, and only supported using SSH
@@ -580,8 +588,10 @@ remove extra files on the remote side, but not extra directories.
 .. code:: python
 
     files.sync(
-        src, dest, user=None, group=None, mode=None, dir_mode=None, delete=False, exclude=None,
-        exclude_dir=None, add_deploy_dir=True,
+        src: str, dest: str, user: str | None=None, group: str | None=None, mode: str | None=None,
+        dir_mode: str | None=None, delete=False,
+        exclude: str | list[str] | tuple[str] | None=None,
+        exclude_dir: str | list[str] | tuple[str] | None=None, add_deploy_dir=True,
     )
 
 + **src**: local directory to sync
@@ -624,7 +634,11 @@ Generate a template using jinja2 and write it to the remote system.
 
 .. code:: python
 
-    files.template(src, dest, user=None, group=None, mode=None, create_remote_dir=True, jinja_env_kwargs=None)
+    files.template(
+        src: str | IO[Any], dest: str, user: str | None=None, group: str | None=None,
+        mode: str | None=None, create_remote_dir: bool=True,
+        jinja_env_kwargs: dict[str, Any] | None=None,
+    )
 
 + **src**: template filename or IO-like object
 + **dest**: remote filename

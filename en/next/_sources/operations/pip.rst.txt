@@ -18,8 +18,9 @@ Install/remove/update pip packages.
 .. code:: python
 
     pip.packages(
-        packages=None, present=True, latest=False, requirements=None, pip="pip", virtualenv=None,
-        virtualenv_kwargs=None, extra_install_args=None,
+        packages: str | list[str] | None=None, present=True, latest=False,
+        requirements: str | None=None, pip="pip", virtualenv: str | None=None,
+        virtualenv_kwargs: dict | None=None, extra_install_args: str | None=None,
     )
 
 + **packages**: list of packages to ensure
@@ -59,7 +60,7 @@ Add/remove Python virtualenvs.
 
 .. code:: python
 
-    pip.venv(path, python=None, site_packages=False, always_copy=False, present=True)
+    pip.venv(path: str, python: str | None=None, site_packages=False, always_copy=False, present=True)
 
 + **python**: python interpreter to use
 + **site_packages**: give access to the global site-packages
@@ -85,7 +86,10 @@ Add/remove Python virtualenvs.
 
 .. code:: python
 
-    pip.virtualenv(path, python=None, venv=False, site_packages=False, always_copy=False, present=True)
+    pip.virtualenv(
+        path: str, python: str | None=None, venv=False, site_packages=False, always_copy=False,
+        present=True,
+    )
 
 + **python**: python interpreter to use
 + **venv**: use standard venv module instead of virtualenv

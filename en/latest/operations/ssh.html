@@ -195,7 +195,7 @@
 <p class="last">This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Execute commands on other servers over SSH.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -218,8 +218,8 @@
 <span id="operations-ssh-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.download</span></code><a class="headerlink" href="#ssh-download" title="Permalink to this heading">¶</a></h2>
 <p>Download files from other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
-    <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">local_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">local_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -236,7 +236,7 @@
 <div class="section" id="ssh-keyscan">
 <span id="operations-ssh-keyscan"></span><h2><code class="code docutils literal notranslate"><span class="pre">ssh.keyscan</span></code><a class="headerlink" href="#ssh-keyscan" title="Permalink to this heading">¶</a></h2>
 <p>Check/add hosts to the <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code> file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -259,8 +259,8 @@
 </div>
 <p>Upload files to other servers using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
-    <span class="n">hostname</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">remote_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_remote_sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">remote_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_remote_sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

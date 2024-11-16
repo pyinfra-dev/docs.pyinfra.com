@@ -22,7 +22,7 @@ Reload the systemd daemon to read unit file changes.
 
 .. code:: python
 
-    systemd.daemon_reload(user_mode=False, machine=None, user_name=None)
+    systemd.daemon_reload(user_mode=False, machine: str | None=None, user_name: str | None=None)
 
 + **user_mode**: whether to use per-user systemd (systemctl --user) or not
 + **machine**: the machine name to connect to
@@ -39,8 +39,9 @@ Manage the state of systemd managed units.
 .. code:: python
 
     systemd.service(
-        service, running=True, restarted=False, reloaded=False, command=None, enabled=None,
-        daemon_reload=False, user_mode=False, machine=None, user_name=None,
+        service: str, running=True, restarted=False, reloaded=False, command: str | None=None,
+        enabled: bool | None=None, daemon_reload=False, user_mode=False, machine: str | None=None,
+        user_name: str | None=None,
     )
 
 + **service**: name of the systemd unit to manage

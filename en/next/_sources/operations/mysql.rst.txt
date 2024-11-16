@@ -25,9 +25,10 @@ Facts used in these operations: :ref:`facts:mysql.MysqlDatabases`, :ref:`facts:m
 .. code:: python
 
     mysql.database(
-        database, present=True, collate=None, charset=None, user=None, user_hostname="localhost",
-        user_privileges="ALL", mysql_user=None, mysql_password=None, mysql_host=None,
-        mysql_port=None,
+        database: str, present: bool=True, collate: str | None=None, charset: str | None=None,
+        user: str | None=None, user_hostname: str="localhost",
+        user_privileges: str | list[str]="ALL", mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
     )
 
 
@@ -47,8 +48,8 @@ Dump a MySQL database into a ``.sql`` file. Requires ``mysqldump``.
 .. code:: python
 
     mysql.dump(
-        dest, database=None, mysql_user=None, mysql_password=None, mysql_host=None,
-        mysql_port=None,
+        dest: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
     )
 
 + **dest**: name of the file to dump the SQL to
@@ -81,7 +82,10 @@ Load ``.sql`` file into a database.
 
 .. code:: python
 
-    mysql.load(src, database=None, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
+    mysql.load(
+        src: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+    )
 
 + **src**: the filename to read from
 + **database**: name of the database to import into
@@ -108,9 +112,9 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 .. code:: python
 
     mysql.privileges(
-        user, privileges, user_hostname="localhost", database="*", table="*", flush=True,
-        with_grant_option=False, mysql_user=None, mysql_password=None, mysql_host=None,
-        mysql_port=None,
+        user: str, privileges: str | list[str] | set[str], user_hostname="localhost",
+        database="*", table="*", flush=True, with_grant_option=False, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
     )
 
 + **user**: name of the user to manage privileges for
@@ -138,7 +142,10 @@ Execute arbitrary SQL against MySQL.
 
 .. code:: python
 
-    mysql.sql(sql, database=None, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
+    mysql.sql(
+        sql: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+    )
 
 + **sql**: SQL command(s) to execute
 + **database**: optional database to open the connection with
@@ -152,10 +159,12 @@ Execute arbitrary SQL against MySQL.
 .. code:: python
 
     mysql.user(
-        user, present=True, user_hostname="localhost", password=None, privileges=None,
-        require=None, require_cipher=None, require_issuer=None, require_subject=None,
-        max_connections=None, max_queries_per_hour=None, max_updates_per_hour=None,
-        max_connections_per_hour=None, mysql_user=None, mysql_password=None, mysql_host=None,
-        mysql_port=None,
+        user: str, present: bool=True, user_hostname: str="localhost", password: str | None=None,
+        privileges: str | list[str] | None=None, require: str | None=None,
+        require_cipher: str | None=None, require_issuer: str | None=None,
+        require_subject: str | None=None, max_connections: int | None=None,
+        max_queries_per_hour: int | None=None, max_updates_per_hour: int | None=None,
+        max_connections_per_hour: int | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
     )
 
