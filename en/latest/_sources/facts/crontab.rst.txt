@@ -1,0 +1,46 @@
+Crontab Facts
+-------------
+
+See also: :doc:`../operations/crontab`.
+
+.. _facts:crontab.Crontab:
+
+:code:`crontab.Crontab`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Crontab, user=None)
+
+Returns a dictionary of CrontabFile.
+
+.. code:: python
+    # CrontabFile.items()
+    {
+        "/path/to/command": {
+            "minute": "*",
+            "hour": "*",
+            "month": "*",
+            "day_of_month": "*",
+            "day_of_week": "*",
+        },
+        "echo another command": {
+            "special_time": "@daily",
+        },
+    }
+    # or CrontabFile.to_json()
+    [
+        {
+           command: "/path/to/command",
+           minute: "*",
+           hour: "*",
+           month: "*",
+           day_of_month: "*",
+           day_of_week: "*",
+        },
+        {
+            "command": "echo another command
+            "special_time": "@daily",
+        }
+    ]
+

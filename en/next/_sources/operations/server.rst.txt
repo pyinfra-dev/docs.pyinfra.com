@@ -6,58 +6,7 @@ The server module takes care of os-level state. Targets POSIX compatibility, tes
 Linux/BSD.
 
 
-Facts used in these operations: :ref:`facts:server.Crontab`, :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
-
-.. _operations:server.crontab:
-
-:code:`server.crontab`
-~~~~~~~~~~~~~~~~~~~~~~
-
-Add/remove/update crontab entries.
-
-.. code:: python
-
-    server.crontab(
-        command: str, present=True, user: str | None=None, cron_name: str | None=None, minute="*",
-        hour="*", month="*", day_of_week="*", day_of_month="*", special_time: str | None=None,
-        interpolate_variables=False,
-    )
-
-+ **command**: the command for the cron
-+ **present**: whether this cron command should exist
-+ **user**: the user whose crontab to manage
-+ **cron_name**: name the cronjob so future changes to the command will overwrite
-+ **minute**: which minutes to execute the cron
-+ **hour**: which hours to execute the cron
-+ **month**: which months to execute the cron
-+ **day_of_week**: which day of the week to execute the cron
-+ **day_of_month**: which day of the month to execute the cron
-+ **special_time**: cron "nickname" time (@reboot, @daily, etc), overrides others
-+ **interpolate_variables**: whether to interpolate variables in ``command``
-
-Cron commands:
-    Unless ``name`` is specified the command is used to identify crontab entries.
-    This means commands must be unique within a given users crontab. If you require
-    multiple identical commands, provide a different name argument for each.
-
-Special times:
-    When provided, ``special_time`` will be used instead of any values passed in
-    for ``minute``/``hour``/``month``/``day_of_week``/``day_of_month``.
-
-**Example:**
-
-.. code:: python
-
-    # simple example for a crontab
-    server.crontab(
-        name="Backup /etc weekly",
-        command="/bin/tar cf /tmp/etc_bup.tar /etc",
-        name="backup_etc",
-        day_of_week=0,
-        hour=1,
-        minute=0,
-    )
-
+Facts used in these operations: :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
 
 .. _operations:server.group:
 
