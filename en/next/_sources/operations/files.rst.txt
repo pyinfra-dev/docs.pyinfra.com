@@ -5,7 +5,7 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
 
 .. _operations:files.block:
 
@@ -160,9 +160,9 @@ Download files from remote locations using ``curl`` or ``wget``.
 
     files.download(
         src: str, dest: str, user: str | None=None, group: str | None=None, mode: str | None=None,
-        cache_time: int | None=None, force=False, sha256sum: str | None=None,
-        sha1sum: str | None=None, md5sum: str | None=None, headers: dict[str, str] | None=None,
-        insecure=False, proxy: str | None=None,
+        cache_time: int | None=None, force=False, sha384sum: str | None=None,
+        sha256sum: str | None=None, sha1sum: str | None=None, md5sum: str | None=None,
+        headers: dict[str, str] | None=None, insecure=False, proxy: str | None=None,
     )
 
 + **src**: source URL of the file
@@ -172,6 +172,7 @@ Download files from remote locations using ``curl`` or ``wget``.
 + **mode**: permissions of the files
 + **cache_time**: if the file exists already, re-download after this time (in seconds)
 + **force**: always download the file, even if it already exists
++ **sha384sum**: sha384 hash to checksum the downloaded file against
 + **sha256sum**: sha256 hash to checksum the downloaded file against
 + **sha1sum**: sha1 hash to checksum the downloaded file against
 + **md5sum**: md5 hash to checksum the downloaded file against
