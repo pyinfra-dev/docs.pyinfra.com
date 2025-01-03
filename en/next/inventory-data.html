@@ -151,25 +151,22 @@
 <p>By default, pyinfra assumes hosts are SSH servers and the name of the host is used as the SSH hostname. Prefixing the name of the host with <code class="docutils literal notranslate"><span class="pre">&#64;&lt;connector-name&gt;/</span></code> is used to activate alternative connectors. See: <a class="reference internal" href="connectors.html"><span class="doc">Connectors Index</span></a>.</p>
 <div class="section" id="inventory-files">
 <h2>Inventory Files<a class="headerlink" href="#inventory-files" title="Permalink to this heading">¶</a></h2>
-<p>Inventory files contain groups of hosts. Groups are defined as a <code class="docutils literal notranslate"><span class="pre">list</span></code>. For example, this inventory creates two groups, <code class="docutils literal notranslate"><span class="pre">app_servers</span></code> and <code class="docutils literal notranslate"><span class="pre">db_servers</span></code>:</p>
+<p>Inventory files contain groups of hosts. Groups are defined as a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">tuple</span></code>. For example, this inventory creates two groups, <code class="docutils literal notranslate"><span class="pre">app_servers</span></code> and <code class="docutils literal notranslate"><span class="pre">db_servers</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app_servers</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;app-1.net&quot;</span><span class="p">,</span>
     <span class="s2">&quot;app-2.net&quot;</span>
 <span class="p">]</span>
 
-<span class="n">db_servers</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;db-1.net&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;db-2.net&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;db-3.net&quot;</span><span class="p">,</span>
-<span class="p">]</span>
+<span class="n">db_servers</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;db-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;db-2.net&quot;</span><span class="p">,</span> <span class="s2">&quot;db-3.net&quot;</span><span class="p">,],</span> <span class="p">{})</span>
 </pre></div>
 </div>
-<p>If you save this file as <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>, you can then use it in when executing pyinfra:</p>
+<p>If you save this file as <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code>, you can then use it when executing pyinfra:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>OPERATIONS...
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
+<p>Group names starting with a leading <code class="docutils literal notranslate"><span class="pre">_</span></code> are intentionally ignored.</p>
 <p class="last">In addition to the groups defined in the inventory, all the hosts are added to a group with the name of the inventory file (eg <code class="docutils literal notranslate"><span class="pre">production.py</span></code> becomes <code class="docutils literal notranslate"><span class="pre">production</span></code>).</p>
 </div>
 </div>
