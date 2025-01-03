@@ -194,6 +194,14 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="section" id="unit-tests">
 <h4>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this heading">¶</a></h4>
 <p>Use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to run the unit tests, or <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--cov</span></code> to run with coverage. Pull requests are expected to be tested and not drop overall project coverage by &gt;1%.</p>
+<p>To limit the pytests to a specific fact or operation:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only run fact tests for facts.efibootmgr.EFIBootMGR</span>
+pytest<span class="w"> </span>tests/test_facts.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;efibootmgr.EFIBootMGR&quot;</span>
+
+<span class="c1"># Only run operation tests for operations.selinux</span>
+pytest<span class="w"> </span>tests/test_operations.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;selinux.&quot;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="end-to-end-tests">
 <h4>End to End Tests<a class="headerlink" href="#end-to-end-tests" title="Permalink to this heading">¶</a></h4>
