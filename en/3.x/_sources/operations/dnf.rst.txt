@@ -22,7 +22,7 @@ Add dnf gpg keys with ``rpm``.
 
 .. code:: python
 
-    dnf.key(src)
+    dnf.key(src: str)
 
 + **key**: filename or URL
 
@@ -50,8 +50,9 @@ Install/remove/update dnf packages & updates.
 .. code:: python
 
     dnf.packages(
-        packages=None, present=True, latest=False, update=False, clean=False, nobest=False,
-        extra_install_args=None, extra_uninstall_args=None,
+        packages: str | list[str] | None=None, present=True, latest=False, update=False,
+        clean=False, nobest=False, extra_install_args: str | None=None,
+        extra_uninstall_args: str | None=None,
     )
 
 + **packages**: packages to ensure
@@ -95,8 +96,8 @@ Add/remove/update dnf repositories.
 .. code:: python
 
     dnf.repo(
-        src, present=True, baseurl=None, description=None, enabled=True, gpgcheck=True,
-        gpgkey=None,
+        src: str, present=True, baseurl: str | None=None, description: str | None=None,
+        enabled=True, gpgcheck=True, gpgkey: str | None=None,
     )
 
 + **src**: URL or name for the ``.repo``   file
@@ -139,7 +140,7 @@ Add/remove ``.rpm`` file packages.
 
 .. code:: python
 
-    dnf.rpm(src, present=True)
+    dnf.rpm(src: str, present=True)
 
 + **src**: filename or URL of the ``.rpm`` package
 + **present**: whether ore not the package should exist on the system

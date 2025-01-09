@@ -96,8 +96,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
@@ -105,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
@@ -117,8 +116,10 @@
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opkg.html">Opkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipx.html">Pipx Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
@@ -145,16 +146,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -184,7 +185,7 @@
 <p class="last">This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Execute a Python function within a deploy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -193,7 +194,7 @@
 <li><strong>kwargs</strong>: keyword arguments to pass to the function</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;echo hello&#39;</span>
     <span class="k">if</span> <span class="n">hello</span><span class="p">:</span>
         <span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="o">**</span><span class="n">hello</span><span class="o">**</span>
@@ -221,7 +222,7 @@
 <p class="last">This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Raise a Python exception within a deploy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">

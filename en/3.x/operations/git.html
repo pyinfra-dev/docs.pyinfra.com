@@ -96,8 +96,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
@@ -105,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
@@ -123,8 +122,10 @@
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opkg.html">Opkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipx.html">Pipx Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
@@ -147,16 +148,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -183,7 +184,7 @@
 <div class="section" id="git-bare-repo">
 <span id="operations-git-bare-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.bare_repo</span></code><a class="headerlink" href="#git-bare-repo" title="Permalink to this heading">¶</a></h2>
 <p>Create bare git repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">bare_repo</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">bare_repo</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -202,8 +203,8 @@
 </div>
 <div class="section" id="git-config">
 <span id="operations-git-config"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.config</span></code><a class="headerlink" href="#git-config" title="Permalink to this heading">¶</a></h2>
-<p>Manage git config for a repository or globally.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">multi_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<p>Manage git config at repository, user or system level.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">multi_value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -211,13 +212,29 @@
 <li><strong>value</strong>: the value this key should have</li>
 <li><strong>multi_value</strong>: Add the value rather than set it for settings that can have multiple values</li>
 <li><strong>repo</strong>: specify the git repo path to edit local config (defaults to global)</li>
+<li><strong>system</strong>: whether, when <code class="docutils literal notranslate"><span class="pre">repo</span></code> is unspecified, to work at system level (or default to global)</li>
 </ul>
-<p><strong>Example:</strong></p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user name is set for a repo&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Always prune specified repo&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fetch.prune&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user name is set for all repos of specified user&quot;</span><span class="p">,</span>
     <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user.name&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Anon E. Mouse&quot;</span><span class="p">,</span>
-    <span class="n">repo</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;anon&quot;</span>
+<span class="p">)</span>
+
+<span class="n">git</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure same date format for all users&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;log.date&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;iso&quot;</span><span class="p">,</span>
+    <span class="n">system</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -226,8 +243,9 @@
 <span id="operations-git-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.repo</span></code><a class="headerlink" href="#git-repo" title="Permalink to this heading">¶</a></h2>
 <p>Clone/pull git repositories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">update_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">recursive_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">branch</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">recursive_submodules</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -256,9 +274,10 @@
 <span id="operations-git-worktree"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.worktree</span></code><a class="headerlink" href="#git-worktree" title="Permalink to this heading">¶</a></h2>
 <p>Manage git worktrees.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">.</span><span class="n">worktree</span><span class="p">(</span>
-    <span class="n">worktree</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detached</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">new_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">commitish</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">from_remote_branch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_repo_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">worktree</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detached</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">new_branch</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">commitish</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rebase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">from_remote_branch</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">assume_repo_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

@@ -5,7 +5,7 @@ Apt Operations
 Manage apt packages and repositories.
 
 
-Facts used in these operations: :ref:`facts:apt.AptKeys`, :ref:`facts:apt.AptSources`, :ref:`facts:server.Date`, :ref:`facts:deb.DebPackage`, :ref:`facts:deb.DebPackages`, :ref:`facts:files.File`, :ref:`facts:gpg.GpgKey`.
+Facts used in these operations: :ref:`facts:apt.AptKeys`, :ref:`facts:apt.AptSources`, :ref:`facts:server.Date`, :ref:`facts:deb.DebPackage`, :ref:`facts:deb.DebPackages`, :ref:`facts:files.File`, :ref:`facts:gpg.GpgKey`, :ref:`facts:apt.SimulateOperationWillChange`.
 
 .. _operations:apt.deb:
 
@@ -16,7 +16,7 @@ Add/remove ``.deb`` file packages.
 
 .. code:: python
 
-    apt.deb(src, present=True, force=False)
+    apt.deb(src: str, present=True, force=False)
 
 + **src**: filename or URL of the ``.deb`` file
 + **present**: whether or not the package should exist on the system
@@ -46,12 +46,6 @@ URL sources with ``present=False``:
 :code:`apt.dist_upgrade`
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: Stateless operation
-    :class: important
-
-    This operation will always execute commands and is not idempotent.
-
-
 Updates all apt packages, employing dist-upgrade.
 
 .. code:: python
@@ -76,7 +70,7 @@ Add apt gpg keys with ``apt-key``.
 
 .. code:: python
 
-    apt.key(src=None, keyserver=None, keyid=None)
+    apt.key(src: str | None=None, keyserver: str | None=None, keyid: str | list[str] | None=None)
 
 + **src**: filename or URL
 + **keyserver**: URL of keyserver to fetch key from
@@ -117,9 +111,10 @@ Install/remove/update packages & update apt.
 .. code:: python
 
     apt.packages(
-        packages=None, present=True, latest=False, update=False, cache_time=None, upgrade=False,
-        force=False, no_recommends=False, allow_downgrades=False, extra_install_args=None,
-        extra_uninstall_args=None,
+        packages: str | list[str] | None=None, present=True, latest=False, update=False,
+        cache_time: int | None=None, upgrade=False, force=False, no_recommends=False,
+        allow_downgrades=False, extra_install_args: str | None=None,
+        extra_uninstall_args: str | None=None,
     )
 
 + **packages**: list of packages to ensure
@@ -183,7 +178,7 @@ Add/remove Ubuntu ppa repositories.
 
 .. code:: python
 
-    apt.ppa(src, present=True)
+    apt.ppa(src: str, present=True)
 
 + **src**: the PPA name (full ppa:user/repo format)
 + **present**: whether it should exist
@@ -211,7 +206,7 @@ Add/remove apt repositories.
 
 .. code:: python
 
-    apt.repo(src, present=True, filename=None)
+    apt.repo(src: str, present=True, filename: str | None=None)
 
 + **src**: apt source string eg ``deb http://X hardy main``
 + **present**: whether the repo should exist on the system
@@ -243,7 +238,7 @@ Updates apt repositories.
 
 .. code:: python
 
-    apt.update(cache_time=None)
+    apt.update(cache_time: int | None=None)
 
 + **cache_time**: cache updates for this many seconds
 
@@ -262,17 +257,11 @@ Updates apt repositories.
 :code:`apt.upgrade`
 ~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: Stateless operation
-    :class: important
-
-    This operation will always execute commands and is not idempotent.
-
-
 Upgrades all apt packages.
 
 .. code:: python
 
-    apt.upgrade(auto_remove=False)
+    apt.upgrade(auto_remove: bool=False)
 
 + **autoremove**: removes transitive dependencies that are no longer needed.
 

@@ -1,0 +1,61 @@
+Pipx Operations
+---------------
+
+
+Manage pipx (python) applications.
+
+
+Facts used in these operations: :ref:`facts:server.Path`, :ref:`facts:pipx.PipxEnvironment`, :ref:`facts:pipx.PipxPackages`.
+
+.. _operations:pipx.ensure_path:
+
+:code:`pipx.ensure_path`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ensure pipx bin dir is in the PATH.
+
+.. code:: python
+
+    pipx.ensure_path()
+
+
+.. _operations:pipx.packages:
+
+:code:`pipx.packages`
+~~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update pipx packages.
+
+.. code:: python
+
+    pipx.packages(packages=None, present=True, latest=False, extra_args=None)
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **extra_args**: additional arguments to the pipx command
+
+Versions:
+    Package versions can be pinned like pip: ``<pkg>==<version>``.
+
+**Example:**
+
+.. code:: python
+
+    pipx.packages(
+        name="Install ",
+        packages=["pyinfra"],
+    )
+
+
+.. _operations:pipx.upgrade_all:
+
+:code:`pipx.upgrade_all`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Upgrade all pipx packages.
+
+.. code:: python
+
+    pipx.upgrade_all()
+

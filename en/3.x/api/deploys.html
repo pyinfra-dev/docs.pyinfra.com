@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Writing Connectors" href="connectors.html" />
+    <link rel="next" title="Writing Operations" href="operations.html" />
     <link rel="prev" title="How pyinfra Works" href="../deploy-process.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="connectors.html" title="Writing Connectors"
+          <a href="operations.html" title="Writing Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../deploy-process.html" title="How pyinfra Works"
@@ -95,10 +95,9 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
@@ -109,11 +108,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#data-in-deploys">Data in Deploys</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -141,11 +139,11 @@
 <ul class="simple">
 <li>Wrap everything in a function decorated with <code class="docutils literal notranslate"><span class="pre">&#64;deploy(NAME)</span></code></li>
 </ul>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">deploy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
 
 <span class="nd">@deploy</span><span class="p">(</span><span class="s2">&quot;Install MariaDB&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">install_mariadb</span><span class="p">():</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install MariaDB apt package&quot;</span><span class="p">,</span>
         <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mariadb-server&quot;</span><span class="p">],</span>
@@ -153,7 +151,7 @@
 </pre></div>
 </div>
 <p>This could then be used like so:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">packaged_deploy</span> <span class="kn">import</span> <span class="n">install_mariadb</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">packaged_deploy</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_mariadb</span>
 <span class="n">install_mariadb</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -167,7 +165,7 @@
 <div class="section" id="global-arguments">
 <h2>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this heading">¶</a></h2>
 <p>Deploys accept the same <a class="reference internal" href="../arguments.html"><span class="doc std std-doc">global arguments as operations</span></a> and they apply to every operation call within that deploy. Taking the above example:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">packaged_deploy</span> <span class="kn">import</span> <span class="n">install_mariadb</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">packaged_deploy</span><span class="w"> </span><span class="kn">import</span> <span class="n">install_mariadb</span>
 <span class="n">install_mariadb</span><span class="p">(</span><span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -175,16 +173,16 @@
 <div class="section" id="data-in-deploys">
 <h2>Data in Deploys<a class="headerlink" href="#data-in-deploys" title="Permalink to this heading">¶</a></h2>
 <p>Deploys can define their own set of data defaults. Any user provided host or group data with the same name will take precedent. This enables deploys to provide their own sensible default options and enable end-users to customise this by modifying group/host data.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">deploy</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">deploy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
 
 <span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;mariadb_version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="nd">@deploy</span><span class="p">(</span><span class="s2">&quot;Install mariadb&quot;</span><span class="p">,</span> <span class="n">data_defaults</span><span class="o">=</span><span class="n">DEFAULTS</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">install_mariadb</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">install_mariadb</span><span class="p">():</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install MariaDB apt package&quot;</span><span class="p">,</span>
         <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mariadb-server=</span><span class="si">{</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">mariadb_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
@@ -204,8 +202,8 @@
           <span aria-hidden="true">&larr;</span> How pyinfra Works
         </a></li>
       
-        <li class="next"><a href="connectors.html">
-          Writing Connectors <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="operations.html">
+          Writing Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -225,7 +223,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="connectors.html" title="Writing Connectors"
+          <a href="operations.html" title="Writing Operations"
              >next</a> |</li>
         <li class="right" >
           <a href="../deploy-process.html" title="How pyinfra Works"

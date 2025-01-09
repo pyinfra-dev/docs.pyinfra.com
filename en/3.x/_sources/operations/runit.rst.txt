@@ -16,7 +16,7 @@ Start service automatically by managing the ``service/down`` file.
 
 .. code:: python
 
-    runit.auto(service, auto=True, sourcedir="/etc/sv")
+    runit.auto(service: str, auto: bool=True, sourcedir: str="/etc/sv")
 
 + **service**: name of the service to manage
 + **auto**: whether the service should start automatically
@@ -32,7 +32,7 @@ Manage runit svdir links.
 
 .. code:: python
 
-    runit.manage(service, managed=True, svdir="/var/service", sourcedir="/etc/sv")
+    runit.manage(service: str, managed: bool=True, svdir: str="/var/service", sourcedir: str="/etc/sv")
 
 + **service**: name of the service to manage
 + **managed**: whether the link should exist
@@ -50,8 +50,9 @@ Manage the state of runit services.
 .. code:: python
 
     runit.service(
-        service, running=True, restarted=False, reloaded=False, command=None, enabled=None,
-        managed=True, svdir="/var/service", sourcedir="/etc/sv",
+        service: str, running: bool=True, restarted: bool=False, reloaded: bool=False,
+        command: Optional[str]=None, enabled: Optional[bool]=None, managed: bool=True,
+        svdir: str="/var/service", sourcedir: str="/etc/sv",
     )
 
 + **service**: name of the service to manage
@@ -94,7 +95,7 @@ Wait for runsv for ``service`` to be available.
 
 .. code:: python
 
-    runit.wait_runsv(service, svdir="/var/service", timeout=10)
+    runit.wait_runsv(service: str, svdir: str="/var/service", timeout: int=10)
 
 + **service**: name of the service to manage
 + **svdir**: alternative ``SVDIR``

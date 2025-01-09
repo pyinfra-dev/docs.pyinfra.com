@@ -16,7 +16,7 @@ Set the specified SELinux boolean to the desired state.
 
 .. code:: python
 
-    selinux.boolean(bool_name, value, persistent=False)
+    selinux.boolean(bool_name: str, value: Boolean, persistent=False)
 
 + **boolean**: name of an SELinux boolean
 + **value**: desired state of the boolean
@@ -45,7 +45,7 @@ Set the SELinux type for the specified path to the specified value.
 
 .. code:: python
 
-    selinux.file_context(path, se_type)
+    selinux.file_context(path: str, se_type: str)
 
 + **path**: the target path (expression) for the context
 + **se_type**: the SELinux type for the given target
@@ -70,7 +70,7 @@ Set the SELinux file context mapping for paths matching the target.
 
 .. code:: python
 
-    selinux.file_context_mapping(target, se_type=None, present=True)
+    selinux.file_context_mapping(target: str, se_type: str | None=None, present=True)
 
 + **target**: the target path (expression) for the context
 + **se_type**: the SELinux type for the given target
@@ -100,7 +100,7 @@ Set the SELinux type for the specified protocol and port.
 
 .. code:: python
 
-    selinux.port(protocol, port_num, se_type=None, present=True)
+    selinux.port(protocol: Protocol | str, port_num: int, se_type: str | None=None, present=True)
 
 + **protocol**: the protocol: (udp|tcp|sctp|dccp)
 + **port**: the port

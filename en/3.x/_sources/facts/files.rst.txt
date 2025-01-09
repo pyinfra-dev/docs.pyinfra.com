@@ -91,7 +91,7 @@ If the path exists but is not a file:
 
 .. code:: python
 
-    host.get_fact(FindDirectories, path, quote_path=True)
+    host.get_fact(FindDirectories, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
 Returns a list of directories from a start path, recursively using ``find``.
 
@@ -103,7 +103,7 @@ Returns a list of directories from a start path, recursively using ``find``.
 
 .. code:: python
 
-    host.get_fact(FindFiles, path, quote_path=True)
+    host.get_fact(FindFiles, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
 Returns a list of files from a start path, recursively using ``find``.
 
@@ -128,7 +128,7 @@ lines if the file exists, and ``None`` if the file does not.
 
 .. code:: python
 
-    host.get_fact(FindLinks, path, quote_path=True)
+    host.get_fact(FindLinks, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
 Returns a list of links from a start path, recursively using ``find``.
 
@@ -206,6 +206,18 @@ Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
     host.get_fact(Sha256File, path)
 
 Returns a SHA256 hash of a file, or ``None`` if the file does not exist.
+
+
+.. _facts:files.Sha384File:
+
+:code:`files.Sha384File`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Sha384File, path)
+
+Returns a SHA384 hash of a file, or ``None`` if the file does not exist.
 
 
 .. _facts:files.Socket:

@@ -101,20 +101,18 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -143,6 +141,12 @@
 </div>
 <div class="section" id="privilege-user-escalation">
 <h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Permalink to this heading">¶</a></h2>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">When combining privilege escalation arguments it is important to know the order they
+are applied: <code class="docutils literal notranslate"><span class="pre">doas</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sudo</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">su</span></code>. For example
+<code class="docutils literal notranslate"><span class="pre">_sudo=True,_su_user=&quot;pyinfra&quot;</span></code> yields a command like <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">pyinfra..</span></code>.</p>
+</div>
 <table class="table table-bordered">
 <colgroup>
 <col width="25%" />

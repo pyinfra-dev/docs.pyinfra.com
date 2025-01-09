@@ -2,7 +2,9 @@ Docker Operations
 -----------------
 
 
-Manager Docker Containers, Volumes and Networks
+Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
+the view of the current inventory host. See the :doc:`../connectors/docker` to use Docker containers
+as inventory directly.
 
 
 Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerVolume`.
@@ -26,9 +28,9 @@ Manage Docker containers
 + **networks**: network list to attach on container
 + **ports**: port list to expose
 + **volumes**: volume list to map on container
-+ **env_vars**: environment varible list to inject on container
++ **env_vars**: environment variable list to inject on container
 + **pull_always**: force image pull
-+ **force**: remove a contaner with same name and create a new one
++ **force**: remove a container with same name and create a new one
 + **present**: whether the container should be up and running
 + **start**: start or stop the container
 
@@ -82,7 +84,7 @@ Manage Docker images
     docker.image(image, present=True)
 
 + **image**: Image and tag ex: nginx:alpine
-+ **present**: whether the Docker image should be exist
++ **present**: whether the Docker image should exist
 
 **Examples:**
 
@@ -117,8 +119,8 @@ Manage docker networks
         opts=None, ipam_opts=None, labels=None, ingress=False, attachable=False, present=True,
     )
 
-+ **network_name**: Image name
-+ **driver**: Container image and tag ex: nginx:alpine
++ **network**: Network name
++ **driver**: Network driver ex: bridge or overlay
 + **gateway**: IPv4 or IPv6 Gateway for the master subnet
 + **ip_range**: Allocate container ip from a sub-range
 + **ipam_driver**: IP Address Management Driver
@@ -137,8 +139,7 @@ Manage docker networks
 
     # Create Docker network
     docker.network(
-        name="Create nginx network",
-        network_name="nginx",
+        network="nginx",
         attachable=True,
         present=True,
     )

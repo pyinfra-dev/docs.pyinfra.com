@@ -17,7 +17,7 @@ Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.
 .. code:: python
 
     sysvinit.enable(
-        service, start_priority=20, stop_priority=80, start_levels=(2, 3, 4, 5),
+        service: str, start_priority=20, stop_priority=80, start_levels=(2, 3, 4, 5),
         stop_levels=(0, 1, 6),
     )
 
@@ -48,7 +48,10 @@ Manage the state of SysV Init (/etc/init.d) services.
 
 .. code:: python
 
-    sysvinit.service(service, running=True, restarted=False, reloaded=False, enabled=None, command=None)
+    sysvinit.service(
+        service: str, running=True, restarted=False, reloaded=False, enabled: bool | None=None,
+        command: str | None=None,
+    )
 
 + **service**: name of the service to manage
 + **running**: whether the service should be running

@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pacman Operations" href="pacman.html" />
+    <link rel="next" title="Opkg Operations" href="opkg.html" />
     <link rel="prev" title="Npm Operations" href="npm.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pacman.html" title="Pacman Operations"
+          <a href="opkg.html" title="Opkg Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="npm.html" title="Npm Operations"
@@ -96,8 +96,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../operations.html">Operations Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apt.html">Apt Operations</a></li>
@@ -105,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
@@ -120,8 +119,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#openrc-service"><code class="code docutils literal notranslate"><span class="pre">openrc.service</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="opkg.html">Opkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipx.html">Pipx Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Operations</a></li>
@@ -144,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -181,8 +182,8 @@
 <span id="operations-openrc-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">openrc.service</span></code><a class="headerlink" href="#openrc-service" title="Permalink to this heading">¶</a></h2>
 <p>Manage the state of OpenRC services.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">openrc</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">service</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">runlevel</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">runlevel</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -208,8 +209,8 @@
           <span aria-hidden="true">&larr;</span> Npm Operations
         </a></li>
       
-        <li class="next"><a href="pacman.html">
-          Pacman Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="opkg.html">
+          Opkg Operations <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -229,7 +230,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pacman.html" title="Pacman Operations"
+          <a href="opkg.html" title="Opkg Operations"
              >next</a> |</li>
         <li class="right" >
           <a href="npm.html" title="Npm Operations"

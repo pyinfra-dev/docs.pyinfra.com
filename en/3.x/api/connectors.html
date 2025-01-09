@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Writing Facts &amp; Operations" href="operations.html" />
-    <link rel="prev" title="Packaging Deploys" href="deploys.html" />
+    <link rel="next" title="Using the API" href="index.html" />
+    <link rel="prev" title="Writing Facts" href="facts.html" />
   
    
 
@@ -42,10 +42,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="operations.html" title="Writing Facts &amp; Operations"
+          <a href="index.html" title="Using the API"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="deploys.html" title="Packaging Deploys"
+          <a href="facts.html" title="Writing Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Writing Connectors</a></li> 
@@ -95,25 +95,23 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facts.html">Writing Facts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Connectors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#inventory-connector">Inventory Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#executing-connector">Executing Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pyproject-toml">pyproject.toml</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -138,11 +136,11 @@
 <p><a class="reference internal" href="../connectors.html"><span class="doc std std-doc">Connectors</span></a> enable pyinfra to directly integrate with other tools and systems. Connectors are written as Python classes.</p>
 <div class="section" id="inventory-connector">
 <h2>Inventory Connector<a class="headerlink" href="#inventory-connector" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">InventoryConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">InventoryConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
     <span class="n">handles_execution</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate inventory targets.</span>
 
@@ -156,14 +154,14 @@
 <div class="section" id="executing-connector">
 <h2>Executing Connector<a class="headerlink" href="#executing-connector" title="Permalink to this heading">¶</a></h2>
 <p>A connector that implements execution requires a few more methods:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LocalConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LocalConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
     <span class="n">handles_execution</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="o">...</span>  <span class="c1"># see above</span>
  
-    <span class="k">def</span> <span class="nf">run_shell_command</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">command</span><span class="p">:</span> <span class="n">StringCommand</span><span class="p">,</span>
         <span class="n">print_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -184,7 +182,7 @@
 <span class="sd">            Bool indicating success and CommandOutput with stdout/stderr lines.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">put_file</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">filename_or_io</span><span class="p">,</span>
         <span class="n">remote_filename</span><span class="p">,</span>
@@ -201,7 +199,7 @@
 <span class="sd">            bool: indicating success or failure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">get_file</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">remote_filename</span><span class="p">,</span>
         <span class="n">filename_or_io</span><span class="p">,</span>
@@ -238,12 +236,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="deploys.html">
-          <span aria-hidden="true">&larr;</span> Packaging Deploys
+        <li class="previous"><a href="facts.html">
+          <span aria-hidden="true">&larr;</span> Writing Facts
         </a></li>
       
-        <li class="next"><a href="operations.html">
-          Writing Facts &amp; Operations <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="index.html">
+          Using the API <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -263,10 +261,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="operations.html" title="Writing Facts &amp; Operations"
+          <a href="index.html" title="Using the API"
              >next</a> |</li>
         <li class="right" >
-          <a href="deploys.html" title="Packaging Deploys"
+          <a href="facts.html" title="Writing Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Writing Connectors</a></li> 

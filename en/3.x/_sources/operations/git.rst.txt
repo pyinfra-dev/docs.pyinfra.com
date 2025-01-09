@@ -16,7 +16,7 @@ Create bare git repositories.
 
 .. code:: python
 
-    git.bare_repo(path, user=None, group=None, present=True)
+    git.bare_repo(path: str, user: str | None=None, group: str | None=None, present=True)
 
 + **path**: path to the folder
 + **present**: whether the bare repository should exist
@@ -38,26 +38,42 @@ Create bare git repositories.
 :code:`git.config`
 ~~~~~~~~~~~~~~~~~~
 
-Manage git config for a repository or globally.
+Manage git config at repository, user or system level.
 
 .. code:: python
 
-    git.config(key, value, multi_value=False, repo=None)
+    git.config(key: str, value: str, multi_value=False, repo: str | None=None, system=False)
 
 + **key**: the key of the config to ensure
 + **value**: the value this key should have
 + **multi_value**: Add the value rather than set it for settings that can have multiple values
 + **repo**: specify the git repo path to edit local config (defaults to global)
++ **system**: whether, when ``repo`` is unspecified, to work at system level (or default to global)
 
-**Example:**
+**Examples:**
 
 .. code:: python
 
     git.config(
-        name="Ensure user name is set for a repo",
+        name="Always prune specified repo",
+        key="fetch.prune",
+        value="true",
+        repo="/usr/local/src/pyinfra",
+    )
+
+    git.config(
+        name="Ensure user name is set for all repos of specified user",
         key="user.name",
         value="Anon E. Mouse",
-        repo="/usr/local/src/pyinfra",
+        _sudo=True,
+        _sudo_user="anon"
+    )
+
+    git.config(
+        name="Ensure same date format for all users",
+        key="log.date",
+        value="iso",
+        system=True
     )
 
 
@@ -71,8 +87,9 @@ Clone/pull git repositories.
 .. code:: python
 
     git.repo(
-        src, dest, branch=None, pull=True, rebase=False, user=None, group=None, ssh_keyscan=False,
-        update_submodules=False, recursive_submodules=False,
+        src: str, dest: str, branch: str | None=None, pull=True, rebase=False,
+        user: str | None=None, group: str | None=None, ssh_keyscan=False, update_submodules=False,
+        recursive_submodules=False,
     )
 
 + **src**: the git source URL
@@ -107,9 +124,10 @@ Manage git worktrees.
 .. code:: python
 
     git.worktree(
-        worktree, repo=None, detached=False, new_branch=None, commitish=None, pull=True,
-        rebase=False, from_remote_branch=None, present=True, assume_repo_exists=False,
-        force=False, user=None, group=None,
+        worktree: str, repo: str | None=None, detached=False, new_branch: str | None=None,
+        commitish: str | None=None, pull=True, rebase=False,
+        from_remote_branch: tuple[str, str] | None=None, present=True, assume_repo_exists=False,
+        force=False, user: str | None=None, group: str | None=None,
     )
 
 + **worktree**: git working tree directory

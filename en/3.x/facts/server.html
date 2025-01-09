@@ -96,8 +96,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../facts.html">Facts Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Facts</a></li>
@@ -106,9 +104,11 @@
 <li class="toctree-l2"><a class="reference internal" href="bsdinit.html">Bsdinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cargo.html">Cargo Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="choco.html">Choco Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deb.html">Deb Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="efibootmgr.html">Efibootmgr Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Facts</a></li>
@@ -121,10 +121,13 @@
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opkg.html">Opkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pip.html">Pip Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipx.html">Pipx Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkg.html">Pkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pkgin.html">Pkgin Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="podman.html">Podman Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgres.html">Postgres Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="postgresql.html">Postgresql Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rpm.html">Rpm Facts</a></li>
@@ -133,7 +136,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#server-arch"><code class="code docutils literal notranslate"><span class="pre">server.Arch</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-command"><code class="code docutils literal notranslate"><span class="pre">server.Command</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#server-crontab"><code class="code docutils literal notranslate"><span class="pre">server.Crontab</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-date"><code class="code docutils literal notranslate"><span class="pre">server.Date</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-groups"><code class="code docutils literal notranslate"><span class="pre">server.Groups</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-hasgui"><code class="code docutils literal notranslate"><span class="pre">server.HasGui</span></code></a></li>
@@ -150,6 +152,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-macosversion"><code class="code docutils literal notranslate"><span class="pre">server.MacosVersion</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-mounts"><code class="code docutils literal notranslate"><span class="pre">server.Mounts</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-os"><code class="code docutils literal notranslate"><span class="pre">server.Os</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-osrelease"><code class="code docutils literal notranslate"><span class="pre">server.OsRelease</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-osversion"><code class="code docutils literal notranslate"><span class="pre">server.OsVersion</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-path"><code class="code docutils literal notranslate"><span class="pre">server.Path</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-securitylimits"><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code></a></li>
@@ -172,16 +175,16 @@
 <li class="toctree-l2"><a class="reference internal" href="zypper.html">Zypper Facts</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -217,27 +220,6 @@
 </pre></div>
 </div>
 <p>Returns the raw output lines of a given command.</p>
-</div>
-<div class="section" id="server-crontab">
-<span id="facts-server-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Crontab</span></code><a class="headerlink" href="#server-crontab" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Crontab</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns a dictionary of cron command -&gt; execution time.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;/path/to/command&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;minute&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;day_of_month&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;day_of_week&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;echo another command&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;special_time&quot;</span><span class="p">:</span> <span class="s2">&quot;@daily&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="server-date">
 <span id="facts-server-date"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Date</span></code><a class="headerlink" href="#server-date" title="Permalink to this heading">¶</a></h2>
@@ -401,6 +383,23 @@ release files.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This fact is deprecated/renamed, please use the <code class="docutils literal notranslate"><span class="pre">server.Kernel</span></code> fact.</p>
+</div>
+</div>
+<div class="section" id="server-osrelease">
+<span id="facts-server-osrelease"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.OsRelease</span></code><a class="headerlink" href="#server-osrelease" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OsRelease</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a dictionary of release information stored in <code class="docutils literal notranslate"><span class="pre">/etc/os-release</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;EndeavourOS&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pretty_name&quot;</span><span class="p">:</span> <span class="s2">&quot;EndeavourOS&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;endeavouros&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id_like&quot;</span><span class="p">:</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;build_id&quot;</span><span class="p">:</span> <span class="s2">&quot;2024.06.25&quot;</span><span class="p">,</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="server-osversion">
