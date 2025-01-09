@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Packaging Deploys" href="api/deploys.html" />
-    <link rel="prev" title="Zypper Facts" href="facts/zypper.html" />
+    <link rel="prev" title="@vagrant Connector" href="connectors/vagrant.html" />
   
    
 
@@ -45,7 +45,7 @@
           <a href="api/deploys.html" title="Packaging Deploys"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="facts/zypper.html" title="Zypper Facts"
+          <a href="connectors/vagrant.html" title="@vagrant Connector"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 
@@ -95,10 +95,9 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
@@ -112,11 +111,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -162,7 +160,7 @@
 </pre></div>
 </div>
 <p>And here’s the deploy code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
 
 <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install base debugging packages&quot;</span><span class="p">,</span>
@@ -204,7 +202,7 @@
 <p class="last">Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change.</p>
 </div>
 <p>Let’s look at an example - the deploy code here is bad but highlights the ordering problems:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
 
 <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -225,7 +223,7 @@
 </pre></div>
 </div>
 <p>This gets executed <em>before</em> the <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> install, and evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code>. But at execution time this would actually become <code class="docutils literal notranslate"><span class="pre">True</span></code>. The solution is simple - rely on pyinfra’s operations to describe the desired state and always call the second:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
 
 <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -248,7 +246,7 @@
 <p class="last">Always use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument when checking for previous operation changes.</p>
 </div>
 <p>Let’s use a simple example as above with add a conditional reload based on the outcome of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
 
 <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -274,7 +272,7 @@
 </pre></div>
 </div>
 <p>Since this gets executed before nginx is installed by <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> operation, the value of <code class="docutils literal notranslate"><span class="pre">remove_default_site.changed</span></code> at this stage is <code class="docutils literal notranslate"><span class="pre">False</span></code> but at execution time this would become <code class="docutils literal notranslate"><span class="pre">True</span></code>, exactly like the fact example above. The solution here is to use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument to delay the check until execution time:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">operations</span>
 
 <span class="n">operations</span><span class="o">.</span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -305,8 +303,8 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="facts/zypper.html">
-          <span aria-hidden="true">&larr;</span> Zypper Facts
+        <li class="previous"><a href="connectors/vagrant.html">
+          <span aria-hidden="true">&larr;</span> <code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> Connector
         </a></li>
       
         <li class="next"><a href="api/deploys.html">
@@ -333,7 +331,7 @@
           <a href="api/deploys.html" title="Packaging Deploys"
              >next</a> |</li>
         <li class="right" >
-          <a href="facts/zypper.html" title="Zypper Facts"
+          <a href="connectors/vagrant.html" title="@vagrant Connector"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 

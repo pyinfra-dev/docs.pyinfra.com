@@ -95,8 +95,6 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Facts Index</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="facts/apk.html">Apk Facts</a></li>
@@ -146,16 +144,16 @@
 <li class="toctree-l2"><a class="reference internal" href="facts/zypper.html">Zypper Facts</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -200,8 +198,8 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 </pre></div>
 </div>
 <p>You can leverage facts within <a class="reference internal" href="using-operations.html"><span class="doc">operations</span></a> like this:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">LinuxName</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinuxName</span>
 
 <span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Ubuntu&#39;</span><span class="p">:</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>

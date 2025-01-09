@@ -96,7 +96,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../connectors.html">Connectors Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="chroot.html"><code class="docutils literal notranslate"><span class="pre">&#64;chroot</span></code> Connector</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector</a><ul>
@@ -111,18 +112,15 @@
 <li class="toctree-l2"><a class="reference internal" href="vagrant.html"><code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> Connector</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/deploys.html">Packaging Deploys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/facts.html">Writing Facts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/operations.html">Writing Facts &amp; Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">Using the API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#full-example">Full Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html#basic-localhost-example">Basic Localhost Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -151,11 +149,17 @@
           
   <div class="section" id="docker-connector">
 <h1><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector<a class="headerlink" href="#docker-connector" title="Permalink to this heading">¶</a></h1>
-<p>The docker connector allows you to build Docker images or modify running
-Docker containers. You can pass either an image name or existing container ID:</p>
+<p>The Docker connector allows you to use pyinfra to create new Docker images or modify running
+Docker containers.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Docker connector allows pyinfra to target Docker containers as inventory and is
+unrelated to the <a class="reference internal" href="../operations/docker.html"><span class="doc">Docker Operations</span></a> &amp; <a class="reference internal" href="../facts/docker.html"><span class="doc">Docker Facts</span></a>.</p>
+</div>
+<p>You can pass either an image name or existing container ID:</p>
 <ul class="simple">
-<li>Image - will create a new container from the image, execute operations         against it, save into a new Docker image and remove the container</li>
-<li>Existing container ID - will execute operations against the running         container, leaving it running</li>
+<li>Image - will create a new container from the image, execute operations against it, save into         a new Docker image and remove the container</li>
+<li>Existing container ID - will execute operations against the running container, leaving it         running</li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
 pyinfra<span class="w"> </span>@docker/alpine:3.8<span class="w"> </span>...
@@ -167,6 +171,9 @@ pyinfra<span class="w"> </span>@docker/alpine:3.8,@docker/ubuntu:bionic<span cla
 pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
 </pre></div>
 </div>
+<p>The Docker connector is great for testing pyinfra operations locally, rather than connecting to
+a remote host over SSH each time. This gives you a fast, local-first devloop to iterate on when
+writing deploys, operations or facts.</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@docker/name<span class="w"> </span>...

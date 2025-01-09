@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Deploy Execution" href="../deploy-process.html" />
+    <link rel="next" title="Writing Connectors" href="connectors.html" />
     <link rel="prev" title="Writing Operations" href="operations.html" />
   
    
@@ -42,7 +42,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../deploy-process.html" title="Deploy Execution"
+          <a href="connectors.html" title="Writing Connectors"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="operations.html" title="Writing Operations"
@@ -95,15 +95,14 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Example Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operations Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../facts.html">Facts Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connectors.html">Connectors Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">How pyinfra Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploys.html">Packaging Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Writing Operations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Writing Facts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#importing-using-facts">Importing &amp; Using Facts</a></li>
@@ -112,7 +111,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#example-getting-any-output-from-a-command">Example: getting any output from a command</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../deploy-process.html">Deploy Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectors.html">Writing Connectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Using the API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Meta</span></p>
 <ul>
@@ -133,7 +133,7 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/2.x/api/facts.html"><strong>2.x</strong></a> is the latest release version available.</p>
+                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/3.x/api/facts.html"><strong>3.x</strong></a> is the latest release version available.</p>
             </div>
           
         
@@ -141,18 +141,18 @@
           
   <div class="section" id="writing-facts">
 <h1>Writing Facts<a class="headerlink" href="#writing-facts" title="Permalink to this heading">¶</a></h1>
-<p><a class="reference internal" href="../facts.html"><span class="doc">Facts</span></a> are written as Python classes. They provide a <code class="docutils literal notranslate"><span class="pre">command</span></code> (as either a string or method)
+<p><a class="reference internal" href="../facts.html"><span class="doc std std-doc">Facts</span></a> are written as Python classes. They provide a <code class="docutils literal notranslate"><span class="pre">command</span></code> (as either a string or method)
 and a <code class="docutils literal notranslate"><span class="pre">process</span></code> function. The command is executed on the target host and the output
 passed (as a <code class="docutils literal notranslate"><span class="pre">list</span></code> of lines) to the <code class="docutils literal notranslate"><span class="pre">process</span></code> handler to generate fact data. Facts can output anything, normally a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <p>Fact classes may provide a <code class="docutils literal notranslate"><span class="pre">default</span></code> function that takes no arguments (except <code class="docutils literal notranslate"><span class="pre">self</span></code>). The return value of this function is used if an error
 occurs during fact collection. Additionally, a <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> variable can be set on the fact that specifies a command that must be available
-on the host to collect the fact. If this command is not present on the host the fact will be set to the default, or empty if no <code class="docutils literal notranslate"><span class="pre">default</span></code> function
+on the host to collect the fact. If this command is not present on the host, the fact will be set to the default, or empty if no <code class="docutils literal notranslate"><span class="pre">default</span></code> function
 is available.</p>
 <div class="section" id="importing-using-facts">
 <h2>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Permalink to this heading">¶</a></h2>
-<p>Like operations, facts are imported from Python modules and executed by calling <cite>Host.get_fact</cite>. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Which</span>
+<p>Like operations, facts are imported from Python modules and executed by calling <code class="docutils literal notranslate"><span class="pre">Host.get_fact</span></code>. For example:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Which</span>
 
 <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Which</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;htop&#39;</span><span class="p">)</span>
 </pre></div>
@@ -161,66 +161,66 @@ is available.</p>
 <div class="section" id="example-getting-swap-status">
 <h2>Example: getting swap status<a class="headerlink" href="#example-getting-swap-status" title="Permalink to this heading">¶</a></h2>
 <p>This fact returns a boolean indicating whether swap is enabled. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class attribute.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span>  <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w">  </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">SwapEnabled</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SwapEnabled</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns a boolean indicating whether swap is enabled.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;swapon --show&#39;</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="c1"># we have one+ lines</span>
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">is_swap_enabled</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SwapEnabled</span><span class="p">)</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">is_swap_enabled</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SwapEnabled</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-getting-the-list-of-files-in-a-directory">
 <h2>Example: getting the list of files in a directory<a class="headerlink" href="#example-getting-the-list-of-files-in-a-directory" title="Permalink to this heading">¶</a></h2>
 <p>This fact returns a list of files found in a given directory. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class method, indicating the fact takes arguments.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">FindFiles</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FindFiles</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns a list of files from a start point, recursively using find.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="c1"># Find files in the given location</span>
         <span class="k">return</span> <span class="s1">&#39;find </span><span class="si">{0}</span><span class="s1"> -type f&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>  <span class="c1"># return the list of lines (files) as-is</span>
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_files</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/somewhere&#39;</span><span class="p">)</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_files</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/somewhere&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-getting-any-output-from-a-command">
 <h2>Example: getting any output from a command<a class="headerlink" href="#example-getting-any-output-from-a-command" title="Permalink to this heading">¶</a></h2>
 <p>This fact returns the raw output of any command. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class method, indicating the fact takes arguments.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">RawCommandOutput</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RawCommandOutput</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns the raw output of a command.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">command</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>  <span class="c1"># re-join and return the output lines</span>
 </pre></div>
 </div>
 <p>This fact could then be used like so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">command_output</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RawCommandOutput</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;execute this command&#39;</span><span class="p">)</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">command_output</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">RawCommandOutput</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;execute this command&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -236,8 +236,8 @@ is available.</p>
           <span aria-hidden="true">&larr;</span> Writing Operations
         </a></li>
       
-        <li class="next"><a href="../deploy-process.html">
-          Deploy Execution <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="connectors.html">
+          Writing Connectors <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -257,7 +257,7 @@ is available.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../deploy-process.html" title="Deploy Execution"
+          <a href="connectors.html" title="Writing Connectors"
              >next</a> |</li>
         <li class="right" >
           <a href="operations.html" title="Writing Operations"
@@ -266,6 +266,8 @@ is available.</p>
         <li class="nav-item nav-item-this"><a href="">Writing Facts</a></li> 
       </ul>
     </div>
+<script type="text/javascript" src="../_static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../_static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("a#toggle-menu").click(function () {
     $("#left-column").slideToggle(100);
@@ -276,7 +278,6 @@ is available.</p>
     currentIndexItem.scrollIntoView({'block': 'center'});
   }
 </script>
-<script type="text/javascript" src="../_static/js/bootstrap.js"></script>
   <div class="footer">
   </div>
 
