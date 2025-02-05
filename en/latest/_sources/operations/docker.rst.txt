@@ -20,7 +20,7 @@ Manage Docker containers
 
     docker.container(
         container, image="", ports=None, networks=None, volumes=None, env_vars=None,
-        pull_always=False, present=True, force=False, start=True,
+        pull_always=False, present=True, force=False, start=True, **kwargs,
     )
 
 + **container**: name to identify the container
@@ -64,6 +64,8 @@ Manage Docker containers
         container="nginx",
         start=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.image:
@@ -81,7 +83,7 @@ Manage Docker images
 
 .. code:: python
 
-    docker.image(image, present=True)
+    docker.image(image, present=True, **kwargs)
 
 + **image**: Image and tag ex: nginx:alpine
 + **present**: whether the Docker image should exist
@@ -103,6 +105,8 @@ Manage Docker images
         image:"nginx:image",
         present=False,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.network:
@@ -117,6 +121,7 @@ Manage docker networks
     docker.network(
         network, driver="", gateway="", ip_range="", ipam_driver="", subnet="", scope="",
         opts=None, ipam_opts=None, labels=None, ingress=False, attachable=False, present=True,
+        **kwargs,
     )
 
 + **network**: Network name
@@ -143,6 +148,8 @@ Manage docker networks
         attachable=True,
         present=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.prune:
@@ -160,7 +167,7 @@ Execute a docker system prune.
 
 .. code:: python
 
-    docker.prune(all=False, volumes=False, filter="")
+    docker.prune(all=False, volumes=False, filter="", **kwargs)
 
 + **all**: Remove all unused images not just dangling ones
 + **volumes**: Prune anonymous volumes
@@ -187,6 +194,8 @@ Execute a docker system prune.
         name="Remove unused older than 90 days",
         filter="until=2160h"
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.volume:
@@ -198,7 +207,7 @@ Manage Docker volumes
 
 .. code:: python
 
-    docker.volume(volume, driver="", labels=None, present=True)
+    docker.volume(volume, driver="", labels=None, present=True, **kwargs)
 
 + **volume**: Volume name
 + **driver**: Docker volume storage driver
@@ -215,4 +224,6 @@ Manage Docker volumes
         volume="nginx_data",
         present=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

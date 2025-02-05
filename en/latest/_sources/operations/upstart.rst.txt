@@ -18,7 +18,7 @@ Manage the state of upstart managed services.
 
     upstart.service(
         service: str, running=True, restarted=False, reloaded=False, command: str | None=None,
-        enabled: bool | None=None,
+        enabled: bool | None=None, **kwargs,
     )
 
 + **service**: name of the service to manage
@@ -33,4 +33,6 @@ Enabling/disabling services:
     edit/list these without fiddling with the config. So pyinfra simply manages the
     existence of a ``/etc/init/<service>.override`` file, and sets its content to
     "manual" to disable automatic start of services.
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

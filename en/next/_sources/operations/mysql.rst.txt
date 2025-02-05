@@ -29,7 +29,10 @@ Facts used in these operations: :ref:`facts:mysql.MysqlDatabases`, :ref:`facts:m
         user: str | None=None, user_hostname: str="localhost",
         user_privileges: str | list[str]="ALL", mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:mysql.dump:
@@ -50,6 +53,7 @@ Dump a MySQL database into a ``.sql`` file. Requires ``mysqldump``.
     mysql.dump(
         dest: str, database: str | None=None, mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
 
 + **dest**: name of the file to dump the SQL to
@@ -65,6 +69,8 @@ Dump a MySQL database into a ``.sql`` file. Requires ``mysqldump``.
         dest="/tmp/pyinfra_stuff.dump",
         database="pyinfra_stuff",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:mysql.load:
@@ -85,6 +91,7 @@ Load ``.sql`` file into a database.
     mysql.load(
         src: str, database: str | None=None, mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
 
 + **src**: the filename to read from
@@ -100,6 +107,8 @@ Load ``.sql`` file into a database.
         src="/tmp/pyinfra_stuff.dump",
         database="pyinfra_stuff_copy",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:mysql.privileges:
@@ -115,6 +124,7 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
         user: str, privileges: str | list[str] | set[str], user_hostname="localhost",
         database="*", table="*", flush=True, with_grant_option=False, mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
 
 + **user**: name of the user to manage privileges for
@@ -125,6 +135,8 @@ Add/remove MySQL privileges for a user, either global, database or table specifi
 + **flush**: whether to flush (and update) the privileges table after any changes
 + **with_grant_option**: whether the grant option privilege should be set
 + **mysql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:mysql.sql:
@@ -145,11 +157,14 @@ Execute arbitrary SQL against MySQL.
     mysql.sql(
         sql: str, database: str | None=None, mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
 
 + **sql**: SQL command(s) to execute
 + **database**: optional database to open the connection with
 + **mysql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:mysql.user:
@@ -166,5 +181,8 @@ Execute arbitrary SQL against MySQL.
         max_queries_per_hour: int | None=None, max_updates_per_hour: int | None=None,
         max_connections_per_hour: int | None=None, mysql_user: str | None=None,
         mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

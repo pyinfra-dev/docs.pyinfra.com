@@ -22,7 +22,7 @@ Add dnf gpg keys with ``rpm``.
 
 .. code:: python
 
-    dnf.key(src: str)
+    dnf.key(src: str, **kwargs)
 
 + **key**: filename or URL
 
@@ -38,6 +38,8 @@ Note:
         name="Add the Docker CentOS gpg key",
         src=f"https://download.docker.com/linux/{linux_id}/gpg",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:dnf.packages:
@@ -52,7 +54,7 @@ Install/remove/update dnf packages & updates.
     dnf.packages(
         packages: str | list[str] | None=None, present=True, latest=False, update=False,
         clean=False, nobest=False, extra_install_args: str | None=None,
-        extra_uninstall_args: str | None=None,
+        extra_uninstall_args: str | None=None, **kwargs,
     )
 
 + **packages**: packages to ensure
@@ -84,6 +86,8 @@ Versions:
         packages=["vim"],
         latest=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:dnf.repo:
@@ -97,7 +101,7 @@ Add/remove/update dnf repositories.
 
     dnf.repo(
         src: str, present=True, baseurl: str | None=None, description: str | None=None,
-        enabled=True, gpgcheck=True, gpgkey: str | None=None,
+        enabled=True, gpgcheck=True, gpgkey: str | None=None, **kwargs,
     )
 
 + **src**: URL or name for the ``.repo``   file
@@ -129,6 +133,8 @@ Add/remove/update dnf repositories.
         src="DockerCE",
         baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:dnf.rpm:
@@ -140,7 +146,7 @@ Add/remove ``.rpm`` file packages.
 
 .. code:: python
 
-    dnf.rpm(src: str, present=True)
+    dnf.rpm(src: str, present=True, **kwargs)
 
 + **src**: filename or URL of the ``.rpm`` package
 + **present**: whether ore not the package should exist on the system
@@ -158,6 +164,8 @@ URL sources with ``present=False``:
        name="Install EPEL rpm to enable EPEL repo",
        src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_centos_version}.noarch.rpm",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:dnf.update:
@@ -175,5 +183,7 @@ Updates all dnf packages.
 
 .. code:: python
 
-    dnf.update()
+    dnf.update(**kwargs)
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

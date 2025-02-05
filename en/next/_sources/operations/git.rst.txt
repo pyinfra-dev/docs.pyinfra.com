@@ -16,7 +16,7 @@ Create bare git repositories.
 
 .. code:: python
 
-    git.bare_repo(path: str, user: str | None=None, group: str | None=None, present=True)
+    git.bare_repo(path: str, user: str | None=None, group: str | None=None, present=True, **kwargs)
 
 + **path**: path to the folder
 + **present**: whether the bare repository should exist
@@ -31,6 +31,8 @@ Create bare git repositories.
         name="Create bare repo",
         path="/home/git/test.git",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:git.config:
@@ -42,7 +44,7 @@ Manage git config at repository, user or system level.
 
 .. code:: python
 
-    git.config(key: str, value: str, multi_value=False, repo: str | None=None, system=False)
+    git.config(key: str, value: str, multi_value=False, repo: str | None=None, system=False, **kwargs)
 
 + **key**: the key of the config to ensure
 + **value**: the value this key should have
@@ -75,6 +77,8 @@ Manage git config at repository, user or system level.
         value="iso",
         system=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:git.repo:
@@ -89,7 +93,7 @@ Clone/pull git repositories.
     git.repo(
         src: str, dest: str, branch: str | None=None, pull=True, rebase=False,
         user: str | None=None, group: str | None=None, ssh_keyscan=False, update_submodules=False,
-        recursive_submodules=False,
+        recursive_submodules=False, **kwargs,
     )
 
 + **src**: the git source URL
@@ -112,6 +116,8 @@ Clone/pull git repositories.
         src="https://github.com/Fizzadar/pyinfra.git",
         dest="/usr/local/src/pyinfra",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:git.worktree:
@@ -127,7 +133,7 @@ Manage git worktrees.
         worktree: str, repo: str | None=None, detached=False, new_branch: str | None=None,
         commitish: str | None=None, pull=True, rebase=False,
         from_remote_branch: tuple[str, str] | None=None, present=True, assume_repo_exists=False,
-        force=False, user: str | None=None, group: str | None=None,
+        force=False, user: str | None=None, group: str | None=None, **kwargs,
     )
 
 + **worktree**: git working tree directory
@@ -248,4 +254,6 @@ Manage git worktrees.
         present=False,
         force=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

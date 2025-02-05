@@ -20,7 +20,7 @@ Install/remove/update pip packages.
     pip.packages(
         packages: str | list[str] | None=None, present=True, latest=False,
         requirements: str | None=None, pip="pip", virtualenv: str | None=None,
-        virtualenv_kwargs: dict | None=None, extra_install_args: str | None=None,
+        virtualenv_kwargs: dict | None=None, extra_install_args: str | None=None, **kwargs,
     )
 
 + **packages**: list of packages to ensure
@@ -49,6 +49,8 @@ Versions:
         packages=["pyinfra"],
         virtualenv="/usr/local/bin/venv",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:pip.venv:
@@ -60,7 +62,10 @@ Add/remove Python virtualenvs.
 
 .. code:: python
 
-    pip.venv(path: str, python: str | None=None, site_packages=False, always_copy=False, present=True)
+    pip.venv(
+        path: str, python: str | None=None, site_packages=False, always_copy=False, present=True,
+        **kwargs,
+    )
 
 + **python**: python interpreter to use
 + **site_packages**: give access to the global site-packages
@@ -75,6 +80,8 @@ Add/remove Python virtualenvs.
         name="Create a virtualenv",
         path="/usr/local/bin/venv",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:pip.virtualenv:
@@ -88,7 +95,7 @@ Add/remove Python virtualenvs.
 
     pip.virtualenv(
         path: str, python: str | None=None, venv=False, site_packages=False, always_copy=False,
-        present=True,
+        present=True, **kwargs,
     )
 
 + **python**: python interpreter to use
@@ -105,4 +112,6 @@ Add/remove Python virtualenvs.
         name="Create a virtualenv",
         path="/usr/local/bin/venv",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

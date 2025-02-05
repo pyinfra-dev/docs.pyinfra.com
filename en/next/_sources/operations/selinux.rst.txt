@@ -16,7 +16,7 @@ Set the specified SELinux boolean to the desired state.
 
 .. code:: python
 
-    selinux.boolean(bool_name: str, value: Boolean, persistent=False)
+    selinux.boolean(bool_name: str, value: Boolean, persistent=False, **kwargs)
 
 + **boolean**: name of an SELinux boolean
 + **value**: desired state of the boolean
@@ -34,6 +34,8 @@ Note: This operation requires root privileges.
         Boolean.ON,
         persistent=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:selinux.file_context:
@@ -45,7 +47,7 @@ Set the SELinux type for the specified path to the specified value.
 
 .. code:: python
 
-    selinux.file_context(path: str, se_type: str)
+    selinux.file_context(path: str, se_type: str, **kwargs)
 
 + **path**: the target path (expression) for the context
 + **se_type**: the SELinux type for the given target
@@ -59,6 +61,8 @@ Set the SELinux type for the specified path to the specified value.
         '/foo/bar',
         'httpd_sys_content_t'
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:selinux.file_context_mapping:
@@ -70,7 +74,7 @@ Set the SELinux file context mapping for paths matching the target.
 
 .. code:: python
 
-    selinux.file_context_mapping(target: str, se_type: str | None=None, present=True)
+    selinux.file_context_mapping(target: str, se_type: str | None=None, present=True, **kwargs)
 
 + **target**: the target path (expression) for the context
 + **se_type**: the SELinux type for the given target
@@ -89,6 +93,8 @@ before the related files.
         r'/web(/.*)?',
         se_type='httpd_sys_content_t'
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:selinux.port:
@@ -100,7 +106,7 @@ Set the SELinux type for the specified protocol and port.
 
 .. code:: python
 
-    selinux.port(protocol: Protocol | str, port_num: int, se_type: str | None=None, present=True)
+    selinux.port(protocol: Protocol | str, port_num: int, se_type: str | None=None, present=True, **kwargs)
 
 + **protocol**: the protocol: (udp|tcp|sctp|dccp)
 + **port**: the port
@@ -119,4 +125,6 @@ Note: This operation requires root privileges.
         2222,
         'http_port_t',
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

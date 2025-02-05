@@ -22,7 +22,9 @@ Upgrades all brew casks.
 
 .. code:: python
 
-    brew.cask_upgrade()
+    brew.cask_upgrade(**kwargs)
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:brew.casks:
@@ -34,7 +36,7 @@ Add/remove/update brew casks.
 
 .. code:: python
 
-    brew.casks(casks: str | list[str] | None=None, present=True, latest=False, upgrade=False)
+    brew.casks(casks: str | list[str] | None=None, present=True, latest=False, upgrade=False, **kwargs)
 
 + **casks**: list of casks to ensure
 + **present**: whether the casks should be installed
@@ -54,6 +56,8 @@ Versions:
         upgrade=True,
         latest=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:brew.packages:
@@ -67,7 +71,7 @@ Add/remove/update brew packages.
 
     brew.packages(
         packages: str | list[str] | None=None, present=True, latest=False, update=False,
-        upgrade=False,
+        upgrade=False, **kwargs,
     )
 
 + **packages**: list of packages to ensure
@@ -96,6 +100,8 @@ Versions:
         packages=["vim"],
         latest=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:brew.tap:
@@ -107,7 +113,7 @@ Add/remove brew taps.
 
 .. code:: python
 
-    brew.tap(src: str | None=None, present=True, url: str | None=None)
+    brew.tap(src: str | None=None, present=True, url: str | None=None, **kwargs)
 
 + **src**: the name of the tap
 + **present**: whether this tap should be present or not
@@ -141,6 +147,8 @@ Add/remove brew taps.
             name={f"Add brew tap {tap}"},
             src=tap,
         )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:brew.update:
@@ -158,7 +166,9 @@ Updates brew repositories.
 
 .. code:: python
 
-    brew.update()
+    brew.update(**kwargs)
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:brew.upgrade:
@@ -176,5 +186,7 @@ Upgrades all brew packages.
 
 .. code:: python
 
-    brew.upgrade()
+    brew.upgrade(**kwargs)
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

@@ -33,7 +33,7 @@ Add/remove PostgreSQL databases.
         encoding: str | None=None, lc_collate: str | None=None, lc_ctype: str | None=None,
         tablespace: str | None=None, connection_limit: int | None=None,
         psql_user: str | None=None, psql_password: str | None=None, psql_host: str | None=None,
-        psql_port: int | None=None, psql_database: str | None=None,
+        psql_port: int | None=None, psql_database: str | None=None, **kwargs,
     )
 
 + **name**: name of the database
@@ -63,6 +63,8 @@ Updates:
         encoding="UTF8",
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.dump:
@@ -83,6 +85,7 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
     postgres.dump(
         dest: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **dest**: name of the file to dump the SQL to
@@ -97,6 +100,8 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
         dest="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.load:
@@ -117,6 +122,7 @@ Load ``.sql`` file into a database.
     postgres.load(
         src: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **src**: the filename to read from
@@ -131,6 +137,8 @@ Load ``.sql`` file into a database.
         src="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.role:
@@ -147,7 +155,7 @@ Add/remove PostgreSQL roles.
         inherit=False, createdb=False, createrole=False, replication=False,
         connection_limit: int | None=None, psql_user: str | None=None,
         psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
-        psql_database: str | None=None,
+        psql_database: str | None=None, **kwargs,
     )
 
 + **role**: name of the role
@@ -179,6 +187,8 @@ Updates:
         login=True,
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.sql:
@@ -199,8 +209,11 @@ Execute arbitrary SQL against PostgreSQL.
     postgres.sql(
         sql: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **sql**: SQL command(s) to execute
 + **psql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

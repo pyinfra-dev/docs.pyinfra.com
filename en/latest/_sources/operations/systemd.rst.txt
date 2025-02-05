@@ -22,11 +22,13 @@ Reload the systemd daemon to read unit file changes.
 
 .. code:: python
 
-    systemd.daemon_reload(user_mode=False, machine: str | None=None, user_name: str | None=None)
+    systemd.daemon_reload(user_mode=False, machine: str | None=None, user_name: str | None=None, **kwargs)
 
 + **user_mode**: whether to use per-user systemd (systemctl --user) or not
 + **machine**: the machine name to connect to
 + **user_name**: connect to a specific user's systemd session
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:systemd.service:
@@ -41,7 +43,7 @@ Manage the state of systemd managed units.
     systemd.service(
         service: str, running=True, restarted=False, reloaded=False, command: str | None=None,
         enabled: bool | None=None, daemon_reload=False, user_mode=False, machine: str | None=None,
-        user_name: str | None=None,
+        user_name: str | None=None, **kwargs,
     )
 
 + **service**: name of the systemd unit to manage
@@ -73,4 +75,6 @@ Manage the state of systemd managed units.
         running=True,
         enabled=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
