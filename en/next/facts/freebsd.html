@@ -15,7 +15,7 @@
   <meta name="docsearch:version" content="next" />
   <meta name="docsearch:language" content="en" />
   
-    <title>Npm Facts &#8212; pyinfra  documentation</title>
+    <title>Freebsd Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Openrc Facts" href="openrc.html" />
-    <link rel="prev" title="Mysql Facts" href="mysql.html" />
+    <link rel="next" title="Gem Facts" href="gem.html" />
+    <link rel="prev" title="Flatpak Facts" href="flatpak.html" />
   
    
 
@@ -42,14 +42,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="openrc.html" title="Openrc Facts"
+          <a href="gem.html" title="Gem Facts"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="mysql.html" title="Mysql Facts"
+          <a href="flatpak.html" title="Flatpak Facts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" accesskey="U">Facts Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Npm Facts</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Freebsd Facts</a></li> 
       </ul>
     </div>
   <div class="container-wrapper">
@@ -111,7 +111,13 @@
 <li class="toctree-l2"><a class="reference internal" href="efibootmgr.html">Efibootmgr Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Facts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Facts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Freebsd Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#freebsd-pkgpackage"><code class="code docutils literal notranslate"><span class="pre">freebsd.PkgPackage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#freebsd-servicescript"><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceScript</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#freebsd-servicestatus"><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceStatus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#freebsd-sysrc"><code class="code docutils literal notranslate"><span class="pre">freebsd.Sysrc</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Facts</a></li>
@@ -120,10 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mysql.html">Mysql Facts</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Npm Facts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#npm-npmpackages"><code class="code docutils literal notranslate"><span class="pre">npm.NpmPackages</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="npm.html">Npm Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="openrc.html">Openrc Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opkg.html">Opkg Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pacman.html">Pacman Facts</a></li>
@@ -179,24 +182,35 @@
           
             <div class="admonition important">
                 <p class="first admonition-title">Documentation may be out of date!</p>
-                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/facts/npm.html"><strong>3.x</strong></a> is the latest release version available.</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/facts/freebsd.html"><strong>3.x</strong></a> is the latest release version available.</p>
             </div>
           
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="npm-facts">
-<h1>Npm Facts<a class="headerlink" href="#npm-facts" title="Permalink to this heading">¶</a></h1>
-<p>See also: <a class="reference internal" href="../operations/npm.html"><span class="doc">Npm Operations</span></a>.</p>
-<div class="section" id="npm-npmpackages">
-<span id="facts-npm-npmpackages"></span><h2><code class="code docutils literal notranslate"><span class="pre">npm.NpmPackages</span></code><a class="headerlink" href="#npm-npmpackages" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">NpmPackages</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+  <div class="section" id="freebsd-facts">
+<h1>Freebsd Facts<a class="headerlink" href="#freebsd-facts" title="Permalink to this heading">¶</a></h1>
+<div class="section" id="freebsd-pkgpackage">
+<span id="facts-freebsd-pkgpackage"></span><h2><code class="code docutils literal notranslate"><span class="pre">freebsd.PkgPackage</span></code><a class="headerlink" href="#freebsd-pkgpackage" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">PkgPackage</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="n">jail</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a dict of installed npm packages globally or in a given directory:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
-<span class="p">}</span>
+</div>
+<div class="section" id="freebsd-servicescript">
+<span id="facts-freebsd-servicescript"></span><h2><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceScript</span></code><a class="headerlink" href="#freebsd-servicescript" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">ServiceScript</span><span class="p">,</span> <span class="n">srvname</span><span class="p">,</span> <span class="n">jail</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="freebsd-servicestatus">
+<span id="facts-freebsd-servicestatus"></span><h2><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceStatus</span></code><a class="headerlink" href="#freebsd-servicestatus" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">ServiceStatus</span><span class="p">,</span> <span class="n">srvname</span><span class="p">,</span> <span class="n">jail</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="freebsd-sysrc">
+<span id="facts-freebsd-sysrc"></span><h2><code class="code docutils literal notranslate"><span class="pre">freebsd.Sysrc</span></code><a class="headerlink" href="#freebsd-sysrc" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sysrc</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">jail</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -208,12 +222,12 @@
   <nav class="footer-relations">
     <ul class="pager">
       
-        <li class="previous"><a href="mysql.html">
-          <span aria-hidden="true">&larr;</span> Mysql Facts
+        <li class="previous"><a href="flatpak.html">
+          <span aria-hidden="true">&larr;</span> Flatpak Facts
         </a></li>
       
-        <li class="next"><a href="openrc.html">
-          Openrc Facts <span aria-hidden="true">&rarr;</span>
+        <li class="next"><a href="gem.html">
+          Gem Facts <span aria-hidden="true">&rarr;</span>
         </a></li>
       
     </ul>
@@ -233,14 +247,14 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="openrc.html" title="Openrc Facts"
+          <a href="gem.html" title="Gem Facts"
              >next</a> |</li>
         <li class="right" >
-          <a href="mysql.html" title="Mysql Facts"
+          <a href="flatpak.html" title="Flatpak Facts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../facts.html" >Facts Index</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Npm Facts</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Freebsd Facts</a></li> 
       </ul>
     </div>
 <script type="text/javascript" src="../_static/js/jquery.min.js"></script>
