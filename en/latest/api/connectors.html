@@ -141,8 +141,18 @@
   <div class="section" id="writing-connectors">
 <h1>Writing Connectors<a class="headerlink" href="#writing-connectors" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference internal" href="../connectors.html"><span class="doc std std-doc">Connectors</span></a> enable pyinfra to directly integrate with other tools and systems. Connectors are written as Python classes.</p>
+<p>Connectors come in three variations:</p>
+<ul class="simple">
+<li>Inventory only</li>
+<li>Execution only</li>
+<li>Inventory and Execution</li>
+</ul>
+<p>The last case just requires combining the two examples below and including any host/group gathering logic in <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code>.</p>
 <div class="section" id="inventory-connector">
 <h2>Inventory Connector<a class="headerlink" href="#inventory-connector" title="Permalink to this heading">¶</a></h2>
+<p>Inventory connectors can return one or more hosts each invocation of <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code>.</p>
+<p>In the example below <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code> is yielding a hostname, data, groups tuple. As long as the final <code class="docutils literal notranslate"><span class="pre">yield</span></code> is a tuple though, the gathered data
+could be stored and processed in any data structure.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">InventoryConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
     <span class="n">handles_execution</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -154,7 +164,37 @@
 <span class="sd">        Yields:</span>
 <span class="sd">            tuple: (name, data, groups)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">yield</span> <span class="s2">&quot;@local&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;@local&quot;</span><span class="p">]</span>
+        <span class="c1"># connect to api/parse files/process data here, resulting in a list of tuples;</span>
+        <span class="n">gathered_hosts</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;@local&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s1">&#39;@local&#39;</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s1">&#39;foundhost&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;ip&#39;</span><span class="p">:</span> <span class="mf">198.51.100.4</span><span class="p">},</span> <span class="p">[</span><span class="s1">&#39;remote&#39;</span><span class="p">,</span> <span class="s1">&#39;example&#39;</span><span class="p">])</span>
+            <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">loop_host</span> <span class="ow">in</span> <span class="n">gathered_hosts</span><span class="p">:</span>
+          <span class="k">yield</span> <span class="n">gathered_hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gathered_hosts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gathered_hosts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To use the inventory connector call <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">&#64;[name</span> <span class="pre">of</span> <span class="pre">connector</span> <span class="pre">in</span> <span class="pre">pyinfra.connectors]</span> <span class="pre">[deployment</span> <span class="pre">script].py</span></code></p>
+<p>The connector can also be run using <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">&#64;[name</span> <span class="pre">of</span> <span class="pre">connector</span> <span class="pre">in</span> <span class="pre">pyinfra.connectors]/[hostname]</span> <span class="pre">[deployment</span> <span class="pre">script].py</span></code>. If executed this way
+(inventory/data requested for a single host), <code class="docutils literal notranslate"><span class="pre">make_names_data(_=None)</span></code> should be updated to <code class="docutils literal notranslate"><span class="pre">make_names_data(name)</span></code> and the <code class="docutils literal notranslate"><span class="pre">name</span> <span class="pre">==</span> <span class="pre">None</span></code> case
+handled in code separately from <code class="docutils literal notranslate"><span class="pre">name</span></code> being a valid string.</p>
+<p>Its worth being aware up front that due to <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code> being a <code class="docutils literal notranslate"><span class="pre">staticmethod</span></code> it has no automatic access to the parent classes attributes.
+To work around this - eg to configure an API connector - configuration will have to happen outside the function and be imported in. Two examples
+(<code class="docutils literal notranslate"><span class="pre">getattr</span></code> and a function) are provided below.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_settings</span><span class="p">():</span>
+  <span class="n">settings</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="c1"># logic here</span>
+  <span class="k">return</span> <span class="n">settings</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">InventoryConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
+  <span class="n">api_instance</span> <span class="o">=</span> <span class="n">external</span><span class="o">.</span><span class="n">ApiClient</span><span class="p">()</span>
+  <span class="o">...</span>
+
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">api_client</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">InventoryConnector</span><span class="p">,</span> <span class="s1">&#39;api_instance&#39;</span><span class="p">)</span>
+    <span class="n">api_settings</span> <span class="o">=</span> <span class="n">load_settings</span><span class="p">()</span>
+    <span class="o">...</span>
 </pre></div>
 </div>
 </div>
@@ -166,6 +206,8 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Unlike InventoryConnector above, this connector can only return one host each invocation of make_names_data().</span>
+
         <span class="o">...</span>  <span class="c1"># see above</span>
  
     <span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
@@ -234,6 +276,7 @@
 <span class="n">custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;pyinfra_custom_connector.connector:LoggingConnector&#39;</span>
 </pre></div>
 </div>
+<p>If modifying pyinfra directly, <code class="docutils literal notranslate"><span class="pre">pyinfra.connectors</span></code> should be added to <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
 </div>
 </div>
 
