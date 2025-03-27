@@ -784,6 +784,10 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <dt><code class="docutils literal notranslate"><span class="pre">jinja_env_kwargs</span></code>:</dt><dd>To have more control over how jinja2 renders your template, you can pass
 a dict with arguments that will be passed as keyword args to the jinja2
 <a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template
+if not set explicitly.</p>
+<dl class="docutils">
 <dt>Notes:</dt><dd><p>Common convention is to store templates in a “templates” directory and
 have a filename suffix with ‘.j2’ (for jinja2).</p>
 <p>For information on the template syntax, see
@@ -836,6 +840,21 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">foo_variable</span><span class="o">=</span><span class="n">foo_variable</span><span class="p">,</span>
     <span class="n">foo_dict</span><span class="o">=</span><span class="n">foo_dict</span><span class="p">,</span>
     <span class="n">foo_list</span><span class="o">=</span><span class="n">foo_list</span>
+<span class="p">)</span>
+
+<span class="c1"># Example showing how to use host and inventory in a template file.</span>
+<span class="n">template</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">name: &quot;{{ host.name }}&quot;</span>
+<span class="s2">list_contents:</span>
+<span class="s2">{</span><span class="si">% f</span><span class="s2">or entry in inventory.groups.my_servers %}</span>
+<span class="s2">    - &quot;{{ entry }}&quot;</span>
+<span class="s2">{</span><span class="si">% e</span><span class="s2">ndfor %}</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/foo.yml&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
