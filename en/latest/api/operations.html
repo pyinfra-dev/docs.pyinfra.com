@@ -189,27 +189,27 @@ remote file based on the <code class="docutils literal notranslate"><span class=
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span>
 
 <span class="nd">@operation</span><span class="p">()</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Manage the state of files.</span>
 
-<span class="sd">    + name: name/path of the remote file</span>
+<span class="sd">    + path: name/path of the remote file</span>
 <span class="sd">    + present: whether the file should exist</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
 
     <span class="c1"># Not a file?!</span>
     <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">OperationError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> exists and is not a file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">OperationError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> exists and is not a file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
     <span class="c1"># Doesn&#39;t exist &amp; we want it</span>
     <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">present</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="s2">&quot;touch </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">&quot;touch </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="c1"># It exists and we don&#39;t want it</span>
     <span class="k">elif</span> <span class="n">info</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">present</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="s2">&quot;rm -f </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">&quot;rm -f </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
