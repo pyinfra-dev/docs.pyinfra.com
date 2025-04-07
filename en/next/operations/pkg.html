@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Pkg Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -181,23 +181,23 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="pkg-operations">
-<h1>Pkg Operations<a class="headerlink" href="#pkg-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="pkg-operations">
+<h1>Pkg Operations<a class="headerlink" href="#pkg-operations" title="Link to this heading">¶</a></h1>
 <p>Manage BSD packages and repositories. Note that BSD package names are case-sensitive.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-arch"><span class="std std-ref">server.Arch</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-osversion"><span class="std std-ref">server.OsVersion</span></a>, <a class="reference internal" href="../facts/pkg.html#facts-pkg-pkgpackages"><span class="std std-ref">pkg.PkgPackages</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
-<div class="section" id="pkg-packages">
-<span id="operations-pkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pkg.packages</span></code><a class="headerlink" href="#pkg-packages" title="Permalink to this heading">¶</a></h2>
+<section id="pkg-packages">
+<span id="operations-pkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pkg.packages</span></code><a class="headerlink" href="#pkg-packages" title="Link to this heading">¶</a></h2>
 <p>Install/remove/update pkg packages. This will use <code class="docutils literal notranslate"><span class="pre">pkg</span> <span class="pre">...</span></code> where available
 (FreeBSD) and the <code class="docutils literal notranslate"><span class="pre">pkg_*</span></code> variants elsewhere.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pkg_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>packages</strong>: list of packages to ensure</li>
-<li><strong>present</strong>: whether the packages should be installed</li>
-<li><strong>pkg_path</strong>: the PKG_PATH environment variable to set</li>
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>pkg_path</strong>: the PKG_PATH environment variable to set</p></li>
 </ul>
-<dl class="docutils">
+<dl>
 <dt>pkg_path:</dt><dd><p>By default this is autogenerated as follows (tested/working for OpenBSD):
 <code class="docutils literal notranslate"><span class="pre">http://ftp.&lt;OS&gt;.org/pub/&lt;OS&gt;/&lt;VERSION&gt;/packages/&lt;ARCH&gt;/</span></code>. Note that OpenBSD’s
 official mirrors only hold the latest two versions packages.</p>
@@ -212,11 +212,12 @@ work.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -239,7 +240,7 @@ work.</p>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

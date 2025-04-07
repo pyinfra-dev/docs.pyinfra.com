@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Using the API &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -137,23 +137,23 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="using-the-api">
-<h1>Using the API<a class="headerlink" href="#using-the-api" title="Permalink to this heading">¶</a></h1>
+  <section id="using-the-api">
+<h1>Using the API<a class="headerlink" href="#using-the-api" title="Link to this heading">¶</a></h1>
 <p>In addition to <a class="reference internal" href="../cli.html"><span class="doc">the pyinfra CLI</span></a>, pyinfra provides a full Python API. As of <code class="docutils literal notranslate"><span class="pre">v3</span></code> this API can be considered mostly stable. See the <a class="reference internal" href="reference.html"><span class="doc">API Reference</span></a>.</p>
 <p>You can also reference <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra/blob/3.x/pyinfra_cli/main.py">pyinfra’s own main.py</a>, and the <a class="reference external" href="https://github.com/pyinfra-dev/pyinfra/tree/3.x/pyinfra/api">pyinfra API source code</a>.</p>
-<div class="section" id="full-example">
-<h2>Full Example<a class="headerlink" href="#full-example" title="Permalink to this heading">¶</a></h2>
+<section id="full-example">
+<h2>Full Example<a class="headerlink" href="#full-example" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/pyinfra-dev/pyinfra-examples/blob/main/.old/api_deploy.py">A full example of how to use the API can be found here</a>. (Note: this is not yet tested and is pending future updates)</p>
-</div>
-<div class="section" id="basic-localhost-example">
-<h2>Basic Localhost Example<a class="headerlink" href="#basic-localhost-example" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">connect_all</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.operation</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_op</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_ops</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.facts</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_facts</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Os</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+</section>
+<section id="basic-localhost-example">
+<h2>Basic Localhost Example<a class="headerlink" href="#basic-localhost-example" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.connect</span> <span class="kn">import</span> <span class="n">connect_all</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.operation</span> <span class="kn">import</span> <span class="n">add_op</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.operations</span> <span class="kn">import</span> <span class="n">run_ops</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api.facts</span> <span class="kn">import</span> <span class="n">get_facts</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Os</span>
+<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
 
 <span class="c1"># Define your inventory (@local means execute on localhost using subprocess)</span>
 <span class="c1"># https://docs.pyinfra.com/en/3.x/apidoc/pyinfra.api.inventory.html</span>
@@ -198,8 +198,8 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">get_facts</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">Os</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -222,7 +222,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

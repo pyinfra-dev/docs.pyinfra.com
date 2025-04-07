@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Files Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -194,12 +194,12 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="files-operations">
-<h1>Files Operations<a class="headerlink" href="#files-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="files-operations">
+<h1>Files Operations<a class="headerlink" href="#files-operations" title="Link to this heading">¶</a></h1>
 <p>The files operations handles filesystem state, file uploads and template generation.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-block"><span class="std std-ref">files.Block</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findfiles"><span class="std std-ref">files.FindFiles</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-flags"><span class="std std-ref">files.Flags</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-md5file"><span class="std std-ref">files.Md5File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha1file"><span class="std std-ref">files.Sha1File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha256file"><span class="std std-ref">files.Sha256File</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-sha384file"><span class="std std-ref">files.Sha384File</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
-<div class="section" id="files-block">
-<span id="operations-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.block</span></code><a class="headerlink" href="#files-block" title="Permalink to this heading">¶</a></h2>
+<section id="files-block">
+<span id="operations-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.block</span></code><a class="headerlink" href="#files-block" title="Link to this heading">¶</a></h2>
 <p>Ensure content, surrounded by the appropriate markers, is present (or not) in the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -210,26 +210,28 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: target remote file</li>
-<li><strong>content</strong>: what should be present in the file (between markers).</li>
-<li><strong>present</strong>: whether the content should be present in the file</li>
-<li><strong>before</strong>: should the content be added before <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</li>
-<li><strong>after</strong>: should the content be added after <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</li>
-<li><strong>line</strong>: regex before or after which the content should be added if it doesn’t exist.</li>
-<li><strong>backup</strong>: whether to backup the file (see <code class="docutils literal notranslate"><span class="pre">files.line</span></code>). Default False.</li>
-<li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
-<li><strong>try_prevent_shell_expansion</strong>: tries to prevent shell expanding by values like <cite>$</cite></li>
-<li><strong>marker</strong>: the base string used to mark the text.  Default is <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">{mark}</span> <span class="pre">PYINFRA</span> <span class="pre">BLOCK</span></code></li>
-<li><strong>begin</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker before the content. Default is <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code></li>
-<li><strong>end</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker after the content. Default is <code class="docutils literal notranslate"><span class="pre">END</span></code></li>
+<li><p><strong>path</strong>: target remote file</p></li>
+<li><p><strong>content</strong>: what should be present in the file (between markers).</p></li>
+<li><p><strong>present</strong>: whether the content should be present in the file</p></li>
+<li><p><strong>before</strong>: should the content be added before <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</p></li>
+<li><p><strong>after</strong>: should the content be added after <code class="docutils literal notranslate"><span class="pre">line</span></code> if it doesn’t exist</p></li>
+<li><p><strong>line</strong>: regex before or after which the content should be added if it doesn’t exist.</p></li>
+<li><p><strong>backup</strong>: whether to backup the file (see <code class="docutils literal notranslate"><span class="pre">files.line</span></code>). Default False.</p></li>
+<li><p><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</p></li>
+<li><p><strong>try_prevent_shell_expansion</strong>: tries to prevent shell expanding by values like <cite>$</cite></p></li>
+<li><p><strong>marker</strong>: the base string used to mark the text.  Default is <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">{mark}</span> <span class="pre">PYINFRA</span> <span class="pre">BLOCK</span></code></p></li>
+<li><p><strong>begin</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker before the content. Default is <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code></p></li>
+<li><p><strong>end</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker after the content. Default is <code class="docutils literal notranslate"><span class="pre">END</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt>Content appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not found in the file</dt><dd>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required (<code class="docutils literal notranslate"><span class="pre">present=True</span></code>) and <code class="docutils literal notranslate"><span class="pre">line</span></code> is not
+<dl class="simple">
+<dt>Content appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not found in the file</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required (<code class="docutils literal notranslate"><span class="pre">present=True</span></code>) and <code class="docutils literal notranslate"><span class="pre">line</span></code> is not
 found in the file, <code class="docutils literal notranslate"><span class="pre">content</span></code> (surrounded by markers) will be appended to the file.  The
-file is created if necessary.</dd>
-<dt>Content prepended or appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not specified</dt><dd>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required and <code class="docutils literal notranslate"><span class="pre">line</span></code> was not provided the content
+file is created if necessary.</p>
+</dd>
+<dt>Content prepended or appended if <code class="docutils literal notranslate"><span class="pre">line</span></code> not specified</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">content</span></code> is not in the file but is required and <code class="docutils literal notranslate"><span class="pre">line</span></code> was not provided the content
 will either be  prepended to the file (if both <code class="docutils literal notranslate"><span class="pre">before</span></code> and <code class="docutils literal notranslate"><span class="pre">after</span></code>
-are <code class="docutils literal notranslate"><span class="pre">True</span></code>) or appended to the file (if both are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</dd>
+are <code class="docutils literal notranslate"><span class="pre">True</span></code>) or appended to the file (if both are <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+</dd>
 </dl>
 <p>Removal ignores <code class="docutils literal notranslate"><span class="pre">content</span></code> and <code class="docutils literal notranslate"><span class="pre">line</span></code></p>
 <p>Preventing shell expansion works by wrapping the content in ‘`’ before passing to <cite>awk</cite>.
@@ -279,12 +281,13 @@ WARNING: This will break if the content contains raw single quotes.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-directory">
-<span id="operations-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.directory</span></code><a class="headerlink" href="#files-directory" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-directory">
+<span id="operations-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.directory</span></code><a class="headerlink" href="#files-directory" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -294,15 +297,15 @@ WARNING: This will break if the content contains raw single quotes.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: path of the remote folder</li>
-<li><strong>present</strong>: whether the folder should exist</li>
-<li><strong>user</strong>: user to own the folder</li>
-<li><strong>group</strong>: group to own the folder</li>
-<li><strong>mode</strong>: permissions of the folder</li>
-<li><strong>recursive</strong>: recursively apply user/group/mode</li>
-<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
-<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
-<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><p><strong>path</strong>: path of the remote folder</p></li>
+<li><p><strong>present</strong>: whether the folder should exist</p></li>
+<li><p><strong>user</strong>: user to own the folder</p></li>
+<li><p><strong>group</strong>: group to own the folder</p></li>
+<li><p><strong>mode</strong>: permissions of the folder</p></li>
+<li><p><strong>recursive</strong>: recursively apply user/group/mode</p></li>
+<li><p><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</p></li>
+<li><p><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
+<li><p><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
@@ -326,12 +329,13 @@ WARNING: This will break if the content contains raw single quotes.</p>
     <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-download">
-<span id="operations-files-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.download</span></code><a class="headerlink" href="#files-download" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-download">
+<span id="operations-files-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.download</span></code><a class="headerlink" href="#files-download" title="Link to this heading">¶</a></h2>
 <p>Download files from remote locations using <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -342,20 +346,20 @@ WARNING: This will break if the content contains raw single quotes.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: source URL of the file</li>
-<li><strong>dest</strong>: where to save the file</li>
-<li><strong>user</strong>: user to own the files</li>
-<li><strong>group</strong>: group to own the files</li>
-<li><strong>mode</strong>: permissions of the files</li>
-<li><strong>cache_time</strong>: if the file exists already, re-download after this time (in seconds)</li>
-<li><strong>force</strong>: always download the file, even if it already exists</li>
-<li><strong>sha384sum</strong>: sha384 hash to checksum the downloaded file against</li>
-<li><strong>sha256sum</strong>: sha256 hash to checksum the downloaded file against</li>
-<li><strong>sha1sum</strong>: sha1 hash to checksum the downloaded file against</li>
-<li><strong>md5sum</strong>: md5 hash to checksum the downloaded file against</li>
-<li><strong>headers</strong>: optional dictionary of headers to set for the HTTP request</li>
-<li><strong>insecure</strong>: disable SSL verification for the HTTP request</li>
-<li><strong>proxy</strong>: simple HTTP proxy through which we can download files, form <cite>http://&lt;yourproxy&gt;:&lt;port&gt;</cite></li>
+<li><p><strong>src</strong>: source URL of the file</p></li>
+<li><p><strong>dest</strong>: where to save the file</p></li>
+<li><p><strong>user</strong>: user to own the files</p></li>
+<li><p><strong>group</strong>: group to own the files</p></li>
+<li><p><strong>mode</strong>: permissions of the files</p></li>
+<li><p><strong>cache_time</strong>: if the file exists already, re-download after this time (in seconds)</p></li>
+<li><p><strong>force</strong>: always download the file, even if it already exists</p></li>
+<li><p><strong>sha384sum</strong>: sha384 hash to checksum the downloaded file against</p></li>
+<li><p><strong>sha256sum</strong>: sha256 hash to checksum the downloaded file against</p></li>
+<li><p><strong>sha1sum</strong>: sha1 hash to checksum the downloaded file against</p></li>
+<li><p><strong>md5sum</strong>: md5 hash to checksum the downloaded file against</p></li>
+<li><p><strong>headers</strong>: optional dictionary of headers to set for the HTTP request</p></li>
+<li><p><strong>insecure</strong>: disable SSL verification for the HTTP request</p></li>
+<li><p><strong>proxy</strong>: simple HTTP proxy through which we can download files, form <cite>http://&lt;yourproxy&gt;:&lt;port&gt;</cite></p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
@@ -365,12 +369,13 @@ WARNING: This will break if the content contains raw single quotes.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-file">
-<span id="operations-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.file</span></code><a class="headerlink" href="#files-file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-file">
+<span id="operations-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.file</span></code><a class="headerlink" href="#files-file" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -380,21 +385,22 @@ WARNING: This will break if the content contains raw single quotes.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: name/path of the remote file</li>
-<li><strong>present</strong>: whether the file should exist</li>
-<li><strong>user</strong>: user to own the files</li>
-<li><strong>group</strong>: group to own the files</li>
-<li><strong>mode</strong>: permissions of the files as an integer, eg: 755</li>
-<li><strong>touch</strong>: whether to touch the file</li>
-<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
-<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
-<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
-<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><p><strong>path</strong>: name/path of the remote file</p></li>
+<li><p><strong>present</strong>: whether the file should exist</p></li>
+<li><p><strong>user</strong>: user to own the files</p></li>
+<li><p><strong>group</strong>: group to own the files</p></li>
+<li><p><strong>mode</strong>: permissions of the files as an integer, eg: 755</p></li>
+<li><p><strong>touch</strong>: whether to touch the file</p></li>
+<li><p><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</p></li>
+<li><p><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</p></li>
+<li><p><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
+<li><p><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd><p>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
-if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: The directory /tmp/secret will get created with the default umask.</span>
@@ -409,20 +415,21 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-flags">
-<span id="operations-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.flags</span></code><a class="headerlink" href="#files-flags" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-flags">
+<span id="operations-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.flags</span></code><a class="headerlink" href="#files-flags" title="Link to this heading">¶</a></h2>
 <p>Set/clear file flags.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: path of the remote folder</li>
-<li><strong>flags</strong>: a list of the file flags to be set or cleared</li>
-<li><strong>present</strong>: whether the flags should be set or cleared</li>
+<li><p><strong>path</strong>: path of the remote folder</p></li>
+<li><p><strong>flags</strong>: a list of the file flags to be set or cleared</p></li>
+<li><p><strong>present</strong>: whether the flags should be set or cleared</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span>
@@ -441,30 +448,32 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-get">
-<span id="operations-files-get"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.get</span></code><a class="headerlink" href="#files-get" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-get">
+<span id="operations-files-get"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.get</span></code><a class="headerlink" href="#files-get" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Download a file from the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_local_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: the remote filename to download</li>
-<li><strong>dest</strong>: the local filename to download the file to</li>
-<li><strong>add_deploy_dir</strong>: dest is relative to the deploy directory</li>
-<li><strong>create_local_dir</strong>: create the local directory if it doesn’t exist</li>
-<li><strong>force</strong>: always download the file, even if the local copy matches</li>
+<li><p><strong>src</strong>: the remote filename to download</p></li>
+<li><p><strong>dest</strong>: the local filename to download the file to</p></li>
+<li><p><strong>add_deploy_dir</strong>: dest is relative to the deploy directory</p></li>
+<li><p><strong>create_local_dir</strong>: create the local directory if it doesn’t exist</p></li>
+<li><p><strong>force</strong>: always download the file, even if the local copy matches</p></li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation is not suitable for large files as it may involve copying
-the remote file before downloading it.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation is not suitable for large files as it may involve copying
+the remote file before downloading it.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
@@ -474,12 +483,13 @@ the remote file before downloading it.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-line">
-<span id="operations-files-line"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.line</span></code><a class="headerlink" href="#files-line" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-line">
+<span id="operations-files-line"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.line</span></code><a class="headerlink" href="#files-line" title="Link to this heading">¶</a></h2>
 <p>Ensure lines in files using grep to locate and sed to replace.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -489,29 +499,34 @@ the remote file before downloading it.</dd>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: target remote file to edit</li>
-<li><strong>line</strong>: string or regex matching the target line</li>
-<li><strong>present</strong>: whether the line should be in the file</li>
-<li><strong>replace</strong>: text to replace entire matching lines when <code class="docutils literal notranslate"><span class="pre">present=True</span></code></li>
-<li><strong>flags</strong>: list of flags to pass to sed when replacing/deleting</li>
-<li><strong>backup</strong>: whether to backup the file (see below)</li>
-<li><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></li>
-<li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
-<li><strong>ensure_newline</strong>: ensures that the appended line is on a new line</li>
+<li><p><strong>path</strong>: target remote file to edit</p></li>
+<li><p><strong>line</strong>: string or regex matching the target line</p></li>
+<li><p><strong>present</strong>: whether the line should be in the file</p></li>
+<li><p><strong>replace</strong>: text to replace entire matching lines when <code class="docutils literal notranslate"><span class="pre">present=True</span></code></p></li>
+<li><p><strong>flags</strong>: list of flags to pass to sed when replacing/deleting</p></li>
+<li><p><strong>backup</strong>: whether to backup the file (see below)</p></li>
+<li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></p></li>
+<li><p><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</p></li>
+<li><p><strong>ensure_newline</strong>: ensures that the appended line is on a new line</p></li>
 </ul>
-<dl class="docutils">
-<dt>Regex line matching:</dt><dd>Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
+<dl class="simple">
+<dt>Regex line matching:</dt><dd><p>Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
 it does, like: <code class="docutils literal notranslate"><span class="pre">^.*LINE.*$</span></code>. This means we don’t swap parts of lines out. To
-change bits of lines, see <code class="docutils literal notranslate"><span class="pre">files.replace</span></code>.</dd>
-<dt>Regex line escaping:</dt><dd>If matching special characters (eg a crontab line containing <code class="docutils literal notranslate"><span class="pre">*</span></code>), remember to escape
-it first using Python’s <code class="docutils literal notranslate"><span class="pre">re.escape</span></code>.</dd>
-<dt>Backup:</dt><dd>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, any editing of the file will place an old copy with the ISO
+change bits of lines, see <code class="docutils literal notranslate"><span class="pre">files.replace</span></code>.</p>
+</dd>
+<dt>Regex line escaping:</dt><dd><p>If matching special characters (eg a crontab line containing <code class="docutils literal notranslate"><span class="pre">*</span></code>), remember to escape
+it first using Python’s <code class="docutils literal notranslate"><span class="pre">re.escape</span></code>.</p>
+</dd>
+<dt>Backup:</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, any editing of the file will place an old copy with the ISO
 date (taken from the machine running <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>) appended as the extension. If
-you pass a string value this will be used as the extension of the backed up file.</dd>
-<dt>Append:</dt><dd>If <code class="docutils literal notranslate"><span class="pre">line</span></code> is not in the file but we want it (<code class="docutils literal notranslate"><span class="pre">present</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>), then
-it will be append to the end of the file.</dd>
-<dt>Ensure new line:</dt><dd>This will ensure that the <code class="docutils literal notranslate"><span class="pre">line</span></code> being appended is always on a separate new
-line in case the file doesn’t end with a newline character.</dd>
+you pass a string value this will be used as the extension of the backed up file.</p>
+</dd>
+<dt>Append:</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">line</span></code> is not in the file but we want it (<code class="docutils literal notranslate"><span class="pre">present</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>), then
+it will be append to the end of the file.</p>
+</dd>
+<dt>Ensure new line:</dt><dd><p>This will ensure that the <code class="docutils literal notranslate"><span class="pre">line</span></code> being appended is always on a separate new
+line in case the file doesn’t end with a newline character.</p>
+</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># prepare to do some maintenance</span>
@@ -557,12 +572,13 @@ line in case the file doesn’t end with a newline character.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-link">
-<span id="operations-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.link</span></code><a class="headerlink" href="#files-link" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-link">
+<span id="operations-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.link</span></code><a class="headerlink" href="#files-link" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update links.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -572,23 +588,25 @@ line in case the file doesn’t end with a newline character.</dd>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: the name of the link</li>
-<li><strong>target</strong>: the file/directory the link points to</li>
-<li><strong>present</strong>: whether the link should exist</li>
-<li><strong>user</strong>: user to own the link</li>
-<li><strong>group</strong>: group to own the link</li>
-<li><strong>symbolic</strong>: whether to make a symbolic link (vs hard link)</li>
-<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
-<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
-<li><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
-<li><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></li>
+<li><p><strong>path</strong>: the name of the link</p></li>
+<li><p><strong>target</strong>: the file/directory the link points to</p></li>
+<li><p><strong>present</strong>: whether the link should exist</p></li>
+<li><p><strong>user</strong>: user to own the link</p></li>
+<li><p><strong>group</strong>: group to own the link</p></li>
+<li><p><strong>symbolic</strong>: whether to make a symbolic link (vs hard link)</p></li>
+<li><p><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</p></li>
+<li><p><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</p></li>
+<li><p><strong>force_backup</strong>: set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to remove any existing non-file when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
+<li><p><strong>force_backup_dir</strong>: directory to move any backup to when <code class="docutils literal notranslate"><span class="pre">force=True</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd><p>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
-if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
-<dt>Source changes:</dt><dd>If the link exists and points to a different target, pyinfra will remove it and
-recreate a new one pointing to then new target.</dd>
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</p>
+</dd>
+<dt>Source changes:</dt><dd><p>If the link exists and points to a different target, pyinfra will remove it and
+recreate a new one pointing to then new target.</p>
+</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
@@ -598,27 +616,29 @@ recreate a new one pointing to then new target.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-move">
-<span id="operations-files-move"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.move</span></code><a class="headerlink" href="#files-move" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-move">
+<span id="operations-files-move"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.move</span></code><a class="headerlink" href="#files-move" title="Link to this heading">¶</a></h2>
 <p>Move remote file/directory/link into remote directory</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: remote file/directory to move</li>
-<li><strong>dest</strong>: remote directory to move <cite>src</cite> into</li>
-<li><strong>overwrite</strong>: whether to overwrite dest, if present</li>
+<li><p><strong>src</strong>: remote file/directory to move</p></li>
+<li><p><strong>dest</strong>: remote directory to move <cite>src</cite> into</p></li>
+<li><p><strong>overwrite</strong>: whether to overwrite dest, if present</p></li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-put">
-<span id="operations-files-put"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.put</span></code><a class="headerlink" href="#files-put" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-put">
+<span id="operations-files-put"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.put</span></code><a class="headerlink" href="#files-put" title="Link to this heading">¶</a></h2>
 <p>Upload a local file, or file-like object, to the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -628,26 +648,30 @@ recreate a new one pointing to then new target.</dd>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: filename or IO-like object to upload</li>
-<li><strong>dest</strong>: remote filename to upload to</li>
-<li><strong>user</strong>: user to own the files</li>
-<li><strong>group</strong>: group to own the files</li>
-<li><strong>mode</strong>: permissions of the files, use <code class="docutils literal notranslate"><span class="pre">True</span></code> to copy the local file</li>
-<li><strong>add_deploy_dir</strong>: src is relative to the deploy directory</li>
-<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
-<li><strong>force</strong>: always upload the file, even if the remote copy matches</li>
-<li><strong>assume_exists</strong>: whether to assume the local file exists</li>
+<li><p><strong>src</strong>: filename or IO-like object to upload</p></li>
+<li><p><strong>dest</strong>: remote filename to upload to</p></li>
+<li><p><strong>user</strong>: user to own the files</p></li>
+<li><p><strong>group</strong>: group to own the files</p></li>
+<li><p><strong>mode</strong>: permissions of the files, use <code class="docutils literal notranslate"><span class="pre">True</span></code> to copy the local file</p></li>
+<li><p><strong>add_deploy_dir</strong>: src is relative to the deploy directory</p></li>
+<li><p><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</p></li>
+<li><p><strong>force</strong>: always upload the file, even if the remote copy matches</p></li>
+<li><p><strong>assume_exists</strong>: whether to assume the local file exists</p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">dest</span></code>:</dt><dd>If this is a directory that already exists on the remote side, the local
-file will be uploaded to that directory with the same filename.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">mode</span></code>:</dt><dd>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> the permissions of the local file are applied to the
-remote file after the upload is complete.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">dest</span></code>:</dt><dd><p>If this is a directory that already exists on the remote side, the local
+file will be uploaded to that directory with the same filename.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mode</span></code>:</dt><dd><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> the permissions of the local file are applied to the
+remote file after the upload is complete.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd><p>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
-if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
-<dt>Note:</dt><dd>This operation is not suitable for large files as it may involve copying
-the file before uploading it.</dd>
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</p>
+</dd>
+<dt>Note:</dt><dd><p>This operation is not suitable for large files as it may involve copying
+the file before uploading it.</p>
+</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
@@ -664,12 +688,13 @@ the file before uploading it.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-replace">
-<span id="operations-files-replace"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.replace</span></code><a class="headerlink" href="#files-replace" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-replace">
+<span id="operations-files-replace"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.replace</span></code><a class="headerlink" href="#files-replace" title="Link to this heading">¶</a></h2>
 <p>Replace contents of a file using <code class="docutils literal notranslate"><span class="pre">sed</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -678,17 +703,18 @@ the file before uploading it.</dd>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>path</strong>: target remote file to edit</li>
-<li><strong>text</strong>: text/regex to match against</li>
-<li><strong>replace</strong>: text to replace with</li>
-<li><strong>flags</strong>: list of flags to pass to sed</li>
-<li><strong>backup</strong>: whether to backup the file (see below)</li>
-<li><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></li>
+<li><p><strong>path</strong>: target remote file to edit</p></li>
+<li><p><strong>text</strong>: text/regex to match against</p></li>
+<li><p><strong>replace</strong>: text to replace with</p></li>
+<li><p><strong>flags</strong>: list of flags to pass to sed</p></li>
+<li><p><strong>backup</strong>: whether to backup the file (see below)</p></li>
+<li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt>Backup:</dt><dd>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, any editing of the file will place an old copy with the ISO
+<dl class="simple">
+<dt>Backup:</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, any editing of the file will place an old copy with the ISO
 date (taken from the machine running <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>) appended as the extension. If
-you pass a string value this will be used as the extension of the backed up file.</dd>
+you pass a string value this will be used as the extension of the backed up file.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
@@ -699,15 +725,16 @@ you pass a string value this will be used as the extension of the backed up file
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-rsync">
-<span id="operations-files-rsync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.rsync</span></code><a class="headerlink" href="#files-rsync" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-rsync">
+<span id="operations-files-rsync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.rsync</span></code><a class="headerlink" href="#files-rsync" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">rsync</span></code> to sync a local directory to the remote system. This operation will actually call
 the <code class="docutils literal notranslate"><span class="pre">rsync</span></code> binary on your system.</p>
@@ -715,22 +742,23 @@ the <code class="docutils literal notranslate"><span class="pre">rsync</span></c
 </pre></div>
 </div>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">files.rsync</span></code> operation is in alpha, and only supported using SSH
+<p class="admonition-title">Important</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">files.rsync</span></code> operation is in alpha, and only supported using SSH
 or <code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> connectors. When using the SSH connector, rsync will automatically use the
 StrictHostKeyChecking setting, config and known_hosts file (when specified).</p>
 </div>
 <div class="admonition caution">
-<p class="first admonition-title">Caution</p>
-<p class="last">When using SSH, the <code class="docutils literal notranslate"><span class="pre">files.rsync</span></code> operation only supports the <code class="docutils literal notranslate"><span class="pre">sudo</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo_user</span></code>
+<p class="admonition-title">Caution</p>
+<p>When using SSH, the <code class="docutils literal notranslate"><span class="pre">files.rsync</span></code> operation only supports the <code class="docutils literal notranslate"><span class="pre">sudo</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo_user</span></code>
 global arguments.</p>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-sync">
-<span id="operations-files-sync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.sync</span></code><a class="headerlink" href="#files-sync" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-sync">
+<span id="operations-files-sync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.sync</span></code><a class="headerlink" href="#files-sync" title="Link to this heading">¶</a></h2>
 <p>Syncs a local directory with a remote one, with delete support. Note that delete will
 remove extra files on the remote side, but not extra directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span>
@@ -742,16 +770,16 @@ remove extra files on the remote side, but not extra directories.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: local directory to sync</li>
-<li><strong>dest</strong>: remote directory to sync to</li>
-<li><strong>user</strong>: user to own the files and directories</li>
-<li><strong>group</strong>: group to own the files and directories</li>
-<li><strong>mode</strong>: permissions of the files</li>
-<li><strong>dir_mode</strong>: permissions of the directories</li>
-<li><strong>delete</strong>: delete remote files not present locally</li>
-<li><strong>exclude</strong>: string or list/tuple of strings to match &amp; exclude files (eg <code class="docutils literal notranslate"><span class="pre">*.pyc</span></code>)</li>
-<li><strong>exclude_dir</strong>: string or list/tuple of strings to match &amp; exclude directories (eg node_modules)</li>
-<li><strong>add_deploy_dir</strong>: interpret src as relative to deploy directory instead of current directory</li>
+<li><p><strong>src</strong>: local directory to sync</p></li>
+<li><p><strong>dest</strong>: remote directory to sync to</p></li>
+<li><p><strong>user</strong>: user to own the files and directories</p></li>
+<li><p><strong>group</strong>: group to own the files and directories</p></li>
+<li><p><strong>mode</strong>: permissions of the files</p></li>
+<li><p><strong>dir_mode</strong>: permissions of the directories</p></li>
+<li><p><strong>delete</strong>: delete remote files not present locally</p></li>
+<li><p><strong>exclude</strong>: string or list/tuple of strings to match &amp; exclude files (eg <code class="docutils literal notranslate"><span class="pre">*.pyc</span></code>)</p></li>
+<li><p><strong>exclude_dir</strong>: string or list/tuple of strings to match &amp; exclude directories (eg node_modules)</p></li>
+<li><p><strong>add_deploy_dir</strong>: interpret src as relative to deploy directory instead of current directory</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sync local files/tempdir to remote /tmp/tempdir</span>
@@ -764,18 +792,19 @@ remove extra files on the remote side, but not extra directories.</p>
 </div>
 <p>Note: <code class="docutils literal notranslate"><span class="pre">exclude</span></code> and <code class="docutils literal notranslate"><span class="pre">exclude_dir</span></code> use <code class="docutils literal notranslate"><span class="pre">fnmatch</span></code> behind the scenes to do the filtering.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">exclude</span></code> matches against the filename.</li>
-<li><code class="docutils literal notranslate"><span class="pre">exclude_dir</span></code> matches against the path of the directory, relative to <code class="docutils literal notranslate"><span class="pre">src</span></code>.
+<li><p><code class="docutils literal notranslate"><span class="pre">exclude</span></code> matches against the filename.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exclude_dir</span></code> matches against the path of the directory, relative to <code class="docutils literal notranslate"><span class="pre">src</span></code>.
 Since fnmatch does not treat path separators (<code class="docutils literal notranslate"><span class="pre">/</span></code> or <code class="docutils literal notranslate"><span class="pre">\</span></code>) as special characters,
 excluding all directories matching a given name, however deep under <code class="docutils literal notranslate"><span class="pre">src</span></code> they are,
-can be done for example with <code class="docutils literal notranslate"><span class="pre">exclude_dir=[&quot;__pycache__&quot;,</span> <span class="pre">&quot;*/__pycache__&quot;]</span></code></li>
+can be done for example with <code class="docutils literal notranslate"><span class="pre">exclude_dir=[&quot;__pycache__&quot;,</span> <span class="pre">&quot;*/__pycache__&quot;]</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-template">
-<span id="operations-files-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.template</span></code><a class="headerlink" href="#files-template" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-template">
+<span id="operations-files-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.template</span></code><a class="headerlink" href="#files-template" title="Link to this heading">¶</a></h2>
 <p>Generate a template using jinja2 and write it to the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -785,25 +814,27 @@ can be done for example with <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: template filename or IO-like object</li>
-<li><strong>dest</strong>: remote filename</li>
-<li><strong>user</strong>: user to own the files</li>
-<li><strong>group</strong>: group to own the files</li>
-<li><strong>mode</strong>: permissions of the files</li>
-<li><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</li>
-<li><strong>jinja_env_kwargs</strong>: keyword arguments to be passed into the jinja Environment()</li>
+<li><p><strong>src</strong>: template filename or IO-like object</p></li>
+<li><p><strong>dest</strong>: remote filename</p></li>
+<li><p><strong>user</strong>: user to own the files</p></li>
+<li><p><strong>group</strong>: group to own the files</p></li>
+<li><p><strong>mode</strong>: permissions of the files</p></li>
+<li><p><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</p></li>
+<li><p><strong>jinja_env_kwargs</strong>: keyword arguments to be passed into the jinja Environment()</p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd>If the remote directory does not exist it will be created using the same
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd><p>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
-if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">jinja_env_kwargs</span></code>:</dt><dd>To have more control over how jinja2 renders your template, you can pass
+if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">jinja_env_kwargs</span></code>:</dt><dd><p>To have more control over how jinja2 renders your template, you can pass
 a dict with arguments that will be passed as keyword args to the jinja2
-<a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</dd>
+<a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</p>
+</dd>
 </dl>
 <p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template
 if not set explicitly.</p>
-<dl class="docutils">
+<dl>
 <dt>Notes:</dt><dd><p>Common convention is to store templates in a “templates” directory and
 have a filename suffix with ‘.j2’ (for jinja2).</p>
 <p>For information on the template syntax, see
@@ -874,11 +905,12 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -901,7 +933,7 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

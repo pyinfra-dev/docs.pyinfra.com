@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Opkg Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -182,38 +182,37 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="opkg-operations">
-<h1>Opkg Operations<a class="headerlink" href="#opkg-operations" title="Permalink to this heading">¶</a></h1>
-<blockquote>
-<div><dl class="docutils">
+  <section id="opkg-operations">
+<h1>Opkg Operations<a class="headerlink" href="#opkg-operations" title="Link to this heading">¶</a></h1>
+<dl class="simple">
 <dt>Manage packages on OpenWrt using opkg</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">update</span></code> - update local copy of package information</li>
-<li><code class="docutils literal notranslate"><span class="pre">packages</span></code> -  install and remove packages</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update</span></code> - update local copy of package information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packages</span></code> -  install and remove packages</p></li>
 </ul>
 </dd>
 </dl>
 <p>see <a class="reference external" href="https://openwrt.org/docs/guide-user/additional-software/opkg">https://openwrt.org/docs/guide-user/additional-software/opkg</a>
 OpenWrt recommends against upgrading all packages  thus there is no <code class="docutils literal notranslate"><span class="pre">opkg.upgrade</span></code> function</p>
-</div></blockquote>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/opkg.html#facts-opkg-opkgpackages"><span class="std std-ref">opkg.OpkgPackages</span></a>.</p>
-<div class="section" id="opkg-packages">
-<span id="operations-opkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.packages</span></code><a class="headerlink" href="#opkg-packages" title="Permalink to this heading">¶</a></h2>
+<section id="opkg-packages">
+<span id="operations-opkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.packages</span></code><a class="headerlink" href="#opkg-packages" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update opkg packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>opkg.packages(
-    packages: typing.Union[str, typing.List[str]]=&quot;&quot;, present: &lt;class &#39;bool&#39;&gt;=True,
-    latest: &lt;class &#39;bool&#39;&gt;=False, update: &lt;class &#39;bool&#39;&gt;=True, **kwargs,
-)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">packages</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">bool</span><span class="s1">&#39;&gt;=True,</span>
+    <span class="n">latest</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">bool</span><span class="s1">&#39;&gt;=False, update: &lt;class &#39;</span><span class="nb">bool</span><span class="s1">&#39;&gt;=True, **kwargs,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>packages</strong>: package or list of packages to that must/must not be present</li>
-<li><strong>present</strong>: whether the package(s) should be installed (default True) or removed</li>
-<li><strong>latest</strong>: whether to attempt to upgrade the specified package(s) (default False)</li>
-<li><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">opkg</span> <span class="pre">update</span></code> before installing packages (default True)</li>
+<li><p><strong>packages</strong>: package or list of packages to that must/must not be present</p></li>
+<li><p><strong>present</strong>: whether the package(s) should be installed (default True) or removed</p></li>
+<li><p><strong>latest</strong>: whether to attempt to upgrade the specified package(s) (default False)</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">opkg</span> <span class="pre">update</span></code> before installing packages (default True)</p></li>
 </ul>
-<dl class="docutils">
-<dt>Not Supported:</dt><dd>Opkg does not support version pinning, i.e. <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code> is not allowed
-and will cause an exception.</dd>
+<dl class="simple">
+<dt>Not Supported:</dt><dd><p>Opkg does not support version pinning, i.e. <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code> is not allowed
+and will cause an exception.</p>
+</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure packages are installed∂ (will not force package upgrade)</span>
@@ -227,25 +226,27 @@ and will cause an exception.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="opkg-update">
-<span id="operations-opkg-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.update</span></code><a class="headerlink" href="#opkg-update" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="opkg-update">
+<span id="operations-opkg-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.update</span></code><a class="headerlink" href="#opkg-update" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Update the local opkg information.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opkg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -268,7 +269,7 @@ and will cause an exception.</dd>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

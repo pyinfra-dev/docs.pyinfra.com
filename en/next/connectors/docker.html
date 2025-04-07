@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>@docker Connector &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -147,19 +147,19 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="docker-connector">
-<h1><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector<a class="headerlink" href="#docker-connector" title="Permalink to this heading">¶</a></h1>
+  <section id="docker-connector">
+<h1><code class="docutils literal notranslate"><span class="pre">&#64;docker</span></code> Connector<a class="headerlink" href="#docker-connector" title="Link to this heading">¶</a></h1>
 <p>The Docker connector allows you to use pyinfra to create new Docker images or modify running
 Docker containers.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The Docker connector allows pyinfra to target Docker containers as inventory and is
+<p class="admonition-title">Note</p>
+<p>The Docker connector allows pyinfra to target Docker containers as inventory and is
 unrelated to the <a class="reference internal" href="../operations/docker.html"><span class="doc">Docker Operations</span></a> &amp; <a class="reference internal" href="../facts/docker.html"><span class="doc">Docker Facts</span></a>.</p>
 </div>
 <p>You can pass either an image name or existing container ID:</p>
 <ul class="simple">
-<li>Image - will create a new container from the image, execute operations against it, save into         a new Docker image and remove the container</li>
-<li>Existing container ID - will execute operations against the running container, leaving it         running</li>
+<li><p>Image - will create a new container from the image, execute operations against it, save into         a new Docker image and remove the container</p></li>
+<li><p>Existing container ID - will execute operations against the running container, leaving it         running</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># A Docker base image must be provided</span>
 pyinfra<span class="w"> </span>@docker/alpine:3.8<span class="w"> </span>...
@@ -174,39 +174,39 @@ pyinfra<span class="w"> </span>@docker/2beb8c15a1b1<span class="w"> </span>...
 <p>The Docker connector is great for testing pyinfra operations locally, rather than connecting to
 a remote host over SSH each time. This gives you a fast, local-first devloop to iterate on when
 writing deploys, operations or facts.</p>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>@docker/name<span class="w"> </span>...
 </pre></div>
 </div>
-</div>
-<div class="section" id="available-data">
-<h2>Available Data<a class="headerlink" href="#available-data" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="available-data">
+<h2>Available Data<a class="headerlink" href="#available-data" title="Link to this heading">¶</a></h2>
 <p>The following keys can be set as host or group data to control how this connector interacts with the target.</p>
 <table class="table table-bordered">
 <colgroup>
-<col width="25%" />
-<col width="45%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key</th>
-<th class="head">Description</th>
-<th class="head">Type</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">docker_identifier</span></code></td>
-<td>ID of container or image to start from</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">docker_identifier</span></code></p></td>
+<td><p>ID of container or image to start from</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -229,7 +229,7 @@ writing deploys, operations or facts.</p>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

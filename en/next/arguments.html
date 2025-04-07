@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Global Arguments &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=df830e76" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -139,90 +139,90 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="global-arguments">
-<h1>Global Arguments<a class="headerlink" href="#global-arguments" title="Permalink to this heading">¶</a></h1>
+  <section id="global-arguments">
+<h1>Global Arguments<a class="headerlink" href="#global-arguments" title="Link to this heading">¶</a></h1>
 <p>In addition to each operations having its own arguments, there are a number of keyword arguments available in all facts, operations and deploys.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">With the exception of <code class="docutils literal notranslate"><span class="pre">name</span></code> these are prefixed with <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid clashes with other operation and deploy arguments.</p>
+<p class="admonition-title">Note</p>
+<p>With the exception of <code class="docutils literal notranslate"><span class="pre">name</span></code> these are prefixed with <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid clashes with other operation and deploy arguments.</p>
 </div>
-<div class="section" id="privilege-user-escalation">
-<h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Permalink to this heading">¶</a></h2>
+<section id="privilege-user-escalation">
+<h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Link to this heading">¶</a></h2>
 <div class="admonition caution">
-<p class="first admonition-title">Caution</p>
-<p class="last">When combining privilege escalation arguments it is important to know the order they
+<p class="admonition-title">Caution</p>
+<p>When combining privilege escalation arguments it is important to know the order they
 are applied: <code class="docutils literal notranslate"><span class="pre">doas</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sudo</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">su</span></code>. For example
 <code class="docutils literal notranslate"><span class="pre">_sudo=True,_su_user=&quot;pyinfra&quot;</span></code> yields a command like <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">pyinfra..</span></code>.</p>
 </div>
 <table class="table table-bordered">
 <colgroup>
-<col width="25%" />
-<col width="45%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key</th>
-<th class="head">Description</th>
-<th class="head">Type</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_sudo</span></code></td>
-<td>Execute/apply any changes with sudo.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_sudo</span></code></p></td>
+<td><p>Execute/apply any changes with sudo.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code></td>
-<td>Execute/apply any changes with sudo as a non-root user.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_sudo_user</span></code></p></td>
+<td><p>Execute/apply any changes with sudo as a non-root user.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_use_sudo_login</span></code></td>
-<td>Execute sudo with a login shell.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_use_sudo_login</span></code></p></td>
+<td><p>Execute sudo with a login shell.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_sudo_password</span></code></td>
-<td>Password to sudo with. If needed and not specified pyinfra will prompt for it.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_sudo_password</span></code></p></td>
+<td><p>Password to sudo with. If needed and not specified pyinfra will prompt for it.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env</span></code></td>
-<td>Preserve the shell environment of the connecting user when using sudo.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_preserve_sudo_env</span></code></p></td>
+<td><p>Preserve the shell environment of the connecting user when using sudo.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_su_user</span></code></td>
-<td>Execute/apply any changes with this user using su.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_su_user</span></code></p></td>
+<td><p>Execute/apply any changes with this user using su.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_use_su_login</span></code></td>
-<td>Execute su with a login shell.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_use_su_login</span></code></p></td>
+<td><p>Execute su with a login shell.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_preserve_su_env</span></code></td>
-<td>Preserve the shell environment of the connecting user when using su.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_preserve_su_env</span></code></p></td>
+<td><p>Preserve the shell environment of the connecting user when using su.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code></td>
-<td>Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">_su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_su_shell</span></code></p></td>
+<td><p>Use this shell (instead of user login shell) when using <code class="docutils literal notranslate"><span class="pre">_su</span></code>). Only available under Linux, for use when using <cite>su</cite> with a user that has nologin/similar as their login shell.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_doas</span></code></td>
-<td>Execute/apply any changes with doas.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_doas</span></code></p></td>
+<td><p>Execute/apply any changes with doas.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code></td>
-<td>Execute/apply any changes with doas as a non-root user.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_doas_user</span></code></p></td>
+<td><p>Execute/apply any changes with doas as a non-root user.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -243,58 +243,58 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="shell-control-features">
-<h2>Shell control &amp; features<a class="headerlink" href="#shell-control-features" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="shell-control-features">
+<h2>Shell control &amp; features<a class="headerlink" href="#shell-control-features" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
-<col width="25%" />
-<col width="45%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key</th>
-<th class="head">Description</th>
-<th class="head">Type</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_shell_executable</span></code></td>
-<td>The shell executable to use for executing commands.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">sh</span></code></td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_shell_executable</span></code></p></td>
+<td><p>The shell executable to use for executing commands.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sh</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_chdir</span></code></td>
-<td>Directory to switch to before executing the command.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_chdir</span></code></p></td>
+<td><p>Directory to switch to before executing the command.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_env</span></code></td>
-<td>Dictionary of environment variables to set.</td>
-<td><code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">{}</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_env</span></code></p></td>
+<td><p>Dictionary of environment variables to set.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Mapping[str,</span> <span class="pre">str]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_success_exit_codes</span></code></td>
-<td>List of exit codes to consider a success.</td>
-<td><code class="docutils literal notranslate"><span class="pre">Iterable[int]</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">[0]</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_success_exit_codes</span></code></p></td>
+<td><p>List of exit codes to consider a success.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Iterable[int]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_timeout</span></code></td>
-<td>Timeout for <em>each</em> command executed during the operation.</td>
-<td><code class="docutils literal notranslate"><span class="pre">int</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_timeout</span></code></p></td>
+<td><p>Timeout for <em>each</em> command executed during the operation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code></td>
-<td>Whether to get a pseudoTTY when executing any commands.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_get_pty</span></code></p></td>
+<td><p>Whether to get a pseudoTTY when executing any commands.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_stdin</span></code></td>
-<td>String or buffer to send to the stdin of any commands.</td>
-<td><code class="docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">Iterable]</span></code></td>
-<td>&#160;</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_stdin</span></code></p></td>
+<td><p>String or buffer to send to the stdin of any commands.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">Iterable]</span></code></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -307,83 +307,83 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="operation-meta-callbacks">
-<h2>Operation meta &amp; callbacks<a class="headerlink" href="#operation-meta-callbacks" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="operation-meta-callbacks">
+<h2>Operation meta &amp; callbacks<a class="headerlink" href="#operation-meta-callbacks" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
-<col width="25%" />
-<col width="45%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Key</th>
-<th class="head">Description</th>
-<th class="head">Type</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">name</span></code></td>
-<td>Name of the operation.</td>
-<td><code class="docutils literal notranslate"><span class="pre">str</span></code></td>
-<td>&#160;</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Name of the operation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code></td>
-<td>Ignore errors when executing the operation.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code></p></td>
+<td><p>Ignore errors when executing the operation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_continue_on_error</span></code></td>
-<td>Continue executing operation commands after error. Only applies when <code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code> is true.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_continue_on_error</span></code></p></td>
+<td><p>Continue executing operation commands after error. Only applies when <code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code> is true.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_if</span></code></td>
-<td>Only run this operation if these functions return True</td>
-<td><code class="docutils literal notranslate"><span class="pre">Union[List,</span> <span class="pre">Callable,</span> <span class="pre">NoneType]</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">[]</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_if</span></code></p></td>
+<td><p>Only run this operation if these functions return True</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union[List,</span> <span class="pre">Callable,</span> <span class="pre">NoneType]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="execution-strategy">
-<h2>Execution strategy<a class="headerlink" href="#execution-strategy" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="execution-strategy">
+<h2>Execution strategy<a class="headerlink" href="#execution-strategy" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
-<col width="25%" />
-<col width="45%" />
-<col width="15%" />
-<col width="15%" />
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-even"><th class="head">Key</th>
-<th class="head">Description</th>
-<th class="head">Type</th>
-<th class="head">Default</th>
+<thead>
+<tr class="row-even"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_parallel</span></code></td>
-<td>Run this operation in batches of hosts.</td>
-<td><code class="docutils literal notranslate"><span class="pre">int</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">0</span></code></td>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_parallel</span></code></p></td>
+<td><p>Run this operation in batches of hosts.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">_run_once</span></code></td>
-<td>Only execute this operation once, on the first host to see it.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_run_once</span></code></p></td>
+<td><p>Only execute this operation once, on the first host to see it.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">_serial</span></code></td>
-<td>Run this operation host by host, rather than in parallel.</td>
-<td><code class="docutils literal notranslate"><span class="pre">bool</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">False</span></code></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_serial</span></code></p></td>
+<td><p>Run this operation host by host, rather than in parallel.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -406,7 +406,7 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

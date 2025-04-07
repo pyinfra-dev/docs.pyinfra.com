@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Python Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -182,26 +182,26 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="python-operations">
-<h1>Python Operations<a class="headerlink" href="#python-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="python-operations">
+<h1>Python Operations<a class="headerlink" href="#python-operations" title="Link to this heading">¶</a></h1>
 <p>The Python module allows you to execute Python code within the context of a deploy.</p>
-<div class="section" id="python-call">
-<span id="operations-python-call"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.call</span></code><a class="headerlink" href="#python-call" title="Permalink to this heading">¶</a></h2>
+<section id="python-call">
+<span id="operations-python-call"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.call</span></code><a class="headerlink" href="#python-call" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Execute a Python function within a deploy.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>function</strong>: the function to execute</li>
-<li><strong>args</strong>: arguments to pass to the function</li>
-<li><strong>kwargs</strong>: keyword arguments to pass to the function</li>
+<li><p><strong>function</strong>: the function to execute</p></li>
+<li><p><strong>args</strong>: arguments to pass to the function</p></li>
+<li><p><strong>kwargs</strong>: keyword arguments to pass to the function</p></li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;echo hello&#39;</span>
     <span class="k">if</span> <span class="n">hello</span><span class="p">:</span>
         <span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="o">**</span><span class="n">hello</span><span class="o">**</span>
@@ -221,24 +221,25 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="python-raise-exception">
-<span id="operations-python-raise-exception"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code><a class="headerlink" href="#python-raise-exception" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="python-raise-exception">
+<span id="operations-python-raise-exception"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code><a class="headerlink" href="#python-raise-exception" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Raise a Python exception within a deploy.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>exception</strong>: the exception class to raise</li>
-<li><strong>args</strong>: arguments passed to the exception creation</li>
-<li><strong>kwargs</strong>: keyword arguments passed to the exception creation</li>
+<li><p><strong>exception</strong>: the exception class to raise</p></li>
+<li><p><strong>args</strong>: arguments passed to the exception creation</p></li>
+<li><p><strong>kwargs</strong>: keyword arguments passed to the exception creation</p></li>
 </ul>
 <p><strong>Example</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span>
@@ -248,11 +249,12 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Note:</dt><dd>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -275,7 +277,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

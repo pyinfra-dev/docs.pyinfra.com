@@ -48,9 +48,8 @@ Add/remove PostgreSQL databases.
 + **psql_***: global module arguments, see above
 
 Updates:
-    pyinfra will not attempt to change existing databases - it will either
-    create or drop databases, but not alter them (if the db exists this
-    operation will make no changes).
+    pyinfra will change existing databases - but some parameters are not
+    changeable (template, encoding, lc_collate and lc_ctype).
 
 **Example:**
 
@@ -61,7 +60,7 @@ Updates:
         database="pyinfra_stuff",
         owner="pyinfra",
         encoding="UTF8",
-        sudo_user="postgres",
+        _sudo_user="postgres",
     )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
