@@ -150,9 +150,9 @@ Add/remove PostgreSQL roles.
 .. code:: python
 
     postgres.role(
-        role: str, present=True, password: str | None=None, login=True, superuser=False,
-        inherit=False, createdb=False, createrole=False, replication=False,
-        connection_limit: int | None=None, psql_user: str | None=None,
+        role: str, present: bool=True, password: str | None=None, login: bool=True,
+        superuser: bool=False, inherit: bool=False, createdb: bool=False, createrole: bool=False,
+        replication: bool=False, connection_limit: int | None=None, psql_user: str | None=None,
         psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
         psql_database: str | None=None, **kwargs,
     )
@@ -184,7 +184,7 @@ Updates:
         password="somepassword",
         superuser=True,
         login=True,
-        sudo_user="postgres",
+        _sudo_user="postgres",
     )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
