@@ -127,36 +127,155 @@
           
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
-<section id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Link to this heading">¶</a></h2>
-<p>It is recommended to install pyinfra using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<section id="python-version-requirements">
+<h3>Python Version Requirements<a class="headerlink" href="#python-version-requirements" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>Python 3.9 or later is required</p></li>
+<li><p>pyinfra 3.2+ supports Python 3.9, 3.10, 3.11, and 3.12</p></li>
+<li><p>You can check your Python version with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>--version
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="system-requirements">
+<h3>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>A Unix-like operating system (Linux, macOS) or Windows</p></li>
+<li><p>Shell access to target systems</p></li>
+<li><p>For Windows users: Administrator privileges for installation</p></li>
+<li><p>For development: A C++ compiler may be required for some Python packages</p></li>
+</ul>
+</section>
+</section>
+<section id="installation-method">
+<h2>Installation Method<a class="headerlink" href="#installation-method" title="Link to this heading">¶</a></h2>
+<section id="using-pip-recommended">
+<h3>Using pip (Recommended)<a class="headerlink" href="#using-pip-recommended" title="Link to this heading">¶</a></h3>
+<section id="create-a-virtual-environment-best-practice">
+<h4>Create a Virtual Environment (Best Practice)<a class="headerlink" href="#create-a-virtual-environment-best-practice" title="Link to this heading">¶</a></h4>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a virtual environment</span>
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+
+<span class="c1"># Activate the virtual environment</span>
+<span class="c1"># On macOS/Linux</span>
+<span class="nb">source</span><span class="w"> </span>env/bin/activate
+<span class="c1"># On Windows</span>
+env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
+</section>
+<section id="install-pyinfra">
+<h4>Install pyinfra<a class="headerlink" href="#install-pyinfra" title="Link to this heading">¶</a></h4>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyinfra
 </pre></div>
 </div>
 </section>
-<section id="windows">
-<h2>Windows<a class="headerlink" href="#windows" title="Link to this heading">¶</a></h2>
-<p>Tested on WindowsServer2019 with python 3.7.</p>
+<section id="verify-installation">
+<h4>Verify Installation<a class="headerlink" href="#verify-installation" title="Link to this heading">¶</a></h4>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>--version
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="platform-specific-instructions">
+<h2>Platform-Specific Instructions<a class="headerlink" href="#platform-specific-instructions" title="Link to this heading">¶</a></h2>
+<section id="windows-installation">
+<h3>Windows Installation<a class="headerlink" href="#windows-installation" title="Link to this heading">¶</a></h3>
+<section id="install-python">
+<h4>Install Python<a class="headerlink" href="#install-python" title="Link to this heading">¶</a></h4>
 <ul class="simple">
-<li><p>Download Python https://www.python.org/downloads/windows/
-(ex: python-3.7.6-amd64.exe). Install as Administrator and
-ensure the <strong>Add Python to PATH</strong> option is selected.)</p></li>
+<li><p>Download from <a class="reference external" href="https://www.python.org/downloads/windows/">Python’s official website</a></p></li>
+<li><p>Run installer as Administrator</p></li>
+<li><p>Check “Add Python to PATH” during installation</p></li>
 </ul>
-<p>If you need to build any python packages on Windows, perhaps because one of the <strong>pip</strong> packages above fails, you may need a c++ compiler. One possible solution is below.</p>
+</section>
+<section id="optional-install-c-compiler">
+<h4>Optional: Install C++ Compiler<a class="headerlink" href="#optional-install-c-compiler" title="Link to this heading">¶</a></h4>
 <ul class="simple">
-<li><p>Download Visual Studio Community Edition https://visualstudio.microsoft.com/downloads/ and
-install Visual Studio as Administrator. Select the “Desktop development with C++” option and
-ensure at least these options are selected:</p>
+<li><p>Download <a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Visual Studio Community Edition</a></p></li>
+<li><p>Select “Desktop development with C++” workload</p></li>
+<li><p>Required components:</p>
 <ul>
-<li><p>“MSVC v142…”</p></li>
-<li><p>“Windows 10 SDK…”</p></li>
-<li><p>“C++ cmake tools for windows”</p></li>
-<li><p>“C++ ATL for latest…”</p></li>
-<li><p>“C++/cli support for v142…”</p></li>
-<li><p>“C++ Modules for v142…”</p></li>
+<li><p>MSVC v142…</p></li>
+<li><p>Windows 10 SDK…</p></li>
+<li><p>C++ CMake tools for Windows</p></li>
+<li><p>C++ ATL for latest…</p></li>
+<li><p>C++/CLI support for v142…</p></li>
+<li><p>C++ Modules for v142…</p></li>
 </ul>
 </li>
 </ul>
+</section>
+<section id="id1">
+<h4>Install pyinfra<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+pip<span class="w"> </span>install<span class="w"> </span>pyinfra
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">¶</a></h2>
+<section id="do-s">
+<h3>Do’s<a class="headerlink" href="#do-s" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>✅ Use virtual environments for isolation</p></li>
+<li><p>✅ Keep pyinfra and dependencies up-to-date</p></li>
+<li><p>✅ Use the latest Python version supported</p></li>
+<li><p>✅ Install as a regular user (not root/sudo)</p></li>
+</ul>
+</section>
+<section id="don-ts">
+<h3>Don’ts<a class="headerlink" href="#don-ts" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>❌ Avoid system-wide installation</p></li>
+<li><p>❌ Don’t mix pyinfra with other projects in the same virtual environment</p></li>
+<li><p>❌ Don’t use unsupported package managers (poetry, pip-tools)</p></li>
+</ul>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading">¶</a></h3>
+<section id="permission-errors">
+<h4>Permission Errors<a class="headerlink" href="#permission-errors" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Ensure you’re not using sudo for installation</p></li>
+<li><p>Check virtual environment permissions</p></li>
+<li><p>Verify Python installation directory permissions</p></li>
+</ul>
+</section>
+<section id="python-version-issues">
+<h4>Python Version Issues<a class="headerlink" href="#python-version-issues" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Verify Python version meets requirements</p></li>
+<li><p>Consider using pyenv or similar version manager</p></li>
+</ul>
+</section>
+<section id="virtual-environment-issues">
+<h4>Virtual Environment Issues<a class="headerlink" href="#virtual-environment-issues" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Ensure virtual environment is properly activated</p></li>
+<li><p>Check PATH environment variable</p></li>
+<li><p>Verify Python interpreter location</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="updating-pyinfra">
+<h2>Updating pyinfra<a class="headerlink" href="#updating-pyinfra" title="Link to this heading">¶</a></h2>
+<p>To update to the latest version:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pyinfra
+</pre></div>
+</div>
 </section>
 </section>
 
