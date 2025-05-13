@@ -16,9 +16,10 @@ Install/remove a flatpak package
 
 .. code:: python
 
-    flatpak.packages(packages: str | list[str] | None=None, present=True, **kwargs)
+    flatpak.packages(packages: str | list[str] | None=None, remote: str | None=None, present=True, **kwargs)
 
 + **packages**: List of packages
++ **remote**: Source to install the application or runtime from
 + **present**: whether the package should be installed
 
 **Examples:**
@@ -29,6 +30,13 @@ Install/remove a flatpak package
     flatpak.package(
         name="Install vlc",
         packages="org.videolan.VLC",
+    )
+
+    # Install vlc flatpak from flathub
+    flatpak.package(
+        name="Install vlc",
+        packages="org.videolan.VLC",
+        remote="flathub",
     )
 
     # Install multiple flatpaks
