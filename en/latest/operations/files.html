@@ -659,12 +659,14 @@ recreate a new one pointing to then new target.</p>
 <li><p><strong>force</strong>: always upload the file, even if the remote copy matches</p></li>
 <li><p><strong>assume_exists</strong>: whether to assume the local file exists</p></li>
 </ul>
-<dl class="simple">
+<dl>
 <dt><code class="docutils literal notranslate"><span class="pre">dest</span></code>:</dt><dd><p>If this is a directory that already exists on the remote side, the local
 file will be uploaded to that directory with the same filename.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">mode</span></code>:</dt><dd><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> the permissions of the local file are applied to the
-remote file after the upload is complete.</p>
+remote file after the upload is complete.  If set to an octal value with
+digits for at least user, group, and other, either as an <code class="docutils literal notranslate"><span class="pre">int</span></code> or
+<code class="docutils literal notranslate"><span class="pre">str</span></code>, those permissions will be used.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">create_remote_dir</span></code>:</dt><dd><p>If the remote directory does not exist it will be created using the same
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
@@ -672,6 +674,10 @@ if this is required call <code class="docutils literal notranslate"><span class=
 </dd>
 <dt>Note:</dt><dd><p>This operation is not suitable for large files as it may involve copying
 the file before uploading it.</p>
+<p>Currently, if the mode argument is anything other than a <code class="docutils literal notranslate"><span class="pre">bool</span></code> or a full
+octal permission set and the remote file exists, the operation will always
+behave as if the remote file does not match the specified permissions and
+requires a change.</p>
 </dd>
 </dl>
 <p><strong>Examples:</strong></p>
