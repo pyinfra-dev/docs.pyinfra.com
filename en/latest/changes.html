@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-4">v3.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-3-1">v3.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-3">v3.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-2">v3.2</a></li>
@@ -156,6 +157,38 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-4">
+<h2>v3.4<a class="headerlink" href="#v3-4" title="Link to this heading">¶</a></h2>
+<p>Much delayed 3.4, great collection of additions and improvements. Huge THANK YOU to all contributors as always. New features:</p>
+<ul class="simple">
+<li><p>Add &#64;podman connector (&#64;Griffoen)</p></li>
+</ul>
+<p>New and updated operations/facts:</p>
+<ul class="simple">
+<li><p>operations/docker.network: add support for aux addresses (&#64;DonDebonair)</p></li>
+<li><p>operations/files: try multiple hash functions in <code class="docutils literal notranslate"><span class="pre">files.get</span></code> + <code class="docutils literal notranslate"><span class="pre">files.put</span></code> (&#64;mrkbac)</p></li>
+<li><p>operations/files.download: add <code class="docutils literal notranslate"><span class="pre">temp_dir</span></code> argument (&#64;scy)</p></li>
+<li><p>operations/files.download: add <code class="docutils literal notranslate"><span class="pre">extra_curl_args</span></code> and <code class="docutils literal notranslate"><span class="pre">extra_wget_args</span></code> arguments (&#64;jgelens)</p></li>
+<li><p>operations/flatpak: add remote support (&#64;Griffoen)</p></li>
+<li><p>operations/git + facts/git: add <code class="docutils literal notranslate"><span class="pre">GitTag</span></code> fact and support tag checkout (&#64;wowi42)</p></li>
+<li><p>operations/server.mount: add support for FreeBSD mounts (&#64;DtxdF)</p></li>
+<li><p>facts/server: add <code class="docutils literal notranslate"><span class="pre">server.Port</span></code> fact to find process listening on port (&#64;missytake)</p></li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul class="simple">
+<li><p>operations/docker: handle case where no docker containers/etc exist (&#64;wowi42)</p></li>
+<li><p>operations/files + operations/crontab: fix deletion of lines when <code class="docutils literal notranslate"><span class="pre">present=False</span></code> (&#64;bad)</p></li>
+<li><p>operations/files.block: avoid use of non-POSIX <code class="docutils literal notranslate"><span class="pre">chown</span> <span class="pre">-n</span></code></p></li>
+<li><p>operations/files.put: fix copying of local file mode (&#64;vram0gh2)</p></li>
+<li><p>operations/server.user: fix appending of user groups (&#64;aaron-riact)</p></li>
+<li><p>facts/server.Mounts: fix whitespace and escaped character parsing (&#64;lemmi)</p></li>
+<li><p>facts/systemd: treat mounted units as active</p></li>
+</ul>
+<p>Internal/meta:</p>
+<ul class="simple">
+<li><p>remove unncessary setuptools runtime dependency (&#64;karlicoss)</p></li>
+</ul>
+</section>
 <section id="v3-3-1">
 <h2>v3.3.1<a class="headerlink" href="#v3-3-1" title="Link to this heading">¶</a></h2>
 <ul class="simple">
