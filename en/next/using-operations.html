@@ -92,16 +92,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#the-host-object">The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#host-group-data">Host &amp; Group Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#host-facts">Host Facts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fact-errors">Fact Errors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#the-inventory-object">The <code class="docutils literal notranslate"><span class="pre">inventory</span></code> Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operation-changes-output">Operation Changes &amp; Output</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#operation-output">Operation Output</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#nested-operations">Nested Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#include-multiple-files">Include Multiple Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-detection">Change Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-callbacks">Output &amp; Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#include-files">Include Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-config-object">The <code class="docutils literal notranslate"><span class="pre">config</span></code> Object</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#enforcing-requirements">Enforcing Requirements</a></li>
 </ul>
@@ -245,14 +241,14 @@
 <p class="admonition-title">Important</p>
 <p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change. See: <a class="reference external" href="deploy-process.html#using-host-facts">using host facts</a>.</p>
 </div>
-</section>
 <section id="fact-errors">
-<h3>Fact Errors<a class="headerlink" href="#fact-errors" title="Link to this heading">¶</a></h3>
+<h4>Fact Errors<a class="headerlink" href="#fact-errors" title="Link to this heading">¶</a></h4>
 <p>When facts fail due to an error the host will be marked as failed just as it would when an operation fails. This can be avoided by passing the <code class="docutils literal notranslate"><span class="pre">_ignore_errors</span></code> argument:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">,</span> <span class="n">_ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 <section id="the-inventory-object">
@@ -275,25 +271,19 @@
 </pre></div>
 </div>
 </section>
-<section id="operation-changes-output">
-<h2>Operation Changes &amp; Output<a class="headerlink" href="#operation-changes-output" title="Link to this heading">¶</a></h2>
+<section id="change-detection">
+<h2>Change Detection<a class="headerlink" href="#change-detection" title="Link to this heading">¶</a></h2>
 <p>All operations return an operation meta object which provides information about the changes the operation <em>will</em> execute. This can be used to control other operations via the <code class="docutils literal notranslate"><span class="pre">_if</span></code> argument:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
 
-<span class="n">create_user</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create user myuser&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myuser&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">create_otheruser</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create user otheruser&quot;</span><span class="p">,</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;otheruser&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="n">create_user</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">create_otheruser</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 
 <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bootstrap myuser&quot;</span><span class="p">,</span>
     <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span>
-    <span class="n">_if</span><span class="o">=</span><span class="n">create_user</span><span class="o">.</span><span class="n">did_change</span><span class="p">,</span>
+    <span class="c1"># Only execute this operation if the first user create executed any changes</span>
+    <span class="n">_if</span><span class="o">=</span><span class="n">create_user</span><span class="o">.</span><span class="n">did_change</span><span class="p">,</span>  <span class="c1"># also: did_not_change, did_succeed, did_error</span>
 <span class="p">)</span>
 
 <span class="c1"># A list can be provided to run an operation if **all** functions return true</span>
@@ -314,9 +304,10 @@
 <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">_if</span><span class="o">=</span><span class="n">all_changed</span><span class="p">(</span><span class="n">create_user</span><span class="p">,</span> <span class="n">create_otheruser</span><span class="p">))</span>
 </pre></div>
 </div>
-<section id="operation-output">
-<h3>Operation Output<a class="headerlink" href="#operation-output" title="Link to this heading">¶</a></h3>
-<p>pyinfra doesn’t immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation.</p>
+</section>
+<section id="output-callbacks">
+<h2>Output &amp; Callbacks<a class="headerlink" href="#output-callbacks" title="Link to this heading">¶</a></h2>
+<p>pyinfra doesn’t immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation. Callback functions may also call other operations which will be immediately executed. Why/how this works <a class="reference external" href="deploy-process.html#how-pyinfra-detects-changes-orders-operations">is described here</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
 
@@ -341,40 +332,16 @@
 <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Checking output of ufw_usable: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">is_ufw_usable</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Produces output similar to:</dt><dd><dl class="simple">
-<dt>–&gt; Preparing Operations…</dt><dd><p>Loading: deploy_create_users.py
-Checking output of ufw_usable: None
-[multitest.example.com] Ready: deploy_create_users.py</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</section>
-</section>
-<section id="nested-operations">
-<h2>Nested Operations<a class="headerlink" href="#nested-operations" title="Link to this heading">¶</a></h2>
-<p>Nested operations are called during the execution phase within a callback function passed into a <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a>. Calling a nested operation immediately executes it on the target machine. This is useful in complex scenarios where one operation output is required in another.</p>
-<p>Because nested operations are executed immediately, the output is always available right away:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
-
-<span class="k">def</span> <span class="nf">callback</span><span class="p">():</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-        <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;echo output&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Execute callback function&quot;</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-<span class="p">)</span>
+<p>Produces output similar to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--&gt;</span> <span class="n">Preparing</span> <span class="n">Operations</span><span class="o">...</span>
+    <span class="n">Loading</span><span class="p">:</span> <span class="n">deploy_create_users</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">Checking</span> <span class="n">output</span> <span class="n">of</span> <span class="n">ufw_usable</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="p">[</span><span class="n">multitest</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="p">]</span> <span class="n">Ready</span><span class="p">:</span> <span class="n">deploy_create_users</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </section>
-<section id="include-multiple-files">
-<h2>Include Multiple Files<a class="headerlink" href="#include-multiple-files" title="Link to this heading">¶</a></h2>
+<section id="include-files">
+<h2>Include Files<a class="headerlink" href="#include-files" title="Link to this heading">¶</a></h2>
 <p>Including files can be used to break out operations across multiple files. Files can be included using <code class="docutils literal notranslate"><span class="pre">local.include</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">local</span>
 
