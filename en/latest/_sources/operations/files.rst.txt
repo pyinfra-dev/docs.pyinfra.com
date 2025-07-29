@@ -503,7 +503,8 @@ Upload a local file, or file-like object, to the remote system.
     files.put(
         src: str | IO[Any], dest: str, user: str | None=None, group: str | None=None,
         mode: int | str | bool | None=None, add_deploy_dir=True, create_remote_dir=True,
-        force=False, assume_exists=False, **kwargs,
+        force=False, assume_exists=False, atime: datetime | float | int | str | bool | None=None,
+        mtime: datetime | float | int | str | bool | None=None, **kwargs,
     )
 
 + **src**: filename or IO-like object to upload
@@ -515,6 +516,8 @@ Upload a local file, or file-like object, to the remote system.
 + **create_remote_dir**: create the remote directory if it doesn't exist
 + **force**: always upload the file, even if the remote copy matches
 + **assume_exists**: whether to assume the local file exists
++ **atime**: value of atime the file should have, use ``True`` to match the local file
++ **mtime**: value of mtime the file should have, use ``True`` to match the local file
 
 ``dest``:
     If this is a directory that already exists on the remote side, the local
@@ -531,7 +534,21 @@ Upload a local file, or file-like object, to the remote system.
     user & group as passed to ``files.put``. The mode will *not* be copied over,
     if this is required call ``files.directory`` separately.
 
-Note:
+``atime`` and ``mtime``:
+    When set to values other than ``False`` or ``None``, the respective metadata
+    fields on the remote file will updated accordingly.  Timestamp values are
+    considered equivalent if the difference is less than one second and they have
+    the identical number in the seconds field.  If set to ``True`` the local
+    file is the source of the value.  Otherwise, these values can be provided as
+    ``datetime`` objects, POSIX timestamps, or strings that can be parsed into
+    either of these date and time specifications.  They can also be reference file
+    paths on the remote host, as with the ``-r`` argument to ``touch``.  If a
+    ``datetime`` argument has no ``tzinfo`` value (i.e., it is naive), it is
+    assumed to be in the remote host's local timezone.  There is no shortcut for
+    setting both ``atime` and ``mtime`` values with a single time specification,
+    unlike the native ``touch`` command.
+
+Notes:
     This operation is not suitable for large files as it may involve copying
     the file before uploading it.
 
@@ -539,6 +556,12 @@ Note:
     octal permission set and the remote file exists, the operation will always
     behave as if the remote file does not match the specified permissions and
     requires a change.
+
+    If the ``atime`` argument is set for a given file, unless the remote
+    filesystem is mounted ``noatime`` or ``relatime``, multiple runs of this
+    operation will trigger the change detection for that file, since the act of
+    reading and checksumming the file will cause the host OS to update the file's
+    ``atime``.
 
 **Examples:**
 

@@ -649,7 +649,8 @@ recreate a new one pointing to then new target.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atime</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">mtime</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -663,6 +664,8 @@ recreate a new one pointing to then new target.</p>
 <li><p><strong>create_remote_dir</strong>: create the remote directory if it doesn’t exist</p></li>
 <li><p><strong>force</strong>: always upload the file, even if the remote copy matches</p></li>
 <li><p><strong>assume_exists</strong>: whether to assume the local file exists</p></li>
+<li><p><strong>atime</strong>: value of atime the file should have, use <code class="docutils literal notranslate"><span class="pre">True</span></code> to match the local file</p></li>
+<li><p><strong>mtime</strong>: value of mtime the file should have, use <code class="docutils literal notranslate"><span class="pre">True</span></code> to match the local file</p></li>
 </ul>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">dest</span></code>:</dt><dd><p>If this is a directory that already exists on the remote side, the local
@@ -677,12 +680,30 @@ digits for at least user, group, and other, either as an <code class="docutils l
 user &amp; group as passed to <code class="docutils literal notranslate"><span class="pre">files.put</span></code>. The mode will <em>not</em> be copied over,
 if this is required call <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> separately.</p>
 </dd>
-<dt>Note:</dt><dd><p>This operation is not suitable for large files as it may involve copying
+<dt><code class="docutils literal notranslate"><span class="pre">atime</span></code> and <code class="docutils literal notranslate"><span class="pre">mtime</span></code>:</dt><dd><p>When set to values other than <code class="docutils literal notranslate"><span class="pre">False</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>, the respective metadata
+fields on the remote file will updated accordingly.  Timestamp values are
+considered equivalent if the difference is less than one second and they have
+the identical number in the seconds field.  If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> the local
+file is the source of the value.  Otherwise, these values can be provided as
+<code class="docutils literal notranslate"><span class="pre">datetime</span></code> objects, POSIX timestamps, or strings that can be parsed into
+either of these date and time specifications.  They can also be reference file
+paths on the remote host, as with the <code class="docutils literal notranslate"><span class="pre">-r</span></code> argument to <code class="docutils literal notranslate"><span class="pre">touch</span></code>.  If a
+<code class="docutils literal notranslate"><span class="pre">datetime</span></code> argument has no <code class="docutils literal notranslate"><span class="pre">tzinfo</span></code> value (i.e., it is naive), it is
+assumed to be in the remote host’s local timezone.  There is no shortcut for
+setting both <code class="docutils literal notranslate"><span class="pre">atime`</span> <span class="pre">and</span> <span class="pre">``mtime</span></code> values with a single time specification,
+unlike the native <code class="docutils literal notranslate"><span class="pre">touch</span></code> command.</p>
+</dd>
+<dt>Notes:</dt><dd><p>This operation is not suitable for large files as it may involve copying
 the file before uploading it.</p>
 <p>Currently, if the mode argument is anything other than a <code class="docutils literal notranslate"><span class="pre">bool</span></code> or a full
 octal permission set and the remote file exists, the operation will always
 behave as if the remote file does not match the specified permissions and
 requires a change.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">atime</span></code> argument is set for a given file, unless the remote
+filesystem is mounted <code class="docutils literal notranslate"><span class="pre">noatime</span></code> or <code class="docutils literal notranslate"><span class="pre">relatime</span></code>, multiple runs of this
+operation will trigger the change detection for that file, since the act of
+reading and checksumming the file will cause the host OS to update the file’s
+<code class="docutils literal notranslate"><span class="pre">atime</span></code>.</p>
 </dd>
 </dl>
 <p><strong>Examples:</strong></p>
