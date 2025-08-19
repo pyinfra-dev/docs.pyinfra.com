@@ -93,6 +93,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using the CLI</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cli-arguments-options">CLI arguments &amp; options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verbosity">Verbosity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retry-options">Retry Options</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#inventory">Inventory</a><ul>
@@ -195,6 +196,21 @@ pyinfra<span class="w"> </span>INVENTORY<span class="w"> </span>debug-inventory
 <li><p><code class="docutils literal notranslate"><span class="pre">-vv</span></code>: as above plus print shell input to the remote host</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-vvv</span></code> as above plus print shell output from the remote host</p></li>
 </ul>
+</section>
+<section id="retry-options">
+<h3>Retry Options<a class="headerlink" href="#retry-options" title="Link to this heading">¶</a></h3>
+<p>pyinfra supports automatic retry of failed operations via CLI options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--retry</span> <span class="pre">N</span></code>: Retry failed operations up to N times (default: 0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--retry-delay</span> <span class="pre">N</span></code>: Wait N seconds between retry attempts (default: 5)</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retry failed operations up to 3 times with default 5 second delay</span>
+pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<span class="w"> </span>--retry<span class="w"> </span><span class="m">3</span>
+
+<span class="c1"># Retry with custom delay</span>
+pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>deploy.py<span class="w"> </span>--retry<span class="w"> </span><span class="m">2</span><span class="w"> </span>--retry-delay<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="inventory">

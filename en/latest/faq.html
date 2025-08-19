@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-the-name-of-the-current-host">How do I get the name of the current host?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-use-sudo-in-an-operation">How do I use sudo in an operation?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-chmod-or-chown-a-file-directory-link">How do I chmod or chown a file/directory/link?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-handle-unreliable-operations-or-network-issues">How do I handle unreliable operations or network issues?</a></li>
 </ul>
 </li>
 </ul>
@@ -177,6 +178,33 @@
     <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">mode</span><span class="o">=</span><span class="mi">644</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="how-do-i-handle-unreliable-operations-or-network-issues">
+<h2>How do I handle unreliable operations or network issues?<a class="headerlink" href="#how-do-i-handle-unreliable-operations-or-network-issues" title="Link to this heading">¶</a></h2>
+<p>Use the <a class="reference external" href="arguments.html#retry-behavior">retry behavior arguments</a> to automatically retry failed operations. This is especially useful for network operations or services that may be temporarily unavailable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retry a network operation up to 3 times</span>
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download file with retries&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/file.zip&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">_retry_delay</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># wait 5 seconds between retries</span>
+<span class="p">)</span>
+
+<span class="c1"># Use custom retry logic for specific error conditions</span>
+<span class="k">def</span> <span class="nf">should_retry_download</span><span class="p">(</span><span class="n">output_data</span><span class="p">):</span>
+    <span class="c1"># Retry only on temporary network errors, not permanent failures</span>
+    <span class="n">stderr_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_data</span><span class="p">[</span><span class="s2">&quot;stderr_lines&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">temporary_errors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;connection refused&quot;</span><span class="p">,</span> <span class="s2">&quot;temporary failure&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">error</span> <span class="ow">in</span> <span class="n">stderr_text</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">temporary_errors</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download with smart retry logic&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/large-file.zip&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">_retry_until</span><span class="o">=</span><span class="n">should_retry_download</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

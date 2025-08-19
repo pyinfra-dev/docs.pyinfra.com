@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using Operations</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#global-arguments">Global Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retry-functionality">Retry Functionality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-host-object">The <code class="docutils literal notranslate"><span class="pre">host</span></code> Object</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#host-group-data">Host &amp; Group Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#host-facts">Host Facts</a></li>
@@ -189,6 +190,43 @@
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update apt repositories&quot;</span><span class="p">,</span>
     <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="retry-functionality">
+<h2>Retry Functionality<a class="headerlink" href="#retry-functionality" title="Link to this heading">¶</a></h2>
+<p>Operations can be configured to retry automatically on failure using retry arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">server</span>
+
+<span class="c1"># Retry a flaky command up to 3 times with default 5 second delay</span>
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download file with retries&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;curl -o /tmp/file.tar.gz https://example.com/file.tar.gz&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Retry with custom delay between attempts</span>
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Check service status with retries&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;systemctl is-active myservice&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">_retry_delay</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># 10 second delay between retries</span>
+<span class="p">)</span>
+
+<span class="c1"># Use custom retry condition to control when to retry</span>
+<span class="k">def</span> <span class="nf">retry_on_network_error</span><span class="p">(</span><span class="n">output_data</span><span class="p">):</span>
+    <span class="c1"># Retry if stderr contains network-related errors</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output_data</span><span class="p">[</span><span class="s2">&quot;stderr_lines&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;connection&quot;</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Network operation with conditional retry&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/large-file.zip&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">_retry_until</span><span class="o">=</span><span class="n">retry_on_network_error</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
