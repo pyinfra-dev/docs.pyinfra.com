@@ -337,6 +337,25 @@ Returns the path environment variable of the current user.
 Returns the process occuping a port and its PID
 
 
+.. _facts:server.RebootRequired:
+
+:code:`server.RebootRequired`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(RebootRequired, )
+
+Returns a boolean indicating whether the system requires a reboot.
+
+On Linux systems:
+- Checks /var/run/reboot-required and /var/run/reboot-required.pkgs
+- On Alpine Linux, compares installed kernel with running kernel
+
+On FreeBSD systems:
+- Compares running kernel version with installed kernel version
+
+
 .. _facts:server.SecurityLimits:
 
 :code:`server.SecurityLimits`
