@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Crontab Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -162,6 +162,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -174,39 +175,41 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="crontab-operations">
-<h1>Crontab Operations<a class="headerlink" href="#crontab-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="crontab-operations">
+<h1>Crontab Operations<a class="headerlink" href="#crontab-operations" title="Link to this heading">¶</a></h1>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/crontab.html#facts-crontab-crontab"><span class="std std-ref">crontab.Crontab</span></a>.</p>
-<div class="section" id="crontab-crontab">
-<span id="operations-crontab-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">crontab.crontab</span></code><a class="headerlink" href="#crontab-crontab" title="Permalink to this heading">¶</a></h2>
+<section id="crontab-crontab">
+<span id="operations-crontab-crontab"></span><h2><code class="code docutils literal notranslate"><span class="pre">crontab.crontab</span></code><a class="headerlink" href="#crontab-crontab" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update crontab entries.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">crontab</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
     <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cron_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
     <span class="n">hour</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">day_of_week</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">day_of_month</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">special_time</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>command</strong>: the command for the cron</li>
-<li><strong>present</strong>: whether this cron command should exist</li>
-<li><strong>user</strong>: the user whose crontab to manage</li>
-<li><strong>cron_name</strong>: name the cronjob so future changes to the command will overwrite</li>
-<li><strong>modify_cron_name</strong>: modify the cron name</li>
-<li><strong>minute</strong>: which minutes to execute the cron</li>
-<li><strong>hour</strong>: which hours to execute the cron</li>
-<li><strong>month</strong>: which months to execute the cron</li>
-<li><strong>day_of_week</strong>: which day of the week to execute the cron</li>
-<li><strong>day_of_month</strong>: which day of the month to execute the cron</li>
-<li><strong>special_time</strong>: cron “nickname” time (&#64;reboot, &#64;daily, etc), overrides others</li>
-<li><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">command</span></code></li>
+<li><p><strong>command</strong>: the command for the cron</p></li>
+<li><p><strong>present</strong>: whether this cron command should exist</p></li>
+<li><p><strong>user</strong>: the user whose crontab to manage</p></li>
+<li><p><strong>cron_name</strong>: name the cronjob so future changes to the command will overwrite</p></li>
+<li><p><strong>modify_cron_name</strong>: modify the cron name</p></li>
+<li><p><strong>minute</strong>: which minutes to execute the cron</p></li>
+<li><p><strong>hour</strong>: which hours to execute the cron</p></li>
+<li><p><strong>month</strong>: which months to execute the cron</p></li>
+<li><p><strong>day_of_week</strong>: which day of the week to execute the cron</p></li>
+<li><p><strong>day_of_month</strong>: which day of the month to execute the cron</p></li>
+<li><p><strong>special_time</strong>: cron “nickname” time (&#64;reboot, &#64;daily, etc), overrides others</p></li>
+<li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">command</span></code></p></li>
 </ul>
-<dl class="docutils">
-<dt>Cron commands:</dt><dd>Unless <code class="docutils literal notranslate"><span class="pre">name</span></code> is specified the command is used to identify crontab entries.
+<dl class="simple">
+<dt>Cron commands:</dt><dd><p>Unless <code class="docutils literal notranslate"><span class="pre">name</span></code> is specified the command is used to identify crontab entries.
 This means commands must be unique within a given users crontab. If you require
-multiple identical commands, provide a different name argument for each.</dd>
-<dt>Special times:</dt><dd>When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
-for <code class="docutils literal notranslate"><span class="pre">minute</span></code>/<code class="docutils literal notranslate"><span class="pre">hour</span></code>/<code class="docutils literal notranslate"><span class="pre">month</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code>.</dd>
+multiple identical commands, provide a different name argument for each.</p>
+</dd>
+<dt>Special times:</dt><dd><p>When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
+for <code class="docutils literal notranslate"><span class="pre">minute</span></code>/<code class="docutils literal notranslate"><span class="pre">hour</span></code>/<code class="docutils literal notranslate"><span class="pre">month</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code>.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple example for a crontab</span>
@@ -220,8 +223,12 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -244,7 +251,7 @@ for <code class="docutils literal notranslate"><span class="pre">minute</span></
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Iptables Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -163,6 +163,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -175,29 +176,32 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="iptables-operations">
-<h1>Iptables Operations<a class="headerlink" href="#iptables-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="iptables-operations">
+<h1>Iptables Operations<a class="headerlink" href="#iptables-operations" title="Link to this heading">¶</a></h1>
 <p>The iptables modules handles iptables rules</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/iptables.html#facts-iptables-ip6tableschains"><span class="std std-ref">iptables.Ip6tablesChains</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-ip6tablesrules"><span class="std std-ref">iptables.Ip6tablesRules</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-iptableschains"><span class="std std-ref">iptables.IptablesChains</span></a>, <a class="reference internal" href="../facts/iptables.html#facts-iptables-iptablesrules"><span class="std std-ref">iptables.IptablesRules</span></a>.</p>
-<div class="section" id="iptables-chain">
-<span id="operations-iptables-chain"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.chain</span></code><a class="headerlink" href="#iptables-chain" title="Permalink to this heading">¶</a></h2>
+<section id="iptables-chain">
+<span id="operations-iptables-chain"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.chain</span></code><a class="headerlink" href="#iptables-chain" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update iptables chains.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">chain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">chain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>chain</strong>: the name of the chain</li>
-<li><strong>present</strong>: whether the chain should exist</li>
-<li><strong>table</strong>: the iptables table this chain should belong to</li>
-<li><strong>policy</strong>: the policy this table should have</li>
-<li><strong>version</strong>: whether to target iptables or ip6tables</li>
+<li><p><strong>chain</strong>: the name of the chain</p></li>
+<li><p><strong>present</strong>: whether the chain should exist</p></li>
+<li><p><strong>table</strong>: the iptables table this chain should belong to</p></li>
+<li><p><strong>policy</strong>: the policy this table should have</p></li>
+<li><p><strong>version</strong>: whether to target iptables or ip6tables</p></li>
 </ul>
-<dl class="docutils">
-<dt>Policy:</dt><dd>These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).</dd>
+<dl class="simple">
+<dt>Policy:</dt><dd><p>These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).</p>
+</dd>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
 </dl>
-</div>
-<div class="section" id="iptables-rule">
-<span id="operations-iptables-rule"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.rule</span></code><a class="headerlink" href="#iptables-rule" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="iptables-rule">
+<span id="operations-iptables-rule"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.rule</span></code><a class="headerlink" href="#iptables-rule" title="Link to this heading">¶</a></h2>
 <p>Add/remove iptables rules.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
     <span class="n">chain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">jump</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">append</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -207,34 +211,34 @@
     <span class="n">not_in_interface</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_interface</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">not_out_interface</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">to_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">to_ports</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">destination_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extras</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">destination_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extras</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>chain</strong>: the chain this rule should live in</li>
-<li><strong>jump</strong>: the target of the rule</li>
-<li><strong>table</strong>: the iptables table this rule should belong to</li>
-<li><strong>append</strong>: whether to append or insert the rule (if not present)</li>
-<li><strong>version</strong>: whether to target iptables or ip6tables</li>
+<li><p><strong>chain</strong>: the chain this rule should live in</p></li>
+<li><p><strong>jump</strong>: the target of the rule</p></li>
+<li><p><strong>table</strong>: the iptables table this rule should belong to</p></li>
+<li><p><strong>append</strong>: whether to append or insert the rule (if not present)</p></li>
+<li><p><strong>version</strong>: whether to target iptables or ip6tables</p></li>
 </ul>
 <p>Iptables args:</p>
 <ul class="simple">
-<li><strong>protocol/not_protocol</strong>: filter by protocol (tcp or udp)</li>
-<li><strong>source/not_source</strong>: filter by source IPs</li>
-<li><strong>destination/not_destination</strong>: filter by destination IPs</li>
-<li><strong>in_interface/not_in_interface</strong>: filter by incoming interface</li>
-<li><strong>out_interface/not_out_interface</strong>: filter by outgoing interface</li>
-<li><strong>to_destination</strong>: where to route to when jump=DNAT</li>
-<li><strong>to_source</strong>: where to route to when jump=SNAT</li>
-<li><strong>to_ports</strong>: where to route to when jump=REDIRECT</li>
-<li><strong>log_prefix</strong>: prefix for the log of this rule when jump=LOG</li>
+<li><p><strong>protocol/not_protocol</strong>: filter by protocol (tcp or udp)</p></li>
+<li><p><strong>source/not_source</strong>: filter by source IPs</p></li>
+<li><p><strong>destination/not_destination</strong>: filter by destination IPs</p></li>
+<li><p><strong>in_interface/not_in_interface</strong>: filter by incoming interface</p></li>
+<li><p><strong>out_interface/not_out_interface</strong>: filter by outgoing interface</p></li>
+<li><p><strong>to_destination</strong>: where to route to when jump=DNAT</p></li>
+<li><p><strong>to_source</strong>: where to route to when jump=SNAT</p></li>
+<li><p><strong>to_ports</strong>: where to route to when jump=REDIRECT</p></li>
+<li><p><strong>log_prefix</strong>: prefix for the log of this rule when jump=LOG</p></li>
 </ul>
 <p>Extras:</p>
 <ul class="simple">
-<li><strong>extras</strong>: a place to define iptables extension arguments (eg –limit, –physdev)</li>
-<li><strong>destination_port</strong>: destination port (requires protocol)</li>
-<li><strong>source_port</strong>: source port (requires protocol)</li>
+<li><p><strong>extras</strong>: a place to define iptables extension arguments (eg –limit, –physdev)</p></li>
+<li><p><strong>destination_port</strong>: destination port (requires protocol)</p></li>
+<li><p><strong>source_port</strong>: source port (requires protocol)</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
@@ -255,8 +259,12 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -279,7 +287,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

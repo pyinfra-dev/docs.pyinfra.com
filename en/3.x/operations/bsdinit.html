@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Bsdinit Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -162,6 +162,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -174,29 +175,33 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="bsdinit-operations">
-<h1>Bsdinit Operations<a class="headerlink" href="#bsdinit-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="bsdinit-operations">
+<h1>Bsdinit Operations<a class="headerlink" href="#bsdinit-operations" title="Link to this heading">¶</a></h1>
 <p>Manage BSD init services (<code class="docutils literal notranslate"><span class="pre">/etc/rc.d</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/local/etc/rc.d</span></code>).</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/bsdinit.html#facts-bsdinit-rcdstatus"><span class="std std-ref">bsdinit.RcdStatus</span></a>.</p>
-<div class="section" id="bsdinit-service">
-<span id="operations-bsdinit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">bsdinit.service</span></code><a class="headerlink" href="#bsdinit-service" title="Permalink to this heading">¶</a></h2>
+<section id="bsdinit-service">
+<span id="operations-bsdinit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">bsdinit.service</span></code><a class="headerlink" href="#bsdinit-service" title="Link to this heading">¶</a></h2>
 <p>Manage the state of BSD init services.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bsdinit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
     <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>running</strong>: whether the service should be running</li>
-<li><strong>restarted</strong>: whether the service should be restarted</li>
-<li><strong>reloaded</strong>: whether the service should be reloaded</li>
-<li><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></li>
-<li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>running</strong>: whether the service should be running</p></li>
+<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
+<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
+<li><p><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></p></li>
+<li><p><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p></li>
 </ul>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -219,7 +224,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

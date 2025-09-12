@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Writing Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -119,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">API Reference</a></li>
 </ul>
 
@@ -131,20 +132,20 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="writing-operations">
-<h1>Writing Operations<a class="headerlink" href="#writing-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="writing-operations">
+<h1>Writing Operations<a class="headerlink" href="#writing-operations" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="../operations.html"><span class="doc std std-doc">Operations</span></a> are defined as Python functions. They are passed the current deploy state, the target host, and any operation arguments. Operation functions read state from the host, compare it to the arguments, and yield commands.</p>
-<div class="section" id="input-arguments">
-<h2>Input: arguments<a class="headerlink" href="#input-arguments" title="Permalink to this heading">¶</a></h2>
+<section id="input-arguments">
+<h2>Input: arguments<a class="headerlink" href="#input-arguments" title="Link to this heading">¶</a></h2>
 <p>Operations can accept any arguments except <code class="docutils literal notranslate"><span class="pre">name</span></code> and those starting with <code class="docutils literal notranslate"><span class="pre">_</span></code> which are reserved for internal use.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="nd">@operation</span><span class="p">()</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">my_operation</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">my_operation</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="output-commands">
-<h2>Output: commands<a class="headerlink" href="#output-commands" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="output-commands">
+<h2>Output: commands<a class="headerlink" href="#output-commands" title="Link to this heading">¶</a></h2>
 <p>Operations are generator functions and <code class="docutils literal notranslate"><span class="pre">yield</span></code> three types of command:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shell commands, simply represented by a string OR the `StringCommand` class</span>
 <span class="k">yield</span> <span class="n">StringCommand</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;Shell!&quot;</span><span class="p">)</span>
@@ -162,7 +163,7 @@
 <span class="k">yield</span> <span class="n">StringCommand</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;Shell!&quot;</span><span class="p">,</span> <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Operations can also call other operations using <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span></code> syntax:</p>
+<p>Operations can also call other operations using <code class="docutils literal notranslate"><span class="pre">yield</span> <span class="pre">from</span> <span class="pre">&lt;operation&gt;._inner</span></code> syntax.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">yield from</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">_inner</span><span class="p">(</span>
     <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/some/file&quot;</span><span class="p">,</span>
     <span class="o">...</span><span class="p">,</span>
@@ -172,41 +173,41 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-managing-files">
-<h2>Example: managing files<a class="headerlink" href="#example-managing-files" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="example-managing-files">
+<h2>Example: managing files<a class="headerlink" href="#example-managing-files" title="Link to this heading">¶</a></h2>
 <p>This is a simplified version of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation, which will create/remove a
 remote file based on the <code class="docutils literal notranslate"><span class="pre">present</span></code> kwargs:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">operation</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">operation</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.files</span> <span class="kn">import</span> <span class="n">File</span>
 
 <span class="nd">@operation</span><span class="p">()</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">file</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Manage the state of files.</span>
 
-<span class="sd">    + name: name/path of the remote file</span>
+<span class="sd">    + path: name/path of the remote file</span>
 <span class="sd">    + present: whether the file should exist</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
 
     <span class="c1"># Not a file?!</span>
     <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">OperationError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> exists and is not a file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">OperationError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> exists and is not a file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
     <span class="c1"># Doesn&#39;t exist &amp; we want it</span>
     <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">present</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="s2">&quot;touch </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">&quot;touch </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="c1"># It exists and we don&#39;t want it</span>
     <span class="k">elif</span> <span class="n">info</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">present</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="s2">&quot;rm -f </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">&quot;rm -f </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -229,7 +230,7 @@ remote file based on the <code class="docutils literal notranslate"><span class=
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

@@ -33,7 +33,7 @@ Add/remove PostgreSQL databases.
         encoding: str | None=None, lc_collate: str | None=None, lc_ctype: str | None=None,
         tablespace: str | None=None, connection_limit: int | None=None,
         psql_user: str | None=None, psql_password: str | None=None, psql_host: str | None=None,
-        psql_port: int | None=None, psql_database: str | None=None,
+        psql_port: int | None=None, psql_database: str | None=None, **kwargs,
     )
 
 + **name**: name of the database
@@ -48,9 +48,8 @@ Add/remove PostgreSQL databases.
 + **psql_***: global module arguments, see above
 
 Updates:
-    pyinfra will not attempt to change existing databases - it will either
-    create or drop databases, but not alter them (if the db exists this
-    operation will make no changes).
+    pyinfra will change existing databases - but some parameters are not
+    changeable (template, encoding, lc_collate and lc_ctype).
 
 **Example:**
 
@@ -61,8 +60,10 @@ Updates:
         database="pyinfra_stuff",
         owner="pyinfra",
         encoding="UTF8",
-        sudo_user="postgres",
+        _sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.dump:
@@ -83,6 +84,7 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
     postgres.dump(
         dest: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **dest**: name of the file to dump the SQL to
@@ -97,6 +99,8 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
         dest="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.load:
@@ -117,6 +121,7 @@ Load ``.sql`` file into a database.
     postgres.load(
         src: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **src**: the filename to read from
@@ -131,6 +136,8 @@ Load ``.sql`` file into a database.
         src="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.role:
@@ -143,11 +150,11 @@ Add/remove PostgreSQL roles.
 .. code:: python
 
     postgres.role(
-        role: str, present=True, password: str | None=None, login=True, superuser=False,
-        inherit=False, createdb=False, createrole=False, replication=False,
-        connection_limit: int | None=None, psql_user: str | None=None,
+        role: str, present: bool=True, password: str | None=None, login: bool=True,
+        superuser: bool=False, inherit: bool=False, createdb: bool=False, createrole: bool=False,
+        replication: bool=False, connection_limit: int | None=None, psql_user: str | None=None,
         psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
-        psql_database: str | None=None,
+        psql_database: str | None=None, **kwargs,
     )
 
 + **role**: name of the role
@@ -177,8 +184,10 @@ Updates:
         password="somepassword",
         superuser=True,
         login=True,
-        sudo_user="postgres",
+        _sudo_user="postgres",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.sql:
@@ -199,8 +208,11 @@ Execute arbitrary SQL against PostgreSQL.
     postgres.sql(
         sql: str, psql_user: str | None=None, psql_password: str | None=None,
         psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
+        **kwargs,
     )
 
 + **sql**: SQL command(s) to execute
 + **psql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

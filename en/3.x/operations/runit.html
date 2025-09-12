@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Runit Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -165,6 +165,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -177,59 +178,64 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="runit-operations">
-<h1>Runit Operations<a class="headerlink" href="#runit-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="runit-operations">
+<h1>Runit Operations<a class="headerlink" href="#runit-operations" title="Link to this heading">¶</a></h1>
 <p>Manage runit services.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/runit.html#facts-runit-runitmanaged"><span class="std std-ref">runit.RunitManaged</span></a>, <a class="reference internal" href="../facts/runit.html#facts-runit-runitstatus"><span class="std std-ref">runit.RunitStatus</span></a>.</p>
-<div class="section" id="runit-auto">
-<span id="operations-runit-auto"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.auto</span></code><a class="headerlink" href="#runit-auto" title="Permalink to this heading">¶</a></h2>
+<section id="runit-auto">
+<span id="operations-runit-auto"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.auto</span></code><a class="headerlink" href="#runit-auto" title="Link to this heading">¶</a></h2>
 <p>Start service automatically by managing the <code class="docutils literal notranslate"><span class="pre">service/down</span></code> file.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">auto</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">auto</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>auto</strong>: whether the service should start automatically</li>
-<li><strong>sourcedir</strong>: where to search for available services</li>
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>auto</strong>: whether the service should start automatically</p></li>
+<li><p><strong>sourcedir</strong>: where to search for available services</p></li>
 </ul>
-</div>
-<div class="section" id="runit-manage">
-<span id="operations-runit-manage"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.manage</span></code><a class="headerlink" href="#runit-manage" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="runit-manage">
+<span id="operations-runit-manage"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.manage</span></code><a class="headerlink" href="#runit-manage" title="Link to this heading">¶</a></h2>
 <p>Manage runit svdir links.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">manage</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">managed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">manage</span><span class="p">(</span>
+    <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">managed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>managed</strong>: whether the link should exist</li>
-<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
-<li><strong>sourcedir</strong>: where to search for available services</li>
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>managed</strong>: whether the link should exist</p></li>
+<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p></li>
+<li><p><strong>sourcedir</strong>: where to search for available services</p></li>
 </ul>
-</div>
-<div class="section" id="runit-service">
-<span id="operations-runit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.service</span></code><a class="headerlink" href="#runit-service" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="runit-service">
+<span id="operations-runit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.service</span></code><a class="headerlink" href="#runit-service" title="Link to this heading">¶</a></h2>
 <p>Manage the state of runit services.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
     <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">running</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">command</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">managed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span>
+    <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first"><strong>service</strong>: name of the service to manage</p>
-</li>
-<li><p class="first"><strong>running</strong>: whether the service should be running</p>
-</li>
-<li><p class="first"><strong>restarted</strong>: whether the service should be restarted</p>
-</li>
-<li><p class="first"><strong>reloaded</strong>: whether the service should be reloaded</p>
-</li>
-<li><p class="first"><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">sv</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;service&gt;</span></code></p>
-</li>
-<li><p class="first"><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p>
-</li>
-<li><p class="first"><strong>managed</strong>: whether runit should manage this service</p>
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>running</strong>: whether the service should be running</p></li>
+<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
+<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
+<li><p><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">sv</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;service&gt;</span></code></p></li>
+<li><p><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p></li>
+<li><p><strong>managed</strong>: whether runit should manage this service</p>
 <p>For services to be controlled, they first need to be managed by runit by
 adding a symlink to the service in <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>.
 By setting <code class="docutils literal notranslate"><span class="pre">managed=False</span></code> the symlink will be removed.
@@ -237,32 +243,40 @@ Other options won’t have any effect after that.
 Although the <code class="docutils literal notranslate"><span class="pre">&lt;service&gt;/down</span></code> file can still be controlled with the
 <code class="docutils literal notranslate"><span class="pre">enabled</span></code> option.</p>
 </li>
-<li><p class="first"><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p>
+<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p>
 <p>An alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code> can be specified. This can be used for user services.</p>
 </li>
-<li><p class="first"><strong>sourcedir</strong>: where to search for available services</p>
+<li><p><strong>sourcedir</strong>: where to search for available services</p>
 <p>An alternative directory for available services can be specified.
 Example: <code class="docutils literal notranslate"><span class="pre">sourcedir=/etc/sv.local</span></code> for services managed by the administrator.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="runit-wait-runsv">
-<span id="operations-runit-wait-runsv"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.wait_runsv</span></code><a class="headerlink" href="#runit-wait-runsv" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="runit-wait-runsv">
+<span id="operations-runit-wait-runsv"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.wait_runsv</span></code><a class="headerlink" href="#runit-wait-runsv" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Wait for runsv for <code class="docutils literal notranslate"><span class="pre">service</span></code> to be available.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">wait_runsv</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">wait_runsv</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></li>
-<li><strong>timeout</strong>: time in seconds to wait</li>
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p></li>
+<li><p><strong>timeout</strong>: time in seconds to wait</p></li>
 </ul>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -285,7 +299,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">sourcedir=
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

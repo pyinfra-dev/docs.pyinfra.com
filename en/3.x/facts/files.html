@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Files Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#files-block"><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-directory"><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-file"><code class="code docutils literal notranslate"><span class="pre">files.File</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#files-filecontents"><code class="code docutils literal notranslate"><span class="pre">files.FileContents</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-finddirectories"><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-findfiles"><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-findinfile"><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code></a></li>
@@ -127,6 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Facts</a></li>
@@ -178,6 +180,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -190,12 +193,14 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="files-facts">
-<h1>Files Facts<a class="headerlink" href="#files-facts" title="Permalink to this heading">¶</a></h1>
+  <section id="files-facts">
+<h1>Files Facts<a class="headerlink" href="#files-facts" title="Link to this heading">¶</a></h1>
 <p>The files facts provide information about the filesystem and it’s contents on the target host.</p>
+<p>Facts need to be imported before use, eg</p>
+<p>from pyinfra.facts.files import File</p>
 <p>See also: <a class="reference internal" href="../operations/files.html"><span class="doc">Files Operations</span></a>.</p>
-<div class="section" id="files-block">
-<span id="facts-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code><a class="headerlink" href="#files-block" title="Permalink to this heading">¶</a></h2>
+<section id="files-block">
+<span id="facts-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code><a class="headerlink" href="#files-block" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Block</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -206,13 +211,15 @@
 <span class="p">]</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> doesn’t exist</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
-<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> exists but the markers are not found</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">[]</span></code></dd>
+<dl class="simple">
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> doesn’t exist</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> exists but the markers are not found</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-directory">
-<span id="facts-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code><a class="headerlink" href="#files-directory" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-directory">
+<span id="facts-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code><a class="headerlink" href="#files-directory" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -224,13 +231,15 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>If the path does not exist:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
-<dt>If the path exists but is not a directory:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></dd>
+<dl class="simple">
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a directory:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-file">
-<span id="facts-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.File</span></code><a class="headerlink" href="#files-file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-file">
+<span id="facts-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.File</span></code><a class="headerlink" href="#files-file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -243,49 +252,59 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>If the path does not exist:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
-<dt>If the path exists but is not a file:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></dd>
+<dl class="simple">
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a file:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
 </dl>
+</section>
+<section id="files-filecontents">
+<span id="facts-files-filecontents"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FileContents</span></code><a class="headerlink" href="#files-filecontents" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FileContents</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="files-finddirectories">
-<span id="facts-files-finddirectories"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code><a class="headerlink" href="#files-finddirectories" title="Permalink to this heading">¶</a></h2>
+<p>Returns the contents of a file as a list of lines. Works with both sha1sum and sha1. Returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the file doest not exist.</p>
+</section>
+<section id="files-finddirectories">
+<span id="facts-files-finddirectories"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code><a class="headerlink" href="#files-finddirectories" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindDirectories</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a list of directories from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
-</div>
-<div class="section" id="files-findfiles">
-<span id="facts-files-findfiles"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code><a class="headerlink" href="#files-findfiles" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-findfiles">
+<span id="facts-files-findfiles"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code><a class="headerlink" href="#files-findfiles" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a list of files from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
-</div>
-<div class="section" id="files-findinfile">
-<span id="facts-files-findinfile"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code><a class="headerlink" href="#files-findinfile" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-findinfile">
+<span id="facts-files-findinfile"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code><a class="headerlink" href="#files-findinfile" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindInFile</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Checks for the existence of text in a file using grep. Returns a list of matching
 lines if the file exists, and <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not.</p>
-</div>
-<div class="section" id="files-findlinks">
-<span id="facts-files-findlinks"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindLinks</span></code><a class="headerlink" href="#files-findlinks" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-findlinks">
+<span id="facts-files-findlinks"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindLinks</span></code><a class="headerlink" href="#files-findlinks" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindLinks</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a list of links from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
-</div>
-<div class="section" id="files-flags">
-<span id="facts-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Flags</span></code><a class="headerlink" href="#files-flags" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-flags">
+<span id="facts-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Flags</span></code><a class="headerlink" href="#files-flags" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Flags</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a list of the file flags set for the specified file or directory.</p>
-</div>
-<div class="section" id="files-link">
-<span id="facts-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Link</span></code><a class="headerlink" href="#files-link" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-link">
+<span id="facts-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Link</span></code><a class="headerlink" href="#files-link" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Link</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -297,42 +316,44 @@ lines if the file exists, and <code class="docutils literal notranslate"><span c
 <span class="p">}</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>If the path does not exist:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
-<dt>If the path exists but is not a link:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></dd>
+<dl class="simple">
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a link:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
 </dl>
-</div>
-<div class="section" id="files-md5file">
-<span id="facts-files-md5file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Md5File</span></code><a class="headerlink" href="#files-md5file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-md5file">
+<span id="facts-files-md5file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Md5File</span></code><a class="headerlink" href="#files-md5file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Md5File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns an MD5 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
-</div>
-<div class="section" id="files-sha1file">
-<span id="facts-files-sha1file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha1File</span></code><a class="headerlink" href="#files-sha1file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-sha1file">
+<span id="facts-files-sha1file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha1File</span></code><a class="headerlink" href="#files-sha1file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha1File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file doest not exist.</p>
-</div>
-<div class="section" id="files-sha256file">
-<span id="facts-files-sha256file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha256File</span></code><a class="headerlink" href="#files-sha256file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-sha256file">
+<span id="facts-files-sha256file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha256File</span></code><a class="headerlink" href="#files-sha256file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha256File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a SHA256 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
-</div>
-<div class="section" id="files-sha384file">
-<span id="facts-files-sha384file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha384File</span></code><a class="headerlink" href="#files-sha384file" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-sha384file">
+<span id="facts-files-sha384file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha384File</span></code><a class="headerlink" href="#files-sha384file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha384File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a SHA384 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
-</div>
-<div class="section" id="files-socket">
-<span id="facts-files-socket"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Socket</span></code><a class="headerlink" href="#files-socket" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="files-socket">
+<span id="facts-files-socket"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Socket</span></code><a class="headerlink" href="#files-socket" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Socket</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -343,12 +364,14 @@ lines if the file exists, and <code class="docutils literal notranslate"><span c
 <span class="p">}</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>If the path does not exist:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></dd>
-<dt>If the path exists but is not a socket:</dt><dd>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></dd>
+<dl class="simple">
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a socket:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -371,7 +394,7 @@ lines if the file exists, and <code class="docutils literal notranslate"><span c
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

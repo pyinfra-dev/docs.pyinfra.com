@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Systemd Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -163,6 +163,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -175,47 +176,51 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="systemd-operations">
-<h1>Systemd Operations<a class="headerlink" href="#systemd-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="systemd-operations">
+<h1>Systemd Operations<a class="headerlink" href="#systemd-operations" title="Link to this heading">¶</a></h1>
 <p>Manage systemd services.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdenabled"><span class="std std-ref">systemd.SystemdEnabled</span></a>, <a class="reference internal" href="../facts/systemd.html#facts-systemd-systemdstatus"><span class="std std-ref">systemd.SystemdStatus</span></a>.</p>
-<div class="section" id="systemd-daemon-reload">
-<span id="operations-systemd-daemon-reload"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Permalink to this heading">¶</a></h2>
+<section id="systemd-daemon-reload">
+<span id="operations-systemd-daemon-reload"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.daemon_reload</span></code><a class="headerlink" href="#systemd-daemon-reload" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Reload the systemd daemon to read unit file changes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
-<li><strong>machine</strong>: the machine name to connect to</li>
-<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
+<li><p><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</p></li>
+<li><p><strong>machine</strong>: the machine name to connect to</p></li>
+<li><p><strong>user_name</strong>: connect to a specific user’s systemd session</p></li>
 </ul>
-</div>
-<div class="section" id="systemd-service">
-<span id="operations-systemd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="systemd-service">
+<span id="operations-systemd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Link to this heading">¶</a></h2>
 <p>Manage the state of systemd managed units.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
     <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>service</strong>: name of the systemd unit to manage</li>
-<li><strong>running</strong>: whether the unit should be running</li>
-<li><strong>restarted</strong>: whether the unit should be restarted</li>
-<li><strong>reloaded</strong>: whether the unit should be reloaded</li>
-<li><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;name&gt;</span> <span class="pre">&lt;command&gt;</span></code></li>
-<li><strong>enabled</strong>: whether this unit should be enabled/disabled on boot</li>
-<li><strong>daemon_reload</strong>: reload the systemd daemon to read updated unit files</li>
-<li><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</li>
-<li><strong>machine</strong>: the machine name to connect to</li>
-<li><strong>user_name</strong>: connect to a specific user’s systemd session</li>
+<li><p><strong>service</strong>: name of the systemd unit to manage</p></li>
+<li><p><strong>running</strong>: whether the unit should be running</p></li>
+<li><p><strong>restarted</strong>: whether the unit should be restarted</p></li>
+<li><p><strong>reloaded</strong>: whether the unit should be reloaded</p></li>
+<li><p><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;name&gt;</span> <span class="pre">&lt;command&gt;</span></code></p></li>
+<li><p><strong>enabled</strong>: whether this unit should be enabled/disabled on boot</p></li>
+<li><p><strong>daemon_reload</strong>: reload the systemd daemon to read updated unit files</p></li>
+<li><p><strong>user_mode</strong>: whether to use per-user systemd (systemctl –user) or not</p></li>
+<li><p><strong>machine</strong>: the machine name to connect to</p></li>
+<li><p><strong>user_name</strong>: connect to a specific user’s systemd session</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
@@ -234,8 +239,12 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -258,7 +267,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

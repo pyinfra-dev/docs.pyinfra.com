@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Facts Index &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=df830e76" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -110,6 +110,7 @@
 <li class="toctree-l2"><a class="reference internal" href="facts/efibootmgr.html">Efibootmgr Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html">Files Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/flatpak.html">Flatpak Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/freebsd.html">Freebsd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/gem.html">Gem Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/git.html">Git Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/gpg.html">Gpg Facts</a></li>
@@ -161,6 +162,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
 </ul>
 
@@ -173,8 +175,8 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="facts-index">
-<h1>Facts Index<a class="headerlink" href="#facts-index" title="Permalink to this heading">¶</a></h1>
+  <section id="facts-index">
+<h1>Facts Index<a class="headerlink" href="#facts-index" title="Link to this heading">¶</a></h1>
 <p>pyinfra uses <strong>facts</strong> to determine the existing state of a remote server. Operations use this information to generate commands which alter the state. Facts are read-only and are populated at the beginning of the deploy.</p>
 <p>Facts can be executed/tested via the command line:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example how to get multiple facts from a server myhost.com</span>
@@ -191,8 +193,8 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 </pre></div>
 </div>
 <p>You can leverage facts within <a class="reference internal" href="using-operations.html"><span class="doc">operations</span></a> like this:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinuxName</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">LinuxName</span>
 
 <span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Ubuntu&#39;</span><span class="p">:</span>
     <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -265,6 +267,8 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockerimages"><code class="code docutils literal notranslate"><span class="pre">docker.DockerImages</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockernetwork"><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetwork</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockernetworks"><code class="code docutils literal notranslate"><span class="pre">docker.DockerNetworks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockerplugin"><code class="code docutils literal notranslate"><span class="pre">docker.DockerPlugin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockerplugins"><code class="code docutils literal notranslate"><span class="pre">docker.DockerPlugins</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockersinglemixin"><code class="code docutils literal notranslate"><span class="pre">docker.DockerSingleMixin</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockersysteminfo"><code class="code docutils literal notranslate"><span class="pre">docker.DockerSystemInfo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/docker.html#docker-dockervolume"><code class="code docutils literal notranslate"><span class="pre">docker.DockerVolume</span></code></a></li>
@@ -279,6 +283,7 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-block"><code class="code docutils literal notranslate"><span class="pre">files.Block</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-directory"><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-file"><code class="code docutils literal notranslate"><span class="pre">files.File</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-filecontents"><code class="code docutils literal notranslate"><span class="pre">files.FileContents</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-finddirectories"><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-findfiles"><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/files.html#files-findinfile"><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code></a></li>
@@ -298,6 +303,13 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l2"><a class="reference internal" href="facts/flatpak.html#flatpak-flatpakpackages"><code class="code docutils literal notranslate"><span class="pre">flatpak.FlatpakPackages</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="facts/freebsd.html">Freebsd Facts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="facts/freebsd.html#freebsd-pkgpackage"><code class="code docutils literal notranslate"><span class="pre">freebsd.PkgPackage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/freebsd.html#freebsd-servicescript"><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceScript</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/freebsd.html#freebsd-servicestatus"><code class="code docutils literal notranslate"><span class="pre">freebsd.ServiceStatus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/freebsd.html#freebsd-sysrc"><code class="code docutils literal notranslate"><span class="pre">freebsd.Sysrc</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="facts/gem.html">Gem Facts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="facts/gem.html#gem-gempackages"><code class="code docutils literal notranslate"><span class="pre">gem.GemPackages</span></code></a></li>
 </ul>
@@ -305,6 +317,7 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l1"><a class="reference internal" href="facts/git.html">Git Facts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-gitbranch"><code class="code docutils literal notranslate"><span class="pre">git.GitBranch</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-gitconfig"><code class="code docutils literal notranslate"><span class="pre">git.GitConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-gittag"><code class="code docutils literal notranslate"><span class="pre">git.GitTag</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/git.html#git-gittrackingbranch"><code class="code docutils literal notranslate"><span class="pre">git.GitTrackingBranch</span></code></a></li>
 </ul>
 </li>
@@ -442,6 +455,8 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-osrelease"><code class="code docutils literal notranslate"><span class="pre">server.OsRelease</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-osversion"><code class="code docutils literal notranslate"><span class="pre">server.OsVersion</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-path"><code class="code docutils literal notranslate"><span class="pre">server.Path</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-port"><code class="code docutils literal notranslate"><span class="pre">server.Port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-rebootrequired"><code class="code docutils literal notranslate"><span class="pre">server.RebootRequired</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-securitylimits"><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-selinux"><code class="code docutils literal notranslate"><span class="pre">server.Selinux</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="facts/server.html#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.Sysctl</span></code></a></li>
@@ -501,7 +516,7 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
 </li>
 </ul>
 </div>
-</div>
+</section>
 
 
         </div>
@@ -524,7 +539,7 @@ pyinfra<span class="w"> </span>myhost.com,myhost2.com<span class="w"> </span>fac
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

@@ -24,7 +24,7 @@ Execute commands on other servers over SSH.
 
 .. code:: python
 
-    ssh.command(hostname: str, command: str, user: str | None=None, port=22)
+    ssh.command(hostname: str, command: str, user: str | None=None, port=22, **kwargs)
 
 + **hostname**: the hostname to connect to
 + **command**: the command to execute
@@ -41,6 +41,8 @@ Execute commands on other servers over SSH.
         command="echo 'one was here' > /tmp/one.txt",
         user="vagrant",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:ssh.download:
@@ -54,7 +56,7 @@ Download files from other servers using ``scp``.
 
     ssh.download(
         hostname: str, filename: str, local_filename: str | None=None, force=False, port=22,
-        user: str | None=None, ssh_keyscan=False,
+        user: str | None=None, ssh_keyscan=False, **kwargs,
     )
 
 + **hostname**: hostname to upload to
@@ -64,6 +66,8 @@ Download files from other servers using ``scp``.
 + **port**: connect to this port
 + **user**: connect with this user
 + **ssh_keyscan**: execute ``ssh.keyscan`` before uploading the file
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:ssh.keyscan:
@@ -75,7 +79,7 @@ Check/add hosts to the ``~/.ssh/known_hosts`` file.
 
 .. code:: python
 
-    ssh.keyscan(hostname: str, force=False, port=22)
+    ssh.keyscan(hostname: str, force=False, port=22, **kwargs)
 
 + **hostname**: hostname that should have a key in ``known_hosts``
 + **force**: if the key already exists, remove and rescan
@@ -88,6 +92,8 @@ Check/add hosts to the ``~/.ssh/known_hosts`` file.
         name="Set add server two to known_hosts on one",
         hostname="two.example.com",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:ssh.upload:
@@ -107,7 +113,7 @@ Upload files to other servers using ``scp``.
 
     ssh.upload(
         hostname: str, filename: str, remote_filename: str | None=None, port=22,
-        user: str | None=None, use_remote_sudo=False, ssh_keyscan=False,
+        user: str | None=None, use_remote_sudo=False, ssh_keyscan=False, **kwargs,
     )
 
 + **hostname**: hostname to upload to
@@ -117,4 +123,6 @@ Upload files to other servers using ``scp``.
 + **user**: connect with this user
 + **use_remote_sudo**: upload to a temporary location and move using sudo
 + **ssh_keyscan**: execute ``ssh.keyscan`` before uploading the file
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

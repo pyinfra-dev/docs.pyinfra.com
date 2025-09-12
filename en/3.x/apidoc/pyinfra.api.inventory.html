@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>pyinfra.api.inventory module &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api/reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments.html">pyinfra.api.arguments module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyinfra.api.arguments_typed.html">pyinfra.api.arguments_typed module</a></li>
@@ -152,114 +153,119 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="module-pyinfra.api.inventory">
-<span id="pyinfra-api-inventory-module"></span><h1>pyinfra.api.inventory module<a class="headerlink" href="#module-pyinfra.api.inventory" title="Permalink to this heading">¶</a></h1>
+  <section id="module-pyinfra.api.inventory">
+<span id="pyinfra-api-inventory-module"></span><h1>pyinfra.api.inventory module<a class="headerlink" href="#module-pyinfra.api.inventory" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><code class="sig-prename descclassname"><span class="pre">pyinfra.api.inventory.</span></code><code class="sig-name descname"><span class="pre">Inventory</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">names_data</span></span></em>, <em><span class="n"><span class="pre">override_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyinfra.api.inventory.</span></span><span class="sig-name descname"><span class="pre">Inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">override_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents a collection of target hosts. Stores and provides access to group data,
 host data and default data for these hosts.</p>
 <dl class="docutils field-list" frame="void" rules="none">
 <dt class="field-name">Parameters</dt><dd class="field-body"><ul class="first last simple">
-<li><strong>names_data</strong> – tuple of <code class="docutils literal notranslate"><span class="pre">(names,</span> <span class="pre">data)</span></code></li>
-<li><strong>override_data</strong> – dictionary of data overrides</li>
-<li><strong>ssh_*</strong> – deprecated, use <code class="docutils literal notranslate"><span class="pre">override_data.ssh_*</span></code></li>
-<li><strong>winrm_*</strong> – deprecated, use <code class="docutils literal notranslate"><span class="pre">override_data.winrm_*</span></code></li>
-<li><strong>**groups</strong> – map of group name -&gt; <code class="docutils literal notranslate"><span class="pre">(names,</span> <span class="pre">data)</span></code></li>
+<li><p><strong>names_data</strong> – tuple of <code class="docutils literal notranslate"><span class="pre">(names,</span> <span class="pre">data)</span></code></p></li>
+<li><p><strong>override_data</strong> – dictionary of data overrides</p></li>
+<li><p><strong>ssh_*</strong> – deprecated, use <code class="docutils literal notranslate"><span class="pre">override_data.ssh_*</span></code></p></li>
+<li><p><strong>winrm_*</strong> – deprecated, use <code class="docutils literal notranslate"><span class="pre">override_data.winrm_*</span></code></p></li>
+<li><p><strong>**groups</strong> – map of group name -&gt; <code class="docutils literal notranslate"><span class="pre">(names,</span> <span class="pre">data)</span></code></p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.empty">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.empty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.empty" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_data" title="Link to this definition">¶</a></dt>
 <dd><p>Get the base/all data attached to this inventory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_group">
-<code class="sig-name descname"><span class="pre">get_group</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'pyinfra.api.exceptions.NoGroupError'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_group" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'pyinfra.api.exceptions.NoGroupError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_group" title="Link to this definition">¶</a></dt>
 <dd><p>Get a list of hosts belonging to a group.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_group_data">
-<code class="sig-name descname"><span class="pre">get_group_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_group_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_group_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_group_data" title="Link to this definition">¶</a></dt>
 <dd><p>Get data for a single group in this inventory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_groups_data">
-<code class="sig-name descname"><span class="pre">get_groups_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_groups_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_groups_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_groups_data" title="Link to this definition">¶</a></dt>
 <dd><p>Gets aggregated data from a list of groups. Vars are collected in order so, for
 any groups which define the same var twice, the last group’s value will hold.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_host">
-<code class="sig-name descname"><span class="pre">get_host</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'pyinfra.api.exceptions.NoHostError'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_host" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'pyinfra.api.exceptions.NoHostError'&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_host" title="Link to this definition">¶</a></dt>
 <dd><p>Get a single host by name.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_host_data">
-<code class="sig-name descname"><span class="pre">get_host_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">hostname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_host_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_host_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hostname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_host_data" title="Link to this definition">¶</a></dt>
 <dd><p>Get data for a single host in this inventory.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.get_override_data">
-<code class="sig-name descname"><span class="pre">get_override_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_override_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_override_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.get_override_data" title="Link to this definition">¶</a></dt>
 <dd><p>Get override data for this inventory.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.inventory.Inventory.groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.iter_activated_hosts">
-<code class="sig-name descname"><span class="pre">iter_activated_hosts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.iter_activated_hosts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iter_activated_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.iter_activated_hosts" title="Link to this definition">¶</a></dt>
 <dd><p>Iterates over activated inventory hosts.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.iter_active_hosts">
-<code class="sig-name descname"><span class="pre">iter_active_hosts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.iter_active_hosts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iter_active_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.iter_active_hosts" title="Link to this definition">¶</a></dt>
 <dd><p>Iterates over active inventory hosts.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.len_activated_hosts">
-<code class="sig-name descname"><span class="pre">len_activated_hosts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.len_activated_hosts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">len_activated_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.len_activated_hosts" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of activated inventory hosts.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.len_active_hosts">
-<code class="sig-name descname"><span class="pre">len_active_hosts</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.len_active_hosts" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">len_active_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.len_active_hosts" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of active inventory hosts.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.make_hosts_and_groups">
-<code class="sig-name descname"><span class="pre">make_hosts_and_groups</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">names</span></span></em>, <em><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.make_hosts_and_groups" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_hosts_and_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.inventory.Inventory.make_hosts_and_groups" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.Inventory.state">
-<code class="sig-name descname"><span class="pre">state</span></code><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#pyinfra.api.inventory.Inventory.state" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></em><a class="headerlink" href="#pyinfra.api.inventory.Inventory.state" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyinfra.api.inventory.extract_name_data">
-<code class="sig-prename descclassname"><span class="pre">pyinfra.api.inventory.</span></code><code class="sig-name descname"><span class="pre">extract_name_data</span></code><span class="sig-paren">(</span><em><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.extract_name_data" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyinfra.api.inventory.</span></span><span class="sig-name descname"><span class="pre">extract_name_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyinfra.api.inventory.extract_name_data" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
+</section>
 
 
         </div>
@@ -282,7 +288,7 @@ any groups which define the same var twice, the last group’s value will hold.<
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

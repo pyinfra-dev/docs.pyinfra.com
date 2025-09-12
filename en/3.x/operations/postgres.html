@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Postgres Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -166,6 +166,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -178,50 +179,50 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="postgres-operations">
-<h1>Postgres Operations<a class="headerlink" href="#postgres-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="postgres-operations">
+<h1>Postgres Operations<a class="headerlink" href="#postgres-operations" title="Link to this heading">¶</a></h1>
 <p>The PostgreSQL modules manage PostgreSQL databases, users and privileges.</p>
 <p>Requires the <code class="docutils literal notranslate"><span class="pre">psql</span></code> CLI executable on the target host(s).</p>
-<dl class="docutils">
+<dl class="simple">
 <dt>All operations in this module take four optional arguments:</dt><dd><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">psql_user</span></code>: the username to connect to postgresql to</li>
-<li><code class="docutils literal notranslate"><span class="pre">psql_password</span></code>: the password for the connecting user</li>
-<li><code class="docutils literal notranslate"><span class="pre">psql_host</span></code>: the hostname of the server to connect to</li>
-<li><code class="docutils literal notranslate"><span class="pre">psql_port</span></code>: the port of the server to connect to</li>
-<li><code class="docutils literal notranslate"><span class="pre">psql_database</span></code>: the database on the server to connect to</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql_user</span></code>: the username to connect to postgresql to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql_password</span></code>: the password for the connecting user</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql_host</span></code>: the hostname of the server to connect to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql_port</span></code>: the port of the server to connect to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql_database</span></code>: the database on the server to connect to</p></li>
 </ul>
 </dd>
 </dl>
 <p>See example/postgresql.py for detailed example</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/postgres.html#facts-postgres-postgresdatabases"><span class="std std-ref">postgres.PostgresDatabases</span></a>, <a class="reference internal" href="../facts/postgres.html#facts-postgres-postgresroles"><span class="std std-ref">postgres.PostgresRoles</span></a>.</p>
-<div class="section" id="postgres-database">
-<span id="operations-postgres-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.database</span></code><a class="headerlink" href="#postgres-database" title="Permalink to this heading">¶</a></h2>
+<section id="postgres-database">
+<span id="operations-postgres-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.database</span></code><a class="headerlink" href="#postgres-database" title="Link to this heading">¶</a></h2>
 <p>Add/remove PostgreSQL databases.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
     <span class="n">database</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_collate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_ctype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">tablespace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>name</strong>: name of the database</li>
-<li><strong>present</strong>: whether the database should exist or not</li>
-<li><strong>owner</strong>: the PostgreSQL role that owns the database</li>
-<li><strong>template</strong>: name of the PostgreSQL template to use</li>
-<li><strong>encoding</strong>: encoding of the database</li>
-<li><strong>lc_collate</strong>: lc_collate of the database</li>
-<li><strong>lc_ctype</strong>: lc_ctype of the database</li>
-<li><strong>tablespace</strong>: the tablespace to use for the template</li>
-<li><strong>connection_limit</strong>: the connection limit to apply to the database</li>
-<li><strong>psql_*</strong>: global module arguments, see above</li>
+<li><p><strong>name</strong>: name of the database</p></li>
+<li><p><strong>present</strong>: whether the database should exist or not</p></li>
+<li><p><strong>owner</strong>: the PostgreSQL role that owns the database</p></li>
+<li><p><strong>template</strong>: name of the PostgreSQL template to use</p></li>
+<li><p><strong>encoding</strong>: encoding of the database</p></li>
+<li><p><strong>lc_collate</strong>: lc_collate of the database</p></li>
+<li><p><strong>lc_ctype</strong>: lc_ctype of the database</p></li>
+<li><p><strong>tablespace</strong>: the tablespace to use for the template</p></li>
+<li><p><strong>connection_limit</strong>: the connection limit to apply to the database</p></li>
+<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
-<dl class="docutils">
-<dt>Updates:</dt><dd>pyinfra will not attempt to change existing databases - it will either
-create or drop databases, but not alter them (if the db exists this
-operation will make no changes).</dd>
+<dl class="simple">
+<dt>Updates:</dt><dd><p>pyinfra will change existing databases - but some parameters are not
+changeable (template, encoding, lc_collate and lc_ctype).</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
@@ -229,27 +230,32 @@ operation will make no changes).</dd>
     <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
     <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF8&quot;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="postgres-dump">
-<span id="operations-postgres-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.dump</span></code><a class="headerlink" href="#postgres-dump" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="postgres-dump">
+<span id="operations-postgres-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.dump</span></code><a class="headerlink" href="#postgres-dump" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Dump a PostgreSQL database into a <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file. Requires <code class="docutils literal notranslate"><span class="pre">pg_dump</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
     <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>dest</strong>: name of the file to dump the SQL to</li>
-<li><strong>psql_*</strong>: global module arguments, see above</li>
+<li><p><strong>dest</strong>: name of the file to dump the SQL to</p></li>
+<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
@@ -259,23 +265,28 @@ operation will make no changes).</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="postgres-load">
-<span id="operations-postgres-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.load</span></code><a class="headerlink" href="#postgres-load" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="postgres-load">
+<span id="operations-postgres-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.load</span></code><a class="headerlink" href="#postgres-load" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Load <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file into a database.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: the filename to read from</li>
-<li><strong>psql_*</strong>: global module arguments, see above</li>
+<li><p><strong>src</strong>: the filename to read from</p></li>
+<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
@@ -285,36 +296,41 @@ operation will make no changes).</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="postgres-role">
-<span id="operations-postgres-role"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.role</span></code><a class="headerlink" href="#postgres-role" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="postgres-role">
+<span id="operations-postgres-role"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.role</span></code><a class="headerlink" href="#postgres-role" title="Link to this heading">¶</a></h2>
 <p>Add/remove PostgreSQL roles.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">superuser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">inherit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createdb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createrole</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">replication</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">connection_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">superuser</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inherit</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createdb</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createrole</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">replication</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">connection_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>role</strong>: name of the role</li>
-<li><strong>present</strong>: whether the role should be present or absent</li>
-<li><strong>password</strong>: the password for the role</li>
-<li><strong>login</strong>: whether the role can login</li>
-<li><strong>superuser</strong>: whether role will be a superuser</li>
-<li><strong>inherit</strong>: whether the role inherits from other roles</li>
-<li><strong>createdb</strong>: whether the role is allowed to create databases</li>
-<li><strong>createrole</strong>: whether the role is allowed to create new roles</li>
-<li><strong>replication</strong>: whether this role is allowed to replicate</li>
-<li><strong>connection_limit</strong>: the connection limit for the role</li>
-<li><strong>psql_*</strong>: global module arguments, see above</li>
+<li><p><strong>role</strong>: name of the role</p></li>
+<li><p><strong>present</strong>: whether the role should be present or absent</p></li>
+<li><p><strong>password</strong>: the password for the role</p></li>
+<li><p><strong>login</strong>: whether the role can login</p></li>
+<li><p><strong>superuser</strong>: whether role will be a superuser</p></li>
+<li><p><strong>inherit</strong>: whether the role inherits from other roles</p></li>
+<li><p><strong>createdb</strong>: whether the role is allowed to create databases</p></li>
+<li><p><strong>createrole</strong>: whether the role is allowed to create new roles</p></li>
+<li><p><strong>replication</strong>: whether this role is allowed to replicate</p></li>
+<li><p><strong>connection_limit</strong>: the connection limit for the role</p></li>
+<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
-<dl class="docutils">
-<dt>Updates:</dt><dd>pyinfra will not attempt to change existing roles - it will either
+<dl class="simple">
+<dt>Updates:</dt><dd><p>pyinfra will not attempt to change existing roles - it will either
 create or drop roles, but not alter them (if the role exists this
-operation will make no changes).</dd>
+operation will make no changes).</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
@@ -323,30 +339,39 @@ operation will make no changes).</dd>
     <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
     <span class="n">superuser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="postgres-sql">
-<span id="operations-postgres-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.sql</span></code><a class="headerlink" href="#postgres-sql" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="postgres-sql">
+<span id="operations-postgres-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.sql</span></code><a class="headerlink" href="#postgres-sql" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Execute arbitrary SQL against PostgreSQL.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>sql</strong>: SQL command(s) to execute</li>
-<li><strong>psql_*</strong>: global module arguments, see above</li>
+<li><p><strong>sql</strong>: SQL command(s) to execute</p></li>
+<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -369,7 +394,7 @@ operation will make no changes).</dd>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

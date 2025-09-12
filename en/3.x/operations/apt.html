@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Apt Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -169,6 +169,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -181,26 +182,28 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="apt-operations">
-<h1>Apt Operations<a class="headerlink" href="#apt-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="apt-operations">
+<h1>Apt Operations<a class="headerlink" href="#apt-operations" title="Link to this heading">¶</a></h1>
 <p>Manage apt packages and repositories.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/apt.html#facts-apt-aptkeys"><span class="std std-ref">apt.AptKeys</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-aptsources"><span class="std std-ref">apt.AptSources</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackage"><span class="std std-ref">deb.DebPackage</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackages"><span class="std std-ref">deb.DebPackages</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/gpg.html#facts-gpg-gpgkey"><span class="std std-ref">gpg.GpgKey</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-simulateoperationwillchange"><span class="std std-ref">apt.SimulateOperationWillChange</span></a>.</p>
-<div class="section" id="apt-deb">
-<span id="operations-apt-deb"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.deb</span></code><a class="headerlink" href="#apt-deb" title="Permalink to this heading">¶</a></h2>
+<section id="apt-deb">
+<span id="operations-apt-deb"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.deb</span></code><a class="headerlink" href="#apt-deb" title="Link to this heading">¶</a></h2>
 <p>Add/remove <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file</li>
-<li><strong>present</strong>: whether or not the package should exist on the system</li>
-<li><strong>force</strong>: whether to force the package install by passing <cite>–force-yes</cite> to apt</li>
+<li><p><strong>src</strong>: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file</p></li>
+<li><p><strong>present</strong>: whether or not the package should exist on the system</p></li>
+<li><p><strong>force</strong>: whether to force the package install by passing <cite>–force-yes</cite> to apt</p></li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>When installing, <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">-f</span></code> will be run to install any unmet
-dependencies.</dd>
-<dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd>If the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file isn’t downloaded, pyinfra can’t remove any existing
-package as the file won’t exist until mid-deploy.</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>When installing, <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">-f</span></code> will be run to install any unmet
+dependencies.</p>
+</dd>
+<dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd><p>If the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file isn’t downloaded, pyinfra can’t remove any existing
+package as the file won’t exist until mid-deploy.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: Assumes wget is installed.</span>
@@ -210,39 +213,54 @@ package as the file won’t exist until mid-deploy.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-dist-upgrade">
-<span id="operations-apt-dist-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.dist_upgrade</span></code><a class="headerlink" href="#apt-dist-upgrade" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-dist-upgrade">
+<span id="operations-apt-dist-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.dist_upgrade</span></code><a class="headerlink" href="#apt-dist-upgrade" title="Link to this heading">¶</a></h2>
 <p>Updates all apt packages, employing dist-upgrade.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p><strong>auto_remove</strong>: removes transitive dependencies that are no longer needed.</p></li>
+</ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upgrade apt packages using dist-upgrade&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-key">
-<span id="operations-apt-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.key</span></code><a class="headerlink" href="#apt-key" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-key">
+<span id="operations-apt-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.key</span></code><a class="headerlink" href="#apt-key" title="Link to this heading">¶</a></h2>
 <p>Add apt gpg keys with <code class="docutils literal notranslate"><span class="pre">apt-key</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyserver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyserver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: filename or URL</li>
-<li><strong>keyserver</strong>: URL of keyserver to fetch key from</li>
-<li><strong>keyid</strong>: key ID or list of key IDs when using keyserver</li>
+<li><p><strong>src</strong>: filename or URL</p></li>
+<li><p><strong>keyserver</strong>: URL of keyserver to fetch key from</p></li>
+<li><p><strong>keyid</strong>: key ID or list of key IDs when using keyserver</p></li>
 </ul>
-<dl class="docutils">
-<dt>keyserver/id:</dt><dd>These must be provided together.</dd>
+<dl class="simple">
+<dt>keyserver/id:</dt><dd><p>These must be provided together.</p>
+</dd>
 </dl>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">apt-key</span></code> is deprecated in Debian, it is recommended NOT to use this
 operation and instead follow the instructions here:</p>
-<p class="last"><a class="reference external" href="https://wiki.debian.org/DebianRepository/UseThirdParty">https://wiki.debian.org/DebianRepository/UseThirdParty</a></p>
+<p><a class="reference external" href="https://wiki.debian.org/DebianRepository/UseThirdParty">https://wiki.debian.org/DebianRepository/UseThirdParty</a></p>
 </div>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: If using URL, wget is assumed to be installed.</span>
@@ -257,36 +275,42 @@ operation and instead follow the instructions here:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-packages">
-<span id="operations-apt-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.packages</span></code><a class="headerlink" href="#apt-packages" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-packages">
+<span id="operations-apt-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.packages</span></code><a class="headerlink" href="#apt-packages" title="Link to this heading">¶</a></h2>
 <p>Install/remove/update packages &amp; update apt.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">cache_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">no_recommends</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">allow_downgrades</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extra_install_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">extra_uninstall_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">extra_uninstall_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>packages</strong>: list of packages to ensure</li>
-<li><strong>present</strong>: whether the packages should be installed</li>
-<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
-<li><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span></code> before installing packages</li>
-<li><strong>cache_time</strong>: when used with <code class="docutils literal notranslate"><span class="pre">update</span></code>, cache for this many seconds</li>
-<li><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code> before installing packages</li>
-<li><strong>force</strong>: whether to force package installs by passing <cite>–force-yes</cite> to apt</li>
-<li><strong>no_recommends</strong>: don’t install recommended packages</li>
-<li><strong>allow_downgrades</strong>: allow downgrading packages with version (–allow-downgrades)</li>
-<li><strong>extra_install_args</strong>: additional arguments to the apt install command</li>
-<li><strong>extra_uninstall_args</strong>: additional arguments to the apt uninstall command</li>
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span></code> before installing packages</p></li>
+<li><p><strong>cache_time</strong>: when used with <code class="docutils literal notranslate"><span class="pre">update</span></code>, cache for this many seconds</p></li>
+<li><p><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code> before installing packages</p></li>
+<li><p><strong>force</strong>: whether to force package installs by passing <cite>–force-yes</cite> to apt</p></li>
+<li><p><strong>no_recommends</strong>: don’t install recommended packages</p></li>
+<li><p><strong>allow_downgrades</strong>: allow downgrading packages with version (–allow-downgrades)</p></li>
+<li><p><strong>extra_install_args</strong>: additional arguments to the apt install command</p></li>
+<li><p><strong>extra_uninstall_args</strong>: additional arguments to the apt uninstall command</p></li>
 </ul>
-<dl class="docutils">
-<dt>Versions:</dt><dd>Package versions can be pinned like apt: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></dd>
-<dt>Cache time:</dt><dd>When <code class="docutils literal notranslate"><span class="pre">cache_time</span></code> is set the <code class="docutils literal notranslate"><span class="pre">/var/lib/apt/periodic/update-success-stamp</span></code> file
+<dl class="simple">
+<dt>Versions:</dt><dd><p>Package versions can be pinned like apt: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></p>
+</dd>
+<dt>Cache time:</dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">cache_time</span></code> is set the <code class="docutils literal notranslate"><span class="pre">/var/lib/apt/periodic/update-success-stamp</span></code> file
 is touched upon successful update. Some distros already do this (Ubuntu), but others
-simply leave the periodic directory empty (Debian).</dd>
+simply leave the periodic directory empty (Debian).</p>
+</dd>
 </dl>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
@@ -311,23 +335,28 @@ simply leave the periodic directory empty (Debian).</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-ppa">
-<span id="operations-apt-ppa"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.ppa</span></code><a class="headerlink" href="#apt-ppa" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-ppa">
+<span id="operations-apt-ppa"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.ppa</span></code><a class="headerlink" href="#apt-ppa" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Add/remove Ubuntu ppa repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">ppa</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">ppa</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: the PPA name (full ppa:user/repo format)</li>
-<li><strong>present</strong>: whether it should exist</li>
+<li><p><strong>src</strong>: the PPA name (full ppa:user/repo format)</p></li>
+<li><p><strong>present</strong>: whether it should exist</p></li>
 </ul>
-<dl class="docutils">
-<dt>Note:</dt><dd>requires <code class="docutils literal notranslate"><span class="pre">apt-add-repository</span></code> on the remote host</dd>
+<dl class="simple">
+<dt>Note:</dt><dd><p>requires <code class="docutils literal notranslate"><span class="pre">apt-add-repository</span></code> on the remote host</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: Assumes software-properties-common is installed.</span>
@@ -337,18 +366,22 @@ simply leave the periodic directory empty (Debian).</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-repo">
-<span id="operations-apt-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.repo</span></code><a class="headerlink" href="#apt-repo" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-repo">
+<span id="operations-apt-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.repo</span></code><a class="headerlink" href="#apt-repo" title="Link to this heading">¶</a></h2>
 <p>Add/remove apt repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>src</strong>: apt source string eg <code class="docutils literal notranslate"><span class="pre">deb</span> <span class="pre">http://X</span> <span class="pre">hardy</span> <span class="pre">main</span></code></li>
-<li><strong>present</strong>: whether the repo should exist on the system</li>
-<li><strong>filename</strong>: optional filename to use <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/&lt;filename&gt;.list</span></code>. By
-default uses <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code>.</li>
+<li><p><strong>src</strong>: apt source string eg <code class="docutils literal notranslate"><span class="pre">deb</span> <span class="pre">http://X</span> <span class="pre">hardy</span> <span class="pre">main</span></code></p></li>
+<li><p><strong>present</strong>: whether the repo should exist on the system</p></li>
+<li><p><strong>filename</strong>: optional filename to use <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/&lt;filename&gt;.list</span></code>. By
+default uses <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code>.</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
@@ -357,19 +390,23 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-update">
-<span id="operations-apt-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.update</span></code><a class="headerlink" href="#apt-update" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-update">
+<span id="operations-apt-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.update</span></code><a class="headerlink" href="#apt-update" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands unless the <code class="docutils literal notranslate"><span class="pre">cache_time</span></code> argument is provided.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands unless the <code class="docutils literal notranslate"><span class="pre">cache_time</span></code> argument is provided.</p>
 </div>
 <p>Updates apt repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>cache_time</strong>: cache updates for this many seconds</li>
+<li><p><strong>cache_time</strong>: cache updates for this many seconds</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
@@ -378,15 +415,19 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="apt-upgrade">
-<span id="operations-apt-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.upgrade</span></code><a class="headerlink" href="#apt-upgrade" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="apt-upgrade">
+<span id="operations-apt-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.upgrade</span></code><a class="headerlink" href="#apt-upgrade" title="Link to this heading">¶</a></h2>
 <p>Upgrades all apt packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>autoremove</strong>: removes transitive dependencies that are no longer needed.</li>
+<li><p><strong>auto_remove</strong>: removes transitive dependencies that are no longer needed.</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Upgrade all packages</span>
@@ -401,8 +442,12 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -425,7 +470,7 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

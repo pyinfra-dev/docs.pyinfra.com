@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Pip Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -164,6 +164,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -176,36 +177,38 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="pip-operations">
-<h1>Pip Operations<a class="headerlink" href="#pip-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="pip-operations">
+<h1>Pip Operations<a class="headerlink" href="#pip-operations" title="Link to this heading">¶</a></h1>
 <p>Manage pip (python) packages. Compatible globally or inside
 a virtualenv (virtual environment).</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/pip.html#facts-pip-pippackages"><span class="std std-ref">pip.PipPackages</span></a>.</p>
-<div class="section" id="pip-packages">
-<span id="operations-pip-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.packages</span></code><a class="headerlink" href="#pip-packages" title="Permalink to this heading">¶</a></h2>
+<section id="pip-packages">
+<span id="operations-pip-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.packages</span></code><a class="headerlink" href="#pip-packages" title="Link to this heading">¶</a></h2>
 <p>Install/remove/update pip packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">requirements</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pip</span><span class="o">=</span><span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="n">virtualenv</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">virtualenv_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_install_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">virtualenv_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_install_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>packages</strong>: list of packages to ensure</li>
-<li><strong>present</strong>: whether the packages should be installed</li>
-<li><strong>latest</strong>: whether to upgrade packages without a specified version</li>
-<li><strong>requirements</strong>: location of requirements file to install/uninstall</li>
-<li><strong>pip</strong>: name or path of the pip directory to use</li>
-<li><strong>virtualenv</strong>: root directory of virtualenv to work in</li>
-<li><strong>virtualenv_kwargs</strong>: dictionary of arguments to pass to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code></li>
-<li><strong>extra_install_args</strong>: additional arguments to the pip install command</li>
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
+<li><p><strong>requirements</strong>: location of requirements file to install/uninstall</p></li>
+<li><p><strong>pip</strong>: name or path of the pip directory to use</p></li>
+<li><p><strong>virtualenv</strong>: root directory of virtualenv to work in</p></li>
+<li><p><strong>virtualenv_kwargs</strong>: dictionary of arguments to pass to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code></p></li>
+<li><p><strong>extra_install_args</strong>: additional arguments to the pip install command</p></li>
 </ul>
-<dl class="docutils">
-<dt>Virtualenv:</dt><dd>This will be created if it does not exist already. <code class="docutils literal notranslate"><span class="pre">virtualenv_kwargs</span></code>
+<dl class="simple">
+<dt>Virtualenv:</dt><dd><p>This will be created if it does not exist already. <code class="docutils literal notranslate"><span class="pre">virtualenv_kwargs</span></code>
 will be passed to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code> which can be used to control how
-the env is created.</dd>
-<dt>Versions:</dt><dd>Package versions can be pinned like pip: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;==&lt;version&gt;</span></code>.</dd>
+the env is created.</p>
+</dd>
+<dt>Versions:</dt><dd><p>Package versions can be pinned like pip: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;==&lt;version&gt;</span></code>.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
@@ -215,18 +218,25 @@ the env is created.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pip-venv">
-<span id="operations-pip-venv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.venv</span></code><a class="headerlink" href="#pip-venv" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="pip-venv">
+<span id="operations-pip-venv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.venv</span></code><a class="headerlink" href="#pip-venv" title="Link to this heading">¶</a></h2>
 <p>Add/remove Python virtualenvs.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">python</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site_packages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">python</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site_packages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>python</strong>: python interpreter to use</li>
-<li><strong>site_packages</strong>: give access to the global site-packages</li>
-<li><strong>always_copy</strong>: always copy files rather than symlinking</li>
-<li><strong>present</strong>: whether the virtualenv should exist</li>
+<li><p><strong>python</strong>: python interpreter to use</p></li>
+<li><p><strong>site_packages</strong>: give access to the global site-packages</p></li>
+<li><p><strong>always_copy</strong>: always copy files rather than symlinking</p></li>
+<li><p><strong>present</strong>: whether the virtualenv should exist</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span>
@@ -235,22 +245,26 @@ the env is created.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pip-virtualenv">
-<span id="operations-pip-virtualenv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.virtualenv</span></code><a class="headerlink" href="#pip-virtualenv" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="pip-virtualenv">
+<span id="operations-pip-virtualenv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.virtualenv</span></code><a class="headerlink" href="#pip-virtualenv" title="Link to this heading">¶</a></h2>
 <p>Add/remove Python virtualenvs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">virtualenv</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">python</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">venv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">site_packages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">always_copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>python</strong>: python interpreter to use</li>
-<li><strong>venv</strong>: use standard venv module instead of virtualenv</li>
-<li><strong>site_packages</strong>: give access to the global site-packages</li>
-<li><strong>always_copy</strong>: always copy files rather than symlinking</li>
-<li><strong>present</strong>: whether the virtualenv should exist</li>
+<li><p><strong>python</strong>: python interpreter to use</p></li>
+<li><p><strong>venv</strong>: use standard venv module instead of virtualenv</p></li>
+<li><p><strong>site_packages</strong>: give access to the global site-packages</p></li>
+<li><p><strong>always_copy</strong>: always copy files rather than symlinking</p></li>
+<li><p><strong>present</strong>: whether the virtualenv should exist</p></li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">virtualenv</span><span class="p">(</span>
@@ -259,8 +273,12 @@ the env is created.</dd>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -283,7 +301,7 @@ the env is created.</dd>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

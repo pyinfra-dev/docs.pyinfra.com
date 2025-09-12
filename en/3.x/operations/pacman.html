@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Pacman Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -164,6 +164,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -176,24 +177,25 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="pacman-operations">
-<h1>Pacman Operations<a class="headerlink" href="#pacman-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="pacman-operations">
+<h1>Pacman Operations<a class="headerlink" href="#pacman-operations" title="Link to this heading">¶</a></h1>
 <p>Manage pacman packages. (Arch Linux package manager)</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/pacman.html#facts-pacman-pacmanpackages"><span class="std std-ref">pacman.PacmanPackages</span></a>, <a class="reference internal" href="../facts/pacman.html#facts-pacman-pacmanunpackgroup"><span class="std std-ref">pacman.PacmanUnpackGroup</span></a>.</p>
-<div class="section" id="pacman-packages">
-<span id="operations-pacman-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.packages</span></code><a class="headerlink" href="#pacman-packages" title="Permalink to this heading">¶</a></h2>
+<section id="pacman-packages">
+<span id="operations-pacman-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.packages</span></code><a class="headerlink" href="#pacman-packages" title="Link to this heading">¶</a></h2>
 <p>Add/remove pacman packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>packages</strong>: list of packages to ensure</li>
-<li><strong>present</strong>: whether the packages should be installed</li>
-<li><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-Sy</span></code> before installing packages</li>
-<li><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-Su</span></code> before installing packages</li>
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-Sy</span></code> before installing packages</p></li>
+<li><p><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">pacman</span> <span class="pre">-Su</span></code> before installing packages</p></li>
 </ul>
-<dl class="docutils">
-<dt>Versions:</dt><dd>Package versions can be pinned like pacman: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code>.</dd>
+<dl class="simple">
+<dt>Versions:</dt><dd><p>Package versions can be pinned like pacman: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code>.</p>
+</dd>
 </dl>
 <p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
@@ -203,30 +205,42 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pacman-update">
-<span id="operations-pacman-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.update</span></code><a class="headerlink" href="#pacman-update" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="pacman-update">
+<span id="operations-pacman-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.update</span></code><a class="headerlink" href="#pacman-update" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Updates pacman repositories.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pacman-upgrade">
-<span id="operations-pacman-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.upgrade</span></code><a class="headerlink" href="#pacman-upgrade" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="pacman-upgrade">
+<span id="operations-pacman-upgrade"></span><h2><code class="code docutils literal notranslate"><span class="pre">pacman.upgrade</span></code><a class="headerlink" href="#pacman-upgrade" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Upgrades all pacman packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -249,7 +263,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

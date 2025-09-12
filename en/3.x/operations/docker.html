@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Docker Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -109,6 +109,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-network"><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-plugin"><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-prune"><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-volume"><code class="code docutils literal notranslate"><span class="pre">docker.volume</span></code></a></li>
 </ul>
@@ -166,6 +167,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -178,32 +180,34 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="docker-operations">
-<h1>Docker Operations<a class="headerlink" href="#docker-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="docker-operations">
+<h1>Docker Operations<a class="headerlink" href="#docker-operations" title="Link to this heading">¶</a></h1>
 <p>Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
-<div class="section" id="docker-container">
-<span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Permalink to this heading">¶</a></h2>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<section id="docker-container">
+<span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Link to this heading">¶</a></h2>
 <p>Manage Docker containers</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
-    <span class="n">container</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">networks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volumes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env_vars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">pull_always</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">container</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">networks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">env_vars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull_always</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>container</strong>: name to identify the container</li>
-<li><strong>image</strong>: container image and tag ex: nginx:alpine</li>
-<li><strong>networks</strong>: network list to attach on container</li>
-<li><strong>ports</strong>: port list to expose</li>
-<li><strong>volumes</strong>: volume list to map on container</li>
-<li><strong>env_vars</strong>: environment variable list to inject on container</li>
-<li><strong>pull_always</strong>: force image pull</li>
-<li><strong>force</strong>: remove a container with same name and create a new one</li>
-<li><strong>present</strong>: whether the container should be up and running</li>
-<li><strong>start</strong>: start or stop the container</li>
+<li><p><strong>container</strong>: name to identify the container</p></li>
+<li><p><strong>image</strong>: container image and tag ex: nginx:alpine</p></li>
+<li><p><strong>networks</strong>: network list to attach on container</p></li>
+<li><p><strong>ports</strong>: port list to expose</p></li>
+<li><p><strong>volumes</strong>: volume list to map on container</p></li>
+<li><p><strong>env_vars</strong>: environment variable list to inject on container</p></li>
+<li><p><strong>pull_always</strong>: force image pull</p></li>
+<li><p><strong>force</strong>: remove a container with same name and create a new one</p></li>
+<li><p><strong>present</strong>: whether the container should be up and running</p></li>
+<li><p><strong>start</strong>: start or stop the container</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a container</span>
@@ -234,20 +238,24 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="docker-image">
-<span id="operations-docker-image"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code><a class="headerlink" href="#docker-image" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="docker-image">
+<span id="operations-docker-image"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code><a class="headerlink" href="#docker-image" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Manage Docker images</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>image</strong>: Image and tag ex: nginx:alpine</li>
-<li><strong>present</strong>: whether the Docker image should exist</li>
+<li><p><strong>image</strong>: Image and tag ex: nginx:alpine</p></li>
+<li><p><strong>present</strong>: whether the Docker image should exist</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull a Docker image</span>
@@ -265,30 +273,38 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="docker-network">
-<span id="operations-docker-network"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code><a class="headerlink" href="#docker-network" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="docker-network">
+<span id="operations-docker-network"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code><a class="headerlink" href="#docker-network" title="Link to this heading">¶</a></h2>
 <p>Manage docker networks</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">network</span><span class="p">(</span>
-    <span class="n">network</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">gateway</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ip_range</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ipam_driver</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">subnet</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">opts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ipam_opts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ingress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">attachable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">network</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">gateway</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ip_range</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ipam_driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">subnet</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">aux_addresses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">opts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ipam_opts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ingress</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">attachable</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>network</strong>: Network name</li>
-<li><strong>driver</strong>: Network driver ex: bridge or overlay</li>
-<li><strong>gateway</strong>: IPv4 or IPv6 Gateway for the master subnet</li>
-<li><strong>ip_range</strong>: Allocate container ip from a sub-range</li>
-<li><strong>ipam_driver</strong>: IP Address Management Driver</li>
-<li><strong>subnet</strong>: Subnet in CIDR format that represents a network segment</li>
-<li><strong>scope</strong>: Control the network’s scope</li>
-<li><strong>opts</strong>: Set driver specific options</li>
-<li><strong>ipam_opts</strong>: Set IPAM driver specific options</li>
-<li><strong>labels</strong>: Label list to attach in the network</li>
-<li><strong>ingress</strong>: Create swarm routing-mesh network</li>
-<li><strong>attachable</strong>: Enable manual container attachment</li>
-<li><strong>present</strong>: whether the Docker network should exist</li>
+<li><p><strong>network</strong>: Network name</p></li>
+<li><p><strong>driver</strong>: Network driver ex: bridge or overlay</p></li>
+<li><p><strong>gateway</strong>: IPv4 or IPv6 Gateway for the master subnet</p></li>
+<li><p><strong>ip_range</strong>: Allocate container ip from a sub-range</p></li>
+<li><p><strong>ipam_driver</strong>: IP Address Management Driver</p></li>
+<li><p><strong>subnet</strong>: Subnet in CIDR format that represents a network segment</p></li>
+<li><p><strong>scope</strong>: Control the network’s scope</p></li>
+<li><p><strong>aux_addresses</strong>: named aux addresses for the network</p></li>
+<li><p><strong>opts</strong>: Set driver specific options</p></li>
+<li><p><strong>ipam_opts</strong>: Set IPAM driver specific options</p></li>
+<li><p><strong>labels</strong>: Label list to attach in the network</p></li>
+<li><p><strong>ingress</strong>: Create swarm routing-mesh network</p></li>
+<li><p><strong>attachable</strong>: Enable manual container attachment</p></li>
+<li><p><strong>present</strong>: whether the Docker network should exist</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Docker network</span>
@@ -299,21 +315,58 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="docker-prune">
-<span id="operations-docker-prune"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code><a class="headerlink" href="#docker-prune" title="Permalink to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="first admonition-title">Stateless operation</p>
-<p class="last">This operation will always execute commands and is not idempotent.</p>
-</div>
-<p>Execute a docker system prune.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">volume</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="docker-plugin">
+<span id="operations-docker-plugin"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code><a class="headerlink" href="#docker-plugin" title="Link to this heading">¶</a></h2>
+<p>Manage Docker plugins</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">plugin</span><span class="p">(</span>
+    <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">alias</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plugin_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>all</strong>: Remove all unused images not just dangling ones</li>
-<li><strong>volumes</strong>: Prune anonymous volumes</li>
-<li><strong>filter</strong>: Provide filter values (e.g. “label=&lt;key&gt;=&lt;value&gt;” or “until=24h”)</li>
+<li><p><strong>plugin</strong>: Plugin name</p></li>
+<li><p><strong>alias</strong>: Alias for the plugin (optional)</p></li>
+<li><p><strong>present</strong>: Whether the plugin should be installed</p></li>
+<li><p><strong>enabled</strong>: Whether the plugin should be enabled</p></li>
+<li><p><strong>plugin_options</strong>: Options to pass to the plugin</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install and enable a Docker plugin</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">plugin</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install and enable a Docker plugin&quot;</span><span class="p">,</span>
+    <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;username/my-awesome-plugin:latest&quot;</span><span class="p">,</span>
+    <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;my-plugin&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plugin_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;option1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span> <span class="s2">&quot;option2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="docker-prune">
+<span id="operations-docker-prune"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code><a class="headerlink" href="#docker-prune" title="Link to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Execute a docker system prune.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="nb">all</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>all</strong>: Remove all unused images not just dangling ones</p></li>
+<li><p><strong>volumes</strong>: Prune anonymous volumes</p></li>
+<li><p><strong>filter</strong>: Provide filter values (e.g. “label=&lt;key&gt;=&lt;value&gt;” or “until=24h”)</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove dangling images</span>
@@ -335,18 +388,22 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="docker-volume">
-<span id="operations-docker-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.volume</span></code><a class="headerlink" href="#docker-volume" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="docker-volume">
+<span id="operations-docker-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.volume</span></code><a class="headerlink" href="#docker-volume" title="Link to this heading">¶</a></h2>
 <p>Manage Docker volumes</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>volume</strong>: Volume name</li>
-<li><strong>driver</strong>: Docker volume storage driver</li>
-<li><strong>labels</strong>: Label list to attach in the volume</li>
-<li><strong>present</strong>: whether the Docker volume should exist</li>
+<li><p><strong>volume</strong>: Volume name</p></li>
+<li><p><strong>driver</strong>: Docker volume storage driver</p></li>
+<li><p><strong>labels</strong>: Label list to attach in the volume</p></li>
+<li><p><strong>present</strong>: whether the Docker volume should exist</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Docker volume</span>
@@ -357,8 +414,12 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -381,7 +442,7 @@ as inventory directly.</p>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

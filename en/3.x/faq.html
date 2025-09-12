@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta content="Frequently asked pyinfra questions" name="description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Frequently asked pyinfra questions" name="description" />
 <meta content="pyinfra, documentation, faq" name="keywords" />
 
   
@@ -20,11 +20,11 @@
     <title>Frequently Asked Questions &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=df830e76" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="_static/logo_small.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -34,7 +34,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -97,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-the-name-of-the-current-host">How do I get the name of the current host?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-use-sudo-in-an-operation">How do I use sudo in an operation?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-chmod-or-chown-a-file-directory-link">How do I chmod or chown a file/directory/link?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-handle-unreliable-operations-or-network-issues">How do I handle unreliable operations or network issues?</a></li>
 </ul>
 </li>
 </ul>
@@ -121,6 +122,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
 </ul>
 
@@ -133,23 +135,23 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="frequently-asked-questions">
-<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">¶</a></h1>
-<div class="section" id="how-do-i-get-the-name-of-the-current-host">
-<h2>How do I get the name of the current host?<a class="headerlink" href="#how-do-i-get-the-name-of-the-current-host" title="Permalink to this heading">¶</a></h2>
+  <section id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Link to this heading">¶</a></h1>
+<section id="how-do-i-get-the-name-of-the-current-host">
+<h2>How do I get the name of the current host?<a class="headerlink" href="#how-do-i-get-the-name-of-the-current-host" title="Link to this heading">¶</a></h2>
 <p>The currently executing host can be fetched from the <code class="docutils literal notranslate"><span class="pre">host</span></code> context variable. If you need the hostname the <code class="docutils literal notranslate"><span class="pre">server.Hostname</span></code> fact can be used to get that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the name of the host as defined in the inventory</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
 <span class="n">name</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span>
 
 <span class="c1"># Get the actual current hostname from the host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Hostname</span>
+<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Hostname</span>
 <span class="n">hostname</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Hostname</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-do-i-use-sudo-in-an-operation">
-<h2>How do I use sudo in an operation?<a class="headerlink" href="#how-do-i-use-sudo-in-an-operation" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="how-do-i-use-sudo-in-an-operation">
+<h2>How do I use sudo in an operation?<a class="headerlink" href="#how-do-i-use-sudo-in-an-operation" title="Link to this heading">¶</a></h2>
 <p>Sudo is controlled by one of the <a class="reference external" href="arguments.html#privilege-user-escalation">privilege and user escalation arguments</a>, there are a number of additional arguments to control sudo execution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
@@ -160,9 +162,9 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-do-i-chmod-or-chown-a-file-directory-link">
-<h2>How do I chmod or chown a file/directory/link?<a class="headerlink" href="#how-do-i-chmod-or-chown-a-file-directory-link" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="how-do-i-chmod-or-chown-a-file-directory-link">
+<h2>How do I chmod or chown a file/directory/link?<a class="headerlink" href="#how-do-i-chmod-or-chown-a-file-directory-link" title="Link to this heading">¶</a></h2>
 <p>Use the LINK <code class="docutils literal notranslate"><span class="pre">files.file</span></code>, <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> or <code class="docutils literal notranslate"><span class="pre">files.link</span></code> operations to set the permissions and ownership of files, directories &amp; links:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
     <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/default/elasticsearch&quot;</span><span class="p">,</span>
@@ -172,8 +174,35 @@
 <span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="how-do-i-handle-unreliable-operations-or-network-issues">
+<h2>How do I handle unreliable operations or network issues?<a class="headerlink" href="#how-do-i-handle-unreliable-operations-or-network-issues" title="Link to this heading">¶</a></h2>
+<p>Use the <a class="reference external" href="arguments.html#retry-behavior">retry behavior arguments</a> to automatically retry failed operations. This is especially useful for network operations or services that may be temporarily unavailable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retry a network operation up to 3 times</span>
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download file with retries&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/file.zip&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">_retry_delay</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># wait 5 seconds between retries</span>
+<span class="p">)</span>
+
+<span class="c1"># Use custom retry logic for specific error conditions</span>
+<span class="k">def</span> <span class="nf">should_retry_download</span><span class="p">(</span><span class="n">output_data</span><span class="p">):</span>
+    <span class="c1"># Retry only on temporary network errors, not permanent failures</span>
+    <span class="n">stderr_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_data</span><span class="p">[</span><span class="s2">&quot;stderr_lines&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">temporary_errors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;connection refused&quot;</span><span class="p">,</span> <span class="s2">&quot;temporary failure&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">error</span> <span class="ow">in</span> <span class="n">stderr_text</span> <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">temporary_errors</span><span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download with smart retry logic&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/large-file.zip&quot;</span><span class="p">],</span>
+    <span class="n">_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">_retry_until</span><span class="o">=</span><span class="n">should_retry_download</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
 </div>
-</div>
+</section>
+</section>
 
 
         </div>
@@ -196,7 +225,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

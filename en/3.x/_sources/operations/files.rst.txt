@@ -5,7 +5,7 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FileContents`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
 
 .. _operations:files.block:
 
@@ -20,7 +20,7 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
         path: str, content: str | list[str] | None=None, present=True, line: str | None=None,
         backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False,
         before=False, after=False, marker: str | None=None, begin: str | None=None,
-        end: str | None=None,
+        end: str | None=None, **kwargs,
     )
 
 + **path**: target remote file
@@ -61,7 +61,7 @@ WARNING: This will break if the content contains raw single quotes.
         path="/etc/hosts",
         content="10.0.0.1 mars-one",
         before=True,
-        regex=".*localhost",
+        line=".*localhost",
     )
 
     # have two entries in /etc/host
@@ -70,7 +70,7 @@ WARNING: This will break if the content contains raw single quotes.
         path="/etc/hosts",
         content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
         before=True,
-        regex=".*localhost",
+        line=".*localhost",
     )
 
     # remove marked entry from /etc/hosts
@@ -85,7 +85,7 @@ WARNING: This will break if the content contains raw single quotes.
         name="add out of date warning to web page",
         path="/var/www/html/something.html",
         content= "<p>Warning: this page is out of date.</p>",
-        regex=".*<body>.*",
+        line=".*<body>.*",
         after=True
         marker="<!-- {mark} PYINFRA BLOCK -->",
     )
@@ -97,6 +97,8 @@ WARNING: This will break if the content contains raw single quotes.
         try_prevent_shell_expansion=True,
         marker="## {mark} ALIASES ##"
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.directory:
@@ -111,7 +113,7 @@ Add/remove/update directories.
     files.directory(
         path: str, present=True, user: str | None=None, group: str | None=None,
         mode: int | str | None=None, recursive=False, force=False, force_backup=True,
-        force_backup_dir: str | None=None,
+        force_backup_dir: str | None=None, **kwargs,
     )
 
 + **path**: path of the remote folder
@@ -147,6 +149,8 @@ Add/remove/update directories.
             name="Ensure the directory `{}` exists".format(dir),
             path=dir,
         )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.download:
@@ -163,6 +167,8 @@ Download files from remote locations using ``curl`` or ``wget``.
         cache_time: int | None=None, force=False, sha384sum: str | None=None,
         sha256sum: str | None=None, sha1sum: str | None=None, md5sum: str | None=None,
         headers: dict[str, str] | None=None, insecure=False, proxy: str | None=None,
+        temp_dir: str | Path | None=None, extra_curl_args: dict[str, str] | None=None,
+        extra_wget_args: dict[str, str] | None=None, **kwargs,
     )
 
 + **src**: source URL of the file
@@ -179,6 +185,9 @@ Download files from remote locations using ``curl`` or ``wget``.
 + **headers**: optional dictionary of headers to set for the HTTP request
 + **insecure**: disable SSL verification for the HTTP request
 + **proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
++ **temp_dir**: use this custom temporary directory during the download
++ **extra_curl_args**: optional dictionary with custom arguments for curl
++ **extra_wget_args**: optional dictionary with custom arguments for wget
 
 **Example:**
 
@@ -189,6 +198,8 @@ Download files from remote locations using ``curl`` or ``wget``.
         src="https://download.docker.com/linux/centos/docker-ce.repo",
         dest="/etc/yum.repos.d/docker-ce.repo",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.file:
@@ -203,7 +214,7 @@ Add/remove/update files.
     files.file(
         path: str, present=True, user: str | None=None, group: str | None=None,
         mode: int | str | None=None, touch=False, create_remote_dir=True, force=False,
-        force_backup=True, force_backup_dir: str | None=None,
+        force_backup=True, force_backup_dir: str | None=None, **kwargs,
     )
 
 + **path**: name/path of the remote file
@@ -236,6 +247,8 @@ Add/remove/update files.
         touch=True,
         create_remote_dir=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.flags:
@@ -247,7 +260,7 @@ Set/clear file flags.
 
 .. code:: python
 
-    files.flags(path: str, flags: list[str] | None=None, present=True)
+    files.flags(path: str, flags: list[str] | None=None, present=True, **kwargs)
 
 + **path**: path of the remote folder
 + **flags**: a list of the file flags to be set or cleared
@@ -271,6 +284,8 @@ Set/clear file flags.
         present=True,
         _sudo=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.get:
@@ -288,7 +303,7 @@ Download a file from the remote system.
 
 .. code:: python
 
-    files.get(src: str, dest: str, add_deploy_dir=True, create_local_dir=False, force=False)
+    files.get(src: str, dest: str, add_deploy_dir=True, create_local_dir=False, force=False, **kwargs)
 
 + **src**: the remote filename to download
 + **dest**: the local filename to download the file to
@@ -309,6 +324,8 @@ Note:
         src="/etc/centos-release",
         dest="/tmp/whocares",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.line:
@@ -323,7 +340,7 @@ Ensure lines in files using grep to locate and sed to replace.
     files.line(
         path: str, line: str, present=True, replace: str | None=None,
         flags: list[str] | None=None, backup=False, interpolate_variables=False,
-        escape_regex_characters=False, ensure_newline=False,
+        escape_regex_characters=False, ensure_newline=False, **kwargs,
     )
 
 + **path**: target remote file to edit
@@ -404,6 +421,8 @@ Ensure new line:
         line="^{}$".format(line),
         replace=line,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.link:
@@ -418,7 +437,7 @@ Add/remove/update links.
     files.link(
         path: str, target: str | None=None, present=True, user: str | None=None,
         group: str | None=None, symbolic=True, create_remote_dir=True, force=False,
-        force_backup=True, force_backup_dir: str | None=None,
+        force_backup=True, force_backup_dir: str | None=None, **kwargs,
     )
 
 + **path**: the name of the link
@@ -450,6 +469,26 @@ Source changes:
         path="/etc/issue2",
         target="/etc/issue",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.move:
+
+:code:`files.move`
+~~~~~~~~~~~~~~~~~~
+
+Move remote file/directory/link into remote directory
+
+.. code:: python
+
+    files.move(src: str, dest: str, overwrite=False, **kwargs)
+
++ **src**: remote file/directory to move
++ **dest**: remote directory to move `src` into
++ **overwrite**: whether to overwrite dest, if present
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.put:
@@ -464,7 +503,8 @@ Upload a local file, or file-like object, to the remote system.
     files.put(
         src: str | IO[Any], dest: str, user: str | None=None, group: str | None=None,
         mode: int | str | bool | None=None, add_deploy_dir=True, create_remote_dir=True,
-        force=False, assume_exists=False,
+        force=False, assume_exists=False, atime: datetime | float | int | str | bool | None=None,
+        mtime: datetime | float | int | str | bool | None=None, **kwargs,
     )
 
 + **src**: filename or IO-like object to upload
@@ -476,6 +516,8 @@ Upload a local file, or file-like object, to the remote system.
 + **create_remote_dir**: create the remote directory if it doesn't exist
 + **force**: always upload the file, even if the remote copy matches
 + **assume_exists**: whether to assume the local file exists
++ **atime**: value of atime the file should have, use ``True`` to match the local file
++ **mtime**: value of mtime the file should have, use ``True`` to match the local file
 
 ``dest``:
     If this is a directory that already exists on the remote side, the local
@@ -483,16 +525,43 @@ Upload a local file, or file-like object, to the remote system.
 
 ``mode``:
     When set to ``True`` the permissions of the local file are applied to the
-    remote file after the upload is complete.
+    remote file after the upload is complete.  If set to an octal value with
+    digits for at least user, group, and other, either as an ``int`` or
+    ``str``, those permissions will be used.
 
 ``create_remote_dir``:
     If the remote directory does not exist it will be created using the same
     user & group as passed to ``files.put``. The mode will *not* be copied over,
     if this is required call ``files.directory`` separately.
 
-Note:
+``atime`` and ``mtime``:
+    When set to values other than ``False`` or ``None``, the respective metadata
+    fields on the remote file will updated accordingly.  Timestamp values are
+    considered equivalent if the difference is less than one second and they have
+    the identical number in the seconds field.  If set to ``True`` the local
+    file is the source of the value.  Otherwise, these values can be provided as
+    ``datetime`` objects, POSIX timestamps, or strings that can be parsed into
+    either of these date and time specifications.  They can also be reference file
+    paths on the remote host, as with the ``-r`` argument to ``touch``.  If a
+    ``datetime`` argument has no ``tzinfo`` value (i.e., it is naive), it is
+    assumed to be in the remote host's local timezone.  There is no shortcut for
+    setting both ``atime` and ``mtime`` values with a single time specification,
+    unlike the native ``touch`` command.
+
+Notes:
     This operation is not suitable for large files as it may involve copying
     the file before uploading it.
+
+    Currently, if the mode argument is anything other than a ``bool`` or a full
+    octal permission set and the remote file exists, the operation will always
+    behave as if the remote file does not match the specified permissions and
+    requires a change.
+
+    If the ``atime`` argument is set for a given file, unless the remote
+    filesystem is mounted ``noatime`` or ``relatime``, multiple runs of this
+    operation will trigger the change detection for that file, since the act of
+    reading and checksumming the file will cause the host OS to update the file's
+    ``atime``.
 
 **Examples:**
 
@@ -510,6 +579,8 @@ Note:
         src=StringIO("file contents"),
         dest="/etc/motd",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.replace:
@@ -523,7 +594,7 @@ Replace contents of a file using ``sed``.
 
     files.replace(
         path: str, text: str | None=None, replace: str | None=None, flags: list[str] | None=None,
-        backup=False, interpolate_variables=False, match=None,
+        backup=False, interpolate_variables=False, match=None, **kwargs,
     )
 
 + **path**: target remote file to edit
@@ -548,6 +619,8 @@ Backup:
         text="verboten",
         replace="forbidden",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.rsync:
@@ -566,7 +639,7 @@ the ``rsync`` binary on your system.
 
 .. code:: python
 
-    files.rsync(src: str, dest: str, flags: list[str] | None=None)
+    files.rsync(src: str, dest: str, flags: list[str] | None=None, **kwargs)
 
 .. important::
     The ``files.rsync`` operation is in alpha, and only supported using SSH
@@ -576,6 +649,8 @@ the ``rsync`` binary on your system.
 .. caution::
     When using SSH, the ``files.rsync`` operation only supports the ``sudo`` and ``sudo_user``
     global arguments.
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.sync:
@@ -592,7 +667,7 @@ remove extra files on the remote side, but not extra directories.
         src: str, dest: str, user: str | None=None, group: str | None=None, mode: str | None=None,
         dir_mode: str | None=None, delete=False,
         exclude: str | list[str] | tuple[str] | None=None,
-        exclude_dir: str | list[str] | tuple[str] | None=None, add_deploy_dir=True,
+        exclude_dir: str | list[str] | tuple[str] | None=None, add_deploy_dir=True, **kwargs,
     )
 
 + **src**: local directory to sync
@@ -624,6 +699,8 @@ Note: ``exclude`` and ``exclude_dir`` use ``fnmatch`` behind the scenes to do th
   Since fnmatch does not treat path separators (``/`` or ``\``) as special characters,
   excluding all directories matching a given name, however deep under ``src`` they are,
   can be done for example with ``exclude_dir=["__pycache__", "*/__pycache__"]``
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:files.template:
@@ -638,7 +715,7 @@ Generate a template using jinja2 and write it to the remote system.
     files.template(
         src: str | IO[Any], dest: str, user: str | None=None, group: str | None=None,
         mode: str | None=None, create_remote_dir: bool=True,
-        jinja_env_kwargs: dict[str, Any] | None=None,
+        jinja_env_kwargs: dict[str, Any] | None=None, **kwargs,
     )
 
 + **src**: template filename or IO-like object
@@ -658,6 +735,9 @@ Generate a template using jinja2 and write it to the remote system.
     To have more control over how jinja2 renders your template, you can pass
     a dict with arguments that will be passed as keyword args to the jinja2
     `Environment() <https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment>`_.
+
+The ``host``, ``state``, and ``inventory`` objects will be automatically passed to the template
+if not set explicitly.
 
 Notes:
    Common convention is to store templates in a "templates" directory and
@@ -716,4 +796,21 @@ Notes:
         foo_dict=foo_dict,
         foo_list=foo_list
     )
+
+    # Example showing how to use host and inventory in a template file.
+    template = StringIO("""
+    name: "{{ host.name }}"
+    list_contents:
+    {% for entry in inventory.groups.my_servers %}
+        - "{{ entry }}"
+    {% endfor %}
+    """)
+
+    files.template(
+        name="Create a templated file",
+        src=template,
+        dest="/tmp/foo.yml"
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

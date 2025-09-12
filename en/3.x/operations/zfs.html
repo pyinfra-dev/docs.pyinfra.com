@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
@@ -18,11 +18,11 @@
     <title>Zfs Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="icon" href="../_static/logo_small.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -32,7 +32,7 @@
    
 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -165,6 +165,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/reference.html">API Reference</a></li>
 </ul>
 
@@ -177,25 +178,28 @@
         
         <div class="document clearer body" role="main">
           
-  <div class="section" id="zfs-operations">
-<h1>Zfs Operations<a class="headerlink" href="#zfs-operations" title="Permalink to this heading">¶</a></h1>
+  <section id="zfs-operations">
+<h1>Zfs Operations<a class="headerlink" href="#zfs-operations" title="Link to this heading">¶</a></h1>
 <p>Manage ZFS filesystems.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/zfs.html#facts-zfs-zfsdatasets"><span class="std std-ref">zfs.ZfsDatasets</span></a>.</p>
-<div class="section" id="zfs-dataset">
-<span id="operations-zfs-dataset"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.dataset</span></code><a class="headerlink" href="#zfs-dataset" title="Permalink to this heading">¶</a></h2>
+<section id="zfs-dataset">
+<span id="operations-zfs-dataset"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.dataset</span></code><a class="headerlink" href="#zfs-dataset" title="Link to this heading">¶</a></h2>
 <p>Create, destroy or set properties on a  ZFS dataset (e.g. filesystem,
 volume, snapshot).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volume_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span>
+    <span class="n">dataset_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volume_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>dataset_name</strong>: name of the filesystem to operate on</li>
-<li><strong>present</strong>: whether the named filesystem should exist</li>
-<li><strong>recursive</strong>: whether to create parent datasets, or destroy child datasets</li>
-<li><strong>sparse</strong>: for volumes, whether to create a sparse volume with no allocation</li>
-<li><strong>volume_size</strong>: the size of the volume</li>
-<li><strong>properties</strong>: the ZFS properties that should be set on the dataset.</li>
-<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><p><strong>dataset_name</strong>: name of the filesystem to operate on</p></li>
+<li><p><strong>present</strong>: whether the named filesystem should exist</p></li>
+<li><p><strong>recursive</strong>: whether to create parent datasets, or destroy child datasets</p></li>
+<li><p><strong>sparse</strong>: for volumes, whether to create a sparse volume with no allocation</p></li>
+<li><p><strong>volume_size</strong>: the size of the volume</p></li>
+<li><p><strong>properties</strong>: the ZFS properties that should be set on the dataset.</p></li>
+<li><p><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span>
@@ -208,64 +212,80 @@ volume, snapshot).</p>
 <span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="s2">&quot;tank/home@old_version&quot;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="zfs-filesystem">
-<span id="operations-zfs-filesystem"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.filesystem</span></code><a class="headerlink" href="#zfs-filesystem" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="zfs-filesystem">
+<span id="operations-zfs-filesystem"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.filesystem</span></code><a class="headerlink" href="#zfs-filesystem" title="Link to this heading">¶</a></h2>
 <p>Create or destroy a ZFS filesystem, or modify its properties.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="n">fs_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="n">fs_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>fs_name</strong>: name of the volume to operate on</li>
-<li><strong>present</strong>: whether the named volume should exist</li>
-<li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
-<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><p><strong>fs_name</strong>: name of the volume to operate on</p></li>
+<li><p><strong>present</strong>: whether the named volume should exist</p></li>
+<li><p><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</p></li>
+<li><p><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</p></li>
+<li><p><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="s2">&quot;tank/vm-disks/db_srv_04&quot;</span><span class="p">,</span> <span class="s2">&quot;32G&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="zfs-snapshot">
-<span id="operations-zfs-snapshot"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.snapshot</span></code><a class="headerlink" href="#zfs-snapshot" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="zfs-snapshot">
+<span id="operations-zfs-snapshot"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.snapshot</span></code><a class="headerlink" href="#zfs-snapshot" title="Link to this heading">¶</a></h2>
 <p>Create or destroy a ZFS snapshot, or modify its properties.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="n">snapshot_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="n">snapshot_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>dataset_name</strong>: name of the filesystem to operate on</li>
-<li><strong>present</strong>: whether the named filesystem should exist</li>
-<li><strong>recursive</strong>: whether to snapshot child datasets</li>
-<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><p><strong>dataset_name</strong>: name of the filesystem to operate on</p></li>
+<li><p><strong>present</strong>: whether the named filesystem should exist</p></li>
+<li><p><strong>recursive</strong>: whether to snapshot child datasets</p></li>
+<li><p><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</p></li>
+<li><p><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">snapshot</span><span class="p">(</span><span class="s2">&quot;tank/home@weekly_backup&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="zfs-volume">
-<span id="operations-zfs-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.volume</span></code><a class="headerlink" href="#zfs-volume" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="zfs-volume">
+<span id="operations-zfs-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">zfs.volume</span></code><a class="headerlink" href="#zfs-volume" title="Link to this heading">¶</a></h2>
 <p>Create or destroy a ZFS volume, or modify its properties.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume_name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume_name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><strong>volume_name</strong>: name of the volume to operate on</li>
-<li><strong>size</strong>: the size of the volume</li>
-<li><strong>sparse</strong>: create a sparse volume</li>
-<li><strong>present</strong>: whether the named volume should exist</li>
-<li><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</li>
-<li><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</li>
-<li><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</li>
+<li><p><strong>volume_name</strong>: name of the volume to operate on</p></li>
+<li><p><strong>size</strong>: the size of the volume</p></li>
+<li><p><strong>sparse</strong>: create a sparse volume</p></li>
+<li><p><strong>present</strong>: whether the named volume should exist</p></li>
+<li><p><strong>recursive</strong>: whether to create parent datasets or destroy child datasets</p></li>
+<li><p><strong>properties</strong>: the ZFS properties that should be set on the snapshot.</p></li>
+<li><p><strong>**extra_props</strong>: additional props; merged with <cite>properties</cite> for convenience</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="s2">&quot;tank/vm-disks/db_srv_04&quot;</span><span class="p">,</span> <span class="s2">&quot;32G&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+</section>
 
 
         </div>
@@ -288,7 +308,7 @@ volume, snapshot).</p>
       </div>
       <div class="clearfix"></div>
   </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">

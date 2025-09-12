@@ -16,7 +16,7 @@ Add/remove ``.deb`` file packages.
 
 .. code:: python
 
-    apt.deb(src: str, present=True, force=False)
+    apt.deb(src: str, present=True, force=False, **kwargs)
 
 + **src**: filename or URL of the ``.deb`` file
 + **present**: whether or not the package should exist on the system
@@ -39,6 +39,8 @@ URL sources with ``present=False``:
         name="Install Chrome via deb",
         src="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.dist_upgrade:
@@ -50,7 +52,9 @@ Updates all apt packages, employing dist-upgrade.
 
 .. code:: python
 
-    apt.dist_upgrade()
+    apt.dist_upgrade(auto_remove: bool=False, **kwargs)
+
++ **auto_remove**: removes transitive dependencies that are no longer needed.
 
 **Example:**
 
@@ -59,6 +63,8 @@ Updates all apt packages, employing dist-upgrade.
     apt.dist_upgrade(
         name="Upgrade apt packages using dist-upgrade",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.key:
@@ -70,7 +76,10 @@ Add apt gpg keys with ``apt-key``.
 
 .. code:: python
 
-    apt.key(src: str | None=None, keyserver: str | None=None, keyid: str | list[str] | None=None)
+    apt.key(
+        src: str | None=None, keyserver: str | None=None, keyid: str | list[str] | None=None,
+        **kwargs,
+    )
 
 + **src**: filename or URL
 + **keyserver**: URL of keyserver to fetch key from
@@ -99,6 +108,8 @@ keyserver/id:
         name="Install VirtualBox key",
         src="https://www.virtualbox.org/download/oracle_vbox_2016.asc",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.packages:
@@ -114,7 +125,7 @@ Install/remove/update packages & update apt.
         packages: str | list[str] | None=None, present=True, latest=False, update=False,
         cache_time: int | None=None, upgrade=False, force=False, no_recommends=False,
         allow_downgrades=False, extra_install_args: str | None=None,
-        extra_uninstall_args: str | None=None,
+        extra_uninstall_args: str | None=None, **kwargs,
     )
 
 + **packages**: list of packages to ensure
@@ -161,6 +172,8 @@ Cache time:
         packages=[f"linux-headers-{host.get_fact(OsVersion)}"],
         update=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.ppa:
@@ -178,7 +191,7 @@ Add/remove Ubuntu ppa repositories.
 
 .. code:: python
 
-    apt.ppa(src: str, present=True)
+    apt.ppa(src: str, present=True, **kwargs)
 
 + **src**: the PPA name (full ppa:user/repo format)
 + **present**: whether it should exist
@@ -195,6 +208,8 @@ Note:
         name="Add the Bitcoin ppa",
         src="ppa:bitcoin/bitcoin",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.repo:
@@ -206,7 +221,7 @@ Add/remove apt repositories.
 
 .. code:: python
 
-    apt.repo(src: str, present=True, filename: str | None=None)
+    apt.repo(src: str, present=True, filename: str | None=None, **kwargs)
 
 + **src**: apt source string eg ``deb http://X hardy main``
 + **present**: whether the repo should exist on the system
@@ -221,6 +236,8 @@ Add/remove apt repositories.
         name="Install VirtualBox repo",
         src="deb https://download.virtualbox.org/virtualbox/debian bionic contrib",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.update:
@@ -238,7 +255,7 @@ Updates apt repositories.
 
 .. code:: python
 
-    apt.update(cache_time: int | None=None)
+    apt.update(cache_time: int | None=None, **kwargs)
 
 + **cache_time**: cache updates for this many seconds
 
@@ -250,6 +267,8 @@ Updates apt repositories.
         name="Update apt repositories",
         cache_time=3600,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:apt.upgrade:
@@ -261,9 +280,9 @@ Upgrades all apt packages.
 
 .. code:: python
 
-    apt.upgrade(auto_remove: bool=False)
+    apt.upgrade(auto_remove: bool=False, **kwargs)
 
-+ **autoremove**: removes transitive dependencies that are no longer needed.
++ **auto_remove**: removes transitive dependencies that are no longer needed.
 
 **Example:**
 
@@ -279,4 +298,6 @@ Upgrades all apt packages.
         name="Upgrade apt packages and remove unneeded dependencies",
         auto_remove=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

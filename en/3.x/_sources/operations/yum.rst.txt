@@ -22,7 +22,7 @@ Add yum gpg keys with ``rpm``.
 
 .. code:: python
 
-    yum.key(src: str)
+    yum.key(src: str, **kwargs)
 
 + **src**: filename or URL
 
@@ -38,6 +38,8 @@ Note:
         name="Add the Docker CentOS gpg key",
         src=f"https://download.docker.com/linux/{linux_id}/gpg",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:yum.packages:
@@ -52,7 +54,7 @@ Install/remove/update yum packages & updates.
     yum.packages(
         packages: str | list[str] | None=None, present=True, latest=False, update=False,
         clean=False, nobest=False, extra_install_args: str | None=None,
-        extra_uninstall_args: str | None=None,
+        extra_uninstall_args: str | None=None, **kwargs,
     )
 
 + **packages**: list of packages to ensure
@@ -84,6 +86,8 @@ Versions:
         packages=["vim"],
         latest=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:yum.repo:
@@ -97,7 +101,7 @@ Add/remove/update yum repositories.
 
     yum.repo(
         src: str, present=True, baseurl: str | None=None, description: str | None=None,
-        enabled=True, gpgcheck=True, gpgkey: str | None=None,
+        enabled=True, gpgcheck=True, gpgkey: str | None=None, **kwargs,
     )
 
 + **src**: URL or name for the ``.repo``   file
@@ -129,6 +133,8 @@ Add/remove/update yum repositories.
         src="DockerCE",
         baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:yum.rpm:
@@ -140,7 +146,7 @@ Add/remove ``.rpm`` file packages.
 
 .. code:: python
 
-    yum.rpm(src: str, present=True)
+    yum.rpm(src: str, present=True, **kwargs)
 
 + **src**: filename or URL of the ``.rpm`` package
 + **present**: whether ore not the package should exist on the system
@@ -158,6 +164,8 @@ URL sources with ``present=False``:
        name="Install EPEL rpm to enable EPEL repo",
        src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_version}.noarch.rpm",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:yum.update:
@@ -175,5 +183,7 @@ Updates all yum packages.
 
 .. code:: python
 
-    yum.update()
+    yum.update(**kwargs)
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

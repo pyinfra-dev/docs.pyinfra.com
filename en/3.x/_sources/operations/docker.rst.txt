@@ -7,7 +7,7 @@ the view of the current inventory host. See the :doc:`../connectors/docker` to u
 as inventory directly.
 
 
-Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerVolume`.
+Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
 
 .. _operations:docker.container:
 
@@ -19,8 +19,10 @@ Manage Docker containers
 .. code:: python
 
     docker.container(
-        container, image="", ports=None, networks=None, volumes=None, env_vars=None,
-        pull_always=False, present=True, force=False, start=True,
+        container: str, image: str="", ports: list[str] | None=None,
+        networks: list[str] | None=None, volumes: list[str] | None=None,
+        env_vars: list[str] | None=None, pull_always: bool=False, present: bool=True,
+        force: bool=False, start: bool=True, **kwargs,
     )
 
 + **container**: name to identify the container
@@ -64,6 +66,8 @@ Manage Docker containers
         container="nginx",
         start=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.image:
@@ -81,7 +85,7 @@ Manage Docker images
 
 .. code:: python
 
-    docker.image(image, present=True)
+    docker.image(image, present=True, **kwargs)
 
 + **image**: Image and tag ex: nginx:alpine
 + **present**: whether the Docker image should exist
@@ -103,6 +107,8 @@ Manage Docker images
         image:"nginx:image",
         present=False,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.network:
@@ -115,8 +121,11 @@ Manage docker networks
 .. code:: python
 
     docker.network(
-        network, driver="", gateway="", ip_range="", ipam_driver="", subnet="", scope="",
-        opts=None, ipam_opts=None, labels=None, ingress=False, attachable=False, present=True,
+        network: str, driver: str="", gateway: str="", ip_range: str="", ipam_driver: str="",
+        subnet: str="", scope: str="", aux_addresses: dict[str, str] | None=None,
+        opts: list[str] | None=None, ipam_opts: list[str] | None=None,
+        labels: list[str] | None=None, ingress: bool=False, attachable: bool=False,
+        present: bool=True, **kwargs,
     )
 
 + **network**: Network name
@@ -126,6 +135,7 @@ Manage docker networks
 + **ipam_driver**: IP Address Management Driver
 + **subnet**: Subnet in CIDR format that represents a network segment
 + **scope**: Control the network's scope
++ **aux_addresses**: named aux addresses for the network
 + **opts**: Set driver specific options
 + **ipam_opts**: Set IPAM driver specific options
 + **labels**: Label list to attach in the network
@@ -143,6 +153,45 @@ Manage docker networks
         attachable=True,
         present=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.plugin:
+
+:code:`docker.plugin`
+~~~~~~~~~~~~~~~~~~~~~
+
+Manage Docker plugins
+
+.. code:: python
+
+    docker.plugin(
+        plugin: str, alias: str | None=None, present: bool=True, enabled: bool=True,
+        plugin_options: dict[str, str] | None=None, **kwargs,
+    )
+
++ **plugin**: Plugin name
++ **alias**: Alias for the plugin (optional)
++ **present**: Whether the plugin should be installed
++ **enabled**: Whether the plugin should be enabled
++ **plugin_options**: Options to pass to the plugin
+
+**Examples:**
+
+.. code:: python
+
+    # Install and enable a Docker plugin
+    docker.plugin(
+        name="Install and enable a Docker plugin",
+        plugin="username/my-awesome-plugin:latest",
+        alias="my-plugin",
+        present=True,
+        enabled=True,
+        plugin_options={"option1": "value1", "option2": "value2"},
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.prune:
@@ -160,7 +209,7 @@ Execute a docker system prune.
 
 .. code:: python
 
-    docker.prune(all=False, volume=False, filter="")
+    docker.prune(all: bool=False, volumes: bool=False, filter: str="", **kwargs)
 
 + **all**: Remove all unused images not just dangling ones
 + **volumes**: Prune anonymous volumes
@@ -187,6 +236,8 @@ Execute a docker system prune.
         name="Remove unused older than 90 days",
         filter="until=2160h"
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.volume:
@@ -198,7 +249,7 @@ Manage Docker volumes
 
 .. code:: python
 
-    docker.volume(volume, driver="", labels=None, present=True)
+    docker.volume(volume: str, driver: str="", labels: list[str] | None=None, present: bool=True, **kwargs)
 
 + **volume**: Volume name
 + **driver**: Docker volume storage driver
@@ -215,4 +266,6 @@ Manage Docker volumes
         volume="nginx_data",
         present=True
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 

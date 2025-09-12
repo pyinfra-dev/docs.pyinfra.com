@@ -6,7 +6,7 @@ The server module takes care of os-level state. Targets POSIX compatibility, tes
 Linux/BSD.
 
 
-Facts used in these operations: :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.Kernel`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
 
 .. _operations:server.group:
 
@@ -17,7 +17,7 @@ Add/remove system groups.
 
 .. code:: python
 
-    server.group(group: str, present=True, system=False, gid: int | str | None=None)
+    server.group(group: str, present=True, system=False, gid: int | str | None=None, **kwargs)
 
 + **group**: name of the group to ensure
 + **present**: whether the group should be present or not
@@ -42,6 +42,8 @@ System users:
             name=f"Create the group {group}",
             group=group,
         )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.hostname:
@@ -53,7 +55,7 @@ Set the system hostname using ``hostnamectl`` or ``hostname`` on older systems.
 
 .. code:: python
 
-    server.hostname(hostname: str, hostname_file: str | None=None)
+    server.hostname(hostname: str, hostname_file: str | None=None, **kwargs)
 
 + **hostname**: the hostname that should be set
 + **hostname_file**: the file that permanently sets the hostname
@@ -75,6 +77,8 @@ Hostname file:
         name="Set the hostname",
         hostname="server1.example.com",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.locale:
@@ -86,7 +90,7 @@ Enable/Disable locale.
 
 .. code:: python
 
-    server.locale(locale: str, present=True)
+    server.locale(locale: str, present=True, **kwargs)
 
 + **locale**: name of the locale to enable/disable
 + **present**: whether this locale should be present or not
@@ -105,6 +109,8 @@ Enable/Disable locale.
         name="Ensure en_GB.UTF-8 locale is present",
         locale="en_GB.UTF-8",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.modprobe:
@@ -116,7 +122,7 @@ Load/unload kernel modules.
 
 .. code:: python
 
-    server.modprobe(module: str, present=True, force=False)
+    server.modprobe(module: str, present=True, force=False, **kwargs)
 
 + **module**: name of the module to manage
 + **present**: whether the module should be loaded or not
@@ -130,6 +136,8 @@ Load/unload kernel modules.
         name="Silly example for modprobe",
         module="floppy",
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.mount:
@@ -143,7 +151,7 @@ Manage mounted filesystems.
 
     server.mount(
         path: str, mounted=True, options: list[str] | None=None, device: str | None=None,
-        fs_type: str | None=None,
+        fs_type: str | None=None, **kwargs,
     )
 
 + **path**: the path of the mounted filesystem
@@ -157,6 +165,8 @@ Options:
 ``/etc/fstab``:
     This operation does not attempt to modify the on disk fstab file - for
     that you should use the `files.line operation <./files.html#files-line>`_.
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.packages:
@@ -169,7 +179,7 @@ system package managers pyinfra can handle and executes the relevant operation.
 
 .. code:: python
 
-    server.packages(packages: str | list[str], present=True)
+    server.packages(packages: str | list[str], present=True, **kwargs)
 
 + **packages**: list of packages to ensure
 + **present**: whether the packages should be installed
@@ -182,6 +192,8 @@ system package managers pyinfra can handle and executes the relevant operation.
         name="Install Vim and vimpager",
         packages=["vimpager", "vim"],
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.reboot:
@@ -199,7 +211,7 @@ Reboot the server and wait for reconnection.
 
 .. code:: python
 
-    server.reboot(delay=10, interval=1, reboot_timeout=300)
+    server.reboot(delay=10, interval=1, reboot_timeout=300, **kwargs)
 
 + **delay**: number of seconds to wait before attempting reconnect
 + **interval**: interval (s) between reconnect attempts
@@ -214,6 +226,8 @@ Reboot the server and wait for reconnection.
         delay=60,
         reboot_timeout=600,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.script:
@@ -231,7 +245,7 @@ Upload and execute a local script on the remote host.
 
 .. code:: python
 
-    server.script(src: str, args=())
+    server.script(src: str, args=(), **kwargs)
 
 + **src**: local script filename to upload & execute
 + **args**: iterable to pass as arguments to the script
@@ -252,6 +266,8 @@ Upload and execute a local script on the remote host.
         src="files/hello.bash",
         args=("do-something", "with-this"),
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.script_template:
@@ -269,7 +285,7 @@ Generate, upload and execute a local script template on the remote host.
 
 .. code:: python
 
-    server.script_template(src: str, args=())
+    server.script_template(src: str, args=(), **kwargs)
 
 + **src**: local script template filename
 
@@ -287,6 +303,8 @@ Generate, upload and execute a local script template on the remote host.
         src="templates/hello2.bash.j2",
         some_var=some_var,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.security_limit:
@@ -298,7 +316,7 @@ Edit /etc/security/limits.conf configuration.
 
 .. code:: python
 
-    server.security_limit(domain: str, limit_type: str, item: str, value: int)
+    server.security_limit(domain: str, limit_type: str, item: str, value: int, **kwargs)
 
 + **domain**: the domain (user, group, or wildcard) for the limit
 + **limit_type**: the type of limit (hard or soft)
@@ -316,6 +334,8 @@ Edit /etc/security/limits.conf configuration.
         item='nofile',
         value=1024,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.service:
@@ -330,7 +350,7 @@ Linux init systems pyinfra can handle and executes the relevant operation.
 
     server.service(
         service: str, running=True, restarted=False, reloaded=False, command: str | None=None,
-        enabled: bool | None=None,
+        enabled: bool | None=None, **kwargs,
     )
 
 + **service**: name of the service to manage
@@ -349,6 +369,8 @@ Linux init systems pyinfra can handle and executes the relevant operation.
         service="open-vm-tools",
         enabled=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.shell:
@@ -368,7 +390,7 @@ since facts are only run at the start of a deploy.
 
 .. code:: python
 
-    server.shell(commands: str | list[str])
+    server.shell(commands: str | list[str], **kwargs)
 
 + **commands**: command or list of commands to execute on the remote server
 
@@ -380,6 +402,8 @@ since facts are only run at the start of a deploy.
         name="Run lxd auto init",
         commands=["lxd init --auto"],
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.sysctl:
@@ -393,7 +417,7 @@ Edit sysctl configuration.
 
     server.sysctl(
         key: str, value: str | int | list[str | int], persist=False,
-        persist_file="/etc/sysctl.conf",
+        persist_file="/etc/sysctl.conf", **kwargs,
     )
 
 + **key**: name of the sysctl setting to ensure
@@ -411,6 +435,8 @@ Edit sysctl configuration.
         value=100000,
         persist=True,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.user:
@@ -424,10 +450,10 @@ Add/remove/update system users & their ssh `authorized_keys`.
 
     server.user(
         user: str, present=True, home: str | None=None, shell: str | None=None,
-        group: str | None=None, groups: list[str] | None=None,
+        group: str | None=None, groups: list[str] | None=None, append=False,
         public_keys: str | list[str] | None=None, delete_keys=False, ensure_home=True,
         create_home=False, system=False, uid: int | None=None, comment: str | None=None,
-        add_deploy_dir=True, unique=True, password: str | None=None,
+        unique=True, password: str | None=None, **kwargs,
     )
 
 + **user**: name of the user to ensure
@@ -436,14 +462,14 @@ Add/remove/update system users & their ssh `authorized_keys`.
 + **shell**: the users shell
 + **group**: the users primary group
 + **groups**: the users secondary groups
++ **append**: whether to add `user` to `groups`, w/o losing membership of other groups
 + **public_keys**: list of public keys to attach to this user, ``home`` must be specified
 + **delete_keys**: whether to remove any keys not specified in ``public_keys``
 + **ensure_home**: whether to ensure the ``home`` directory exists
-+ **create_home**: whether to new user create home directories from the system skeleton
++ **create_home**: whether user create new user home directories from the system skeleton
 + **system**: whether to create a system account
 + **uid**: use a specific userid number
 + **comment**: the user GECOS comment
-+ **add_deploy_dir**: any public_key filenames are relative to the deploy directory
 + **unique**: prevent creating users with duplicate UID
 + **password**: set the encrypted password for the user
 
@@ -480,6 +506,8 @@ Public keys:
             user=user,
             present=False,
         )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.user_authorized_keys:
@@ -494,6 +522,7 @@ Manage `authorized_keys` of system users.
     server.user_authorized_keys(
         user: str, public_keys: str | list[str], group: str | None=None, delete_keys=False,
         authorized_key_directory: str | None=None, authorized_key_filename: str | None=None,
+        **kwargs,
     )
 
 + **user**: name of the user to ensure
@@ -514,6 +543,8 @@ Public keys:
         user="kevin",
         public_keys=["ed25519..."],
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:server.wait:
@@ -532,7 +563,7 @@ second.
 
 .. code:: python
 
-    server.wait(port: int)
+    server.wait(port: int, **kwargs)
 
 + **port**: port number to wait for
 
@@ -544,4 +575,6 @@ second.
         name="Wait for webserver to start",
         port=80,
     )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
 
