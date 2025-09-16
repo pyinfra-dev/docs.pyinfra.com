@@ -18,7 +18,7 @@
     <title>How pyinfra Works &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
     <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=df830e76" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
@@ -161,8 +161,8 @@
 </pre></div>
 </div>
 <p>And here’s the deploy code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install base debugging packages&quot;</span><span class="p">,</span>
@@ -204,9 +204,9 @@
 <p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change.</p>
 </div>
 <p>Let’s look at an example - the deploy code here is bad but highlights the ordering problems:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span>
-<span class="kn">from</span> <span class="nn">pyinfra.facts.files</span> <span class="kn">import</span> <span class="n">File</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -227,8 +227,8 @@
 </pre></div>
 </div>
 <p>This gets executed <em>before</em> the <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> install, and evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code>. But at execution time this would actually become <code class="docutils literal notranslate"><span class="pre">True</span></code>. The solution is simple - rely on pyinfra’s operations to describe the desired state and always call the second:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -251,8 +251,8 @@
 <p>Always use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument when checking for previous operation changes.</p>
 </div>
 <p>Let’s use a simple example as above with add a conditional reload based on the outcome of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -278,8 +278,8 @@
 </pre></div>
 </div>
 <p>Since this gets executed before nginx is installed by <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> operation, the value of <code class="docutils literal notranslate"><span class="pre">remove_default_site.changed</span></code> at this stage is <code class="docutils literal notranslate"><span class="pre">False</span></code> but at execution time this would become <code class="docutils literal notranslate"><span class="pre">True</span></code>, exactly like the fact example above. The solution here is to use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument to delay the check until execution time:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
