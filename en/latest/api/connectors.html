@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -184,13 +184,11 @@ handled in code separately from <code class="docutils literal notranslate"><span
 <section id="executing-connector">
 <h2>Executing Connector<a class="headerlink" href="#executing-connector" title="Link to this heading">¶</a></h2>
 <p>A connector that implements execution requires a few more methods:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LocalConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
     <span class="n">handles_execution</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># Unlike InventoryConnector above, this connector can only return one host each invocation of make_names_data().</span>
-
         <span class="o">...</span>  <span class="c1"># see above</span>
  
     <span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
@@ -246,6 +244,19 @@ handled in code separately from <code class="docutils literal notranslate"><span
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: indicating success or failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+    <span class="c1"># The following two optional methods can be used to hook into the connect/disconnect steps:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect this connector instance. Should raise pyinfra.api.exceptions.ConnectError exceptions</span>
+<span class="sd">        to indicate failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disconnect this connector instance, should never fail.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 </pre></div>
 </div>
