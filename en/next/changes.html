@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-5-1">v3.5.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5">v3.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-4-1">v3.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-4">v3.4</a></li>
@@ -159,6 +160,39 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-5-1">
+<h2>v3.5.1<a class="headerlink" href="#v3-5-1" title="Link to this heading">¶</a></h2>
+<p>Patch release with a bunch of great fixes. But notably want to call out two major changes for anyone working on the pyinfra code itself (huge thank you Daan for implementing these):</p>
+<ul class="simple">
+<li><p>feat: use ruff for linting and formatting (&#64;DonDebonair)</p></li>
+<li><p>feat: use uv for project and dependency management (&#64;DonDebonair)</p></li>
+</ul>
+<p>Core fixes:</p>
+<ul class="simple">
+<li><p>api: correctly set context state+host when calling <code class="docutils literal notranslate"><span class="pre">get_facts</span></code></p></li>
+<li><p>cli: catch exceptions when testing inventory/operation imports</p></li>
+<li><p>cli: fix/remove datetime timezone warnings (&#64;wowi42)</p></li>
+<li><p>operations/files.block: correct behaviour when markers/block not found and no line provided (&#64;morrison12)</p></li>
+<li><p>operations.util.packaging: extend PkgInfo for winget (&#64;rod7760)</p></li>
+<li><p>facts/server: support negative value in sysctl (&#64;imlonghao)</p></li>
+</ul>
+<p>Docs:</p>
+<ul class="simple">
+<li><p>docs: fix dynamic execution example (&#64;wowi42)</p></li>
+<li><p>docs: Specify how the recursive argument to directory() works (&#64;cliffmccarthy)</p></li>
+<li><p>docs: change recommended installation methods (&#64;DonDebonair)</p></li>
+<li><p>docs: update writing connectors</p></li>
+</ul>
+<p>Tests:</p>
+<ul class="simple">
+<li><p>op.server.user tests: add exists_noop.json for user existence checks (fix warning) (&#64;maisim)</p></li>
+<li><p>op.server.user tests: add noop_description (fix warning) (&#64;maisim)</p></li>
+<li><p>fix: add missing command field in test (&#64;maisim)</p></li>
+<li><p>tests: clear the host sftp memoization cache before setting up the mock (&#64;wowi42)</p></li>
+<li><p>tests: export testgen class to a new package/repo</p></li>
+<li><p>tests: fix missing stage sets on state</p></li>
+</ul>
+</section>
 <section id="v3-5">
 <h2>v3.5<a class="headerlink" href="#v3-5" title="Link to this heading">¶</a></h2>
 <p>New release with some really awesome new features, brought to you by the fantastic contributions of the community. New stuff:</p>

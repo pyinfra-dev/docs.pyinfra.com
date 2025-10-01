@@ -18,8 +18,8 @@
     <title>Contributing &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=1c50d839" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -163,20 +163,22 @@
 </section>
 <section id="dev-setup">
 <h2>Dev Setup<a class="headerlink" href="#dev-setup" title="Link to this heading">¶</a></h2>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a virtualenv with your tool of choice</span>
-<span class="c1"># python -m venv / pyenv virtualenv / virtualenv</span>
+<p>First, install <a class="reference external" href="https://docs.astral.sh/uv/">uv</a>.</p>
+<p>Then, set up a development environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># There is no need to create a virtualenv, uv will do that for you</span>
 
 <span class="c1"># Clone the repo</span>
 git<span class="w"> </span>clone<span class="w"> </span>git@github.com:pyinfra-dev/pyinfra.git
 
 <span class="c1"># Install the package in editable mode with development requirements</span>
 <span class="nb">cd</span><span class="w"> </span>pyinfra
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[dev]&#39;</span>
+uv<span class="w"> </span>sync
 </pre></div>
 </div>
 <section id="code-style-type-checking">
 <h3>Code Style &amp; Type Checking<a class="headerlink" href="#code-style-type-checking" title="Link to this heading">¶</a></h3>
-<p>Code style is enforced via Black, isort and flake8. Types are checked with mypy currently, and pyright is recommended for local development though currently optional. There is a script to run the linting &amp; type-checking:</p>
+<p>Code style is enforced via <a class="reference external" href="https://docs.astral.sh/ruff/">ruff</a>. Types are checked with mypy currently, and pyright is
+recommended for local development though currently optional. There is a script to run the linting &amp; type-checking:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>scripts/dev-lint.sh
 </pre></div>
 </div>
@@ -193,10 +195,10 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 <p>To limit the pytests to a specific fact or operation:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only run fact tests for facts.efibootmgr.EFIBootMGR</span>
-pytest<span class="w"> </span>tests/test_facts.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;efibootmgr.EFIBootMGR&quot;</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_facts.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;efibootmgr.EFIBootMGR&quot;</span>
 
 <span class="c1"># Only run operation tests for operations.selinux</span>
-pytest<span class="w"> </span>tests/test_operations.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;selinux.&quot;</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_operations.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;selinux.&quot;</span>
 </pre></div>
 </div>
 <section id="end-to-end-tests">
@@ -206,11 +208,11 @@ pytest<span class="w"> </span>tests/test_operations.py<span class="w"> </span>-k
 scripts/dev-test-e2e.sh
 
 <span class="c1"># Run local e2e tests (works on Linux / MacOS, no Windows yet)</span>
-pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_local
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_local
 
 <span class="c1"># Run Docker and SSH e2e tests (Linux / MacOS with Docker installed)</span>
-pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_ssh
-pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_docker
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_ssh
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>end_to_end_docker
 </pre></div>
 </div>
 </section>

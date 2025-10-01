@@ -18,8 +18,8 @@
     <title>Writing Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -145,8 +145,8 @@ is available.</p>
 <section id="importing-using-facts">
 <h2>Importing &amp; Using Facts<a class="headerlink" href="#importing-using-facts" title="Link to this heading">¶</a></h2>
 <p>Like operations, facts are imported from Python modules and executed by calling <code class="docutils literal notranslate"><span class="pre">Host.get_fact</span></code>. For example:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra</span> <span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Which</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Which</span>
 
 <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Which</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;htop&#39;</span><span class="p">)</span>
 </pre></div>
@@ -155,16 +155,16 @@ is available.</p>
 <section id="example-getting-swap-status">
 <h2>Example: getting swap status<a class="headerlink" href="#example-getting-swap-status" title="Link to this heading">¶</a></h2>
 <p>This fact returns a boolean indicating whether swap is enabled. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class attribute.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span>  <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w">  </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">SwapEnabled</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SwapEnabled</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns a boolean indicating whether swap is enabled.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;swapon --show&#39;</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="c1"># we have one+ lines</span>
 </pre></div>
 </div>
@@ -176,18 +176,18 @@ is available.</p>
 <section id="example-getting-the-list-of-files-in-a-directory">
 <h2>Example: getting the list of files in a directory<a class="headerlink" href="#example-getting-the-list-of-files-in-a-directory" title="Link to this heading">¶</a></h2>
 <p>This fact returns a list of files found in a given directory. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class method, indicating the fact takes arguments.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">FindFiles</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FindFiles</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns a list of files from a start point, recursively using find.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="c1"># Find files in the given location</span>
         <span class="k">return</span> <span class="s1">&#39;find </span><span class="si">{0}</span><span class="s1"> -type f&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">output</span>  <span class="c1"># return the list of lines (files) as-is</span>
 </pre></div>
 </div>
@@ -199,17 +199,17 @@ is available.</p>
 <section id="example-getting-any-output-from-a-command">
 <h2>Example: getting any output from a command<a class="headerlink" href="#example-getting-any-output-from-a-command" title="Link to this heading">¶</a></h2>
 <p>This fact returns the raw output of any command. For this fact the <code class="docutils literal notranslate"><span class="pre">command</span></code> is declared as a class method, indicating the fact takes arguments.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">FactBase</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">FactBase</span>
 
-<span class="k">class</span> <span class="nc">RawCommandOutput</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RawCommandOutput</span><span class="p">(</span><span class="n">FactBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Returns the raw output of a command.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">command</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>  <span class="c1"># re-join and return the output lines</span>
 </pre></div>
 </div>
