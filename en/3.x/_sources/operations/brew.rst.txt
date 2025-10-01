@@ -38,24 +38,24 @@ Add/remove/update brew casks.
 
     brew.casks(casks: str | list[str] | None=None, present=True, latest=False, upgrade=False, **kwargs)
 
-+ **casks**: list of casks to ensure
-+ **present**: whether the casks should be installed
-+ **latest**: whether to upgrade casks without a specified version
-+ **upgrade**: run brew cask upgrade before installing casks
+casks**: list of casks to ensure
+present**: whether the casks should be installed
+latest**: whether to upgrade casks without a specified version
+upgrade**: run brew cask upgrade before installing casks
 
-Versions:
-    Cask versions can be pinned like brew: ``<pkg>@<version>``.
+ions:
+Cask versions can be pinned like brew: ``<pkg>@<version>``.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    brew.casks(
-        name='Upgrade and install the latest cask',
-        casks=["godot"],
-        upgrade=True,
-        latest=True,
-    )
+brew.casks(
+    name='Upgrade and install the latest cask',
+    casks=["godot"],
+    upgrade=True,
+    latest=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -74,32 +74,32 @@ Add/remove/update brew packages.
         upgrade=False, **kwargs,
     )
 
-+ **packages**: list of packages to ensure
-+ **present**: whether the packages should be installed
-+ **latest**: whether to upgrade packages without a specified version
-+ **update**: run ``brew update`` before installing packages
-+ **upgrade**: run ``brew upgrade`` before installing packages
+packages**: list of packages to ensure
+present**: whether the packages should be installed
+latest**: whether to upgrade packages without a specified version
+update**: run ``brew update`` before installing packages
+upgrade**: run ``brew upgrade`` before installing packages
 
-Versions:
-    Package versions can be pinned like brew: ``<pkg>@<version>``.
+ions:
+Package versions can be pinned like brew: ``<pkg>@<version>``.
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    # Update package list and install packages
-    brew.packages(
-        name='Install Vim and vimpager',
-        packages=["vimpager", "vim"],
-        update=True,
-    )
+# Update package list and install packages
+brew.packages(
+    name='Install Vim and vimpager',
+    packages=["vimpager", "vim"],
+    update=True,
+)
 
-    # Install the latest versions of packages (always check)
-    brew.packages(
-        name="Install latest Vim",
-        packages=["vim"],
-        latest=True,
-    )
+# Install the latest versions of packages (always check)
+brew.packages(
+    name="Install latest Vim",
+    packages=["vim"],
+    latest=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -115,38 +115,38 @@ Add/remove brew taps.
 
     brew.tap(src: str | None=None, present=True, url: str | None=None, **kwargs)
 
-+ **src**: the name of the tap
-+ **present**: whether this tap should be present or not
-+ **url**: the url of the tap. See https://docs.brew.sh/Taps
+src**: the name of the tap
+present**: whether this tap should be present or not
+url**: the url of the tap. See https://docs.brew.sh/Taps
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
+brew.tap(
+    name="Add a brew tap",
+    src="includeos/includeos",
+)
+
+# Just url is equivalent to
+# `brew tap kptdev/kpt https://github.com/kptdev/kpt`
+brew.tap(
+    url="https://github.com/kptdev/kpt",
+)
+
+# src and url is equivalent to
+# `brew tap example/project https://github.example.com/project`
+brew.tap(
+    src="example/project",
+    url="https://github.example.com/project",
+)
+
+# Multiple taps
+for tap in ["includeos/includeos", "ktr0731/evans"]:
     brew.tap(
-        name="Add a brew tap",
-        src="includeos/includeos",
+        name={f"Add brew tap {tap}"},
+        src=tap,
     )
-
-    # Just url is equivalent to
-    # `brew tap kptdev/kpt https://github.com/kptdev/kpt`
-    brew.tap(
-        url="https://github.com/kptdev/kpt",
-    )
-
-    # src and url is equivalent to
-    # `brew tap example/project https://github.example.com/project`
-    brew.tap(
-        src="example/project",
-        url="https://github.example.com/project",
-    )
-
-    # Multiple taps
-    for tap in ["includeos/includeos", "ktr0731/evans"]:
-        brew.tap(
-            name={f"Add brew tap {tap}"},
-            src=tap,
-        )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

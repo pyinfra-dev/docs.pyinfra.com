@@ -22,26 +22,26 @@ volume, snapshot).
         **kwargs,
     )
 
-+ **dataset_name**: name of the filesystem to operate on
-+ **present**: whether the named filesystem should exist
-+ **recursive**: whether to create parent datasets, or destroy child datasets
-+ **sparse**: for volumes, whether to create a sparse volume with no allocation
-+ **volume_size**: the size of the volume
-+ **properties**: the ZFS properties that should be set on the dataset.
-+ ****extra_props**: additional props; merged with `properties` for convenience
+dataset_name**: name of the filesystem to operate on
+present**: whether the named filesystem should exist
+recursive**: whether to create parent datasets, or destroy child datasets
+sparse**: for volumes, whether to create a sparse volume with no allocation
+volume_size**: the size of the volume
+properties**: the ZFS properties that should be set on the dataset.
+**extra_props**: additional props; merged with `properties` for convenience
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    zfs.dataset(
-        "tank/srv",
-        mountpoint="/srv",
-        compression="lz4",
-        properties={"com.sun:auto_snapshot": "true"}
-    )
-    zfs.dataset("tank/vm-disks/db_srv_04", volume_size="32G") # creates a volume
-    zfs.dataset("tank/home@old_version", present=False)
+zfs.dataset(
+    "tank/srv",
+    mountpoint="/srv",
+    compression="lz4",
+    properties={"com.sun:auto_snapshot": "true"}
+)
+zfs.dataset("tank/vm-disks/db_srv_04", volume_size="32G") # creates a volume
+zfs.dataset("tank/home@old_version", present=False)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -57,17 +57,17 @@ Create or destroy a ZFS filesystem, or modify its properties.
 
     zfs.filesystem(fs_name, present=True, recursive=False, properties={}, **kwargs)
 
-+ **fs_name**: name of the volume to operate on
-+ **present**: whether the named volume should exist
-+ **recursive**: whether to create parent datasets or destroy child datasets
-+ **properties**: the ZFS properties that should be set on the snapshot.
-+ ****extra_props**: additional props; merged with `properties` for convenience
+fs_name**: name of the volume to operate on
+present**: whether the named volume should exist
+recursive**: whether to create parent datasets or destroy child datasets
+properties**: the ZFS properties that should be set on the snapshot.
+**extra_props**: additional props; merged with `properties` for convenience
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    zfs.filesystem("tank/vm-disks/db_srv_04", "32G")
+zfs.filesystem("tank/vm-disks/db_srv_04", "32G")
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -83,17 +83,17 @@ Create or destroy a ZFS snapshot, or modify its properties.
 
     zfs.snapshot(snapshot_name, present=True, recursive=False, properties={}, **kwargs)
 
-+ **dataset_name**: name of the filesystem to operate on
-+ **present**: whether the named filesystem should exist
-+ **recursive**: whether to snapshot child datasets
-+ **properties**: the ZFS properties that should be set on the snapshot.
-+ ****extra_props**: additional props; merged with `properties` for convenience
+dataset_name**: name of the filesystem to operate on
+present**: whether the named filesystem should exist
+recursive**: whether to snapshot child datasets
+properties**: the ZFS properties that should be set on the snapshot.
+**extra_props**: additional props; merged with `properties` for convenience
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    zfs.snapshot("tank/home@weekly_backup")
+zfs.snapshot("tank/home@weekly_backup")
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -109,19 +109,19 @@ Create or destroy a ZFS volume, or modify its properties.
 
     zfs.volume(volume_name, size, sparse=False, present=True, recursive=False, properties={}, **kwargs)
 
-+ **volume_name**: name of the volume to operate on
-+ **size**: the size of the volume
-+ **sparse**: create a sparse volume
-+ **present**: whether the named volume should exist
-+ **recursive**: whether to create parent datasets or destroy child datasets
-+ **properties**: the ZFS properties that should be set on the snapshot.
-+ ****extra_props**: additional props; merged with `properties` for convenience
+volume_name**: name of the volume to operate on
+size**: the size of the volume
+sparse**: create a sparse volume
+present**: whether the named volume should exist
+recursive**: whether to create parent datasets or destroy child datasets
+properties**: the ZFS properties that should be set on the snapshot.
+**extra_props**: additional props; merged with `properties` for convenience
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    zfs.volume("tank/vm-disks/db_srv_04", "32G")
+zfs.volume("tank/vm-disks/db_srv_04", "32G")
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

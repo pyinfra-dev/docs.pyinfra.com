@@ -18,27 +18,27 @@ Add/remove ``.deb`` file packages.
 
     apt.deb(src: str, present=True, force=False, **kwargs)
 
-+ **src**: filename or URL of the ``.deb`` file
-+ **present**: whether or not the package should exist on the system
-+ **force**: whether to force the package install by passing `--force-yes` to apt
+src**: filename or URL of the ``.deb`` file
+present**: whether or not the package should exist on the system
+force**: whether to force the package install by passing `--force-yes` to apt
 
-Note:
-    When installing, ``apt-get install -f`` will be run to install any unmet
-    dependencies.
+:
+When installing, ``apt-get install -f`` will be run to install any unmet
+dependencies.
 
-URL sources with ``present=False``:
-    If the ``.deb`` file isn't downloaded, pyinfra can't remove any existing
-    package as the file won't exist until mid-deploy.
+sources with ``present=False``:
+If the ``.deb`` file isn't downloaded, pyinfra can't remove any existing
+package as the file won't exist until mid-deploy.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    # Note: Assumes wget is installed.
-    apt.deb(
-        name="Install Chrome via deb",
-        src="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
-    )
+# Note: Assumes wget is installed.
+apt.deb(
+    name="Install Chrome via deb",
+    src="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -54,15 +54,15 @@ Updates all apt packages, employing dist-upgrade.
 
     apt.dist_upgrade(auto_remove: bool=False, **kwargs)
 
-+ **auto_remove**: removes transitive dependencies that are no longer needed.
+auto_remove**: removes transitive dependencies that are no longer needed.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    apt.dist_upgrade(
-        name="Upgrade apt packages using dist-upgrade",
-    )
+apt.dist_upgrade(
+    name="Upgrade apt packages using dist-upgrade",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -81,33 +81,33 @@ Add apt gpg keys with ``apt-key``.
         **kwargs,
     )
 
-+ **src**: filename or URL
-+ **keyserver**: URL of keyserver to fetch key from
-+ **keyid**: key ID or list of key IDs when using keyserver
+src**: filename or URL
+keyserver**: URL of keyserver to fetch key from
+keyid**: key ID or list of key IDs when using keyserver
 
-keyserver/id:
-    These must be provided together.
+erver/id:
+These must be provided together.
 
-.. warning::
-    ``apt-key`` is deprecated in Debian, it is recommended NOT to use this
-    operation and instead follow the instructions here:
+arning::
+``apt-key`` is deprecated in Debian, it is recommended NOT to use this
+operation and instead follow the instructions here:
 
-    https://wiki.debian.org/DebianRepository/UseThirdParty
+https://wiki.debian.org/DebianRepository/UseThirdParty
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    # Note: If using URL, wget is assumed to be installed.
-    apt.key(
-        name="Add the Docker apt gpg key",
-        src="https://download.docker.com/linux/ubuntu/gpg",
-    )
+# Note: If using URL, wget is assumed to be installed.
+apt.key(
+    name="Add the Docker apt gpg key",
+    src="https://download.docker.com/linux/ubuntu/gpg",
+)
 
-    apt.key(
-        name="Install VirtualBox key",
-        src="https://www.virtualbox.org/download/oracle_vbox_2016.asc",
-    )
+apt.key(
+    name="Install VirtualBox key",
+    src="https://www.virtualbox.org/download/oracle_vbox_2016.asc",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -128,50 +128,50 @@ Install/remove/update packages & update apt.
         extra_uninstall_args: str | None=None, **kwargs,
     )
 
-+ **packages**: list of packages to ensure
-+ **present**: whether the packages should be installed
-+ **latest**: whether to upgrade packages without a specified version
-+ **update**: run ``apt update`` before installing packages
-+ **cache_time**: when used with ``update``, cache for this many seconds
-+ **upgrade**: run ``apt upgrade`` before installing packages
-+ **force**: whether to force package installs by passing `--force-yes` to apt
-+ **no_recommends**: don't install recommended packages
-+ **allow_downgrades**: allow downgrading packages with version (--allow-downgrades)
-+ **extra_install_args**: additional arguments to the apt install command
-+ **extra_uninstall_args**: additional arguments to the apt uninstall command
+packages**: list of packages to ensure
+present**: whether the packages should be installed
+latest**: whether to upgrade packages without a specified version
+update**: run ``apt update`` before installing packages
+cache_time**: when used with ``update``, cache for this many seconds
+upgrade**: run ``apt upgrade`` before installing packages
+force**: whether to force package installs by passing `--force-yes` to apt
+no_recommends**: don't install recommended packages
+allow_downgrades**: allow downgrading packages with version (--allow-downgrades)
+extra_install_args**: additional arguments to the apt install command
+extra_uninstall_args**: additional arguments to the apt uninstall command
 
-Versions:
-    Package versions can be pinned like apt: ``<pkg>=<version>``
+ions:
+Package versions can be pinned like apt: ``<pkg>=<version>``
 
-Cache time:
-    When ``cache_time`` is set the ``/var/lib/apt/periodic/update-success-stamp`` file
-    is touched upon successful update. Some distros already do this (Ubuntu), but others
-    simply leave the periodic directory empty (Debian).
+e time:
+When ``cache_time`` is set the ``/var/lib/apt/periodic/update-success-stamp`` file
+is touched upon successful update. Some distros already do this (Ubuntu), but others
+simply leave the periodic directory empty (Debian).
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    # Update package list and install packages
-    apt.packages(
-        name="Install Asterisk and Vim",
-        packages=["asterisk", "vim"],
-        update=True,
-    )
+# Update package list and install packages
+apt.packages(
+    name="Install Asterisk and Vim",
+    packages=["asterisk", "vim"],
+    update=True,
+)
 
-    # Install the latest versions of packages (always check)
-    apt.packages(
-        name="Install latest Vim",
-        packages=["vim"],
-        latest=True,
-    )
+# Install the latest versions of packages (always check)
+apt.packages(
+    name="Install latest Vim",
+    packages=["vim"],
+    latest=True,
+)
 
-    # Note: host.get_fact(OsVersion) is the same as `uname -r` (ex: '4.15.0-72-generic')
-    apt.packages(
-        name="Install kernel headers",
-        packages=[f"linux-headers-{host.get_fact(OsVersion)}"],
-        update=True,
-    )
+# Note: host.get_fact(OsVersion) is the same as `uname -r` (ex: '4.15.0-72-generic')
+apt.packages(
+    name="Install kernel headers",
+    packages=[f"linux-headers-{host.get_fact(OsVersion)}"],
+    update=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -193,21 +193,21 @@ Add/remove Ubuntu ppa repositories.
 
     apt.ppa(src: str, present=True, **kwargs)
 
-+ **src**: the PPA name (full ppa:user/repo format)
-+ **present**: whether it should exist
+src**: the PPA name (full ppa:user/repo format)
+present**: whether it should exist
 
-Note:
-    requires ``apt-add-repository`` on the remote host
+:
+requires ``apt-add-repository`` on the remote host
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    # Note: Assumes software-properties-common is installed.
-    apt.ppa(
-        name="Add the Bitcoin ppa",
-        src="ppa:bitcoin/bitcoin",
-    )
+# Note: Assumes software-properties-common is installed.
+apt.ppa(
+    name="Add the Bitcoin ppa",
+    src="ppa:bitcoin/bitcoin",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -223,19 +223,19 @@ Add/remove apt repositories.
 
     apt.repo(src: str, present=True, filename: str | None=None, **kwargs)
 
-+ **src**: apt source string eg ``deb http://X hardy main``
-+ **present**: whether the repo should exist on the system
-+ **filename**: optional filename to use ``/etc/apt/sources.list.d/<filename>.list``. By
-  default uses ``/etc/apt/sources.list``.
+src**: apt source string eg ``deb http://X hardy main``
+present**: whether the repo should exist on the system
+filename**: optional filename to use ``/etc/apt/sources.list.d/<filename>.list``. By
+fault uses ``/etc/apt/sources.list``.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    apt.repo(
-        name="Install VirtualBox repo",
-        src="deb https://download.virtualbox.org/virtualbox/debian bionic contrib",
-    )
+apt.repo(
+    name="Install VirtualBox repo",
+    src="deb https://download.virtualbox.org/virtualbox/debian bionic contrib",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -257,16 +257,16 @@ Updates apt repositories.
 
     apt.update(cache_time: int | None=None, **kwargs)
 
-+ **cache_time**: cache updates for this many seconds
+cache_time**: cache updates for this many seconds
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    apt.update(
-        name="Update apt repositories",
-        cache_time=3600,
-    )
+apt.update(
+    name="Update apt repositories",
+    cache_time=3600,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -282,22 +282,22 @@ Upgrades all apt packages.
 
     apt.upgrade(auto_remove: bool=False, **kwargs)
 
-+ **auto_remove**: removes transitive dependencies that are no longer needed.
+auto_remove**: removes transitive dependencies that are no longer needed.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    # Upgrade all packages
-    apt.upgrade(
-        name="Upgrade apt packages",
-    )
+# Upgrade all packages
+apt.upgrade(
+    name="Upgrade apt packages",
+)
 
-    # Upgrade all packages and remove unneeded transitive dependencies
-    apt.upgrade(
-        name="Upgrade apt packages and remove unneeded dependencies",
-        auto_remove=True
-    )
+# Upgrade all packages and remove unneeded transitive dependencies
+apt.upgrade(
+    name="Upgrade apt packages and remove unneeded dependencies",
+    auto_remove=True
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

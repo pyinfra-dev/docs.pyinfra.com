@@ -18,8 +18,8 @@
     <title>Postgres Facts &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -182,40 +182,45 @@
           
   <section id="postgres-facts">
 <h1>Postgres Facts<a class="headerlink" href="#postgres-facts" title="Link to this heading">¶</a></h1>
-<p>See also: <a class="reference internal" href="../operations/postgres.html"><span class="doc">Postgres Operations</span></a>.</p>
 <section id="postgres-postgresdatabases">
 <span id="facts-postgres-postgresdatabases"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.PostgresDatabases</span></code><a class="headerlink" href="#postgres-postgresdatabases" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">PostgresDatabases</span><span class="p">,</span> <span class="n">psql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a dict of PostgreSQL databases and metadata:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;UTF8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;collate&quot;</span><span class="p">:</span> <span class="s2">&quot;en_US.UTF-8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;ctype&quot;</span><span class="p">:</span> <span class="s2">&quot;en_US.UTF-8&quot;</span><span class="p">,</span>
-        <span class="o">...</span>
-    <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>rns a dict of PostgreSQL databases and metadata:</p>
+<p>ode:: python</p>
+<dl>
+<dt>{</dt><dd><dl class="simple">
+<dt>“pyinfra_stuff”: {</dt><dd><p>“encoding”: “UTF8”,
+“collate”: “en_US.UTF-8”,
+“ctype”: “en_US.UTF-8”,
+…</p>
+</dd>
+</dl>
+<p>},</p>
+</dd>
+</dl>
+<p>}</p>
 </section>
 <section id="postgres-postgresroles">
 <span id="facts-postgres-postgresroles"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.PostgresRoles</span></code><a class="headerlink" href="#postgres-postgresroles" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">PostgresRoles</span><span class="p">,</span> <span class="n">psql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a dict of PostgreSQL roles and data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;pyinfra&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;super&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-        <span class="s2">&quot;createrole&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-        <span class="s2">&quot;createdb&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-        <span class="o">...</span>
-    <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>rns a dict of PostgreSQL roles and data:</p>
+<p>ode:: python</p>
+<dl>
+<dt>{</dt><dd><dl class="simple">
+<dt>“pyinfra”: {</dt><dd><p>“super”: true,
+“createrole”: false,
+“createdb”: false,
+…</p>
+</dd>
+</dl>
+<p>},</p>
+</dd>
+</dl>
+<p>}</p>
 </section>
 </section>
 

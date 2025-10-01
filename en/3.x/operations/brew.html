@@ -18,8 +18,8 @@
     <title>Brew Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -205,29 +205,26 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">casks</span><span class="p">(</span><span class="n">casks</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>casks</strong>: list of casks to ensure</p></li>
-<li><p><strong>present</strong>: whether the casks should be installed</p></li>
-<li><p><strong>latest</strong>: whether to upgrade casks without a specified version</p></li>
-<li><p><strong>upgrade</strong>: run brew cask upgrade before installing casks</p></li>
-</ul>
+<p>casks**: list of casks to ensure
+present**: whether the casks should be installed
+latest**: whether to upgrade casks without a specified version
+upgrade**: run brew cask upgrade before installing casks</p>
+<p>ions:
+Cask versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Versions:</dt><dd><p>Cask versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</p>
+<dt>brew.casks(</dt><dd><p>name=’Upgrade and install the latest cask’,
+casks=[“godot”],
+upgrade=True,
+latest=True,</p>
 </dd>
 </dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">casks</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Upgrade and install the latest cask&#39;</span><span class="p">,</span>
-    <span class="n">casks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;godot&quot;</span><span class="p">],</span>
-    <span class="n">upgrade</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="brew-packages">
 <span id="operations-brew-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.packages</span></code><a class="headerlink" href="#brew-packages" title="Link to this heading">¶</a></h2>
@@ -238,37 +235,35 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>packages</strong>: list of packages to ensure</p></li>
-<li><p><strong>present</strong>: whether the packages should be installed</p></li>
-<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
-<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">update</span></code> before installing packages</p></li>
-<li><p><strong>upgrade</strong>: run <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">upgrade</span></code> before installing packages</p></li>
-</ul>
-<dl class="simple">
-<dt>Versions:</dt><dd><p>Package versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</p>
-</dd>
-</dl>
-<p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
-<span class="n">brew</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and vimpager&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
-    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Install the latest versions of packages (always check)</span>
-<span class="n">brew</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install latest Vim&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
-    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>packages**: list of packages to ensure
+present**: whether the packages should be installed
+latest**: whether to upgrade packages without a specified version
+update**: run <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">update</span></code> before installing packages
+upgrade**: run <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">upgrade</span></code> before installing packages</p>
+<p>ions:
+Package versions can be pinned like brew: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;&#64;&lt;version&gt;</span></code>.</p>
+<p>amples:**</p>
+<p>ode:: python</p>
+<p># Update package list and install packages
+brew.packages(</p>
+<blockquote>
+<div><p>name=’Install Vim and vimpager’,
+packages=[“vimpager”, “vim”],
+update=True,</p>
+</div></blockquote>
+<p>)</p>
+<p># Install the latest versions of packages (always check)
+brew.packages(</p>
+<blockquote>
+<div><p>name=”Install latest Vim”,
+packages=[“vim”],
+latest=True,</p>
+</div></blockquote>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="brew-tap">
 <span id="operations-brew-tap"></span><h2><code class="code docutils literal notranslate"><span class="pre">brew.tap</span></code><a class="headerlink" href="#brew-tap" title="Link to this heading">¶</a></h2>
@@ -276,38 +271,42 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>src</strong>: the name of the tap</p></li>
-<li><p><strong>present</strong>: whether this tap should be present or not</p></li>
-<li><p><strong>url</strong>: the url of the tap. See <a class="reference external" href="https://docs.brew.sh/Taps">https://docs.brew.sh/Taps</a></p></li>
-</ul>
-<p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add a brew tap&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Just url is equivalent to</span>
-<span class="c1"># `brew tap kptdev/kpt https://github.com/kptdev/kpt`</span>
-<span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/kptdev/kpt&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># src and url is equivalent to</span>
-<span class="c1"># `brew tap example/project https://github.example.com/project`</span>
-<span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;example/project&quot;</span><span class="p">,</span>
-    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.example.com/project&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Multiple taps</span>
-<span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span> <span class="s2">&quot;ktr0731/evans&quot;</span><span class="p">]:</span>
-    <span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;Add brew tap </span><span class="si">{</span><span class="n">tap</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
-        <span class="n">src</span><span class="o">=</span><span class="n">tap</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
+<p>src**: the name of the tap
+present**: whether this tap should be present or not
+url**: the url of the tap. See <a class="reference external" href="https://docs.brew.sh/Taps">https://docs.brew.sh/Taps</a></p>
+<p>amples:**</p>
+<p>ode:: python</p>
+<dl class="simple">
+<dt>brew.tap(</dt><dd><p>name=”Add a brew tap”,
+src=”includeos/includeos”,</p>
+</dd>
+</dl>
+<p>)</p>
+<p># Just url is equivalent to
+# <cite>brew tap kptdev/kpt https://github.com/kptdev/kpt</cite>
+brew.tap(</p>
+<blockquote>
+<div><p>url=”<a class="reference external" href="https://github.com/kptdev/kpt">https://github.com/kptdev/kpt</a>”,</p>
+</div></blockquote>
+<p>)</p>
+<p># src and url is equivalent to
+# <cite>brew tap example/project https://github.example.com/project</cite>
+brew.tap(</p>
+<blockquote>
+<div><p>src=”example/project”,
+url=”<a class="reference external" href="https://github.example.com/project">https://github.example.com/project</a>”,</p>
+</div></blockquote>
+<p>)</p>
+<p># Multiple taps
+for tap in [“includeos/includeos”, “ktr0731/evans”]:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>brew.tap(</dt><dd><p>name={f”Add brew tap {tap}”},
+src=tap,</p>
+</dd>
+</dl>
+<p>)</p>
+</div></blockquote>
 <dl class="simple">
 <dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>

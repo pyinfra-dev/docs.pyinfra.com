@@ -1,8 +1,6 @@
 Mysql Facts
 -----------
 
-See also: :doc:`../operations/mysql`.
-
 .. _facts:mysql.MysqlDatabases:
 
 :code:`mysql.MysqlDatabases`
@@ -12,16 +10,16 @@ See also: :doc:`../operations/mysql`.
 
     host.get_fact(MysqlDatabases, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-Returns a dict of existing MySQL databases and associated data:
+rns a dict of existing MySQL databases and associated data:
 
-.. code:: python
+ode:: python
 
-    {
-        "mysql": {
-            "character_set": "latin1",
-            "collation_name": "latin1_swedish_ci"
-        },
-    }
+{
+    "mysql": {
+        "character_set": "latin1",
+        "collation_name": "latin1_swedish_ci"
+    },
+}
 
 
 .. _facts:mysql.MysqlUserGrants:
@@ -33,17 +31,17 @@ Returns a dict of existing MySQL databases and associated data:
 
     host.get_fact(MysqlUserGrants, user, hostname='localhost', mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-Returns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
+rns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
 
-.. code:: python
+ode:: python
 
-    {
-        "`pyinfra_stuff`.*": {
-            "SELECT",
-            "INSERT",
-            "GRANT OPTION",
-        },
-    }
+{
+    "`pyinfra_stuff`.*": {
+        "SELECT",
+        "INSERT",
+        "GRANT OPTION",
+    },
+}
 
 
 .. _facts:mysql.MysqlUsers:
@@ -55,15 +53,15 @@ Returns a dict of ``<database>`.<table>`` with a set of granted privileges for e
 
     host.get_fact(MysqlUsers, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-Returns a dict of MySQL ``user@host``'s and their associated data:
+rns a dict of MySQL ``user@host``'s and their associated data:
 
-.. code:: python
+ode:: python
 
-    {
-        "user@host": {
-            "privileges": ["Alter", "Grant"],
-            'max_connections': 5,
-            ...
-        },
-    }
+{
+    "user@host": {
+        "privileges": ["Alter", "Grant"],
+        'max_connections': 5,
+        ...
+    },
+}
 

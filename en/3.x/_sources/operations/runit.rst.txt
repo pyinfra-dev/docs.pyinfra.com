@@ -18,9 +18,9 @@ Start service automatically by managing the ``service/down`` file.
 
     runit.auto(service: str, auto: bool=True, sourcedir: str="/etc/sv", **kwargs)
 
-+ **service**: name of the service to manage
-+ **auto**: whether the service should start automatically
-+ **sourcedir**: where to search for available services
+service**: name of the service to manage
+auto**: whether the service should start automatically
+sourcedir**: where to search for available services
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -39,10 +39,10 @@ Manage runit svdir links.
         **kwargs,
     )
 
-+ **service**: name of the service to manage
-+ **managed**: whether the link should exist
-+ **svdir**: alternative ``SVDIR``
-+ **sourcedir**: where to search for available services
+service**: name of the service to manage
+managed**: whether the link should exist
+svdir**: alternative ``SVDIR``
+sourcedir**: where to search for available services
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -62,29 +62,29 @@ Manage the state of runit services.
         svdir: str="/var/service", sourcedir: str="/etc/sv", **kwargs,
     )
 
-+ **service**: name of the service to manage
-+ **running**: whether the service should be running
-+ **restarted**: whether the service should be restarted
-+ **reloaded**: whether the service should be reloaded
-+ **command**: custom command to pass like: ``sv <command> <service>``
-+ **enabled**: whether this service should be enabled/disabled on boot
-+ **managed**: whether runit should manage this service
+service**: name of the service to manage
+running**: whether the service should be running
+restarted**: whether the service should be restarted
+reloaded**: whether the service should be reloaded
+command**: custom command to pass like: ``sv <command> <service>``
+enabled**: whether this service should be enabled/disabled on boot
+managed**: whether runit should manage this service
 
-  For services to be controlled, they first need to be managed by runit by
-  adding a symlink to the service in ``SVDIR``.
-  By setting ``managed=False`` the symlink will be removed.
-  Other options won't have any effect after that.
-  Although the ``<service>/down`` file can still be controlled with the
-  ``enabled`` option.
+r services to be controlled, they first need to be managed by runit by
+ding a symlink to the service in ``SVDIR``.
+ setting ``managed=False`` the symlink will be removed.
+her options won't have any effect after that.
+though the ``<service>/down`` file can still be controlled with the
+enabled`` option.
 
-+ **svdir**: alternative ``SVDIR``
+svdir**: alternative ``SVDIR``
 
-  An alternative ``SVDIR`` can be specified. This can be used for user services.
+ alternative ``SVDIR`` can be specified. This can be used for user services.
 
-+ **sourcedir**: where to search for available services
+sourcedir**: where to search for available services
 
-  An alternative directory for available services can be specified.
-  Example: ``sourcedir=/etc/sv.local`` for services managed by the administrator.
+ alternative directory for available services can be specified.
+ample: ``sourcedir=/etc/sv.local`` for services managed by the administrator.
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -106,9 +106,9 @@ Wait for runsv for ``service`` to be available.
 
     runit.wait_runsv(service: str, svdir: str="/var/service", timeout: int=10, **kwargs)
 
-+ **service**: name of the service to manage
-+ **svdir**: alternative ``SVDIR``
-+ **timeout**: time in seconds to wait
+service**: name of the service to manage
+svdir**: alternative ``SVDIR``
+timeout**: time in seconds to wait
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

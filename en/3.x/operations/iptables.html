@@ -18,8 +18,8 @@
     <title>Iptables Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -186,19 +186,17 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">chain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">policy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>chain</strong>: the name of the chain</p></li>
-<li><p><strong>present</strong>: whether the chain should exist</p></li>
-<li><p><strong>table</strong>: the iptables table this chain should belong to</p></li>
-<li><p><strong>policy</strong>: the policy this table should have</p></li>
-<li><p><strong>version</strong>: whether to target iptables or ip6tables</p></li>
-</ul>
-<dl class="simple">
-<dt>Policy:</dt><dd><p>These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).</p>
-</dd>
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>chain**: the name of the chain
+present**: whether the chain should exist
+table**: the iptables table this chain should belong to
+policy**: the policy this table should have
+version**: whether to target iptables or ip6tables</p>
+<p>cy:
+These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="iptables-rule">
 <span id="operations-iptables-rule"></span><h2><code class="code docutils literal notranslate"><span class="pre">iptables.rule</span></code><a class="headerlink" href="#iptables-rule" title="Link to this heading">¶</a></h2>
@@ -215,54 +213,50 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>chain</strong>: the chain this rule should live in</p></li>
-<li><p><strong>jump</strong>: the target of the rule</p></li>
-<li><p><strong>table</strong>: the iptables table this rule should belong to</p></li>
-<li><p><strong>append</strong>: whether to append or insert the rule (if not present)</p></li>
-<li><p><strong>version</strong>: whether to target iptables or ip6tables</p></li>
-</ul>
-<p>Iptables args:</p>
-<ul class="simple">
-<li><p><strong>protocol/not_protocol</strong>: filter by protocol (tcp or udp)</p></li>
-<li><p><strong>source/not_source</strong>: filter by source IPs</p></li>
-<li><p><strong>destination/not_destination</strong>: filter by destination IPs</p></li>
-<li><p><strong>in_interface/not_in_interface</strong>: filter by incoming interface</p></li>
-<li><p><strong>out_interface/not_out_interface</strong>: filter by outgoing interface</p></li>
-<li><p><strong>to_destination</strong>: where to route to when jump=DNAT</p></li>
-<li><p><strong>to_source</strong>: where to route to when jump=SNAT</p></li>
-<li><p><strong>to_ports</strong>: where to route to when jump=REDIRECT</p></li>
-<li><p><strong>log_prefix</strong>: prefix for the log of this rule when jump=LOG</p></li>
-</ul>
-<p>Extras:</p>
-<ul class="simple">
-<li><p><strong>extras</strong>: a place to define iptables extension arguments (eg –limit, –physdev)</p></li>
-<li><p><strong>destination_port</strong>: destination port (requires protocol)</p></li>
-<li><p><strong>source_port</strong>: source port (requires protocol)</p></li>
-</ul>
-<p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Block SSH traffic&quot;</span><span class="p">,</span>
-    <span class="n">chain</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
-    <span class="n">jump</span><span class="o">=</span><span class="s2">&quot;DROP&quot;</span><span class="p">,</span>
-    <span class="n">destination_port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">iptables</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;NAT traffic on from 8.8.8.8:53 to 8.8.4.4:8080&quot;</span><span class="p">,</span>
-    <span class="n">chain</span><span class="o">=</span><span class="s2">&quot;PREROUTING&quot;</span><span class="p">,</span>
-    <span class="n">jump</span><span class="o">=</span><span class="s2">&quot;DNAT&quot;</span><span class="p">,</span>
-    <span class="n">table</span><span class="o">=</span><span class="s2">&quot;nat&quot;</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span>
-    <span class="n">destination_port</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span>
-    <span class="n">to_destination</span><span class="o">=</span><span class="s2">&quot;8.8.4.4:8080&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>chain**: the chain this rule should live in
+jump**: the target of the rule
+table**: the iptables table this rule should belong to
+append**: whether to append or insert the rule (if not present)
+version**: whether to target iptables or ip6tables</p>
+<p>bles args:</p>
+<p>protocol/not_protocol**: filter by protocol (tcp or udp)
+source/not_source**: filter by source IPs
+destination/not_destination**: filter by destination IPs
+in_interface/not_in_interface**: filter by incoming interface
+out_interface/not_out_interface**: filter by outgoing interface
+to_destination**: where to route to when jump=DNAT
+to_source**: where to route to when jump=SNAT
+to_ports**: where to route to when jump=REDIRECT
+log_prefix**: prefix for the log of this rule when jump=LOG</p>
+<p>as:</p>
+<p>extras**: a place to define iptables extension arguments (eg –limit, –physdev)
+destination_port**: destination port (requires protocol)
+source_port**: source port (requires protocol)</p>
+<p>amples:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>iptables.rule(</dt><dd><p>name=”Block SSH traffic”,
+chain=”INPUT”,
+jump=”DROP”,
+destination_port=22,</p>
 </dd>
 </dl>
+<p>)</p>
+<dl class="simple">
+<dt>iptables.rule(</dt><dd><p>name=”NAT traffic on from 8.8.8.8:53 to 8.8.4.4:8080”,
+chain=”PREROUTING”,
+jump=”DNAT”,
+table=”nat”,
+source=”8.8.8.8”,
+destination_port=53,
+to_destination=”8.8.4.4:8080”,</p>
+</dd>
+</dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

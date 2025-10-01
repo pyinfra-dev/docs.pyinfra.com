@@ -18,8 +18,8 @@
     <title>Crontab Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -188,45 +188,44 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>command</strong>: the command for the cron</p></li>
-<li><p><strong>present</strong>: whether this cron command should exist</p></li>
-<li><p><strong>user</strong>: the user whose crontab to manage</p></li>
-<li><p><strong>cron_name</strong>: name the cronjob so future changes to the command will overwrite</p></li>
-<li><p><strong>modify_cron_name</strong>: modify the cron name</p></li>
-<li><p><strong>minute</strong>: which minutes to execute the cron</p></li>
-<li><p><strong>hour</strong>: which hours to execute the cron</p></li>
-<li><p><strong>month</strong>: which months to execute the cron</p></li>
-<li><p><strong>day_of_week</strong>: which day of the week to execute the cron</p></li>
-<li><p><strong>day_of_month</strong>: which day of the month to execute the cron</p></li>
-<li><p><strong>special_time</strong>: cron “nickname” time (&#64;reboot, &#64;daily, etc), overrides others</p></li>
-<li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">command</span></code></p></li>
-</ul>
-<dl class="simple">
-<dt>Cron commands:</dt><dd><p>Unless <code class="docutils literal notranslate"><span class="pre">name</span></code> is specified the command is used to identify crontab entries.
+<p>command**: the command for the cron
+present**: whether this cron command should exist
+user**: the user whose crontab to manage
+cron_name**: name the cronjob so future changes to the command will overwrite
+modify_cron_name**: modify the cron name
+minute**: which minutes to execute the cron
+hour**: which hours to execute the cron
+month**: which months to execute the cron
+day_of_week**: which day of the week to execute the cron
+day_of_month**: which day of the month to execute the cron
+special_time**: cron “nickname” time (&#64;reboot, &#64;daily, etc), overrides others
+interpolate_variables**: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">command</span></code></p>
+<blockquote>
+<div><p>commands:</p>
+</div></blockquote>
+<p>Unless <code class="docutils literal notranslate"><span class="pre">name</span></code> is specified the command is used to identify crontab entries.
 This means commands must be unique within a given users crontab. If you require
 multiple identical commands, provide a different name argument for each.</p>
-</dd>
-<dt>Special times:</dt><dd><p>When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
+<p>ial times:
+When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
 for <code class="docutils literal notranslate"><span class="pre">minute</span></code>/<code class="docutils literal notranslate"><span class="pre">hour</span></code>/<code class="docutils literal notranslate"><span class="pre">month</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code>.</p>
-</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple example for a crontab</span>
-<span class="n">crontab</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Backup /etc weekly&quot;</span><span class="p">,</span>
-    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;/bin/tar cf /tmp/etc_bup.tar /etc&quot;</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;backup_etc&quot;</span><span class="p">,</span>
-    <span class="n">day_of_week</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">hour</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>ample:**</p>
+<p>ode:: python</p>
+<p># simple example for a crontab
+crontab.crontab(</p>
+<blockquote>
+<div><p>name=”Backup /etc weekly”,
+command=”/bin/tar cf /tmp/etc_bup.tar /etc”,
+name=”backup_etc”,
+day_of_week=0,
+hour=1,
+minute=0,</p>
+</div></blockquote>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 
