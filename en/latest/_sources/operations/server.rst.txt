@@ -19,29 +19,29 @@ Add/remove system groups.
 
     server.group(group: str, present=True, system=False, gid: int | str | None=None, **kwargs)
 
-+ **group**: name of the group to ensure
-+ **present**: whether the group should be present or not
-+ **system**: whether to create a system group
-+ **gid**: use a specific groupid number
+group**: name of the group to ensure
+present**: whether the group should be present or not
+system**: whether to create a system group
+gid**: use a specific groupid number
 
-System users:
-    System users don't exist on BSD, so the argument is ignored for BSD targets.
+em users:
+System users don't exist on BSD, so the argument is ignored for BSD targets.
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
+server.group(
+    name="Create docker group",
+    group="docker",
+)
+
+# multiple groups
+for group in ["wheel", "lusers"]:
     server.group(
-        name="Create docker group",
-        group="docker",
+        name=f"Create the group {group}",
+        group=group,
     )
-
-    # multiple groups
-    for group in ["wheel", "lusers"]:
-        server.group(
-            name=f"Create the group {group}",
-            group=group,
-        )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -57,26 +57,26 @@ Set the system hostname using ``hostnamectl`` or ``hostname`` on older systems.
 
     server.hostname(hostname: str, hostname_file: str | None=None, **kwargs)
 
-+ **hostname**: the hostname that should be set
-+ **hostname_file**: the file that permanently sets the hostname
+hostname**: the hostname that should be set
+hostname_file**: the file that permanently sets the hostname
 
-Hostname file:
-    The hostname file only matters no systems that do not have ``hostnamectl``,
-    which is part of ``systemd``.
+name file:
+The hostname file only matters no systems that do not have ``hostnamectl``,
+which is part of ``systemd``.
 
-    By default pyinfra will auto detect this by targeting ``/etc/hostname``
-    on Linux and ``/etc/myname`` on OpenBSD.
+By default pyinfra will auto detect this by targeting ``/etc/hostname``
+on Linux and ``/etc/myname`` on OpenBSD.
 
-    To completely disable writing the hostname file, set ``hostname_file=False``.
+To completely disable writing the hostname file, set ``hostname_file=False``.
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.hostname(
-        name="Set the hostname",
-        hostname="server1.example.com",
-    )
+server.hostname(
+    name="Set the hostname",
+    hostname="server1.example.com",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -92,23 +92,23 @@ Enable/Disable locale.
 
     server.locale(locale: str, present=True, **kwargs)
 
-+ **locale**: name of the locale to enable/disable
-+ **present**: whether this locale should be present or not
+locale**: name of the locale to enable/disable
+present**: whether this locale should be present or not
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    server.locale(
-        name="Ensure en_GB.UTF-8 locale is not present",
-        locale="en_GB.UTF-8",
-        present=False,
-    )
+server.locale(
+    name="Ensure en_GB.UTF-8 locale is not present",
+    locale="en_GB.UTF-8",
+    present=False,
+)
 
-    server.locale(
-        name="Ensure en_GB.UTF-8 locale is present",
-        locale="en_GB.UTF-8",
-    )
+server.locale(
+    name="Ensure en_GB.UTF-8 locale is present",
+    locale="en_GB.UTF-8",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -124,18 +124,18 @@ Load/unload kernel modules.
 
     server.modprobe(module: str, present=True, force=False, **kwargs)
 
-+ **module**: name of the module to manage
-+ **present**: whether the module should be loaded or not
-+ **force**: whether to force any add/remove modules
+module**: name of the module to manage
+present**: whether the module should be loaded or not
+force**: whether to force any add/remove modules
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.modprobe(
-        name="Silly example for modprobe",
-        module="floppy",
-    )
+server.modprobe(
+    name="Silly example for modprobe",
+    module="floppy",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -154,17 +154,17 @@ Manage mounted filesystems.
         fs_type: str | None=None, **kwargs,
     )
 
-+ **path**: the path of the mounted filesystem
-+ **mounted**: whether the filesystem should be mounted
-+ **options**: the mount options
+path**: the path of the mounted filesystem
+mounted**: whether the filesystem should be mounted
+options**: the mount options
 
-Options:
-    If the currently mounted filesystem does not have all of the provided
-    options it will be remounted with the options provided.
+ons:
+If the currently mounted filesystem does not have all of the provided
+options it will be remounted with the options provided.
 
-``/etc/fstab``:
-    This operation does not attempt to modify the on disk fstab file - for
-    that you should use the `files.line operation <./files.html#files-line>`_.
+tc/fstab``:
+This operation does not attempt to modify the on disk fstab file - for
+that you should use the `files.line operation <./files.html#files-line>`_.
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -181,17 +181,17 @@ system package managers pyinfra can handle and executes the relevant operation.
 
     server.packages(packages: str | list[str], present=True, **kwargs)
 
-+ **packages**: list of packages to ensure
-+ **present**: whether the packages should be installed
+packages**: list of packages to ensure
+present**: whether the packages should be installed
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.packages(
-        name="Install Vim and vimpager",
-        packages=["vimpager", "vim"],
-    )
+server.packages(
+    name="Install Vim and vimpager",
+    packages=["vimpager", "vim"],
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -213,19 +213,19 @@ Reboot the server and wait for reconnection.
 
     server.reboot(delay=10, interval=1, reboot_timeout=300, **kwargs)
 
-+ **delay**: number of seconds to wait before attempting reconnect
-+ **interval**: interval (s) between reconnect attempts
-+ **reboot_timeout**: total time before giving up reconnecting
+delay**: number of seconds to wait before attempting reconnect
+interval**: interval (s) between reconnect attempts
+reboot_timeout**: total time before giving up reconnecting
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.reboot(
-        name="Reboot the server and wait to reconnect",
-        delay=60,
-        reboot_timeout=600,
-    )
+server.reboot(
+    name="Reboot the server and wait to reconnect",
+    delay=60,
+    reboot_timeout=600,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -247,25 +247,25 @@ Upload and execute a local script on the remote host.
 
     server.script(src: str, args=(), **kwargs)
 
-+ **src**: local script filename to upload & execute
-+ **args**: iterable to pass as arguments to the script
+src**: local script filename to upload & execute
+args**: iterable to pass as arguments to the script
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    # Note: This assumes there is a file in files/hello.bash locally.
-    server.script(
-        name="Hello",
-        src="files/hello.bash",
-    )
+# Note: This assumes there is a file in files/hello.bash locally.
+server.script(
+    name="Hello",
+    src="files/hello.bash",
+)
 
-    # Example passing arguments to the script
-    server.script(
-        name="Hello",
-        src="files/hello.bash",
-        args=("do-something", "with-this"),
-    )
+# Example passing arguments to the script
+server.script(
+    name="Hello",
+    src="files/hello.bash",
+    args=("do-something", "with-this"),
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -287,22 +287,22 @@ Generate, upload and execute a local script template on the remote host.
 
     server.script_template(src: str, args=(), **kwargs)
 
-+ **src**: local script template filename
+src**: local script template filename
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    # Example showing how to pass python variable to a script template file.
-    # The .j2 file can use `{{ some_var }}` to be interpolated.
-    # To see output need to run pyinfra with '-v'
-    # Note: This assumes there is a file in templates/hello2.bash.j2 locally.
-    some_var = 'blah blah blah '
-    server.script_template(
-        name="Hello from script",
-        src="templates/hello2.bash.j2",
-        some_var=some_var,
-    )
+# Example showing how to pass python variable to a script template file.
+# The .j2 file can use `{{ some_var }}` to be interpolated.
+# To see output need to run pyinfra with '-v'
+# Note: This assumes there is a file in templates/hello2.bash.j2 locally.
+some_var = 'blah blah blah '
+server.script_template(
+    name="Hello from script",
+    src="templates/hello2.bash.j2",
+    some_var=some_var,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -318,22 +318,22 @@ Edit /etc/security/limits.conf configuration.
 
     server.security_limit(domain: str, limit_type: str, item: str, value: int, **kwargs)
 
-+ **domain**: the domain (user, group, or wildcard) for the limit
-+ **limit_type**: the type of limit (hard or soft)
-+ **item**: the item to limit (e.g., nofile, nproc)
-+ **value**: the value for the limit
+domain**: the domain (user, group, or wildcard) for the limit
+limit_type**: the type of limit (hard or soft)
+item**: the item to limit (e.g., nofile, nproc)
+value**: the value for the limit
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    security_limit(
-        name="Set nofile limit for all users",
-        domain='*',
-        limit_type='soft',
-        item='nofile',
-        value=1024,
-    )
+security_limit(
+    name="Set nofile limit for all users",
+    domain='*',
+    limit_type='soft',
+    item='nofile',
+    value=1024,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -353,22 +353,22 @@ Linux init systems pyinfra can handle and executes the relevant operation.
         enabled: bool | None=None, **kwargs,
     )
 
-+ **service**: name of the service to manage
-+ **running**: whether the service should be running
-+ **restarted**: whether the service should be restarted
-+ **reloaded**: whether the service should be reloaded
-+ **command**: custom command execute
-+ **enabled**: whether this service should be enabled/disabled on boot
+service**: name of the service to manage
+running**: whether the service should be running
+restarted**: whether the service should be restarted
+reloaded**: whether the service should be reloaded
+command**: custom command execute
+enabled**: whether this service should be enabled/disabled on boot
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.service(
-        name="Enable open-vm-tools service",
-        service="open-vm-tools",
-        enabled=True,
-    )
+server.service(
+    name="Enable open-vm-tools service",
+    service="open-vm-tools",
+    enabled=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -392,16 +392,16 @@ since facts are only run at the start of a deploy.
 
     server.shell(commands: str | list[str], **kwargs)
 
-+ **commands**: command or list of commands to execute on the remote server
+commands**: command or list of commands to execute on the remote server
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.shell(
-        name="Run lxd auto init",
-        commands=["lxd init --auto"],
-    )
+server.shell(
+    name="Run lxd auto init",
+    commands=["lxd init --auto"],
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -420,21 +420,21 @@ Edit sysctl configuration.
         persist_file="/etc/sysctl.conf", **kwargs,
     )
 
-+ **key**: name of the sysctl setting to ensure
-+ **value**: the value or list of values the sysctl should be
-+ **persist**: whether to write this sysctl to the config
-+ **persist_file**: file to write the sysctl to persist on reboot
+key**: name of the sysctl setting to ensure
+value**: the value or list of values the sysctl should be
+persist**: whether to write this sysctl to the config
+persist_file**: file to write the sysctl to persist on reboot
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.sysctl(
-        name="Change the fs.file-max value",
-        key="fs.file-max",
-        value=100000,
-        persist=True,
-    )
+server.sysctl(
+    name="Change the fs.file-max value",
+    key="fs.file-max",
+    value=100000,
+    persist=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -456,56 +456,56 @@ Add/remove/update system users & their ssh `authorized_keys`.
         unique=True, password: str | None=None, **kwargs,
     )
 
-+ **user**: name of the user to ensure
-+ **present**: whether this user should exist
-+ **home**: the users home directory
-+ **shell**: the users shell
-+ **group**: the users primary group
-+ **groups**: the users secondary groups
-+ **append**: whether to add `user` to `groups`, w/o losing membership of other groups
-+ **public_keys**: list of public keys to attach to this user, ``home`` must be specified
-+ **delete_keys**: whether to remove any keys not specified in ``public_keys``
-+ **ensure_home**: whether to ensure the ``home`` directory exists
-+ **create_home**: whether user create new user home directories from the system skeleton
-+ **system**: whether to create a system account
-+ **uid**: use a specific userid number
-+ **comment**: the user GECOS comment
-+ **unique**: prevent creating users with duplicate UID
-+ **password**: set the encrypted password for the user
+user**: name of the user to ensure
+present**: whether this user should exist
+home**: the users home directory
+shell**: the users shell
+group**: the users primary group
+groups**: the users secondary groups
+append**: whether to add `user` to `groups`, w/o losing membership of other groups
+public_keys**: list of public keys to attach to this user, ``home`` must be specified
+delete_keys**: whether to remove any keys not specified in ``public_keys``
+ensure_home**: whether to ensure the ``home`` directory exists
+create_home**: whether user create new user home directories from the system skeleton
+system**: whether to create a system account
+uid**: use a specific userid number
+comment**: the user GECOS comment
+unique**: prevent creating users with duplicate UID
+password**: set the encrypted password for the user
 
-Home directory:
-    When ``ensure_home`` or ``public_keys`` are provided, ``home`` defaults to
-    ``/home/{name}``. When ``create_home`` is ``True`` any newly created users
-    will be created with the ``-m`` flag to build a new home directory from the
-    systems skeleton directory.
+ directory:
+When ``ensure_home`` or ``public_keys`` are provided, ``home`` defaults to
+``/home/{name}``. When ``create_home`` is ``True`` any newly created users
+will be created with the ``-m`` flag to build a new home directory from the
+systems skeleton directory.
 
-Public keys:
-    These can be provided as strings containing the public key or as a path to
-    a public key file which pyinfra will read.
+ic keys:
+These can be provided as strings containing the public key or as a path to
+a public key file which pyinfra will read.
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
+server.user(
+    name="Ensure user is removed",
+    user="kevin",
+    present=False,
+)
+
+server.user(
+    name="Ensure myweb user exists",
+    user="myweb",
+    shell="/bin/bash",
+)
+
+# multiple users
+for user in ["kevin", "bob"]:
     server.user(
-        name="Ensure user is removed",
-        user="kevin",
+        name=f"Ensure user {user} is removed",
+        user=user,
         present=False,
     )
-
-    server.user(
-        name="Ensure myweb user exists",
-        user="myweb",
-        shell="/bin/bash",
-    )
-
-    # multiple users
-    for user in ["kevin", "bob"]:
-        server.user(
-            name=f"Ensure user {user} is removed",
-            user=user,
-            present=False,
-        )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -525,24 +525,24 @@ Manage `authorized_keys` of system users.
         **kwargs,
     )
 
-+ **user**: name of the user to ensure
-+ **public_keys**: list of public keys to attach to this user, ``home`` must be specified
-+ **group**: the users primary group
-+ **delete_keys**: whether to remove any keys not specified in ``public_keys``
+user**: name of the user to ensure
+public_keys**: list of public keys to attach to this user, ``home`` must be specified
+group**: the users primary group
+delete_keys**: whether to remove any keys not specified in ``public_keys``
 
-Public keys:
-    These can be provided as strings containing the public key or as a path to
-    a public key file which pyinfra will read.
+ic keys:
+These can be provided as strings containing the public key or as a path to
+a public key file which pyinfra will read.
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    server.user_authorized_keys(
-        name="Ensure user has a public key",
-        user="kevin",
-        public_keys=["ed25519..."],
-    )
+server.user_authorized_keys(
+    name="Ensure user has a public key",
+    user="kevin",
+    public_keys=["ed25519..."],
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -565,16 +565,16 @@ second.
 
     server.wait(port: int, **kwargs)
 
-+ **port**: port number to wait for
+port**: port number to wait for
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    server.wait(
-        name="Wait for webserver to start",
-        port=80,
-    )
+server.wait(
+    name="Wait for webserver to start",
+    port=80,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

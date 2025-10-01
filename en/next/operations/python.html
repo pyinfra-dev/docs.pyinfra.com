@@ -18,8 +18,8 @@
     <title>Python Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -196,36 +196,38 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>function</strong>: the function to execute</p></li>
-<li><p><strong>args</strong>: arguments to pass to the function</p></li>
-<li><p><strong>kwargs</strong>: keyword arguments to pass to the function</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;echo hello&#39;</span>
-    <span class="k">if</span> <span class="n">hello</span><span class="p">:</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="o">**</span><span class="n">hello</span><span class="o">**</span>
-
-    <span class="n">status</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">run_shell_command</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">SUDO</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">True</span>  <span class="c1"># ensure the command executed OK</span>
-
-    <span class="k">if</span> <span class="s1">&#39;hello &#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">stdout</span><span class="p">):</span>  <span class="c1"># stdout/stderr is a *list* of lines</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;`</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">` problem with callback stdout:</span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s1"> stderr:</span><span class="si">{</span><span class="n">stderr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-<span class="n">python</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run my_callback function&quot;</span><span class="p">,</span>
-    <span class="n">function</span><span class="o">=</span><span class="n">my_callback</span><span class="p">,</span>
-    <span class="n">hello</span><span class="o">=</span><span class="s2">&quot;world&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<p>function**: the function to execute
+args**: arguments to pass to the function
+kwargs**: keyword arguments to pass to the function</p>
+<p>ample:**</p>
+<p>ode:: python</p>
+<dl>
+<dt>def my_callback(hello=None):</dt><dd><p>command = ‘echo hello’
+if hello:</p>
+<blockquote>
+<div><p>command = command + ‘ ‘ + <strong>hello</strong></p>
+</div></blockquote>
+<p>status, stdout, stderr = host.run_shell_command(command=command, sudo=SUDO)
+assert status is True  # ensure the command executed OK</p>
+<dl>
+<dt>if ‘hello ‘ not in ‘n’.join(stdout):  # stdout/stderr is a <em>list</em> of lines</dt><dd><dl class="simple">
+<dt>raise Exception(</dt><dd><p>f’<cite>{command}</cite> problem with callback stdout:{stdout} stderr:{stderr}’,</p>
 </dd>
 </dl>
+<p>)</p>
+</dd>
+</dl>
+</dd>
+<dt>python.call(</dt><dd><p>name=”Run my_callback function”,
+function=my_callback,
+hello=”world”,</p>
+</dd>
+</dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="python-raise-exception">
 <span id="operations-python-raise-exception"></span><h2><code class="code docutils literal notranslate"><span class="pre">python.raise_exception</span></code><a class="headerlink" href="#python-raise-exception" title="Link to this heading">¶</a></h2>
@@ -237,23 +239,22 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span><span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>exception</strong>: the exception class to raise</p></li>
-<li><p><strong>args</strong>: arguments passed to the exception creation</p></li>
-<li><p><strong>kwargs</strong>: keyword arguments passed to the exception creation</p></li>
-</ul>
-<p><strong>Example</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Raise NotImplementedError exception&quot;</span><span class="p">,</span>
-    <span class="n">exception</span><span class="o">=</span><span class="ne">NotImplementedError</span><span class="p">,</span>
-    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;This is not implemented&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>exception**: the exception class to raise
+args**: arguments passed to the exception creation
+kwargs**: keyword arguments passed to the exception creation</p>
+<p>ample**:</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>python.raise_exception(</dt><dd><p>name=”Raise NotImplementedError exception”,
+exception=NotImplementedError,
+message=”This is not implemented”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

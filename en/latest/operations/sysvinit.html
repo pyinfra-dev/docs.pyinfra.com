@@ -18,8 +18,8 @@
     <title>Sysvinit Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -196,26 +196,25 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to enable</p></li>
-<li><p><strong>start_priority</strong>: priority to start the service</p></li>
-<li><p><strong>stop_priority</strong>: priority to stop the service</p></li>
-<li><p><strong>start_levels</strong>: which runlevels should the service run when enabled</p></li>
-<li><p><strong>stop_levels</strong>: which runlevels should the service stop when enabled</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">init</span><span class="o">.</span><span class="n">d_enable</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Finer control on which runlevels rsyslog should run&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">start_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="n">stop_levels</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>service**: name of the service to enable
+start_priority**: priority to start the service
+stop_priority**: priority to stop the service
+start_levels**: which runlevels should the service run when enabled
+stop_levels**: which runlevels should the service stop when enabled</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>init.d_enable(</dt><dd><p>name=”Finer control on which runlevels rsyslog should run”,
+service=”rsyslog”,
+start_levels=(3, 4, 5),
+stop_levels=(0, 1, 2, 6),</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="sysvinit-service">
 <span id="operations-sysvinit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">sysvinit.service</span></code><a class="headerlink" href="#sysvinit-service" title="Link to this heading">¶</a></h2>
@@ -226,16 +225,14 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>running</strong>: whether the service should be running</p></li>
-<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
-<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
-<li><p><strong>enabled</strong>: whether this service should be enabled/disabled</p></li>
-<li><p><strong>command</strong>: command (eg. reload) to run like: <code class="docutils literal notranslate"><span class="pre">/etc/init.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></p></li>
-</ul>
-<dl>
-<dt>Enabled:</dt><dd><p>Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
+<p>service**: name of the service to manage
+running**: whether the service should be running
+restarted**: whether the service should be restarted
+reloaded**: whether the service should be reloaded
+enabled**: whether this service should be enabled/disabled
+command**: command (eg. reload) to run like: <code class="docutils literal notranslate"><span class="pre">/etc/init.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></p>
+<p>led:
+Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
 support enabling/disabling services:</p>
 <ul class="simple">
 <li><p>Ubuntu/Debian (<code class="docutils literal notranslate"><span class="pre">update-rc.d</span></code>)</p></li>
@@ -244,21 +241,20 @@ support enabling/disabling services:</p>
 </ul>
 <p>For other distributions and more granular service control, see the
 <code class="docutils literal notranslate"><span class="pre">sysvinit.enable</span></code> operation.</p>
-</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sysvinit</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Restart and enable rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;rsyslog&quot;</span><span class="p">,</span>
-    <span class="n">restarted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>sysvinit.service(</dt><dd><p>name=”Restart and enable rsyslog”,
+service=”rsyslog”,
+restarted=True,
+enabled=True,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

@@ -18,8 +18,8 @@
     <title>Runit Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -195,15 +195,13 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">auto</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sourcedir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/etc/sv&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>auto</strong>: whether the service should start automatically</p></li>
-<li><p><strong>sourcedir</strong>: where to search for available services</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>service**: name of the service to manage
+auto**: whether the service should start automatically
+sourcedir**: where to search for available services
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="runit-manage">
 <span id="operations-runit-manage"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.manage</span></code><a class="headerlink" href="#runit-manage" title="Link to this heading">¶</a></h2>
@@ -214,16 +212,14 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>managed</strong>: whether the link should exist</p></li>
-<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p></li>
-<li><p><strong>sourcedir</strong>: where to search for available services</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>service**: name of the service to manage
+managed**: whether the link should exist
+svdir**: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>
+sourcedir**: where to search for available services
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="runit-service">
 <span id="operations-runit-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.service</span></code><a class="headerlink" href="#runit-service" title="Link to this heading">¶</a></h2>
@@ -235,33 +231,34 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul>
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>running</strong>: whether the service should be running</p></li>
-<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
-<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
-<li><p><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">sv</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;service&gt;</span></code></p></li>
-<li><p><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p></li>
-<li><p><strong>managed</strong>: whether runit should manage this service</p>
-<p>For services to be controlled, they first need to be managed by runit by
-adding a symlink to the service in <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>.
-By setting <code class="docutils literal notranslate"><span class="pre">managed=False</span></code> the symlink will be removed.
-Other options won’t have any effect after that.
-Although the <code class="docutils literal notranslate"><span class="pre">&lt;service&gt;/down</span></code> file can still be controlled with the
-<code class="docutils literal notranslate"><span class="pre">enabled</span></code> option.</p>
-</li>
-<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p>
-<p>An alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code> can be specified. This can be used for user services.</p>
-</li>
-<li><p><strong>sourcedir</strong>: where to search for available services</p>
-<p>An alternative directory for available services can be specified.
-Example: <code class="docutils literal notranslate"><span class="pre">sourcedir=/etc/sv.local</span></code> for services managed by the administrator.</p>
-</li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>service**: name of the service to manage
+running**: whether the service should be running
+restarted**: whether the service should be restarted
+reloaded**: whether the service should be reloaded
+command**: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">sv</span> <span class="pre">&lt;command&gt;</span> <span class="pre">&lt;service&gt;</span></code>
+enabled**: whether this service should be enabled/disabled on boot
+managed**: whether runit should manage this service</p>
+<p>r services to be controlled, they first need to be managed by runit by
+ding a symlink to the service in <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>.</p>
+<blockquote>
+<div><p>setting <code class="docutils literal notranslate"><span class="pre">managed=False</span></code> the symlink will be removed.</p>
+</div></blockquote>
+<p>her options won’t have any effect after that.
+though the <code class="docutils literal notranslate"><span class="pre">&lt;service&gt;/down</span></code> file can still be controlled with the
+enabled`` option.</p>
+<p>svdir**: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p>
+<blockquote>
+<div><p>alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code> can be specified. This can be used for user services.</p>
+</div></blockquote>
+<p>sourcedir**: where to search for available services</p>
+<blockquote>
+<div><p>alternative directory for available services can be specified.</p>
+</div></blockquote>
+<p>ample: <code class="docutils literal notranslate"><span class="pre">sourcedir=/etc/sv.local</span></code> for services managed by the administrator.
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="runit-wait-runsv">
 <span id="operations-runit-wait-runsv"></span><h2><code class="code docutils literal notranslate"><span class="pre">runit.wait_runsv</span></code><a class="headerlink" href="#runit-wait-runsv" title="Link to this heading">¶</a></h2>
@@ -273,15 +270,13 @@ Example: <code class="docutils literal notranslate"><span class="pre">sourcedir=
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runit</span><span class="o">.</span><span class="n">wait_runsv</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">svdir</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/var/service&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>svdir</strong>: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code></p></li>
-<li><p><strong>timeout</strong>: time in seconds to wait</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>service**: name of the service to manage
+svdir**: alternative <code class="docutils literal notranslate"><span class="pre">SVDIR</span></code>
+timeout**: time in seconds to wait
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

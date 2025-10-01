@@ -18,8 +18,8 @@
     <title>Selinux Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -195,25 +195,24 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span><span class="n">bool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>boolean</strong>: name of an SELinux boolean</p></li>
-<li><p><strong>value</strong>: desired state of the boolean</p></li>
-<li><p><strong>persistent</strong>: whether to write updated policy or not</p></li>
-</ul>
-<p>Note: This operation requires root privileges.</p>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to connect to LDAP server&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;httpd_can_network_connect&#39;</span><span class="p">,</span>
-    <span class="n">Boolean</span><span class="o">.</span><span class="n">ON</span><span class="p">,</span>
-    <span class="n">persistent</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>boolean**: name of an SELinux boolean
+value**: desired state of the boolean
+persistent**: whether to write updated policy or not</p>
+<p>: This operation requires root privileges.</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>selinux.boolean(</dt><dd><p>name=’Allow Apache to connect to LDAP server’,
+‘httpd_can_network_connect’,
+Boolean.ON,
+persistent=True</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="selinux-file-context">
 <span id="operations-selinux-file-context"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.file_context</span></code><a class="headerlink" href="#selinux-file-context" title="Link to this heading">¶</a></h2>
@@ -221,22 +220,21 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">se_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>path</strong>: the target path (expression) for the context</p></li>
-<li><p><strong>se_type</strong>: the SELinux type for the given target</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow /foo/bar to be served by the web server&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;/foo/bar&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;httpd_sys_content_t&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>path**: the target path (expression) for the context
+se_type**: the SELinux type for the given target</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>selinux.file_context(</dt><dd><p>name=’Allow /foo/bar to be served by the web server’,
+‘/foo/bar’,
+‘httpd_sys_content_t’</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="selinux-file-context-mapping">
 <span id="operations-selinux-file-context-mapping"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.file_context_mapping</span></code><a class="headerlink" href="#selinux-file-context-mapping" title="Link to this heading">¶</a></h2>
@@ -244,26 +242,25 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context_mapping</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">se_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>target</strong>: the target path (expression) for the context</p></li>
-<li><p><strong>se_type</strong>: the SELinux type for the given target</p></li>
-<li><p><strong>present</strong>: whether to add or remove the target -&gt; context mapping</p></li>
-</ul>
-<p>Note: <cite>file_context</cite> does not change the SELinux file context for existing files
-so <cite>restorecon</cite> may need to be run manually if the file contexts cannot be created
-before the related files.</p>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">file_context_mapping</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to serve content from the /web directory&#39;</span><span class="p">,</span>
-    <span class="sa">r</span><span class="s1">&#39;/web(/.*)?&#39;</span><span class="p">,</span>
-    <span class="n">se_type</span><span class="o">=</span><span class="s1">&#39;httpd_sys_content_t&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>target**: the target path (expression) for the context
+se_type**: the SELinux type for the given target
+present**: whether to add or remove the target -&gt; context mapping</p>
+<p>: <cite>file_context</cite> does not change the SELinux file context for existing files
+restorecon` may need to be run manually if the file contexts cannot be created
+re the related files.</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>selinux.file_context_mapping(</dt><dd><p>name=’Allow Apache to serve content from the /web directory’,
+r’/web(/.*)?’,
+se_type=’httpd_sys_content_t’</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="selinux-port">
 <span id="operations-selinux-port"></span><h2><code class="code docutils literal notranslate"><span class="pre">selinux.port</span></code><a class="headerlink" href="#selinux-port" title="Link to this heading">¶</a></h2>
@@ -271,26 +268,25 @@ before the related files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">port</span><span class="p">(</span><span class="n">protocol</span><span class="p">:</span> <span class="n">Protocol</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port_num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">se_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>protocol</strong>: the protocol: (udp|tcp|sctp|dccp)</p></li>
-<li><p><strong>port</strong>: the port</p></li>
-<li><p><strong>se_type</strong>: the SELinux type for the given port</p></li>
-<li><p><strong>present</strong>: whether to add or remove the SELinux type for the port</p></li>
-</ul>
-<p>Note: This operation requires root privileges.</p>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selinux</span><span class="o">.</span><span class="n">port</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Allow Apache to provide service on port 2222&#39;</span><span class="p">,</span>
-    <span class="n">Protocol</span><span class="o">.</span><span class="n">TCP</span><span class="p">,</span>
-    <span class="mi">2222</span><span class="p">,</span>
-    <span class="s1">&#39;http_port_t&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>protocol**: the protocol: (udp|tcp|sctp|dccp)
+port**: the port
+se_type**: the SELinux type for the given port
+present**: whether to add or remove the SELinux type for the port</p>
+<p>: This operation requires root privileges.</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>selinux.port(</dt><dd><p>name=’Allow Apache to provide service on port 2222’,
+Protocol.TCP,
+2222,
+‘http_port_t’,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

@@ -18,19 +18,19 @@ Create bare git repositories.
 
     git.bare_repo(path: str, user: str | None=None, group: str | None=None, present=True, **kwargs)
 
-+ **path**: path to the folder
-+ **present**: whether the bare repository should exist
-+ **user**: chown files to this user after
-+ **group**: chown files to this group after
+path**: path to the folder
+present**: whether the bare repository should exist
+user**: chown files to this user after
+group**: chown files to this group after
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    git.bare_repo(
-        name="Create bare repo",
-        path="/home/git/test.git",
-    )
+git.bare_repo(
+    name="Create bare repo",
+    path="/home/git/test.git",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -46,37 +46,37 @@ Manage git config at repository, user or system level.
 
     git.config(key: str, value: str, multi_value=False, repo: str | None=None, system=False, **kwargs)
 
-+ **key**: the key of the config to ensure
-+ **value**: the value this key should have
-+ **multi_value**: Add the value rather than set it for settings that can have multiple values
-+ **repo**: specify the git repo path to edit local config (defaults to global)
-+ **system**: whether, when ``repo`` is unspecified, to work at system level (or default to global)
+key**: the key of the config to ensure
+value**: the value this key should have
+multi_value**: Add the value rather than set it for settings that can have multiple values
+repo**: specify the git repo path to edit local config (defaults to global)
+system**: whether, when ``repo`` is unspecified, to work at system level (or default to global)
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    git.config(
-        name="Always prune specified repo",
-        key="fetch.prune",
-        value="true",
-        repo="/usr/local/src/pyinfra",
-    )
+git.config(
+    name="Always prune specified repo",
+    key="fetch.prune",
+    value="true",
+    repo="/usr/local/src/pyinfra",
+)
 
-    git.config(
-        name="Ensure user name is set for all repos of specified user",
-        key="user.name",
-        value="Anon E. Mouse",
-        _sudo=True,
-        _sudo_user="anon"
-    )
+git.config(
+    name="Ensure user name is set for all repos of specified user",
+    key="user.name",
+    value="Anon E. Mouse",
+    _sudo=True,
+    _sudo_user="anon"
+)
 
-    git.config(
-        name="Ensure same date format for all users",
-        key="log.date",
-        value="iso",
-        system=True
-    )
+git.config(
+    name="Ensure same date format for all users",
+    key="log.date",
+    value="iso",
+    system=True
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -96,26 +96,26 @@ Clone/pull git repositories.
         recursive_submodules=False, **kwargs,
     )
 
-+ **src**: the git source URL
-+ **dest**: directory to clone to
-+ **branch**: branch to pull/checkout
-+ **pull**: pull any changes for the branch
-+ **rebase**: when pulling, use ``--rebase``
-+ **user**: chown files to this user after
-+ **group**: chown files to this group after
-+ **ssh_keyscan**: keyscan the remote host if not in known_hosts before clone/pull
-+ **update_submodules**: update any git submodules
-+ **recursive_submodules**: update git submodules recursively
+src**: the git source URL
+dest**: directory to clone to
+branch**: branch to pull/checkout
+pull**: pull any changes for the branch
+rebase**: when pulling, use ``--rebase``
+user**: chown files to this user after
+group**: chown files to this group after
+ssh_keyscan**: keyscan the remote host if not in known_hosts before clone/pull
+update_submodules**: update any git submodules
+recursive_submodules**: update git submodules recursively
 
-**Example:**
+ample:**
 
-.. code:: python
+ode:: python
 
-    git.repo(
-        name="Clone repo",
-        src="https://github.com/Fizzadar/pyinfra.git",
-        dest="/usr/local/src/pyinfra",
-    )
+git.repo(
+    name="Clone repo",
+    src="https://github.com/Fizzadar/pyinfra.git",
+    dest="/usr/local/src/pyinfra",
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -136,124 +136,124 @@ Manage git worktrees.
         force=False, user: str | None=None, group: str | None=None, **kwargs,
     )
 
-+ **worktree**: git working tree directory
-+ **repo**: git main repository directory
-+ **detached**: create a working tree with a detached HEAD
-+ **new_branch**: local branch name created at the same time than the worktree
-+ **commitish**: from which git commit, branch, ... the worktree is created
-+ **pull**: pull any changes from a remote branch if set
-+ **rebase**: when pulling, use ``--rebase``
-+ **from_remote_branch**: a 2-tuple ``(remote, branch)`` that identifies a remote branch
-+ **present**: whether the working tree should exist
-+ **assume_repo_exists**: whether to assume the main repo exists
-+ **force**: whether to use ``--force`` when adding/removing worktrees
-+ **user**: chown files to this user after
-+ **group**: chown files to this group after
+worktree**: git working tree directory
+repo**: git main repository directory
+detached**: create a working tree with a detached HEAD
+new_branch**: local branch name created at the same time than the worktree
+commitish**: from which git commit, branch, ... the worktree is created
+pull**: pull any changes from a remote branch if set
+rebase**: when pulling, use ``--rebase``
+from_remote_branch**: a 2-tuple ``(remote, branch)`` that identifies a remote branch
+present**: whether the working tree should exist
+assume_repo_exists**: whether to assume the main repo exists
+force**: whether to use ``--force`` when adding/removing worktrees
+user**: chown files to this user after
+group**: chown files to this group after
 
-**Examples:**
+amples:**
 
-.. code:: python
+ode:: python
 
-    git.worktree(
-        name="Create a worktree from the current repo `HEAD`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix"
-    )
+git.worktree(
+    name="Create a worktree from the current repo `HEAD`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix"
+)
 
-    git.worktree(
-        name="Create a worktree from the commit `4e091aa0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        commitish="4e091aa0"
-    )
+git.worktree(
+    name="Create a worktree from the commit `4e091aa0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    commitish="4e091aa0"
+)
 
-    git.worktree(
-        name="Create a worktree from the tag `4e091aa0`, even if already registered",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/2.x",
-        commitish="2.x",
-        force=True
-    )
+git.worktree(
+    name="Create a worktree from the tag `4e091aa0`, even if already registered",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/2.x",
+    commitish="2.x",
+    force=True
+)
 
-    git.worktree(
-        name="Create a worktree with a new local branch `v1.0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        new_branch="v1.0",
-    )
+git.worktree(
+    name="Create a worktree with a new local branch `v1.0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    new_branch="v1.0",
+)
 
-    git.worktree(
-        name="Create a worktree from the commit 4e091aa0 with the new local branch `v1.0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        new_branch="v1.0",
-        commitish="4e091aa0"
-    )
+git.worktree(
+    name="Create a worktree from the commit 4e091aa0 with the new local branch `v1.0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    new_branch="v1.0",
+    commitish="4e091aa0"
+)
 
-    git.worktree(
-        name="Create a worktree with a detached `HEAD`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        detached=True,
-    )
+git.worktree(
+    name="Create a worktree with a detached `HEAD`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    detached=True,
+)
 
-    git.worktree(
-        name="Create a worktree with a detached `HEAD` from commit `4e091aa0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        commitish="4e091aa0",
-        detached=True,
-    )
+git.worktree(
+    name="Create a worktree with a detached `HEAD` from commit `4e091aa0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    commitish="4e091aa0",
+    detached=True,
+)
 
-    git.worktree(
-        name="Create a worktree from the existing local branch `v1.0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        commitish="v1.0"
-    )
+git.worktree(
+    name="Create a worktree from the existing local branch `v1.0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    commitish="v1.0"
+)
 
-    git.worktree(
-        name="Create a worktree with a new branch `v1.0` that tracks `origin/v1.0`",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        new_branch="v1.0",
-        commitish="v1.0"
-    )
+git.worktree(
+    name="Create a worktree with a new branch `v1.0` that tracks `origin/v1.0`",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    new_branch="v1.0",
+    commitish="v1.0"
+)
 
-    git.worktree(
-        name="Idempotent worktree creation, never pulls",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        new_branch="v1.0",
-        commitish="v1.0",
-        pull=False
-    )
+git.worktree(
+    name="Idempotent worktree creation, never pulls",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    new_branch="v1.0",
+    commitish="v1.0",
+    pull=False
+)
 
-    git.worktree(
-        name="Pull an existing worktree already linked to a tracking branch",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix"
-    )
+git.worktree(
+    name="Pull an existing worktree already linked to a tracking branch",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix"
+)
 
-    git.worktree(
-        name="Pull an existing worktree from a specific remote branch",
-        repo="/usr/local/src/pyinfra/master",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        from_remote_branch=("origin", "master")
-    )
+git.worktree(
+    name="Pull an existing worktree from a specific remote branch",
+    repo="/usr/local/src/pyinfra/master",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    from_remote_branch=("origin", "master")
+)
 
-    git.worktree(
-        name="Remove a worktree",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        present=False,
-    )
+git.worktree(
+    name="Remove a worktree",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    present=False,
+)
 
-    git.worktree(
-        name="Remove an unclean worktree",
-        worktree="/usr/local/src/pyinfra/hotfix",
-        present=False,
-        force=True,
-    )
+git.worktree(
+    name="Remove an unclean worktree",
+    worktree="/usr/local/src/pyinfra/hotfix",
+    present=False,
+    force=True,
+)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

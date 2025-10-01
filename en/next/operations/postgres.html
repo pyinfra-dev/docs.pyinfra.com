@@ -18,8 +18,8 @@
     <title>Postgres Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -214,37 +214,34 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>name</strong>: name of the database</p></li>
-<li><p><strong>present</strong>: whether the database should exist or not</p></li>
-<li><p><strong>owner</strong>: the PostgreSQL role that owns the database</p></li>
-<li><p><strong>template</strong>: name of the PostgreSQL template to use</p></li>
-<li><p><strong>encoding</strong>: encoding of the database</p></li>
-<li><p><strong>lc_collate</strong>: lc_collate of the database</p></li>
-<li><p><strong>lc_ctype</strong>: lc_ctype of the database</p></li>
-<li><p><strong>tablespace</strong>: the tablespace to use for the template</p></li>
-<li><p><strong>connection_limit</strong>: the connection limit to apply to the database</p></li>
-<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<dl class="simple">
-<dt>Updates:</dt><dd><p>pyinfra will change existing databases - but some parameters are not
+<p>name**: name of the database
+present**: whether the database should exist or not
+owner**: the PostgreSQL role that owns the database
+template**: name of the PostgreSQL template to use
+encoding**: encoding of the database
+lc_collate**: lc_collate of the database
+lc_ctype**: lc_ctype of the database
+tablespace**: the tablespace to use for the template
+connection_limit**: the connection limit to apply to the database
+psql_***: global module arguments, see above</p>
+<p>tes:
+pyinfra will change existing databases - but some parameters are not
 changeable (template, encoding, lc_collate and lc_ctype).</p>
-</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra_stuff database&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
-    <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF8&quot;</span><span class="p">,</span>
-    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>postgresql.database(</dt><dd><p>name=”Create the pyinfra_stuff database”,
+database=”pyinfra_stuff”,
+owner=”pyinfra”,
+encoding=”UTF8”,
+_sudo_user=”postgres”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="postgres-dump">
 <span id="operations-postgres-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.dump</span></code><a class="headerlink" href="#postgres-dump" title="Link to this heading">¶</a></h2>
@@ -260,22 +257,21 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>dest</strong>: name of the file to dump the SQL to</p></li>
-<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dump the pyinfra_stuff database&quot;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>dest**: name of the file to dump the SQL to
+psql_***: global module arguments, see above</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>postgresql.dump(</dt><dd><p>name=”Dump the pyinfra_stuff database”,
+dest=”/tmp/pyinfra_stuff.dump”,
+sudo_user=”postgres”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="postgres-load">
 <span id="operations-postgres-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.load</span></code><a class="headerlink" href="#postgres-load" title="Link to this heading">¶</a></h2>
@@ -291,22 +287,21 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>src</strong>: the filename to read from</p></li>
-<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import the pyinfra_stuff dump into pyinfra_stuff_copy&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>src**: the filename to read from
+psql_***: global module arguments, see above</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>postgresql.load(</dt><dd><p>name=”Import the pyinfra_stuff dump into pyinfra_stuff_copy”,
+src=”/tmp/pyinfra_stuff.dump”,
+sudo_user=”postgres”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="postgres-role">
 <span id="operations-postgres-role"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.role</span></code><a class="headerlink" href="#postgres-role" title="Link to this heading">¶</a></h2>
@@ -320,40 +315,37 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>role</strong>: name of the role</p></li>
-<li><p><strong>present</strong>: whether the role should be present or absent</p></li>
-<li><p><strong>password</strong>: the password for the role</p></li>
-<li><p><strong>login</strong>: whether the role can login</p></li>
-<li><p><strong>superuser</strong>: whether role will be a superuser</p></li>
-<li><p><strong>inherit</strong>: whether the role inherits from other roles</p></li>
-<li><p><strong>createdb</strong>: whether the role is allowed to create databases</p></li>
-<li><p><strong>createrole</strong>: whether the role is allowed to create new roles</p></li>
-<li><p><strong>replication</strong>: whether this role is allowed to replicate</p></li>
-<li><p><strong>connection_limit</strong>: the connection limit for the role</p></li>
-<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<dl class="simple">
-<dt>Updates:</dt><dd><p>pyinfra will not attempt to change existing roles - it will either
+<p>role**: name of the role
+present**: whether the role should be present or absent
+password**: the password for the role
+login**: whether the role can login
+superuser**: whether role will be a superuser
+inherit**: whether the role inherits from other roles
+createdb**: whether the role is allowed to create databases
+createrole**: whether the role is allowed to create new roles
+replication**: whether this role is allowed to replicate
+connection_limit**: the connection limit for the role
+psql_***: global module arguments, see above</p>
+<p>tes:
+pyinfra will not attempt to change existing roles - it will either
 create or drop roles, but not alter them (if the role exists this
 operation will make no changes).</p>
-</dd>
-</dl>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create the pyinfra PostgreSQL role&quot;</span><span class="p">,</span>
-    <span class="n">role</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;somepassword&quot;</span><span class="p">,</span>
-    <span class="n">superuser</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">login</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>postgresql.role(</dt><dd><p>name=”Create the pyinfra PostgreSQL role”,
+role=”pyinfra”,
+password=”somepassword”,
+superuser=True,
+login=True,
+_sudo_user=”postgres”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="postgres-sql">
 <span id="operations-postgres-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.sql</span></code><a class="headerlink" href="#postgres-sql" title="Link to this heading">¶</a></h2>
@@ -369,14 +361,12 @@ operation will make no changes).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>sql</strong>: SQL command(s) to execute</p></li>
-<li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>sql**: SQL command(s) to execute
+psql_***: global module arguments, see above
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 

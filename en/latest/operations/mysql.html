@@ -18,8 +18,8 @@
     <title>Mysql Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -232,23 +232,22 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>dest</strong>: name of the file to dump the SQL to</p></li>
-<li><p><strong>database</strong>: name of the database to dump</p></li>
-<li><p><strong>mysql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Dump the pyinfra_stuff database&quot;</span><span class="p">,</span>
-    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>dest**: name of the file to dump the SQL to
+database**: name of the database to dump
+mysql_***: global module arguments, see above</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>mysql.dump(</dt><dd><p>name=”Dump the pyinfra_stuff database”,
+dest=”/tmp/pyinfra_stuff.dump”,
+database=”pyinfra_stuff”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="mysql-load">
 <span id="operations-mysql-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.load</span></code><a class="headerlink" href="#mysql-load" title="Link to this heading">¶</a></h2>
@@ -264,23 +263,22 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>src</strong>: the filename to read from</p></li>
-<li><p><strong>database</strong>: name of the database to import into</p></li>
-<li><p><strong>mysql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import the pyinfra_stuff dump into pyinfra_stuff_copy&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/pyinfra_stuff.dump&quot;</span><span class="p">,</span>
-    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;pyinfra_stuff_copy&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>src**: the filename to read from
+database**: name of the database to import into
+mysql_***: global module arguments, see above</p>
+<p>ample:**</p>
+<p>ode:: python</p>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>mysql.load(</dt><dd><p>name=”Import the pyinfra_stuff dump into pyinfra_stuff_copy”,
+src=”/tmp/pyinfra_stuff.dump”,
+database=”pyinfra_stuff_copy”,</p>
 </dd>
 </dl>
+<p>)
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="mysql-privileges">
 <span id="operations-mysql-privileges"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.privileges</span></code><a class="headerlink" href="#mysql-privileges" title="Link to this heading">¶</a></h2>
@@ -293,20 +291,18 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>user</strong>: name of the user to manage privileges for</p></li>
-<li><p><strong>privileges</strong>: list of privileges the user should have (see also: <code class="docutils literal notranslate"><span class="pre">with_grant_option</span></code> argument)</p></li>
-<li><p><strong>user_hostname</strong>: the hostname of the user</p></li>
-<li><p><strong>database</strong>: name of the database to grant privileges to (defaults to all)</p></li>
-<li><p><strong>table</strong>: name of the table to grant privileges to (defaults to all)</p></li>
-<li><p><strong>flush</strong>: whether to flush (and update) the privileges table after any changes</p></li>
-<li><p><strong>with_grant_option</strong>: whether the grant option privilege should be set</p></li>
-<li><p><strong>mysql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>user**: name of the user to manage privileges for
+privileges**: list of privileges the user should have (see also: <code class="docutils literal notranslate"><span class="pre">with_grant_option</span></code> argument)
+user_hostname**: the hostname of the user
+database**: name of the database to grant privileges to (defaults to all)
+table**: name of the table to grant privileges to (defaults to all)
+flush**: whether to flush (and update) the privileges table after any changes
+with_grant_option**: whether the grant option privilege should be set
+mysql_***: global module arguments, see above
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="mysql-sql">
 <span id="operations-mysql-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.sql</span></code><a class="headerlink" href="#mysql-sql" title="Link to this heading">¶</a></h2>
@@ -322,15 +318,13 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>sql</strong>: SQL command(s) to execute</p></li>
-<li><p><strong>database</strong>: optional database to open the connection with</p></li>
-<li><p><strong>mysql_*</strong>: global module arguments, see above</p></li>
-</ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<p>sql**: SQL command(s) to execute
+database**: optional database to open the connection with
+mysql_***: global module arguments, see above
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 <section id="mysql-user">
 <span id="operations-mysql-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.user</span></code><a class="headerlink" href="#mysql-user" title="Link to this heading">¶</a></h2>

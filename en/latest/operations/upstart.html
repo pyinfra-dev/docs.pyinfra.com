@@ -18,8 +18,8 @@
     <title>Upstart Operations &#8212; pyinfra  documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=df830e76" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -195,23 +195,21 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>service</strong>: name of the service to manage</p></li>
-<li><p><strong>running</strong>: whether the service should be running</p></li>
-<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
-<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
-<li><p><strong>command</strong>: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code></p></li>
-<li><p><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p></li>
-</ul>
-<dl class="simple">
-<dt>Enabling/disabling services:</dt><dd><p>Upstart jobs define runlevels in their config files - as such there is no way to
+<p>service**: name of the service to manage
+running**: whether the service should be running
+restarted**: whether the service should be restarted
+reloaded**: whether the service should be reloaded
+command**: custom command to pass like: <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/&lt;service&gt;</span> <span class="pre">&lt;command&gt;</span></code>
+enabled**: whether this service should be enabled/disabled on boot</p>
+<p>ling/disabling services:
+Upstart jobs define runlevels in their config files - as such there is no way to
 edit/list these without fiddling with the config. So pyinfra simply manages the
 existence of a <code class="docutils literal notranslate"><span class="pre">/etc/init/&lt;service&gt;.override</span></code> file, and sets its content to
-“manual” to disable automatic start of services.</p>
-</dd>
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+“manual” to disable automatic start of services.
+Note:</p>
+<blockquote>
+<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div></blockquote>
 </section>
 </section>
 
