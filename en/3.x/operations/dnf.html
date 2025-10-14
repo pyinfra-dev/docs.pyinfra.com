@@ -193,22 +193,25 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>key**: filename or URL</p>
-<p>:
-always returns one command, not idempotent</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<p>linux_id = host.get_fact(LinuxDistribution)[“release_meta”].get(“ID”)
-dnf.key(</p>
-<blockquote>
-<div><p>name=”Add the Docker CentOS gpg key”,
-src=f”<a class="reference external" href="https://download.docker.com/linux">https://download.docker.com/linux</a>/{linux_id}/gpg”,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>key</strong>: filename or URL</p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>always returns one command, not idempotent</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">linux_id</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxDistribution</span><span class="p">)[</span><span class="s2">&quot;release_meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Docker CentOS gpg key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;https://download.docker.com/linux/</span><span class="si">{</span><span class="n">linux_id</span><span class="si">}</span><span class="s2">/gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="dnf-packages">
 <span id="operations-dnf-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.packages</span></code><a class="headerlink" href="#dnf-packages" title="Link to this heading">¶</a></h2>
@@ -220,38 +223,40 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>packages**: packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-update**: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">update</span></code> before installing packages
-clean**: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span></code> before installing packages
-nobest**: add the no best option to install
-extra_install_args**: additional arguments to the dnf install command
-extra_uninstall_args**: additional arguments to the dnf uninstall command</p>
-<p>ions:
-Package versions can be pinned as follows: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Update package list and install packages
-dnf.packages(</p>
-<blockquote>
-<div><p>name=’Install Vim and Vim enhanced’,
-packages=[“vim-enhanced”, “vim”],
-update=True,</p>
-</div></blockquote>
-<p>)</p>
-<p># Install the latest versions of packages (always check)
-dnf.packages(</p>
-<blockquote>
-<div><p>name=”Install latest Vim”,
-packages=[“vim”],
-latest=True,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>packages</strong>: packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">update</span></code> before installing packages</p></li>
+<li><p><strong>clean</strong>: run <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span></code> before installing packages</p></li>
+<li><p><strong>nobest</strong>: add the no best option to install</p></li>
+<li><p><strong>extra_install_args</strong>: additional arguments to the dnf install command</p></li>
+<li><p><strong>extra_uninstall_args</strong>: additional arguments to the dnf uninstall command</p></li>
+</ul>
+<dl class="simple">
+<dt>Versions:</dt><dd><p>Package versions can be pinned as follows: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></p>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Install Vim and Vim enhanced&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim-enhanced&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Install the latest versions of packages (always check)</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install latest Vim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="dnf-repo">
 <span id="operations-dnf-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.repo</span></code><a class="headerlink" href="#dnf-repo" title="Link to this heading">¶</a></h2>
@@ -262,38 +267,40 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: URL or name for the <code class="docutils literal notranslate"><span class="pre">.repo</span></code>   file
-present**: whether the <code class="docutils literal notranslate"><span class="pre">.repo</span></code> file should be present
-baseurl**: the baseurl of the repo (if <code class="docutils literal notranslate"><span class="pre">name</span></code> is not a URL)
-description**: optional verbose description
-enabled**: whether this repo is enabled
-gpgcheck**: whether set <code class="docutils literal notranslate"><span class="pre">gpgcheck=1</span></code>
-gpgkey**: the URL to the gpg key for this repo</p>
-<p>seurl``/<code class="docutils literal notranslate"><span class="pre">description</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgcheck</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgkey</span></code>:
-These are only valid when <code class="docutils literal notranslate"><span class="pre">name</span></code> is a filename (ie not a URL). This is
+<ul class="simple">
+<li><p><strong>src</strong>: URL or name for the <code class="docutils literal notranslate"><span class="pre">.repo</span></code>   file</p></li>
+<li><p><strong>present</strong>: whether the <code class="docutils literal notranslate"><span class="pre">.repo</span></code> file should be present</p></li>
+<li><p><strong>baseurl</strong>: the baseurl of the repo (if <code class="docutils literal notranslate"><span class="pre">name</span></code> is not a URL)</p></li>
+<li><p><strong>description</strong>: optional verbose description</p></li>
+<li><p><strong>enabled</strong>: whether this repo is enabled</p></li>
+<li><p><strong>gpgcheck</strong>: whether set <code class="docutils literal notranslate"><span class="pre">gpgcheck=1</span></code></p></li>
+<li><p><strong>gpgkey</strong>: the URL to the gpg key for this repo</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Baseurl</span></code>/<code class="docutils literal notranslate"><span class="pre">description</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgcheck</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgkey</span></code>:</dt><dd><p>These are only valid when <code class="docutils literal notranslate"><span class="pre">name</span></code> is a filename (ie not a URL). This is
 for manual construction of repository files. Use a URL to download and
 install remote repository files.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Download a repository file
-dnf.rpm(</p>
-<blockquote>
-<div><p>name=”Install Docker-CE repo via URL”,
-src=”<a class="reference external" href="https://download.docker.com/linux/centos/docker-ce.repo">https://download.docker.com/linux/centos/docker-ce.repo</a>”,</p>
-</div></blockquote>
-<p>)</p>
-<p># Create the repository file from baseurl/etc
-dnf.repo(</p>
-<blockquote>
-<div><p>name=”Add the Docker CentOS repo”,
-src=”DockerCE”,
-baseurl=”<a class="reference external" href="https://download.docker.com/linux/centos/7/$basearch/stable">https://download.docker.com/linux/centos/7/$basearch/stable</a>”,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a repository file</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Docker-CE repo via URL&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/centos/docker-ce.repo&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the repository file from baseurl/etc</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Docker CentOS repo&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;DockerCE&quot;</span><span class="p">,</span>
+    <span class="n">baseurl</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/centos/7/$basearch/stable&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="dnf-rpm">
 <span id="operations-dnf-rpm"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.rpm</span></code><a class="headerlink" href="#dnf-rpm" title="Link to this heading">¶</a></h2>
@@ -301,24 +308,27 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> package
-present**: whether ore not the package should exist on the system</p>
-<p>sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:
-If the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file isn’t downloaded, pyinfra can’t remove any existing
+<ul class="simple">
+<li><p><strong>src</strong>: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> package</p></li>
+<li><p><strong>present</strong>: whether ore not the package should exist on the system</p></li>
+</ul>
+<dl class="simple">
+<dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd><p>If the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file isn’t downloaded, pyinfra can’t remove any existing
 package as the file won’t exist until mid-deploy.</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<p>major_centos_version = host.get_fact(LinuxDistribution)[“major”]
-dnf.rpm(</p>
-<blockquote>
-<div><p>name=”Install EPEL rpm to enable EPEL repo”,
-src=f”<a class="reference external" href="https://dl.fedoraproject.org/pub/epel/epel-release-latest">https://dl.fedoraproject.org/pub/epel/epel-release-latest</a>-{major_centos_version}.noarch.rpm”,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">major_centos_version</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxDistribution</span><span class="p">)[</span><span class="s2">&quot;major&quot;</span><span class="p">]</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span>
+   <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install EPEL rpm to enable EPEL repo&quot;</span><span class="p">,</span>
+   <span class="n">src</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;https://dl.fedoraproject.org/pub/epel/epel-release-latest-</span><span class="si">{</span><span class="n">major_centos_version</span><span class="si">}</span><span class="s2">.noarch.rpm&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="dnf-update">
 <span id="operations-dnf-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.update</span></code><a class="headerlink" href="#dnf-update" title="Link to this heading">¶</a></h2>

@@ -23,83 +23,83 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
         end: str | None=None, **kwargs,
     )
 
-path**: target remote file
-content**: what should be present in the file (between markers).
-present**: whether the content should be present in the file
-before**: should the content be added before ``line`` if it doesn't exist
-after**: should the content be added after ``line`` if it doesn't exist
-line**: regex before or after which the content should be added if it doesn't exist.
-backup**: whether to backup the file (see ``files.line``). Default False.
-escape_regex_characters**: whether to escape regex characters from the matching line
-try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
-marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
-begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
-end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
++ **path**: target remote file
++ **content**: what should be present in the file (between markers).
++ **present**: whether the content should be present in the file
++ **before**: should the content be added before ``line`` if it doesn't exist
++ **after**: should the content be added after ``line`` if it doesn't exist
++ **line**: regex before or after which the content should be added if it doesn't exist.
++ **backup**: whether to backup the file (see ``files.line``). Default False.
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
++ **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
++ **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
++ **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
 
-ent appended if ``line`` not found in the file
-If ``content`` is not in the file but is required (``present=True``) and ``line`` is not
-found in the file, ``content`` (surrounded by markers) will be appended to the file.  The
-file is created if necessary.
+Content appended if ``line`` not found in the file
+    If ``content`` is not in the file but is required (``present=True``) and ``line`` is not
+    found in the file, ``content`` (surrounded by markers) will be appended to the file.  The
+    file is created if necessary.
 
-ent prepended or appended if ``line`` not specified
-If ``content`` is not in the file but is required and ``line`` was not provided the content
-will either be  prepended to the file (if both ``before`` and ``after``
-are ``True``) or appended to the file (if both are ``False``).
+Content prepended or appended if ``line`` not specified
+    If ``content`` is not in the file but is required and ``line`` was not provided the content
+    will either be  prepended to the file (if both ``before`` and ``after``
+    are ``True``) or appended to the file (if both are ``False``).
 
-he file is created, it is created with the default umask; otherwise the umask is preserved
-s the owner.
+If the file is created, it is created with the default umask; otherwise the umask is preserved
+as is the owner.
 
-val ignores ``content`` and ``line``
+Removal ignores ``content`` and ``line``
 
-enting shell expansion works by wrapping the content in '`' before passing to `awk`.
-ING: This will break if the content contains raw single quotes.
+Preventing shell expansion works by wrapping the content in '`' before passing to `awk`.
+WARNING: This will break if the content contains raw single quotes.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# add entry to /etc/host
-files.block(
-    name="add IP address for red server",
-    path="/etc/hosts",
-    content="10.0.0.1 mars-one",
-    before=True,
-    line=".*localhost",
-)
+    # add entry to /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one",
+        before=True,
+        line=".*localhost",
+    )
 
-# have two entries in /etc/host
-files.block(
-    name="add IP address for red server",
-    path="/etc/hosts",
-    content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
-    before=True,
-    line=".*localhost",
-)
+    # have two entries in /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
+        before=True,
+        line=".*localhost",
+    )
 
-# remove marked entry from /etc/hosts
-files.block(
-    name="remove all 10.* addresses from /etc/hosts",
-    path="/etc/hosts",
-    present=False
-)
+    # remove marked entry from /etc/hosts
+    files.block(
+        name="remove all 10.* addresses from /etc/hosts",
+        path="/etc/hosts",
+        present=False
+    )
 
-# add out of date warning to web page
-files.block(
-    name="add out of date warning to web page",
-    path="/var/www/html/something.html",
-    content= "<p>Warning: this page is out of date.</p>",
-    line=".*<body>.*",
-    after=True
-    marker="<!-- {mark} PYINFRA BLOCK -->",
-)
+    # add out of date warning to web page
+    files.block(
+        name="add out of date warning to web page",
+        path="/var/www/html/something.html",
+        content= "<p>Warning: this page is out of date.</p>",
+        line=".*<body>.*",
+        after=True
+        marker="<!-- {mark} PYINFRA BLOCK -->",
+    )
 
-# put complex alias into .zshrc
-files.block(
-    path="/home/user/.zshrc",
-    content="eval $(thefuck -a)",
-    try_prevent_shell_expansion=True,
-    marker="## {mark} ALIASES ##"
-)
+    # put complex alias into .zshrc
+    files.block(
+        path="/home/user/.zshrc",
+        content="eval $(thefuck -a)",
+        try_prevent_shell_expansion=True,
+        marker="## {mark} ALIASES ##"
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -119,45 +119,45 @@ Add/remove/update directories.
         force_backup_dir: str | None=None, **kwargs,
     )
 
-path**: path of the remote folder
-present**: whether the folder should exist
-user**: user to own the folder
-group**: group to own the folder
-mode**: permissions of the folder
-recursive**: recursively apply user/group/mode
-force**: if the target exists and is not a file, move or remove it and continue
-force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
-force_backup_dir**: directory to move any backup to when ``force=True``
++ **path**: path of the remote folder
++ **present**: whether the folder should exist
++ **user**: user to own the folder
++ **group**: group to own the folder
++ **mode**: permissions of the folder
++ **recursive**: recursively apply user/group/mode
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
-cursive``:
-Mode is only applied recursively if the base directory mode does not match
-the specified value.  User and group are both applied recursively if the
-base directory does not match either one; otherwise they are unchanged for
-the whole tree.
+``recursive``:
+    Mode is only applied recursively if the base directory mode does not match
+    the specified value.  User and group are both applied recursively if the
+    base directory does not match either one; otherwise they are unchanged for
+    the whole tree.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-files.directory(
-    name="Ensure the /tmp/dir_that_we_want_removed is removed",
-    path="/tmp/dir_that_we_want_removed",
-    present=False,
-)
-
-files.directory(
-    name="Ensure /web exists",
-    path="/web",
-    user="myweb",
-    group="myweb",
-)
-
-# Multiple directories
-for dir in ["/netboot/tftp", "/netboot/nfs"]:
     files.directory(
-        name="Ensure the directory `{}` exists".format(dir),
-        path=dir,
+        name="Ensure the /tmp/dir_that_we_want_removed is removed",
+        path="/tmp/dir_that_we_want_removed",
+        present=False,
     )
+
+    files.directory(
+        name="Ensure /web exists",
+        path="/web",
+        user="myweb",
+        group="myweb",
+    )
+
+    # Multiple directories
+    for dir in ["/netboot/tftp", "/netboot/nfs"]:
+        files.directory(
+            name="Ensure the directory `{}` exists".format(dir),
+            path=dir,
+        )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -180,33 +180,33 @@ Download files from remote locations using ``curl`` or ``wget``.
         extra_wget_args: dict[str, str] | None=None, **kwargs,
     )
 
-src**: source URL of the file
-dest**: where to save the file
-user**: user to own the files
-group**: group to own the files
-mode**: permissions of the files
-cache_time**: if the file exists already, re-download after this time (in seconds)
-force**: always download the file, even if it already exists
-sha384sum**: sha384 hash to checksum the downloaded file against
-sha256sum**: sha256 hash to checksum the downloaded file against
-sha1sum**: sha1 hash to checksum the downloaded file against
-md5sum**: md5 hash to checksum the downloaded file against
-headers**: optional dictionary of headers to set for the HTTP request
-insecure**: disable SSL verification for the HTTP request
-proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
-temp_dir**: use this custom temporary directory during the download
-extra_curl_args**: optional dictionary with custom arguments for curl
-extra_wget_args**: optional dictionary with custom arguments for wget
++ **src**: source URL of the file
++ **dest**: where to save the file
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files
++ **cache_time**: if the file exists already, re-download after this time (in seconds)
++ **force**: always download the file, even if it already exists
++ **sha384sum**: sha384 hash to checksum the downloaded file against
++ **sha256sum**: sha256 hash to checksum the downloaded file against
++ **sha1sum**: sha1 hash to checksum the downloaded file against
++ **md5sum**: md5 hash to checksum the downloaded file against
++ **headers**: optional dictionary of headers to set for the HTTP request
++ **insecure**: disable SSL verification for the HTTP request
++ **proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
++ **temp_dir**: use this custom temporary directory during the download
++ **extra_curl_args**: optional dictionary with custom arguments for curl
++ **extra_wget_args**: optional dictionary with custom arguments for wget
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-files.download(
-    name="Download the Docker repo file",
-    src="https://download.docker.com/linux/centos/docker-ce.repo",
-    dest="/etc/yum.repos.d/docker-ce.repo",
-)
+    files.download(
+        name="Download the Docker repo file",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
+        dest="/etc/yum.repos.d/docker-ce.repo",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -226,36 +226,36 @@ Add/remove/update files.
         force_backup=True, force_backup_dir: str | None=None, **kwargs,
     )
 
-path**: name/path of the remote file
-present**: whether the file should exist
-user**: user to own the files
-group**: group to own the files
-mode**: permissions of the files as an integer, eg: 755
-touch**: whether to touch the file
-create_remote_dir**: create the remote directory if it doesn't exist
-force**: if the target exists and is not a file, move or remove it and continue
-force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
-force_backup_dir**: directory to move any backup to when ``force=True``
++ **path**: name/path of the remote file
++ **present**: whether the file should exist
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files as an integer, eg: 755
++ **touch**: whether to touch the file
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
-eate_remote_dir``:
-If the remote directory does not exist it will be created using the same
-user & group as passed to ``files.put``. The mode will *not* be copied over,
-if this is required call ``files.directory`` separately.
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-# Note: The directory /tmp/secret will get created with the default umask.
-files.file(
-    name="Create /tmp/secret/file",
-    path="/tmp/secret/file",
-    mode="600",
-    user="root",
-    group="root",
-    touch=True,
-    create_remote_dir=True,
-)
+    # Note: The directory /tmp/secret will get created with the default umask.
+    files.file(
+        name="Create /tmp/secret/file",
+        path="/tmp/secret/file",
+        mode="600",
+        user="root",
+        group="root",
+        touch=True,
+        create_remote_dir=True,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -271,28 +271,28 @@ Set/clear file flags.
 
     files.flags(path: str, flags: list[str] | None=None, present=True, **kwargs)
 
-path**: path of the remote folder
-flags**: a list of the file flags to be set or cleared
-present**: whether the flags should be set or cleared
++ **path**: path of the remote folder
++ **flags**: a list of the file flags to be set or cleared
++ **present**: whether the flags should be set or cleared
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-files.flags(
-    name="Ensure ~/Library is visible in the GUI",
-    path="~/Library",
-    flags="hidden",
-    present=False
-)
+    files.flags(
+        name="Ensure ~/Library is visible in the GUI",
+        path="~/Library",
+        flags="hidden",
+        present=False
+    )
 
-files.directory(
-    name="Ensure no one can change these files",
-    path="/something/very/important",
-    flags=["uchg", "schg"],
-    present=True,
-    _sudo=True
-)
+    files.directory(
+        name="Ensure no one can change these files",
+        path="/something/very/important",
+        flags=["uchg", "schg"],
+        present=True,
+        _sudo=True
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -314,25 +314,25 @@ Download a file from the remote system.
 
     files.get(src: str, dest: str, add_deploy_dir=True, create_local_dir=False, force=False, **kwargs)
 
-src**: the remote filename to download
-dest**: the local filename to download the file to
-add_deploy_dir**: dest is relative to the deploy directory
-create_local_dir**: create the local directory if it doesn't exist
-force**: always download the file, even if the local copy matches
++ **src**: the remote filename to download
++ **dest**: the local filename to download the file to
++ **add_deploy_dir**: dest is relative to the deploy directory
++ **create_local_dir**: create the local directory if it doesn't exist
++ **force**: always download the file, even if the local copy matches
 
-:
-This operation is not suitable for large files as it may involve copying
-the remote file before downloading it.
+Note:
+    This operation is not suitable for large files as it may involve copying
+    the remote file before downloading it.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-files.get(
-    name="Download a file from a remote",
-    src="/etc/centos-release",
-    dest="/tmp/whocares",
-)
+    files.get(
+        name="Download a file from a remote",
+        src="/etc/centos-release",
+        dest="/tmp/whocares",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -352,84 +352,84 @@ Ensure lines in files using grep to locate and sed to replace.
         escape_regex_characters=False, ensure_newline=False, **kwargs,
     )
 
-path**: target remote file to edit
-line**: string or regex matching the target line
-present**: whether the line should be in the file
-replace**: text to replace entire matching lines when ``present=True``
-flags**: list of flags to pass to sed when replacing/deleting
-backup**: whether to backup the file (see below)
-interpolate_variables**: whether to interpolate variables in ``replace``
-escape_regex_characters**: whether to escape regex characters from the matching line
-ensure_newline**: ensures that the appended line is on a new line
++ **path**: target remote file to edit
++ **line**: string or regex matching the target line
++ **present**: whether the line should be in the file
++ **replace**: text to replace entire matching lines when ``present=True``
++ **flags**: list of flags to pass to sed when replacing/deleting
++ **backup**: whether to backup the file (see below)
++ **interpolate_variables**: whether to interpolate variables in ``replace``
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **ensure_newline**: ensures that the appended line is on a new line
 
-x line matching:
-Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
-it does, like: ``^.*LINE.*$``. This means we don't swap parts of lines out. To
-change bits of lines, see ``files.replace``.
+Regex line matching:
+    Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
+    it does, like: ``^.*LINE.*$``. This means we don't swap parts of lines out. To
+    change bits of lines, see ``files.replace``.
 
-x line escaping:
-If matching special characters (eg a crontab line containing ``*``), remember to escape
-it first using Python's ``re.escape``.
+Regex line escaping:
+    If matching special characters (eg a crontab line containing ``*``), remember to escape
+    it first using Python's ``re.escape``.
 
-up:
-If set to ``True``, any editing of the file will place an old copy with the ISO
-date (taken from the machine running ``pyinfra``) appended as the extension. If
-you pass a string value this will be used as the extension of the backed up file.
+Backup:
+    If set to ``True``, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running ``pyinfra``) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.
 
-nd:
-If ``line`` is not in the file but we want it (``present`` set to ``True``), then
-it will be append to the end of the file.
+Append:
+    If ``line`` is not in the file but we want it (``present`` set to ``True``), then
+    it will be append to the end of the file.
 
-re new line:
-This will ensure that the ``line`` being appended is always on a separate new
-line in case the file doesn't end with a newline character.
+Ensure new line:
+    This will ensure that the ``line`` being appended is always on a separate new
+    line in case the file doesn't end with a newline character.
 
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# prepare to do some maintenance
-maintenance_line = "SYSTEM IS DOWN FOR MAINTENANCE"
-files.line(
-    name="Add the down-for-maintenance line in /etc/motd",
-    path="/etc/motd",
-    line=maintenance_line,
-)
+    # prepare to do some maintenance
+    maintenance_line = "SYSTEM IS DOWN FOR MAINTENANCE"
+    files.line(
+        name="Add the down-for-maintenance line in /etc/motd",
+        path="/etc/motd",
+        line=maintenance_line,
+    )
 
-# Then, after the maintenance is done, remove the maintenance line
-files.line(
-    name="Remove the down-for-maintenance line in /etc/motd",
-    path="/etc/motd",
-    line=maintenance_line,
-    replace="",
-    present=False,
-)
+    # Then, after the maintenance is done, remove the maintenance line
+    files.line(
+        name="Remove the down-for-maintenance line in /etc/motd",
+        path="/etc/motd",
+        line=maintenance_line,
+        replace="",
+        present=False,
+    )
 
-# example where there is '*' in the line
-files.line(
-    name="Ensure /netboot/nfs is in /etc/exports",
-    path="/etc/exports",
-    line=r"/netboot/nfs .*",
-    replace="/netboot/nfs *(ro,sync,no_wdelay,insecure_locks,no_root_squash,"
-    "insecure,no_subtree_check)",
-)
+    # example where there is '*' in the line
+    files.line(
+        name="Ensure /netboot/nfs is in /etc/exports",
+        path="/etc/exports",
+        line=r"/netboot/nfs .*",
+        replace="/netboot/nfs *(ro,sync,no_wdelay,insecure_locks,no_root_squash,"
+        "insecure,no_subtree_check)",
+    )
 
-files.line(
-    name="Ensure myweb can run /usr/bin/python3 without password",
-    path="/etc/sudoers",
-    line=r"myweb .*",
-    replace="myweb ALL=(ALL) NOPASSWD: /usr/bin/python3",
-)
+    files.line(
+        name="Ensure myweb can run /usr/bin/python3 without password",
+        path="/etc/sudoers",
+        line=r"myweb .*",
+        replace="myweb ALL=(ALL) NOPASSWD: /usr/bin/python3",
+    )
 
-# example when there are double quotes (")
-line = 'QUOTAUSER=""'
-files.line(
-    name="Example with double quotes (")",
-    path="/etc/adduser.conf",
-    line="^{}$".format(line),
-    replace=line,
-)
+    # example when there are double quotes (")
+    line = 'QUOTAUSER=""'
+    files.line(
+        name="Example with double quotes (")",
+        path="/etc/adduser.conf",
+        line="^{}$".format(line),
+        replace=line,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -449,35 +449,35 @@ Add/remove/update links.
         force_backup=True, force_backup_dir: str | None=None, **kwargs,
     )
 
-path**: the name of the link
-target**: the file/directory the link points to
-present**: whether the link should exist
-user**: user to own the link
-group**: group to own the link
-symbolic**: whether to make a symbolic link (vs hard link)
-create_remote_dir**: create the remote directory if it doesn't exist
-force**: if the target exists and is not a file, move or remove it and continue
-force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
-force_backup_dir**: directory to move any backup to when ``force=True``
++ **path**: the name of the link
++ **target**: the file/directory the link points to
++ **present**: whether the link should exist
++ **user**: user to own the link
++ **group**: group to own the link
++ **symbolic**: whether to make a symbolic link (vs hard link)
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
 
-eate_remote_dir``:
-If the remote directory does not exist it will be created using the same
-user & group as passed to ``files.put``. The mode will *not* be copied over,
-if this is required call ``files.directory`` separately.
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
 
-ce changes:
-If the link exists and points to a different target, pyinfra will remove it and
-recreate a new one pointing to then new target.
+Source changes:
+    If the link exists and points to a different target, pyinfra will remove it and
+    recreate a new one pointing to then new target.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-files.link(
-    name="Create link /etc/issue2 that points to /etc/issue",
-    path="/etc/issue2",
-    target="/etc/issue",
-)
+    files.link(
+        name="Create link /etc/issue2 that points to /etc/issue",
+        path="/etc/issue2",
+        target="/etc/issue",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -493,9 +493,9 @@ Move remote file/directory/link into remote directory
 
     files.move(src: str, dest: str, overwrite=False, **kwargs)
 
-src**: remote file/directory to move
-dest**: remote directory to move `src` into
-overwrite**: whether to overwrite dest, if present
++ **src**: remote file/directory to move
++ **dest**: remote directory to move `src` into
++ **overwrite**: whether to overwrite dest, if present
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -516,78 +516,78 @@ Upload a local file, or file-like object, to the remote system.
         mtime: datetime | float | int | str | bool | None=None, **kwargs,
     )
 
-src**: filename or IO-like object to upload
-dest**: remote filename to upload to
-user**: user to own the files
-group**: group to own the files
-mode**: permissions of the files, use ``True`` to copy the local file
-add_deploy_dir**: src is relative to the deploy directory
-create_remote_dir**: create the remote directory if it doesn't exist
-force**: always upload the file, even if the remote copy matches
-assume_exists**: whether to assume the local file exists
-atime**: value of atime the file should have, use ``True`` to match the local file
-mtime**: value of mtime the file should have, use ``True`` to match the local file
++ **src**: filename or IO-like object to upload
++ **dest**: remote filename to upload to
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files, use ``True`` to copy the local file
++ **add_deploy_dir**: src is relative to the deploy directory
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: always upload the file, even if the remote copy matches
++ **assume_exists**: whether to assume the local file exists
++ **atime**: value of atime the file should have, use ``True`` to match the local file
++ **mtime**: value of mtime the file should have, use ``True`` to match the local file
 
-st``:
-If this is a directory that already exists on the remote side, the local
-file will be uploaded to that directory with the same filename.
+``dest``:
+    If this is a directory that already exists on the remote side, the local
+    file will be uploaded to that directory with the same filename.
 
-de``:
-When set to ``True`` the permissions of the local file are applied to the
-remote file after the upload is complete.  If set to an octal value with
-digits for at least user, group, and other, either as an ``int`` or
-``str``, those permissions will be used.
+``mode``:
+    When set to ``True`` the permissions of the local file are applied to the
+    remote file after the upload is complete.  If set to an octal value with
+    digits for at least user, group, and other, either as an ``int`` or
+    ``str``, those permissions will be used.
 
-eate_remote_dir``:
-If the remote directory does not exist it will be created using the same
-user & group as passed to ``files.put``. The mode will *not* be copied over,
-if this is required call ``files.directory`` separately.
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
 
-ime`` and ``mtime``:
-When set to values other than ``False`` or ``None``, the respective metadata
-fields on the remote file will updated accordingly.  Timestamp values are
-considered equivalent if the difference is less than one second and they have
-the identical number in the seconds field.  If set to ``True`` the local
-file is the source of the value.  Otherwise, these values can be provided as
-``datetime`` objects, POSIX timestamps, or strings that can be parsed into
-either of these date and time specifications.  They can also be reference file
-paths on the remote host, as with the ``-r`` argument to ``touch``.  If a
-``datetime`` argument has no ``tzinfo`` value (i.e., it is naive), it is
-assumed to be in the remote host's local timezone.  There is no shortcut for
-setting both ``atime` and ``mtime`` values with a single time specification,
-unlike the native ``touch`` command.
+``atime`` and ``mtime``:
+    When set to values other than ``False`` or ``None``, the respective metadata
+    fields on the remote file will updated accordingly.  Timestamp values are
+    considered equivalent if the difference is less than one second and they have
+    the identical number in the seconds field.  If set to ``True`` the local
+    file is the source of the value.  Otherwise, these values can be provided as
+    ``datetime`` objects, POSIX timestamps, or strings that can be parsed into
+    either of these date and time specifications.  They can also be reference file
+    paths on the remote host, as with the ``-r`` argument to ``touch``.  If a
+    ``datetime`` argument has no ``tzinfo`` value (i.e., it is naive), it is
+    assumed to be in the remote host's local timezone.  There is no shortcut for
+    setting both ``atime` and ``mtime`` values with a single time specification,
+    unlike the native ``touch`` command.
 
-s:
-This operation is not suitable for large files as it may involve copying
-the file before uploading it.
+Notes:
+    This operation is not suitable for large files as it may involve copying
+    the file before uploading it.
 
-Currently, if the mode argument is anything other than a ``bool`` or a full
-octal permission set and the remote file exists, the operation will always
-behave as if the remote file does not match the specified permissions and
-requires a change.
+    Currently, if the mode argument is anything other than a ``bool`` or a full
+    octal permission set and the remote file exists, the operation will always
+    behave as if the remote file does not match the specified permissions and
+    requires a change.
 
-If the ``atime`` argument is set for a given file, unless the remote
-filesystem is mounted ``noatime`` or ``relatime``, multiple runs of this
-operation will trigger the change detection for that file, since the act of
-reading and checksumming the file will cause the host OS to update the file's
-``atime``.
+    If the ``atime`` argument is set for a given file, unless the remote
+    filesystem is mounted ``noatime`` or ``relatime``, multiple runs of this
+    operation will trigger the change detection for that file, since the act of
+    reading and checksumming the file will cause the host OS to update the file's
+    ``atime``.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-files.put(
-    name="Update the message of the day file",
-    src="files/motd",
-    dest="/etc/motd",
-    mode="644",
-)
+    files.put(
+        name="Update the message of the day file",
+        src="files/motd",
+        dest="/etc/motd",
+        mode="644",
+    )
 
-files.put(
-    name="Upload a StringIO object",
-    src=StringIO("file contents"),
-    dest="/etc/motd",
-)
+    files.put(
+        name="Upload a StringIO object",
+        src=StringIO("file contents"),
+        dest="/etc/motd",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -606,28 +606,28 @@ Replace contents of a file using ``sed``.
         backup=False, interpolate_variables=False, match=None, **kwargs,
     )
 
-path**: target remote file to edit
-text**: text/regex to match against
-replace**: text to replace with
-flags**: list of flags to pass to sed
-backup**: whether to backup the file (see below)
-interpolate_variables**: whether to interpolate variables in ``replace``
++ **path**: target remote file to edit
++ **text**: text/regex to match against
++ **replace**: text to replace with
++ **flags**: list of flags to pass to sed
++ **backup**: whether to backup the file (see below)
++ **interpolate_variables**: whether to interpolate variables in ``replace``
 
-up:
-If set to ``True``, any editing of the file will place an old copy with the ISO
-date (taken from the machine running ``pyinfra``) appended as the extension. If
-you pass a string value this will be used as the extension of the backed up file.
+Backup:
+    If set to ``True``, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running ``pyinfra``) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-files.replace(
-    name="Change part of a line in a file",
-    path="/etc/motd",
-    text="verboten",
-    replace="forbidden",
-)
+    files.replace(
+        name="Change part of a line in a file",
+        path="/etc/motd",
+        text="verboten",
+        replace="forbidden",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -650,14 +650,14 @@ the ``rsync`` binary on your system.
 
     files.rsync(src: str, dest: str, flags: list[str] | None=None, **kwargs)
 
-mportant::
-The ``files.rsync`` operation is in alpha, and only supported using SSH
-or ``@local`` connectors. When using the SSH connector, rsync will automatically use the
-StrictHostKeyChecking setting, config and known_hosts file (when specified).
+.. important::
+    The ``files.rsync`` operation is in alpha, and only supported using SSH
+    or ``@local`` connectors. When using the SSH connector, rsync will automatically use the
+    StrictHostKeyChecking setting, config and known_hosts file (when specified).
 
-aution::
-When using SSH, the ``files.rsync`` operation only supports the ``sudo`` and ``sudo_user``
-global arguments.
+.. caution::
+    When using SSH, the ``files.rsync`` operation only supports the ``sudo`` and ``sudo_user``
+    global arguments.
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -679,35 +679,35 @@ remove extra files on the remote side, but not extra directories.
         exclude_dir: str | list[str] | tuple[str] | None=None, add_deploy_dir=True, **kwargs,
     )
 
-src**: local directory to sync
-dest**: remote directory to sync to
-user**: user to own the files and directories
-group**: group to own the files and directories
-mode**: permissions of the files
-dir_mode**: permissions of the directories
-delete**: delete remote files not present locally
-exclude**: string or list/tuple of strings to match & exclude files (eg ``*.pyc``)
-exclude_dir**: string or list/tuple of strings to match & exclude directories (eg node_modules)
-add_deploy_dir**: interpret src as relative to deploy directory instead of current directory
++ **src**: local directory to sync
++ **dest**: remote directory to sync to
++ **user**: user to own the files and directories
++ **group**: group to own the files and directories
++ **mode**: permissions of the files
++ **dir_mode**: permissions of the directories
++ **delete**: delete remote files not present locally
++ **exclude**: string or list/tuple of strings to match & exclude files (eg ``*.pyc``)
++ **exclude_dir**: string or list/tuple of strings to match & exclude directories (eg node_modules)
++ **add_deploy_dir**: interpret src as relative to deploy directory instead of current directory
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-# Sync local files/tempdir to remote /tmp/tempdir
-files.sync(
-    name="Sync a local directory with remote",
-    src="files/tempdir",
-    dest="/tmp/tempdir",
-)
+    # Sync local files/tempdir to remote /tmp/tempdir
+    files.sync(
+        name="Sync a local directory with remote",
+        src="files/tempdir",
+        dest="/tmp/tempdir",
+    )
 
-: ``exclude`` and ``exclude_dir`` use ``fnmatch`` behind the scenes to do the filtering.
+Note: ``exclude`` and ``exclude_dir`` use ``fnmatch`` behind the scenes to do the filtering.
 
-exclude`` matches against the filename.
-exclude_dir`` matches against the path of the directory, relative to ``src``.
-nce fnmatch does not treat path separators (``/`` or ``\``) as special characters,
-cluding all directories matching a given name, however deep under ``src`` they are,
-n be done for example with ``exclude_dir=["__pycache__", "*/__pycache__"]``
++ ``exclude`` matches against the filename.
++ ``exclude_dir`` matches against the path of the directory, relative to ``src``.
+  Since fnmatch does not treat path separators (``/`` or ``\``) as special characters,
+  excluding all directories matching a given name, however deep under ``src`` they are,
+  can be done for example with ``exclude_dir=["__pycache__", "*/__pycache__"]``
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -727,99 +727,99 @@ Generate a template using jinja2 and write it to the remote system.
         jinja_env_kwargs: dict[str, Any] | None=None, **kwargs,
     )
 
-src**: template filename or IO-like object
-dest**: remote filename
-user**: user to own the files
-group**: group to own the files
-mode**: permissions of the files
-create_remote_dir**: create the remote directory if it doesn't exist
-jinja_env_kwargs**: keyword arguments to be passed into the jinja Environment()
++ **src**: template filename or IO-like object
++ **dest**: remote filename
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **jinja_env_kwargs**: keyword arguments to be passed into the jinja Environment()
 
-eate_remote_dir``:
-If the remote directory does not exist it will be created using the same
-user & group as passed to ``files.put``. The mode will *not* be copied over,
-if this is required call ``files.directory`` separately.
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
 
-nja_env_kwargs``:
-To have more control over how jinja2 renders your template, you can pass
-a dict with arguments that will be passed as keyword args to the jinja2
-`Environment() <https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment>`_.
+``jinja_env_kwargs``:
+    To have more control over how jinja2 renders your template, you can pass
+    a dict with arguments that will be passed as keyword args to the jinja2
+    `Environment() <https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment>`_.
 
-``host``, ``state``, and ``inventory`` objects will be automatically passed to the template
-ot set explicitly.
+The ``host``, ``state``, and ``inventory`` objects will be automatically passed to the template
+if not set explicitly.
 
-s:
-ommon convention is to store templates in a "templates" directory and
-ave a filename suffix with '.j2' (for jinja2).
+Notes:
+   Common convention is to store templates in a "templates" directory and
+   have a filename suffix with '.j2' (for jinja2).
 
-or information on the template syntax, see
-the jinja2 docs <https://jinja.palletsprojects.com>`_.
+   For information on the template syntax, see
+   `the jinja2 docs <https://jinja.palletsprojects.com>`_.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-files.template(
-    name="Create a templated file",
-    src="templates/somefile.conf.j2",
-    dest="/etc/somefile.conf",
-)
+    files.template(
+        name="Create a templated file",
+        src="templates/somefile.conf.j2",
+        dest="/etc/somefile.conf",
+    )
 
-files.template(
-    name="Create service file",
-    src="templates/myweb.service.j2",
-    dest="/etc/systemd/system/myweb.service",
-    mode="755",
-    user="root",
-    group="root",
-)
+    files.template(
+        name="Create service file",
+        src="templates/myweb.service.j2",
+        dest="/etc/systemd/system/myweb.service",
+        mode="755",
+        user="root",
+        group="root",
+    )
 
-# Example showing how to pass python variable to template file. You can also
-# use dicts and lists. The .j2 file can use `{{ foo_variable }}` to be interpolated.
-foo_variable = 'This is some foo variable contents'
-foo_dict = {
-    "str1": "This is string 1",
-    "str2": "This is string 2"
-}
-foo_list = [
-    "entry 1",
-    "entry 2"
-]
+    # Example showing how to pass python variable to template file. You can also
+    # use dicts and lists. The .j2 file can use `{{ foo_variable }}` to be interpolated.
+    foo_variable = 'This is some foo variable contents'
+    foo_dict = {
+        "str1": "This is string 1",
+        "str2": "This is string 2"
+    }
+    foo_list = [
+        "entry 1",
+        "entry 2"
+    ]
 
-template = StringIO("""
-name: "{{ foo_variable }}"
-dict_contents:
-    str1: "{{ foo_dict.str1 }}"
-    str2: "{{ foo_dict.str2 }}"
-list_contents:
-{% for entry in foo_list %}
-    - "{{ entry }}"
-{% endfor %}
-""")
+    template = StringIO("""
+    name: "{{ foo_variable }}"
+    dict_contents:
+        str1: "{{ foo_dict.str1 }}"
+        str2: "{{ foo_dict.str2 }}"
+    list_contents:
+    {% for entry in foo_list %}
+        - "{{ entry }}"
+    {% endfor %}
+    """)
 
-files.template(
-    name="Create a templated file",
-    src=template,
-    dest="/tmp/foo.yml",
-    foo_variable=foo_variable,
-    foo_dict=foo_dict,
-    foo_list=foo_list
-)
+    files.template(
+        name="Create a templated file",
+        src=template,
+        dest="/tmp/foo.yml",
+        foo_variable=foo_variable,
+        foo_dict=foo_dict,
+        foo_list=foo_list
+    )
 
-# Example showing how to use host and inventory in a template file.
-template = StringIO("""
-name: "{{ host.name }}"
-list_contents:
-{% for entry in inventory.groups.my_servers %}
-    - "{{ entry }}"
-{% endfor %}
-""")
+    # Example showing how to use host and inventory in a template file.
+    template = StringIO("""
+    name: "{{ host.name }}"
+    list_contents:
+    {% for entry in inventory.groups.my_servers %}
+        - "{{ entry }}"
+    {% endfor %}
+    """)
 
-files.template(
-    name="Create a templated file",
-    src=template,
-    dest="/tmp/foo.yml"
-)
+    files.template(
+        name="Create a templated file",
+        src=template,
+        dest="/tmp/foo.yml"
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

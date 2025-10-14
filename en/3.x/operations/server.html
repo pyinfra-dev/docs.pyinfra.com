@@ -201,30 +201,30 @@ Linux/BSD.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">gid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>group**: name of the group to ensure
-present**: whether the group should be present or not
-system**: whether to create a system group
-gid**: use a specific groupid number</p>
-<p>em users:
-System users don’t exist on BSD, so the argument is ignored for BSD targets.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>group</strong>: name of the group to ensure</p></li>
+<li><p><strong>present</strong>: whether the group should be present or not</p></li>
+<li><p><strong>system</strong>: whether to create a system group</p></li>
+<li><p><strong>gid</strong>: use a specific groupid number</p></li>
+</ul>
 <dl class="simple">
-<dt>server.group(</dt><dd><p>name=”Create docker group”,
-group=”docker”,</p>
+<dt>System users:</dt><dd><p>System users don’t exist on BSD, so the argument is ignored for BSD targets.</p>
 </dd>
 </dl>
-<p>)</p>
-<p># multiple groups
-for group in [“wheel”, “lusers”]:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>server.group(</dt><dd><p>name=f”Create the group {group}”,
-group=group,</p>
-</dd>
-</dl>
-<p>)</p>
-</div></blockquote>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create docker group&quot;</span><span class="p">,</span>
+    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;docker&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># multiple groups</span>
+<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;wheel&quot;</span><span class="p">,</span> <span class="s2">&quot;lusers&quot;</span><span class="p">]:</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Create the group </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
@@ -236,26 +236,29 @@ group=group,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hostname_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>hostname**: the hostname that should be set
-hostname_file**: the file that permanently sets the hostname</p>
-<p>name file:
-The hostname file only matters no systems that do not have <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code>,
+<ul class="simple">
+<li><p><strong>hostname</strong>: the hostname that should be set</p></li>
+<li><p><strong>hostname_file</strong>: the file that permanently sets the hostname</p></li>
+</ul>
+<dl>
+<dt>Hostname file:</dt><dd><p>The hostname file only matters no systems that do not have <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code>,
 which is part of <code class="docutils literal notranslate"><span class="pre">systemd</span></code>.</p>
 <p>By default pyinfra will auto detect this by targeting <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>
 on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/myname</span></code> on OpenBSD.</p>
 <p>To completely disable writing the hostname file, set <code class="docutils literal notranslate"><span class="pre">hostname_file=False</span></code>.</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>server.hostname(</dt><dd><p>name=”Set the hostname”,
-hostname=”server1.example.com”,</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the hostname&quot;</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;server1.example.com&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="server-locale">
 <span id="operations-server-locale"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.locale</span></code><a class="headerlink" href="#server-locale" title="Link to this heading">¶</a></h2>
@@ -263,27 +266,27 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="n">locale</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>locale**: name of the locale to enable/disable
-present**: whether this locale should be present or not</p>
-<p>amples:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>locale</strong>: name of the locale to enable/disable</p></li>
+<li><p><strong>present</strong>: whether this locale should be present or not</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is not present&quot;</span><span class="p">,</span>
+    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is present&quot;</span><span class="p">,</span>
+    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.locale(</dt><dd><p>name=”Ensure en_GB.UTF-8 locale is not present”,
-locale=”en_GB.UTF-8”,
-present=False,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)</p>
-<dl class="simple">
-<dt>server.locale(</dt><dd><p>name=”Ensure en_GB.UTF-8 locale is present”,
-locale=”en_GB.UTF-8”,</p>
-</dd>
-</dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-modprobe">
 <span id="operations-server-modprobe"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code><a class="headerlink" href="#server-modprobe" title="Link to this heading">¶</a></h2>
@@ -291,21 +294,22 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>module**: name of the module to manage
-present**: whether the module should be loaded or not
-force**: whether to force any add/remove modules</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>module</strong>: name of the module to manage</p></li>
+<li><p><strong>present</strong>: whether the module should be loaded or not</p></li>
+<li><p><strong>force</strong>: whether to force any add/remove modules</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Silly example for modprobe&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;floppy&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.modprobe(</dt><dd><p>name=”Silly example for modprobe”,
-module=”floppy”,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-mount">
 <span id="operations-server-mount"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code><a class="headerlink" href="#server-mount" title="Link to this heading">¶</a></h2>
@@ -316,19 +320,21 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>path**: the path of the mounted filesystem
-mounted**: whether the filesystem should be mounted
-options**: the mount options</p>
-<p>ons:
-If the currently mounted filesystem does not have all of the provided
+<ul class="simple">
+<li><p><strong>path</strong>: the path of the mounted filesystem</p></li>
+<li><p><strong>mounted</strong>: whether the filesystem should be mounted</p></li>
+<li><p><strong>options</strong>: the mount options</p></li>
+</ul>
+<dl class="simple">
+<dt>Options:</dt><dd><p>If the currently mounted filesystem does not have all of the provided
 options it will be remounted with the options provided.</p>
-<p>tc/fstab``:
-This operation does not attempt to modify the on disk fstab file - for
-that you should use the <a class="reference external" href="./files.html#files-line">files.line operation</a>.
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>:</dt><dd><p>This operation does not attempt to modify the on disk fstab file - for
+that you should use the <a class="reference external" href="./files.html#files-line">files.line operation</a>.</p>
+</dd>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="server-packages">
 <span id="operations-server-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.packages</span></code><a class="headerlink" href="#server-packages" title="Link to this heading">¶</a></h2>
@@ -337,20 +343,21 @@ system package managers pyinfra can handle and executes the relevant operation.<
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>packages**: list of packages to ensure
-present**: whether the packages should be installed</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and vimpager&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.packages(</dt><dd><p>name=”Install Vim and vimpager”,
-packages=[“vimpager”, “vim”],</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-reboot">
 <span id="operations-server-reboot"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.reboot</span></code><a class="headerlink" href="#server-reboot" title="Link to this heading">¶</a></h2>
@@ -362,22 +369,23 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reboot_timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>delay**: number of seconds to wait before attempting reconnect
-interval**: interval (s) between reconnect attempts
-reboot_timeout**: total time before giving up reconnecting</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>delay</strong>: number of seconds to wait before attempting reconnect</p></li>
+<li><p><strong>interval</strong>: interval (s) between reconnect attempts</p></li>
+<li><p><strong>reboot_timeout</strong>: total time before giving up reconnecting</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reboot the server and wait to reconnect&quot;</span><span class="p">,</span>
+    <span class="n">delay</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">reboot_timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.reboot(</dt><dd><p>name=”Reboot the server and wait to reconnect”,
-delay=60,
-reboot_timeout=600,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-script">
 <span id="operations-server-script"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.script</span></code><a class="headerlink" href="#server-script" title="Link to this heading">¶</a></h2>
@@ -389,29 +397,29 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: local script filename to upload &amp; execute
-args**: iterable to pass as arguments to the script</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<p># Note: This assumes there is a file in files/hello.bash locally.
-server.script(</p>
-<blockquote>
-<div><p>name=”Hello”,
-src=”files/hello.bash”,</p>
-</div></blockquote>
-<p>)</p>
-<p># Example passing arguments to the script
-server.script(</p>
-<blockquote>
-<div><p>name=”Hello”,
-src=”files/hello.bash”,
-args=(“do-something”, “with-this”),</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>src</strong>: local script filename to upload &amp; execute</p></li>
+<li><p><strong>args</strong>: iterable to pass as arguments to the script</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This assumes there is a file in files/hello.bash locally.</span>
+<span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Example passing arguments to the script</span>
+<span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;do-something&quot;</span><span class="p">,</span> <span class="s2">&quot;with-this&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="server-script-template">
 <span id="operations-server-script-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.script_template</span></code><a class="headerlink" href="#server-script-template" title="Link to this heading">¶</a></h2>
@@ -423,25 +431,26 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">script_template</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: local script template filename</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<p># Example showing how to pass python variable to a script template file.
-# The .j2 file can use <cite>{{ some_var }}</cite> to be interpolated.
-# To see output need to run pyinfra with ‘-v’
-# Note: This assumes there is a file in templates/hello2.bash.j2 locally.
-some_var = ‘blah blah blah ‘
-server.script_template(</p>
-<blockquote>
-<div><p>name=”Hello from script”,
-src=”templates/hello2.bash.j2”,
-some_var=some_var,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>src</strong>: local script template filename</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example showing how to pass python variable to a script template file.</span>
+<span class="c1"># The .j2 file can use `{{ some_var }}` to be interpolated.</span>
+<span class="c1"># To see output need to run pyinfra with &#39;-v&#39;</span>
+<span class="c1"># Note: This assumes there is a file in templates/hello2.bash.j2 locally.</span>
+<span class="n">some_var</span> <span class="o">=</span> <span class="s1">&#39;blah blah blah &#39;</span>
+<span class="n">server</span><span class="o">.</span><span class="n">script_template</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello from script&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/hello2.bash.j2&quot;</span><span class="p">,</span>
+    <span class="n">some_var</span><span class="o">=</span><span class="n">some_var</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="server-security-limit">
 <span id="operations-server-security-limit"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.security_limit</span></code><a class="headerlink" href="#server-security-limit" title="Link to this heading">¶</a></h2>
@@ -449,25 +458,26 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">security_limit</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>domain**: the domain (user, group, or wildcard) for the limit
-limit_type**: the type of limit (hard or soft)
-item**: the item to limit (e.g., nofile, nproc)
-value**: the value for the limit</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>domain</strong>: the domain (user, group, or wildcard) for the limit</p></li>
+<li><p><strong>limit_type</strong>: the type of limit (hard or soft)</p></li>
+<li><p><strong>item</strong>: the item to limit (e.g., nofile, nproc)</p></li>
+<li><p><strong>value</strong>: the value for the limit</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">security_limit</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set nofile limit for all users&quot;</span><span class="p">,</span>
+    <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="n">limit_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span>
+    <span class="n">item</span><span class="o">=</span><span class="s1">&#39;nofile&#39;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>security_limit(</dt><dd><p>name=”Set nofile limit for all users”,
-domain=’*’,
-limit_type=’soft’,
-item=’nofile’,
-value=1024,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-service">
 <span id="operations-server-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.service</span></code><a class="headerlink" href="#server-service" title="Link to this heading">¶</a></h2>
@@ -479,25 +489,26 @@ Linux init systems pyinfra can handle and executes the relevant operation.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>service**: name of the service to manage
-running**: whether the service should be running
-restarted**: whether the service should be restarted
-reloaded**: whether the service should be reloaded
-command**: custom command execute
-enabled**: whether this service should be enabled/disabled on boot</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>service</strong>: name of the service to manage</p></li>
+<li><p><strong>running</strong>: whether the service should be running</p></li>
+<li><p><strong>restarted</strong>: whether the service should be restarted</p></li>
+<li><p><strong>reloaded</strong>: whether the service should be reloaded</p></li>
+<li><p><strong>command</strong>: custom command execute</p></li>
+<li><p><strong>enabled</strong>: whether this service should be enabled/disabled on boot</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable open-vm-tools service&quot;</span><span class="p">,</span>
+    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;open-vm-tools&quot;</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.service(</dt><dd><p>name=”Enable open-vm-tools service”,
-service=”open-vm-tools”,
-enabled=True,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-shell">
 <span id="operations-server-shell"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code><a class="headerlink" href="#server-shell" title="Link to this heading">¶</a></h2>
@@ -511,19 +522,20 @@ since facts are only run at the start of a deploy.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>commands**: command or list of commands to execute on the remote server</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>commands</strong>: command or list of commands to execute on the remote server</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run lxd auto init&quot;</span><span class="p">,</span>
+    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd init --auto&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.shell(</dt><dd><p>name=”Run lxd auto init”,
-commands=[“lxd init –auto”],</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-sysctl">
 <span id="operations-server-sysctl"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code><a class="headerlink" href="#server-sysctl" title="Link to this heading">¶</a></h2>
@@ -534,24 +546,25 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>key**: name of the sysctl setting to ensure
-value**: the value or list of values the sysctl should be
-persist**: whether to write this sysctl to the config
-persist_file**: file to write the sysctl to persist on reboot</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>key</strong>: name of the sysctl setting to ensure</p></li>
+<li><p><strong>value</strong>: the value or list of values the sysctl should be</p></li>
+<li><p><strong>persist</strong>: whether to write this sysctl to the config</p></li>
+<li><p><strong>persist_file</strong>: file to write the sysctl to persist on reboot</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Change the fs.file-max value&quot;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fs.file-max&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span>
+    <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.sysctl(</dt><dd><p>name=”Change the fs.file-max value”,
-key=”fs.file-max”,
-value=100000,
-persist=True,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="server-user">
 <span id="operations-server-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.user</span></code><a class="headerlink" href="#server-user" title="Link to this heading">¶</a></h2>
@@ -565,59 +578,56 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>user**: name of the user to ensure
-present**: whether this user should exist
-home**: the users home directory
-shell**: the users shell
-group**: the users primary group
-groups**: the users secondary groups
-append**: whether to add <cite>user</cite> to <cite>groups</cite>, w/o losing membership of other groups
-public_keys**: list of public keys to attach to this user, <code class="docutils literal notranslate"><span class="pre">home</span></code> must be specified
-delete_keys**: whether to remove any keys not specified in <code class="docutils literal notranslate"><span class="pre">public_keys</span></code>
-ensure_home**: whether to ensure the <code class="docutils literal notranslate"><span class="pre">home</span></code> directory exists
-create_home**: whether user create new user home directories from the system skeleton
-system**: whether to create a system account
-uid**: use a specific userid number
-comment**: the user GECOS comment
-unique**: prevent creating users with duplicate UID
-password**: set the encrypted password for the user</p>
-<blockquote>
-<div><p>directory:</p>
-</div></blockquote>
-<p>When <code class="docutils literal notranslate"><span class="pre">ensure_home</span></code> or <code class="docutils literal notranslate"><span class="pre">public_keys</span></code> are provided, <code class="docutils literal notranslate"><span class="pre">home</span></code> defaults to
+<ul class="simple">
+<li><p><strong>user</strong>: name of the user to ensure</p></li>
+<li><p><strong>present</strong>: whether this user should exist</p></li>
+<li><p><strong>home</strong>: the users home directory</p></li>
+<li><p><strong>shell</strong>: the users shell</p></li>
+<li><p><strong>group</strong>: the users primary group</p></li>
+<li><p><strong>groups</strong>: the users secondary groups</p></li>
+<li><p><strong>append</strong>: whether to add <cite>user</cite> to <cite>groups</cite>, w/o losing membership of other groups</p></li>
+<li><p><strong>public_keys</strong>: list of public keys to attach to this user, <code class="docutils literal notranslate"><span class="pre">home</span></code> must be specified</p></li>
+<li><p><strong>delete_keys</strong>: whether to remove any keys not specified in <code class="docutils literal notranslate"><span class="pre">public_keys</span></code></p></li>
+<li><p><strong>ensure_home</strong>: whether to ensure the <code class="docutils literal notranslate"><span class="pre">home</span></code> directory exists</p></li>
+<li><p><strong>create_home</strong>: whether user create new user home directories from the system skeleton</p></li>
+<li><p><strong>system</strong>: whether to create a system account</p></li>
+<li><p><strong>uid</strong>: use a specific userid number</p></li>
+<li><p><strong>comment</strong>: the user GECOS comment</p></li>
+<li><p><strong>unique</strong>: prevent creating users with duplicate UID</p></li>
+<li><p><strong>password</strong>: set the encrypted password for the user</p></li>
+</ul>
+<dl class="simple">
+<dt>Home directory:</dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">ensure_home</span></code> or <code class="docutils literal notranslate"><span class="pre">public_keys</span></code> are provided, <code class="docutils literal notranslate"><span class="pre">home</span></code> defaults to
 <code class="docutils literal notranslate"><span class="pre">/home/{name}</span></code>. When <code class="docutils literal notranslate"><span class="pre">create_home</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> any newly created users
 will be created with the <code class="docutils literal notranslate"><span class="pre">-m</span></code> flag to build a new home directory from the
 systems skeleton directory.</p>
-<p>ic keys:
-These can be provided as strings containing the public key or as a path to
+</dd>
+<dt>Public keys:</dt><dd><p>These can be provided as strings containing the public key or as a path to
 a public key file which pyinfra will read.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>server.user(</dt><dd><p>name=”Ensure user is removed”,
-user=”kevin”,
-present=False,</p>
 </dd>
 </dl>
-<p>)</p>
-<dl class="simple">
-<dt>server.user(</dt><dd><p>name=”Ensure myweb user exists”,
-user=”myweb”,
-shell=”/bin/bash”,</p>
-</dd>
-</dl>
-<p>)</p>
-<p># multiple users
-for user in [“kevin”, “bob”]:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>server.user(</dt><dd><p>name=f”Ensure user {user} is removed”,
-user=user,
-present=False,</p>
-</dd>
-</dl>
-<p>)</p>
-</div></blockquote>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user is removed&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure myweb user exists&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myweb&quot;</span><span class="p">,</span>
+    <span class="n">shell</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># multiple users</span>
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span> <span class="s2">&quot;bob&quot;</span><span class="p">]:</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Ensure user </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2"> is removed&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+        <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
@@ -633,26 +643,29 @@ present=False,</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>user**: name of the user to ensure
-public_keys**: list of public keys to attach to this user, <code class="docutils literal notranslate"><span class="pre">home</span></code> must be specified
-group**: the users primary group
-delete_keys**: whether to remove any keys not specified in <code class="docutils literal notranslate"><span class="pre">public_keys</span></code></p>
-<p>ic keys:
-These can be provided as strings containing the public key or as a path to
-a public key file which pyinfra will read.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>user</strong>: name of the user to ensure</p></li>
+<li><p><strong>public_keys</strong>: list of public keys to attach to this user, <code class="docutils literal notranslate"><span class="pre">home</span></code> must be specified</p></li>
+<li><p><strong>group</strong>: the users primary group</p></li>
+<li><p><strong>delete_keys</strong>: whether to remove any keys not specified in <code class="docutils literal notranslate"><span class="pre">public_keys</span></code></p></li>
+</ul>
 <dl class="simple">
-<dt>server.user_authorized_keys(</dt><dd><p>name=”Ensure user has a public key”,
-user=”kevin”,
-public_keys=[“ed25519…”],</p>
+<dt>Public keys:</dt><dd><p>These can be provided as strings containing the public key or as a path to
+a public key file which pyinfra will read.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user has a public key&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
+    <span class="n">public_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ed25519...&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="server-wait">
 <span id="operations-server-wait"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.wait</span></code><a class="headerlink" href="#server-wait" title="Link to this heading">¶</a></h2>
@@ -665,19 +678,20 @@ second.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>port**: port number to wait for</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>port</strong>: port number to wait for</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Wait for webserver to start&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>server.wait(</dt><dd><p>name=”Wait for webserver to start”,
-port=80,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 </section>
 

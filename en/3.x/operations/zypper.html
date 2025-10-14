@@ -192,39 +192,41 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>packages**: list of packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-update**: run <code class="docutils literal notranslate"><span class="pre">zypper</span> <span class="pre">update</span></code> before installing packages
-clean**: run <code class="docutils literal notranslate"><span class="pre">zypper</span> <span class="pre">clean</span> <span class="pre">--all</span></code> before installing packages
-extra_global_install_args**: additional global arguments to the zypper install command
-extra_install_args**: additional arguments to the zypper install command
-extra_global_uninstall_args**: additional global arguments to the zypper uninstall command
-extra_uninstall_args**: additional arguments to the zypper uninstall command</p>
-<p>ions:
-Package versions can be pinned like zypper: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Update package list and install packages
-zypper.packages(</p>
-<blockquote>
-<div><p>name=”Install Vim and Vim enhanced”,
-packages=[“vim-enhanced”, “vim”],
-update=True,</p>
-</div></blockquote>
-<p>)</p>
-<p># Install the latest versions of packages (always check)
-zypper.packages(</p>
-<blockquote>
-<div><p>name=”Install latest Vim”,
-packages=[“vim”],
-latest=True,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">zypper</span> <span class="pre">update</span></code> before installing packages</p></li>
+<li><p><strong>clean</strong>: run <code class="docutils literal notranslate"><span class="pre">zypper</span> <span class="pre">clean</span> <span class="pre">--all</span></code> before installing packages</p></li>
+<li><p><strong>extra_global_install_args</strong>: additional global arguments to the zypper install command</p></li>
+<li><p><strong>extra_install_args</strong>: additional arguments to the zypper install command</p></li>
+<li><p><strong>extra_global_uninstall_args</strong>: additional global arguments to the zypper uninstall command</p></li>
+<li><p><strong>extra_uninstall_args</strong>: additional arguments to the zypper uninstall command</p></li>
+</ul>
+<dl class="simple">
+<dt>Versions:</dt><dd><p>Package versions can be pinned like zypper: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code></p>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update package list and install packages</span>
+<span class="n">zypper</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and Vim enhanced&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim-enhanced&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Install the latest versions of packages (always check)</span>
+<span class="n">zypper</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install latest Vim&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="zypper-repo">
 <span id="operations-zypper-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">zypper.repo</span></code><a class="headerlink" href="#zypper-repo" title="Link to this heading">¶</a></h2>
@@ -235,39 +237,41 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: URL or name for the <code class="docutils literal notranslate"><span class="pre">.repo</span></code>   file
-baseurl**: the baseurl of the repo (if <code class="docutils literal notranslate"><span class="pre">name</span></code> is not a URL)
-present**: whether the <code class="docutils literal notranslate"><span class="pre">.repo</span></code> file should be present
-description**: optional verbose description
-enabled**: whether this repo is enabled
-gpgcheck**: whether set <code class="docutils literal notranslate"><span class="pre">gpgcheck=1</span></code>
-gpgkey**: the URL to the gpg key for this repo
-type**: the type field this repo (defaults to <code class="docutils literal notranslate"><span class="pre">rpm-md</span></code>)</p>
-<p>seurl``/<code class="docutils literal notranslate"><span class="pre">description</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgcheck</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgkey</span></code>:
-These are only valid when <code class="docutils literal notranslate"><span class="pre">name</span></code> is a filename (ie not a URL). This is
+<ul class="simple">
+<li><p><strong>src</strong>: URL or name for the <code class="docutils literal notranslate"><span class="pre">.repo</span></code>   file</p></li>
+<li><p><strong>baseurl</strong>: the baseurl of the repo (if <code class="docutils literal notranslate"><span class="pre">name</span></code> is not a URL)</p></li>
+<li><p><strong>present</strong>: whether the <code class="docutils literal notranslate"><span class="pre">.repo</span></code> file should be present</p></li>
+<li><p><strong>description</strong>: optional verbose description</p></li>
+<li><p><strong>enabled</strong>: whether this repo is enabled</p></li>
+<li><p><strong>gpgcheck</strong>: whether set <code class="docutils literal notranslate"><span class="pre">gpgcheck=1</span></code></p></li>
+<li><p><strong>gpgkey</strong>: the URL to the gpg key for this repo</p></li>
+<li><p><strong>type</strong>: the type field this repo (defaults to <code class="docutils literal notranslate"><span class="pre">rpm-md</span></code>)</p></li>
+</ul>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Baseurl</span></code>/<code class="docutils literal notranslate"><span class="pre">description</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgcheck</span></code>/<code class="docutils literal notranslate"><span class="pre">gpgkey</span></code>:</dt><dd><p>These are only valid when <code class="docutils literal notranslate"><span class="pre">name</span></code> is a filename (ie not a URL). This is
 for manual construction of repository files. Use a URL to download and
 install remote repository files.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Download a repository file
-zypper.repo(</p>
-<blockquote>
-<div><p>name=”Install container virtualization repo via URL”,
-src=”<a class="reference external" href="https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo">https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo</a>”,</p>
-</div></blockquote>
-<p>)</p>
-<p># Create the repository file from baseurl/etc
-zypper.repo(</p>
-<blockquote>
-<div><p>name=”Install container virtualization repo”,
-src==”Virtualization:containers (openSUSE_Tumbleweed)”,
-baseurl=”https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/”,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a repository file</span>
+<span class="n">zypper</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install container virtualization repo via URL&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Create the repository file from baseurl/etc</span>
+<span class="n">zypper</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install container virtualization repo&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">==</span><span class="s2">&quot;Virtualization:containers (openSUSE_Tumbleweed)&quot;</span><span class="p">,</span>
+    <span class="n">baseurl</span><span class="o">=</span><span class="s2">&quot;https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="zypper-rpm">
 <span id="operations-zypper-rpm"></span><h2><code class="code docutils literal notranslate"><span class="pre">zypper.rpm</span></code><a class="headerlink" href="#zypper-rpm" title="Link to this heading">¶</a></h2>
@@ -275,23 +279,26 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zypper</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>src**: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> package
-present**: whether ore not the package should exist on the system</p>
-<p>sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:
-If the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file isn’t downloaded, pyinfra can’t remove any existing
-package as the file won’t exist until mid-deploy.</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>src</strong>: filename or URL of the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> package</p></li>
+<li><p><strong>present</strong>: whether ore not the package should exist on the system</p></li>
+</ul>
 <dl class="simple">
-<dt>zypper.rpm(</dt><dd><p>name=”Install task from rpm”,
-src=”<a class="reference external" href="https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm">https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm</a>”,</p>
+<dt>URL sources with <code class="docutils literal notranslate"><span class="pre">present=False</span></code>:</dt><dd><p>If the <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file isn’t downloaded, pyinfra can’t remove any existing
+package as the file won’t exist until mid-deploy.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zypper</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span>
+   <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install task from rpm&quot;</span><span class="p">,</span>
+   <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="zypper-update">
 <span id="operations-zypper-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">zypper.update</span></code><a class="headerlink" href="#zypper-update" title="Link to this heading">¶</a></h2>

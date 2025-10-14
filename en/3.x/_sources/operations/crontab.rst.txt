@@ -19,41 +19,41 @@ Add/remove/update crontab entries.
         interpolate_variables=False, **kwargs,
     )
 
-command**: the command for the cron
-present**: whether this cron command should exist
-user**: the user whose crontab to manage
-cron_name**: name the cronjob so future changes to the command will overwrite
-modify_cron_name**: modify the cron name
-minute**: which minutes to execute the cron
-hour**: which hours to execute the cron
-month**: which months to execute the cron
-day_of_week**: which day of the week to execute the cron
-day_of_month**: which day of the month to execute the cron
-special_time**: cron "nickname" time (@reboot, @daily, etc), overrides others
-interpolate_variables**: whether to interpolate variables in ``command``
++ **command**: the command for the cron
++ **present**: whether this cron command should exist
++ **user**: the user whose crontab to manage
++ **cron_name**: name the cronjob so future changes to the command will overwrite
++ **modify_cron_name**: modify the cron name
++ **minute**: which minutes to execute the cron
++ **hour**: which hours to execute the cron
++ **month**: which months to execute the cron
++ **day_of_week**: which day of the week to execute the cron
++ **day_of_month**: which day of the month to execute the cron
++ **special_time**: cron "nickname" time (@reboot, @daily, etc), overrides others
++ **interpolate_variables**: whether to interpolate variables in ``command``
 
- commands:
-Unless ``name`` is specified the command is used to identify crontab entries.
-This means commands must be unique within a given users crontab. If you require
-multiple identical commands, provide a different name argument for each.
+Cron commands:
+    Unless ``name`` is specified the command is used to identify crontab entries.
+    This means commands must be unique within a given users crontab. If you require
+    multiple identical commands, provide a different name argument for each.
 
-ial times:
-When provided, ``special_time`` will be used instead of any values passed in
-for ``minute``/``hour``/``month``/``day_of_week``/``day_of_month``.
+Special times:
+    When provided, ``special_time`` will be used instead of any values passed in
+    for ``minute``/``hour``/``month``/``day_of_week``/``day_of_month``.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-# simple example for a crontab
-crontab.crontab(
-    name="Backup /etc weekly",
-    command="/bin/tar cf /tmp/etc_bup.tar /etc",
-    name="backup_etc",
-    day_of_week=0,
-    hour=1,
-    minute=0,
-)
+    # simple example for a crontab
+    crontab.crontab(
+        name="Backup /etc weekly",
+        command="/bin/tar cf /tmp/etc_bup.tar /etc",
+        name="backup_etc",
+        day_of_week=0,
+        hour=1,
+        minute=0,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

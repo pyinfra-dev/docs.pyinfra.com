@@ -192,33 +192,36 @@ a virtualenv (virtual environment).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>packages**: list of packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-requirements**: location of requirements file to install/uninstall
-pip**: name or path of the pip directory to use
-virtualenv**: root directory of virtualenv to work in
-virtualenv_kwargs**: dictionary of arguments to pass to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code>
-extra_install_args**: additional arguments to the pip install command</p>
-<p>ualenv:
-This will be created if it does not exist already. <code class="docutils literal notranslate"><span class="pre">virtualenv_kwargs</span></code>
+<ul class="simple">
+<li><p><strong>packages</strong>: list of packages to ensure</p></li>
+<li><p><strong>present</strong>: whether the packages should be installed</p></li>
+<li><p><strong>latest</strong>: whether to upgrade packages without a specified version</p></li>
+<li><p><strong>requirements</strong>: location of requirements file to install/uninstall</p></li>
+<li><p><strong>pip</strong>: name or path of the pip directory to use</p></li>
+<li><p><strong>virtualenv</strong>: root directory of virtualenv to work in</p></li>
+<li><p><strong>virtualenv_kwargs</strong>: dictionary of arguments to pass to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code></p></li>
+<li><p><strong>extra_install_args</strong>: additional arguments to the pip install command</p></li>
+</ul>
+<dl class="simple">
+<dt>Virtualenv:</dt><dd><p>This will be created if it does not exist already. <code class="docutils literal notranslate"><span class="pre">virtualenv_kwargs</span></code>
 will be passed to <code class="docutils literal notranslate"><span class="pre">pip.virtualenv</span></code> which can be used to control how
 the env is created.</p>
-<p>ions:
-Package versions can be pinned like pip: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;==&lt;version&gt;</span></code>.</p>
-<p>ample:**</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>pip.packages(</dt><dd><p>name=”Install pyinfra into a virtualenv”,
-packages=[“pyinfra”],
-virtualenv=”/usr/local/bin/venv”,</p>
+</dd>
+<dt>Versions:</dt><dd><p>Package versions can be pinned like pip: <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;==&lt;version&gt;</span></code>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install pyinfra into a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">],</span>
+    <span class="n">virtualenv</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="pip-venv">
 <span id="operations-pip-venv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.venv</span></code><a class="headerlink" href="#pip-venv" title="Link to this heading">¶</a></h2>
@@ -229,22 +232,23 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>python**: python interpreter to use
-site_packages**: give access to the global site-packages
-always_copy**: always copy files rather than symlinking
-present**: whether the virtualenv should exist</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>python</strong>: python interpreter to use</p></li>
+<li><p><strong>site_packages</strong>: give access to the global site-packages</p></li>
+<li><p><strong>always_copy</strong>: always copy files rather than symlinking</p></li>
+<li><p><strong>present</strong>: whether the virtualenv should exist</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">venv</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>pip.venv(</dt><dd><p>name=”Create a virtualenv”,
-path=”/usr/local/bin/venv”,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 <section id="pip-virtualenv">
 <span id="operations-pip-virtualenv"></span><h2><code class="code docutils literal notranslate"><span class="pre">pip.virtualenv</span></code><a class="headerlink" href="#pip-virtualenv" title="Link to this heading">¶</a></h2>
@@ -255,23 +259,24 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>python**: python interpreter to use
-venv**: use standard venv module instead of virtualenv
-site_packages**: give access to the global site-packages
-always_copy**: always copy files rather than symlinking
-present**: whether the virtualenv should exist</p>
-<p>ample:**</p>
-<p>ode:: python</p>
+<ul class="simple">
+<li><p><strong>python</strong>: python interpreter to use</p></li>
+<li><p><strong>venv</strong>: use standard venv module instead of virtualenv</p></li>
+<li><p><strong>site_packages</strong>: give access to the global site-packages</p></li>
+<li><p><strong>always_copy</strong>: always copy files rather than symlinking</p></li>
+<li><p><strong>present</strong>: whether the virtualenv should exist</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span><span class="o">.</span><span class="n">virtualenv</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a virtualenv&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin/venv&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>pip.virtualenv(</dt><dd><p>name=”Create a virtualenv”,
-path=”/usr/local/bin/venv”,</p>
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
 </dd>
 </dl>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
 </section>
 </section>
 

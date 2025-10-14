@@ -26,28 +26,28 @@ Add/remove/update opkg packages.
         latest: <class 'bool'>=False, update: <class 'bool'>=True, **kwargs,
     )
 
-packages**: package or list of packages to that must/must not be present
-present**: whether the package(s) should be installed (default True) or removed
-latest**: whether to attempt to upgrade the specified package(s) (default False)
-update**: run ``opkg update`` before installing packages (default True)
++ **packages**: package or list of packages to that must/must not be present
++ **present**: whether the package(s) should be installed (default True) or removed
++ **latest**: whether to attempt to upgrade the specified package(s) (default False)
++ **update**: run ``opkg update`` before installing packages (default True)
 
-Supported:
-Opkg does not support version pinning, i.e. ``<pkg>=<version>`` is not allowed
-and will cause an exception.
+Not Supported:
+    Opkg does not support version pinning, i.e. ``<pkg>=<version>`` is not allowed
+    and will cause an exception.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Ensure packages are installed∂ (will not force package upgrade)
-opkg.packages(['asterisk', 'vim'], name="Install Asterisk and Vim")
+    # Ensure packages are installed∂ (will not force package upgrade)
+    opkg.packages(['asterisk', 'vim'], name="Install Asterisk and Vim")
 
-# Install the latest versions of packages (always check)
-opkg.packages(
-    'vim',
-    latest=True,
-    name="Ensure we have the latest version of Vim"
-)
+    # Install the latest versions of packages (always check)
+    opkg.packages(
+        'vim',
+        latest=True,
+        name="Ensure we have the latest version of Vim"
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

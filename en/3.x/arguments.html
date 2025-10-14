@@ -382,31 +382,39 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 <h2>Retry behavior<a class="headerlink" href="#retry-behavior" title="Link to this heading">¶</a></h2>
 <p>Retry arguments allow you to automatically retry operations that fail. You can specify
 how many times to retry, the delay between retries, and optionally a condition
-function to determine when to stop retrying.
-.. list-table:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>:header-rows: 1
-:widths: 25 45 15 15
-
-* - Key
-  - Description
-  - Type
-  - Default
-* - ``_retries``
-  - Number of times to retry failed operations.
-  - ``int``
-  - ``0``
-
-* - ``_retry_delay``
-  - Delay in seconds between retry attempts.
-  - ``Union[int, float]``
-  - ``5``
-
-* - ``_retry_until``
-  - Callable taking output data that returns True to continue retrying.
-  - ``Optional[Callable, NoneType]``
-  -
-</pre></div>
-</div>
+function to determine when to stop retrying.</p>
+<table class="table table-bordered">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 45.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-even"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_retries</span></code></p></td>
+<td><p>Number of times to retry failed operations.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_retry_delay</span></code></p></td>
+<td><p>Delay in seconds between retry attempts.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_retry_until</span></code></p></td>
+<td><p>Callable taking output data that returns True to continue retrying.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Optional[Callable,</span> <span class="pre">NoneType]</span></code></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retry a command up to 3 times with the default 5 second delay</span>
 <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>

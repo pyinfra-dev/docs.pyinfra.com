@@ -10,16 +10,16 @@ Mysql Facts
 
     host.get_fact(MysqlDatabases, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-rns a dict of existing MySQL databases and associated data:
+Returns a dict of existing MySQL databases and associated data:
 
-ode:: python
+.. code:: python
 
-{
-    "mysql": {
-        "character_set": "latin1",
-        "collation_name": "latin1_swedish_ci"
-    },
-}
+    {
+        "mysql": {
+            "character_set": "latin1",
+            "collation_name": "latin1_swedish_ci"
+        },
+    }
 
 
 .. _facts:mysql.MysqlUserGrants:
@@ -31,17 +31,17 @@ ode:: python
 
     host.get_fact(MysqlUserGrants, user, hostname='localhost', mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-rns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
+Returns a dict of ``<database>`.<table>`` with a set of granted privileges for each:
 
-ode:: python
+.. code:: python
 
-{
-    "`pyinfra_stuff`.*": {
-        "SELECT",
-        "INSERT",
-        "GRANT OPTION",
-    },
-}
+    {
+        "`pyinfra_stuff`.*": {
+            "SELECT",
+            "INSERT",
+            "GRANT OPTION",
+        },
+    }
 
 
 .. _facts:mysql.MysqlUsers:
@@ -53,15 +53,15 @@ ode:: python
 
     host.get_fact(MysqlUsers, mysql_user=None, mysql_password=None, mysql_host=None, mysql_port=None)
 
-rns a dict of MySQL ``user@host``'s and their associated data:
+Returns a dict of MySQL ``user@host``'s and their associated data:
 
-ode:: python
+.. code:: python
 
-{
-    "user@host": {
-        "privileges": ["Alter", "Grant"],
-        'max_connections': 5,
-        ...
-    },
-}
+    {
+        "user@host": {
+            "privileges": ["Alter", "Grant"],
+            'max_connections': 5,
+            ...
+        },
+    }
 

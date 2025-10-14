@@ -197,52 +197,51 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>container**: name to identify the container
-image**: container image and tag ex: nginx:alpine
-networks**: network list to attach on container
-ports**: port list to expose
-volumes**: volume list to map on container
-env_vars**: environment variable list to inject on container
-pull_always**: force image pull
-force**: remove a container with same name and create a new one
-present**: whether the container should be up and running
-start**: start or stop the container</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Run a container
-docker.container(</p>
-<blockquote>
-<div><p>name=”Deploy Nginx container”,
-container=”nginx”,
-image=”nginx:alpine”,
-ports=[“80:80”],
-present=True,
-force=True,
-networks=[“proxy”, “services”],
-volumes=[“nginx_data:/usr/share/nginx/html”],
-pull_always=True,</p>
-</div></blockquote>
-<p>)</p>
-<p># Stop a container
-docker.container(</p>
-<blockquote>
-<div><p>name=”Stop Nginx container”,
-container=”nginx”,
-start=False,</p>
-</div></blockquote>
-<p>)</p>
-<p># Start a container
-docker.container(</p>
-<blockquote>
-<div><p>name=”Start Nginx container”,
-container=”nginx”,
-start=True,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>container</strong>: name to identify the container</p></li>
+<li><p><strong>image</strong>: container image and tag ex: nginx:alpine</p></li>
+<li><p><strong>networks</strong>: network list to attach on container</p></li>
+<li><p><strong>ports</strong>: port list to expose</p></li>
+<li><p><strong>volumes</strong>: volume list to map on container</p></li>
+<li><p><strong>env_vars</strong>: environment variable list to inject on container</p></li>
+<li><p><strong>pull_always</strong>: force image pull</p></li>
+<li><p><strong>force</strong>: remove a container with same name and create a new one</p></li>
+<li><p><strong>present</strong>: whether the container should be up and running</p></li>
+<li><p><strong>start</strong>: start or stop the container</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a container</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy Nginx container&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;nginx:alpine&quot;</span><span class="p">,</span>
+    <span class="n">ports</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;80:80&quot;</span><span class="p">],</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">networks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;proxy&quot;</span><span class="p">,</span> <span class="s2">&quot;services&quot;</span><span class="p">],</span>
+    <span class="n">volumes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx_data:/usr/share/nginx/html&quot;</span><span class="p">],</span>
+    <span class="n">pull_always</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Stop a container</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Stop Nginx container&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Start a container</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Start Nginx container&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+    <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="docker-image">
 <span id="operations-docker-image"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code><a class="headerlink" href="#docker-image" title="Link to this heading">¶</a></h2>
@@ -254,30 +253,30 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>image**: Image and tag ex: nginx:alpine
-present**: whether the Docker image should exist</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Pull a Docker image
-docker.image(</p>
-<blockquote>
-<div><p>name=”Pull nginx image”,
-image=”nginx:alpine”,
-present=True,</p>
-</div></blockquote>
-<p>)</p>
-<p># Remove a Docker image
-docker.image(</p>
-<blockquote>
-<div><p>name=”Remove nginx image”,
-image:”nginx:image”,
-present=False,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>image</strong>: Image and tag ex: nginx:alpine</p></li>
+<li><p><strong>present</strong>: whether the Docker image should exist</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull a Docker image</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Pull nginx image&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;nginx:alpine&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Remove a Docker image</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx image&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span><span class="s2">&quot;nginx:image&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="docker-network">
 <span id="operations-docker-network"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code><a class="headerlink" href="#docker-network" title="Link to this heading">¶</a></h2>
@@ -291,34 +290,35 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>network**: Network name
-driver**: Network driver ex: bridge or overlay
-gateway**: IPv4 or IPv6 Gateway for the master subnet
-ip_range**: Allocate container ip from a sub-range
-ipam_driver**: IP Address Management Driver
-subnet**: Subnet in CIDR format that represents a network segment
-scope**: Control the network’s scope
-aux_addresses**: named aux addresses for the network
-opts**: Set driver specific options
-ipam_opts**: Set IPAM driver specific options
-labels**: Label list to attach in the network
-ingress**: Create swarm routing-mesh network
-attachable**: Enable manual container attachment
-present**: whether the Docker network should exist</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Create Docker network
-docker.network(</p>
-<blockquote>
-<div><p>network=”nginx”,
-attachable=True,
-present=True,</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>network</strong>: Network name</p></li>
+<li><p><strong>driver</strong>: Network driver ex: bridge or overlay</p></li>
+<li><p><strong>gateway</strong>: IPv4 or IPv6 Gateway for the master subnet</p></li>
+<li><p><strong>ip_range</strong>: Allocate container ip from a sub-range</p></li>
+<li><p><strong>ipam_driver</strong>: IP Address Management Driver</p></li>
+<li><p><strong>subnet</strong>: Subnet in CIDR format that represents a network segment</p></li>
+<li><p><strong>scope</strong>: Control the network’s scope</p></li>
+<li><p><strong>aux_addresses</strong>: named aux addresses for the network</p></li>
+<li><p><strong>opts</strong>: Set driver specific options</p></li>
+<li><p><strong>ipam_opts</strong>: Set IPAM driver specific options</p></li>
+<li><p><strong>labels</strong>: Label list to attach in the network</p></li>
+<li><p><strong>ingress</strong>: Create swarm routing-mesh network</p></li>
+<li><p><strong>attachable</strong>: Enable manual container attachment</p></li>
+<li><p><strong>present</strong>: whether the Docker network should exist</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Docker network</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">network</span><span class="p">(</span>
+    <span class="n">network</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+    <span class="n">attachable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="docker-plugin">
 <span id="operations-docker-plugin"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code><a class="headerlink" href="#docker-plugin" title="Link to this heading">¶</a></h2>
@@ -329,28 +329,29 @@ Note:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>plugin**: Plugin name
-alias**: Alias for the plugin (optional)
-present**: Whether the plugin should be installed
-enabled**: Whether the plugin should be enabled
-plugin_options**: Options to pass to the plugin</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Install and enable a Docker plugin
-docker.plugin(</p>
-<blockquote>
-<div><p>name=”Install and enable a Docker plugin”,
-plugin=”username/my-awesome-plugin:latest”,
-alias=”my-plugin”,
-present=True,
-enabled=True,
-plugin_options={“option1”: “value1”, “option2”: “value2”},</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>plugin</strong>: Plugin name</p></li>
+<li><p><strong>alias</strong>: Alias for the plugin (optional)</p></li>
+<li><p><strong>present</strong>: Whether the plugin should be installed</p></li>
+<li><p><strong>enabled</strong>: Whether the plugin should be enabled</p></li>
+<li><p><strong>plugin_options</strong>: Options to pass to the plugin</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install and enable a Docker plugin</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">plugin</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install and enable a Docker plugin&quot;</span><span class="p">,</span>
+    <span class="n">plugin</span><span class="o">=</span><span class="s2">&quot;username/my-awesome-plugin:latest&quot;</span><span class="p">,</span>
+    <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;my-plugin&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">plugin_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;option1&quot;</span><span class="p">:</span> <span class="s2">&quot;value1&quot;</span><span class="p">,</span> <span class="s2">&quot;option2&quot;</span><span class="p">:</span> <span class="s2">&quot;value2&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="docker-prune">
 <span id="operations-docker-prune"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code><a class="headerlink" href="#docker-prune" title="Link to this heading">¶</a></h2>
@@ -362,36 +363,35 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="nb">all</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>all**: Remove all unused images not just dangling ones
-volumes**: Prune anonymous volumes
-filter**: Provide filter values (e.g. “label=&lt;key&gt;=&lt;value&gt;” or “until=24h”)</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Remove dangling images
-docker.prune(</p>
-<blockquote>
-<div><p>name=”remove dangling images”,</p>
-</div></blockquote>
-<p>)</p>
-<p># Remove all images and volumes
-docker.prune(</p>
-<blockquote>
-<div><p>name=”Remove all images and volumes”,
-all=True,
-volumes=True,</p>
-</div></blockquote>
-<p>)</p>
-<p># Remove images older than 90 days
-docker.prune(</p>
-<blockquote>
-<div><p>name=”Remove unused older than 90 days”,
-filter=”until=2160h”</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>all</strong>: Remove all unused images not just dangling ones</p></li>
+<li><p><strong>volumes</strong>: Prune anonymous volumes</p></li>
+<li><p><strong>filter</strong>: Provide filter values (e.g. “label=&lt;key&gt;=&lt;value&gt;” or “until=24h”)</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove dangling images</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;remove dangling images&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Remove all images and volumes</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove all images and volumes&quot;</span><span class="p">,</span>
+    <span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">volumes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Remove images older than 90 days</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove unused older than 90 days&quot;</span><span class="p">,</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;until=2160h&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="docker-volume">
 <span id="operations-docker-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.volume</span></code><a class="headerlink" href="#docker-volume" title="Link to this heading">¶</a></h2>
@@ -399,24 +399,25 @@ Note:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>volume**: Volume name
-driver**: Docker volume storage driver
-labels**: Label list to attach in the volume
-present**: whether the Docker volume should exist</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Create a Docker volume
-docker.volume(</p>
-<blockquote>
-<div><p>name=”Create nginx volume”,
-volume=”nginx_data”,
-present=True</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+<ul class="simple">
+<li><p><strong>volume</strong>: Volume name</p></li>
+<li><p><strong>driver</strong>: Docker volume storage driver</p></li>
+<li><p><strong>labels</strong>: Label list to attach in the volume</p></li>
+<li><p><strong>present</strong>: whether the Docker volume should exist</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Docker volume</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create nginx volume&quot;</span><span class="p">,</span>
+    <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;nginx_data&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 </section>
 

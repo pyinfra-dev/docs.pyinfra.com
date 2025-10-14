@@ -188,56 +188,47 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlDatabases</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a dict of existing MySQL databases and associated data:</p>
-<p>ode:: python</p>
-<dl>
-<dt>{</dt><dd><dl class="simple">
-<dt>“mysql”: {</dt><dd><p>“character_set”: “latin1”,
-“collation_name”: “latin1_swedish_ci”</p>
-</dd>
-</dl>
-<p>},</p>
-</dd>
-</dl>
-<p>}</p>
+<p>Returns a dict of existing MySQL databases and associated data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;mysql&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;character_set&quot;</span><span class="p">:</span> <span class="s2">&quot;latin1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;collation_name&quot;</span><span class="p">:</span> <span class="s2">&quot;latin1_swedish_ci&quot;</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="mysql-mysqlusergrants">
 <span id="facts-mysql-mysqlusergrants"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUserGrants</span></code><a class="headerlink" href="#mysql-mysqlusergrants" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlUserGrants</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a dict of <code class="docutils literal notranslate"><span class="pre">&lt;database&gt;`.&lt;table&gt;</span></code> with a set of granted privileges for each:</p>
-<p>ode:: python</p>
-<dl>
-<dt>{</dt><dd><dl class="simple">
-<dt>“<cite>pyinfra_stuff</cite>.*”: {</dt><dd><p>“SELECT”,
-“INSERT”,
-“GRANT OPTION”,</p>
-</dd>
-</dl>
-<p>},</p>
-</dd>
-</dl>
-<p>}</p>
+<p>Returns a dict of <code class="docutils literal notranslate"><span class="pre">&lt;database&gt;`.&lt;table&gt;</span></code> with a set of granted privileges for each:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;`pyinfra_stuff`.*&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;SELECT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;INSERT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;GRANT OPTION&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="mysql-mysqlusers">
 <span id="facts-mysql-mysqlusers"></span><h2><code class="code docutils literal notranslate"><span class="pre">mysql.MysqlUsers</span></code><a class="headerlink" href="#mysql-mysqlusers" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">MysqlUsers</span><span class="p">,</span> <span class="n">mysql_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mysql_port</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a dict of MySQL <code class="docutils literal notranslate"><span class="pre">user&#64;host</span></code>’s and their associated data:</p>
-<p>ode:: python</p>
-<dl>
-<dt>{</dt><dd><dl class="simple">
-<dt>“<a class="reference external" href="mailto:user&#37;&#52;&#48;host">user<span>&#64;</span>host</a>”: {</dt><dd><p>“privileges”: [“Alter”, “Grant”],
-‘max_connections’: 5,
-…</p>
-</dd>
-</dl>
-<p>},</p>
-</dd>
-</dl>
-<p>}</p>
+<p>Returns a dict of MySQL <code class="docutils literal notranslate"><span class="pre">user&#64;host</span></code>’s and their associated data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user@host&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;privileges&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Alter&quot;</span><span class="p">,</span> <span class="s2">&quot;Grant&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;max_connections&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 

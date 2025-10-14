@@ -193,201 +193,177 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">BlockDevices</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a dict of (mounted) block devices:</p>
-<p>ode:: python</p>
-<dl>
-<dt>{</dt><dd><dl class="simple">
-<dt>“/dev/sda1”: {</dt><dd><p>“available”: “39489508”,
-“used_percent”: “3”,
-“mount”: “/”,
-“used”: “836392”,
-“blocks”: “40325900”</p>
-</dd>
-</dl>
-<p>},</p>
-</dd>
-</dl>
-<p>}</p>
+<p>Returns a dict of (mounted) block devices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;/dev/sda1&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;available&quot;</span><span class="p">:</span> <span class="s2">&quot;39489508&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;used_percent&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mount&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;used&quot;</span><span class="p">:</span> <span class="s2">&quot;836392&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;blocks&quot;</span><span class="p">:</span> <span class="s2">&quot;40325900&quot;</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="hardware-cpus">
 <span id="facts-hardware-cpus"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Cpus</span></code><a class="headerlink" href="#hardware-cpus" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Cpus</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>rns the number of CPUs on this server.</p>
+<p>Returns the number of CPUs on this server.</p>
 </section>
 <section id="hardware-ipv4addresses">
 <span id="facts-hardware-ipv4addresses"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addresses</span></code><a class="headerlink" href="#hardware-ipv4addresses" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv4Addresses</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>&amp; returns a dictionary of network interface -&gt; IPv4 address.</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>{</dt><dd><p>“eth0”: “127.0.0.1”,</p>
-</dd>
-</dl>
-<p>}</p>
-<p>arning::
-This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code> fact.</p>
-<p>ote::
-Network interfaces with no IPv4 will not be part of the dictionary.</p>
+<p>Gets &amp; returns a dictionary of network interface -&gt; IPv4 address.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code> fact.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network interfaces with no IPv4 will not be part of the dictionary.</p>
+</div>
 </section>
 <section id="hardware-ipv4addrs">
 <span id="facts-hardware-ipv4addrs"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv4Addrs</span></code><a class="headerlink" href="#hardware-ipv4addrs" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv4Addrs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>&amp; returns a dictionary of network interface -&gt; list of IPv4 addresses.</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>{</dt><dd><p>“eth0”: [“127.0.0.1”],</p>
-</dd>
-</dl>
-<p>}</p>
-<p>ote::
-Network interfaces with no IPv4 will not be part of the dictionary.</p>
+<p>Gets &amp; returns a dictionary of network interface -&gt; list of IPv4 addresses.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network interfaces with no IPv4 will not be part of the dictionary.</p>
+</div>
 </section>
 <section id="hardware-ipv6addresses">
 <span id="facts-hardware-ipv6addresses"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addresses</span></code><a class="headerlink" href="#hardware-ipv6addresses" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv6Addresses</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>&amp; returns a dictionary of network interface -&gt; IPv6 address.</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>{</dt><dd><p>“eth0”: “fe80::a00:27ff::2”,</p>
-</dd>
-</dl>
-<p>}</p>
-<p>arning::
-This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code> fact.</p>
-<p>ote::
-Network interfaces with no IPv6 will not be part of the dictionary.</p>
+<p>Gets &amp; returns a dictionary of network interface -&gt; IPv6 address.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::a00:27ff::2&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This fact is deprecated, please use the <code class="docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code> fact.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network interfaces with no IPv6 will not be part of the dictionary.</p>
+</div>
 </section>
 <section id="hardware-ipv6addrs">
 <span id="facts-hardware-ipv6addrs"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Ipv6Addrs</span></code><a class="headerlink" href="#hardware-ipv6addrs" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Ipv6Addrs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>&amp; returns a dictionary of network interface -&gt; list of IPv6 addresses.</p>
-<p>ode:: python</p>
-<dl class="simple">
-<dt>{</dt><dd><p>“eth0”: [“fe80::a00:27ff::2”],</p>
-</dd>
-</dl>
-<p>}</p>
-<p>ote::
-Network interfaces with no IPv6 will not be part of the dictionary.</p>
+<p>Gets &amp; returns a dictionary of network interface -&gt; list of IPv6 addresses.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fe80::a00:27ff::2&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network interfaces with no IPv6 will not be part of the dictionary.</p>
+</div>
 </section>
 <section id="hardware-memory">
 <span id="facts-hardware-memory"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.Memory</span></code><a class="headerlink" href="#hardware-memory" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Memory</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>rns the memory installed in this server, in MB.</p>
+<p>Returns the memory installed in this server, in MB.</p>
 </section>
 <section id="hardware-networkdevices">
 <span id="facts-hardware-networkdevices"></span><h2><code class="code docutils literal notranslate"><span class="pre">hardware.NetworkDevices</span></code><a class="headerlink" href="#hardware-networkdevices" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">NetworkDevices</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>&amp; returns a dict of network devices. See the <code class="docutils literal notranslate"><span class="pre">ipv4_addresses</span></code> and
-v6_addresses`` facts for easier-to-use shortcuts to get device addresses.</p>
-<p>ode:: python</p>
-<dl>
-<dt>“enp1s0”: {</dt><dd><p>“ether”: “12:34:56:78:9A:BC”,
-“mtu”: 1500,
-“state”: “UP”,
-“ipv4”: {</p>
-<blockquote>
-<div><p>“address”: “192.168.1.100”,
-“mask_bits”: 24,
-“netmask”: “255.255.255.0”</p>
-</div></blockquote>
-<p>},
-“ipv6”: {</p>
-<blockquote>
-<div><p>“address”: “2001:db8:85a3::8a2e:370:7334”,
-“mask_bits”: 64,
-“additional_ips”: [</p>
-<blockquote>
-<div><dl class="simple">
-<dt>{</dt><dd><p>“address”: “fe80::1234:5678:9abc:def0”,
-“mask_bits”: 64</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>]</p>
-</div></blockquote>
-<p>}</p>
-</dd>
-</dl>
-<p>},
-“incusbr0”: {</p>
-<blockquote>
-<div><p>“ether”: “DE:AD:BE:EF:CA:FE”,
-“mtu”: 1500,
-“state”: “UP”,
-“ipv4”: {</p>
-<blockquote>
-<div><p>“address”: “10.0.0.1”,
-“mask_bits”: 24,
-“netmask”: “255.255.255.0”</p>
-</div></blockquote>
-<p>},
-“ipv6”: {</p>
-<blockquote>
-<div><p>“address”: “fe80::dead:beef:cafe:babe”,
-“mask_bits”: 64,
-“additional_ips”: [</p>
-<blockquote>
-<div><dl class="simple">
-<dt>{</dt><dd><p>“address”: “2001:db8:1234:5678::1”,
-“mask_bits”: 64</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>]</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>},
-“lo”: {</p>
-<blockquote>
-<div><p>“mtu”: 65536,
-“state”: “UP”,
-“ipv6”: {</p>
-<blockquote>
-<div><p>“address”: “::1”,
-“mask_bits”: 128</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>},
-“veth98806fd6”: {</p>
-<blockquote>
-<div><p>“ether”: “AA:BB:CC:DD:EE:FF”,
-“mtu”: 1500,
-“state”: “UP”</p>
-</div></blockquote>
-<p>},
-“vethda29df81”: {</p>
-<blockquote>
-<div><p>“ether”: “11:22:33:44:55:66”,
-“mtu”: 1500,
-“state”: “UP”</p>
-</div></blockquote>
-<p>},
-“wlo1”: {</p>
-<blockquote>
-<div><p>“ether”: “77:88:99:AA:BB:CC”,
-“mtu”: 1500,
-“state”: “UNKNOWN”</p>
-</div></blockquote>
-<p>}</p>
+<p>Gets &amp; returns a dict of network devices. See the <code class="docutils literal notranslate"><span class="pre">ipv4_addresses</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ipv6_addresses</span></code> facts for easier-to-use shortcuts to get device addresses.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;enp1s0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;12:34:56:78:9A:BC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;2001:db8:85a3::8a2e:370:7334&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="s2">&quot;additional_ips&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::1234:5678:9abc:def0&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;incusbr0&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;DE:AD:BE:EF:CA:FE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv4&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;fe80::dead:beef:cafe:babe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="s2">&quot;additional_ips&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;2001:db8:1234:5678::1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">64</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;lo&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">65536</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ipv6&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;::1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_bits&quot;</span><span class="p">:</span> <span class="mi">128</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+<span class="s2">&quot;veth98806fd6&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;AA:BB:CC:DD:EE:FF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;vethda29df81&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;11:22:33:44:55:66&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UP&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;wlo1&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;ether&quot;</span><span class="p">:</span> <span class="s2">&quot;77:88:99:AA:BB:CC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+    <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 
