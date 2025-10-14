@@ -541,7 +541,12 @@ release files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">TmpDir</span><span class="p">,</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns the temporary directory of the current server, if configured.</p>
+<p>Returns the temporary directory of the current server.</p>
+<p>According to POSIX standards, checks environment variables in this order:
+1. TMPDIR (if set and accessible)
+2. TMP (if set and accessible)
+3. TEMP (if set and accessible)
+4. Falls back to empty string</p>
 </section>
 <section id="server-user">
 <span id="facts-server-user"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.User</span></code><a class="headerlink" href="#server-user" title="Link to this heading">¶</a></h2>
