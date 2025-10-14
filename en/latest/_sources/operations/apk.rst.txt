@@ -21,32 +21,32 @@ Add/remove/update apk packages.
         upgrade=False, **kwargs,
     )
 
-packages**: list of packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-update**: run ``apk update`` before installing packages
-upgrade**: run ``apk upgrade`` before installing packages
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``apk update`` before installing packages
++ **upgrade**: run ``apk upgrade`` before installing packages
 
-ions:
-Package versions can be pinned like apk: ``<pkg>=<version>``.
+Versions:
+    Package versions can be pinned like apk: ``<pkg>=<version>``.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Update package list and install packages
-apk.packages(
-    name="Install Asterisk and Vim",
-    packages=["asterisk", "vim"],
-    update=True,
-)
+    # Update package list and install packages
+    apk.packages(
+        name="Install Asterisk and Vim",
+        packages=["asterisk", "vim"],
+        update=True,
+    )
 
-# Install the latest versions of packages (always check)
-apk.packages(
-    name="Install latest Vim",
-    packages=["vim"],
-    latest=True,
-)
+    # Install the latest versions of packages (always check)
+    apk.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -88,7 +88,7 @@ Upgrades all apk packages.
 
     apk.upgrade(available: bool=False, **kwargs)
 
-available**: force all packages to be upgraded (recommended on whole Alpine version upgrades)
++ **available**: force all packages to be upgraded (recommended on whole Alpine version upgrades)
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

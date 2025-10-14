@@ -21,22 +21,22 @@ Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.
         stop_levels=(0, 1, 6), **kwargs,
     )
 
-service**: name of the service to enable
-start_priority**: priority to start the service
-stop_priority**: priority to stop the service
-start_levels**: which runlevels should the service run when enabled
-stop_levels**: which runlevels should the service stop when enabled
++ **service**: name of the service to enable
++ **start_priority**: priority to start the service
++ **stop_priority**: priority to stop the service
++ **start_levels**: which runlevels should the service run when enabled
++ **stop_levels**: which runlevels should the service stop when enabled
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-init.d_enable(
-    name="Finer control on which runlevels rsyslog should run",
-    service="rsyslog",
-    start_levels=(3, 4, 5),
-    stop_levels=(0, 1, 2, 6),
-)
+    init.d_enable(
+        name="Finer control on which runlevels rsyslog should run",
+        service="rsyslog",
+        start_levels=(3, 4, 5),
+        stop_levels=(0, 1, 2, 6),
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -55,34 +55,34 @@ Manage the state of SysV Init (/etc/init.d) services.
         command: str | None=None, **kwargs,
     )
 
-service**: name of the service to manage
-running**: whether the service should be running
-restarted**: whether the service should be restarted
-reloaded**: whether the service should be reloaded
-enabled**: whether this service should be enabled/disabled
-command**: command (eg. reload) to run like: ``/etc/init.d/<service> <command>``
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **reloaded**: whether the service should be reloaded
++ **enabled**: whether this service should be enabled/disabled
++ **command**: command (eg. reload) to run like: ``/etc/init.d/<service> <command>``
 
-led:
-Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
-support enabling/disabling services:
+Enabled:
+    Because managing /etc/rc.d/X files is a mess, only certain Linux distributions
+    support enabling/disabling services:
 
-+ Ubuntu/Debian (``update-rc.d``)
-+ CentOS/Fedora/RHEL (``chkconfig``)
-+ Gentoo (``rc-update``)
+    + Ubuntu/Debian (``update-rc.d``)
+    + CentOS/Fedora/RHEL (``chkconfig``)
+    + Gentoo (``rc-update``)
 
-For other distributions and more granular service control, see the
-``sysvinit.enable`` operation.
+    For other distributions and more granular service control, see the
+    ``sysvinit.enable`` operation.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-sysvinit.service(
-    name="Restart and enable rsyslog",
-    service="rsyslog",
-    restarted=True,
-    enabled=True,
-)
+    sysvinit.service(
+        name="Restart and enable rsyslog",
+        service="rsyslog",
+        restarted=True,
+        enabled=True,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

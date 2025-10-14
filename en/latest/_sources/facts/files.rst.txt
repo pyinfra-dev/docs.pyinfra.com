@@ -17,20 +17,20 @@ from pyinfra.facts.files import File
 
     host.get_fact(Block, path, marker=None, begin=None, end=None)
 
-rns a (possibly empty) list of the lines found between the markers.
+Returns a (possibly empty) list of the lines found between the markers.
 
-ode:: python
+.. code:: python
 
-[
-    "xray: one",
-    "alpha: two"
-]
+    [
+        "xray: one",
+        "alpha: two"
+    ]
 
-he ``path`` doesn't exist
-returns ``None``
+If the ``path`` doesn't exist
+    returns ``None``
 
-he ``path`` exists but the markers are not found
-returns ``[]``
+If the ``path`` exists but the markers are not found
+    returns ``[]``
 
 
 .. _facts:files.Directory:
@@ -42,21 +42,21 @@ returns ``[]``
 
     host.get_fact(Directory, path)
 
-rns information about a directory on the remote system:
+Returns information about a directory on the remote system:
 
-ode:: python
+.. code:: python
 
-{
-    "user": "pyinfra",
-    "group": "pyinfra",
-    "mode": 644,
-}
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "mode": 644,
+    }
 
-he path does not exist:
-returns ``None``
+If the path does not exist:
+    returns ``None``
 
-he path exists but is not a directory:
-returns ``False``
+If the path exists but is not a directory:
+    returns ``False``
 
 
 .. _facts:files.File:
@@ -68,22 +68,22 @@ returns ``False``
 
     host.get_fact(File, path)
 
-rns information about a file on the remote system:
+Returns information about a file on the remote system:
 
-ode:: python
+.. code:: python
 
-{
-    "user": "pyinfra",
-    "group": "pyinfra",
-    "mode": 644,
-    "size": 3928,
-}
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "mode": 644,
+        "size": 3928,
+    }
 
-he path does not exist:
-returns ``None``
+If the path does not exist:
+    returns ``None``
 
-he path exists but is not a file:
-returns ``False``
+If the path exists but is not a file:
+    returns ``False``
 
 
 .. _facts:files.FileContents:
@@ -95,8 +95,8 @@ returns ``False``
 
     host.get_fact(FileContents, path)
 
-rns the contents of a file as a list of lines. Works with both sha1sum and sha1. Returns
-ne`` if the file doest not exist.
+Returns the contents of a file as a list of lines. Works with both sha1sum and sha1. Returns
+``None`` if the file doest not exist.
 
 
 .. _facts:files.FindDirectories:
@@ -108,7 +108,7 @@ ne`` if the file doest not exist.
 
     host.get_fact(FindDirectories, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
-rns a list of directories from a start path, recursively using ``find``.
+Returns a list of directories from a start path, recursively using ``find``.
 
 
 .. _facts:files.FindFiles:
@@ -120,7 +120,7 @@ rns a list of directories from a start path, recursively using ``find``.
 
     host.get_fact(FindFiles, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
-rns a list of files from a start path, recursively using ``find``.
+Returns a list of files from a start path, recursively using ``find``.
 
 
 .. _facts:files.FindInFile:
@@ -132,8 +132,8 @@ rns a list of files from a start path, recursively using ``find``.
 
     host.get_fact(FindInFile, path, pattern, interpolate_variables=False)
 
-ks for the existence of text in a file using grep. Returns a list of matching
-s if the file exists, and ``None`` if the file does not.
+Checks for the existence of text in a file using grep. Returns a list of matching
+lines if the file exists, and ``None`` if the file does not.
 
 
 .. _facts:files.FindLinks:
@@ -145,7 +145,7 @@ s if the file exists, and ``None`` if the file does not.
 
     host.get_fact(FindLinks, path, size=None, min_size=None, max_size=None, maxdepth=None, fname=None, iname=None, regex=None, args=None, quote_path=True)
 
-rns a list of links from a start path, recursively using ``find``.
+Returns a list of links from a start path, recursively using ``find``.
 
 
 .. _facts:files.Flags:
@@ -157,7 +157,7 @@ rns a list of links from a start path, recursively using ``find``.
 
     host.get_fact(Flags, path)
 
-rns a list of the file flags set for the specified file or directory.
+Returns a list of the file flags set for the specified file or directory.
 
 
 .. _facts:files.Link:
@@ -169,21 +169,21 @@ rns a list of the file flags set for the specified file or directory.
 
     host.get_fact(Link, path)
 
-rns information about a link on the remote system:
+Returns information about a link on the remote system:
 
-ode:: python
+.. code:: python
 
-{
-    "user": "pyinfra",
-    "group": "pyinfra",
-    "link_target": "/path/to/link/target"
-}
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+        "link_target": "/path/to/link/target"
+    }
 
-he path does not exist:
-returns ``None``
+If the path does not exist:
+    returns ``None``
 
-he path exists but is not a link:
-returns ``False``
+If the path exists but is not a link:
+    returns ``False``
 
 
 .. _facts:files.Md5File:
@@ -195,7 +195,7 @@ returns ``False``
 
     host.get_fact(Md5File, path)
 
-rns an MD5 hash of a file, or ``None`` if the file does not exist.
+Returns an MD5 hash of a file, or ``None`` if the file does not exist.
 
 
 .. _facts:files.Sha1File:
@@ -207,8 +207,8 @@ rns an MD5 hash of a file, or ``None`` if the file does not exist.
 
     host.get_fact(Sha1File, path)
 
-rns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
-ne`` if the file doest not exist.
+Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
+``None`` if the file doest not exist.
 
 
 .. _facts:files.Sha256File:
@@ -220,7 +220,7 @@ ne`` if the file doest not exist.
 
     host.get_fact(Sha256File, path)
 
-rns a SHA256 hash of a file, or ``None`` if the file does not exist.
+Returns a SHA256 hash of a file, or ``None`` if the file does not exist.
 
 
 .. _facts:files.Sha384File:
@@ -232,7 +232,7 @@ rns a SHA256 hash of a file, or ``None`` if the file does not exist.
 
     host.get_fact(Sha384File, path)
 
-rns a SHA384 hash of a file, or ``None`` if the file does not exist.
+Returns a SHA384 hash of a file, or ``None`` if the file does not exist.
 
 
 .. _facts:files.Socket:
@@ -244,18 +244,18 @@ rns a SHA384 hash of a file, or ``None`` if the file does not exist.
 
     host.get_fact(Socket, path)
 
-rns information about a socket on the remote system:
+Returns information about a socket on the remote system:
 
-ode:: python
+.. code:: python
 
-{
-    "user": "pyinfra",
-    "group": "pyinfra",
-}
+    {
+        "user": "pyinfra",
+        "group": "pyinfra",
+    }
 
-he path does not exist:
-returns ``None``
+If the path does not exist:
+    returns ``None``
 
-he path exists but is not a socket:
-returns ``False``
+If the path exists but is not a socket:
+    returns ``False``
 

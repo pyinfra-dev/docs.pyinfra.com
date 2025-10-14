@@ -36,32 +36,32 @@ Add/remove PostgreSQL databases.
         psql_port: int | None=None, psql_database: str | None=None, **kwargs,
     )
 
-name**: name of the database
-present**: whether the database should exist or not
-owner**: the PostgreSQL role that owns the database
-template**: name of the PostgreSQL template to use
-encoding**: encoding of the database
-lc_collate**: lc_collate of the database
-lc_ctype**: lc_ctype of the database
-tablespace**: the tablespace to use for the template
-connection_limit**: the connection limit to apply to the database
-psql_***: global module arguments, see above
++ **name**: name of the database
++ **present**: whether the database should exist or not
++ **owner**: the PostgreSQL role that owns the database
++ **template**: name of the PostgreSQL template to use
++ **encoding**: encoding of the database
++ **lc_collate**: lc_collate of the database
++ **lc_ctype**: lc_ctype of the database
++ **tablespace**: the tablespace to use for the template
++ **connection_limit**: the connection limit to apply to the database
++ **psql_***: global module arguments, see above
 
-tes:
-pyinfra will change existing databases - but some parameters are not
-changeable (template, encoding, lc_collate and lc_ctype).
+Updates:
+    pyinfra will change existing databases - but some parameters are not
+    changeable (template, encoding, lc_collate and lc_ctype).
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-postgresql.database(
-    name="Create the pyinfra_stuff database",
-    database="pyinfra_stuff",
-    owner="pyinfra",
-    encoding="UTF8",
-    _sudo_user="postgres",
-)
+    postgresql.database(
+        name="Create the pyinfra_stuff database",
+        database="pyinfra_stuff",
+        owner="pyinfra",
+        encoding="UTF8",
+        _sudo_user="postgres",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -87,18 +87,18 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
         **kwargs,
     )
 
-dest**: name of the file to dump the SQL to
-psql_***: global module arguments, see above
++ **dest**: name of the file to dump the SQL to
++ **psql_***: global module arguments, see above
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-postgresql.dump(
-    name="Dump the pyinfra_stuff database",
-    dest="/tmp/pyinfra_stuff.dump",
-    sudo_user="postgres",
-)
+    postgresql.dump(
+        name="Dump the pyinfra_stuff database",
+        dest="/tmp/pyinfra_stuff.dump",
+        sudo_user="postgres",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -124,18 +124,18 @@ Load ``.sql`` file into a database.
         **kwargs,
     )
 
-src**: the filename to read from
-psql_***: global module arguments, see above
++ **src**: the filename to read from
++ **psql_***: global module arguments, see above
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-postgresql.load(
-    name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
-    src="/tmp/pyinfra_stuff.dump",
-    sudo_user="postgres",
-)
+    postgresql.load(
+        name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
+        src="/tmp/pyinfra_stuff.dump",
+        sudo_user="postgres",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -157,35 +157,35 @@ Add/remove PostgreSQL roles.
         psql_database: str | None=None, **kwargs,
     )
 
-role**: name of the role
-present**: whether the role should be present or absent
-password**: the password for the role
-login**: whether the role can login
-superuser**: whether role will be a superuser
-inherit**: whether the role inherits from other roles
-createdb**: whether the role is allowed to create databases
-createrole**: whether the role is allowed to create new roles
-replication**: whether this role is allowed to replicate
-connection_limit**: the connection limit for the role
-psql_***: global module arguments, see above
++ **role**: name of the role
++ **present**: whether the role should be present or absent
++ **password**: the password for the role
++ **login**: whether the role can login
++ **superuser**: whether role will be a superuser
++ **inherit**: whether the role inherits from other roles
++ **createdb**: whether the role is allowed to create databases
++ **createrole**: whether the role is allowed to create new roles
++ **replication**: whether this role is allowed to replicate
++ **connection_limit**: the connection limit for the role
++ **psql_***: global module arguments, see above
 
-tes:
-pyinfra will not attempt to change existing roles - it will either
-create or drop roles, but not alter them (if the role exists this
-operation will make no changes).
+Updates:
+    pyinfra will not attempt to change existing roles - it will either
+    create or drop roles, but not alter them (if the role exists this
+    operation will make no changes).
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-postgresql.role(
-    name="Create the pyinfra PostgreSQL role",
-    role="pyinfra",
-    password="somepassword",
-    superuser=True,
-    login=True,
-    _sudo_user="postgres",
-)
+    postgresql.role(
+        name="Create the pyinfra PostgreSQL role",
+        role="pyinfra",
+        password="somepassword",
+        superuser=True,
+        login=True,
+        _sudo_user="postgres",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -211,8 +211,8 @@ Execute arbitrary SQL against PostgreSQL.
         **kwargs,
     )
 
-sql**: SQL command(s) to execute
-psql_***: global module arguments, see above
++ **sql**: SQL command(s) to execute
++ **psql_***: global module arguments, see above
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

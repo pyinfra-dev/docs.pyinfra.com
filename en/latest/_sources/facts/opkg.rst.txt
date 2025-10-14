@@ -20,25 +20,25 @@ Gather the information provided by ``opkg`` on OpenWrt systems:
 
     host.get_fact(OpkgConf, )
 
-rns a NamedTuple with the current configuration:
+Returns a NamedTuple with the current configuration:
 
-ode:: python
+.. code:: python
 
-ConfInfo(
-    paths = {
-        "root": "/",
-        "ram": "/tmp",
-    },
-    list_dir = "/opt/opkg-lists",
-    options = {
-        "overlay_root": "/overlay"
-    },
-    arch_cfg = {
-        "all": 1,
-        "noarch": 1,
-        "i386_pentium": 10
-    }
-)
+    ConfInfo(
+        paths = {
+            "root": "/",
+            "ram": "/tmp",
+        },
+        list_dir = "/opt/opkg-lists",
+        options = {
+            "overlay_root": "/overlay"
+        },
+        arch_cfg = {
+            "all": 1,
+            "noarch": 1,
+            "i386_pentium": 10
+        }
+    )
 
 
 .. _facts:opkg.OpkgFeeds:
@@ -50,19 +50,19 @@ ConfInfo(
 
     host.get_fact(OpkgFeeds, )
 
-rns a dictionary containing the information for the distribution-provided and
-om opkg feeds:
+Returns a dictionary containing the information for the distribution-provided and
+custom opkg feeds:
 
-ode:: python
+.. code:: python
 
-{
- 'openwrt_base': FeedInfo(url='http://downloads ... /i386_pentium/base', fmt='src/gz', kind='distribution'), # noqa: E501
- 'openwrt_core': FeedInfo(url='http://downloads ... /x86/geode/packages', fmt='src/gz', kind='distribution'), # noqa: E501
- 'openwrt_luci': FeedInfo(url='http://downloads ... /i386_pentium/luci', fmt='src/gz', kind='distribution'),# noqa: E501
- 'openwrt_packages': FeedInfo(url='http://downloads ... /i386_pentium/packages', fmt='src/gz', kind='distribution'),# noqa: E501
- 'openwrt_routing': FeedInfo(url='http://downloads ... /i386_pentium/routing', fmt='src/gz', kind='distribution'),# noqa: E501
- 'openwrt_telephony': FeedInfo(url='http://downloads ... /i386_pentium/telephony', fmt='src/gz', kind='distribution') # noqa: E501
-}
+    {
+     'openwrt_base': FeedInfo(url='http://downloads ... /i386_pentium/base', fmt='src/gz', kind='distribution'), # noqa: E501
+     'openwrt_core': FeedInfo(url='http://downloads ... /x86/geode/packages', fmt='src/gz', kind='distribution'), # noqa: E501
+     'openwrt_luci': FeedInfo(url='http://downloads ... /i386_pentium/luci', fmt='src/gz', kind='distribution'),# noqa: E501
+     'openwrt_packages': FeedInfo(url='http://downloads ... /i386_pentium/packages', fmt='src/gz', kind='distribution'),# noqa: E501
+     'openwrt_routing': FeedInfo(url='http://downloads ... /i386_pentium/routing', fmt='src/gz', kind='distribution'),# noqa: E501
+     'openwrt_telephony': FeedInfo(url='http://downloads ... /i386_pentium/telephony', fmt='src/gz', kind='distribution') # noqa: E501
+    }
 
 
 .. _facts:opkg.OpkgInstallableArchitectures:
@@ -74,16 +74,16 @@ ode:: python
 
     host.get_fact(OpkgInstallableArchitectures, )
 
-rns a dictionary containing the currently installable architectures for this system along
- their priority:
+Returns a dictionary containing the currently installable architectures for this system along
+with their priority:
 
-ode:: python
+.. code:: python
 
-
- 'all': 1,
- 'i386_pentium': 10,
- 'noarch': 1
-}
+   {
+     'all': 1,
+     'i386_pentium': 10,
+     'noarch': 1
+    }
 
 
 .. _facts:opkg.OpkgPackages:
@@ -95,13 +95,14 @@ ode:: python
 
     host.get_fact(OpkgPackages, )
 
-rns a dict of installed opkg packages:
+Returns a dict of installed opkg packages:
 
-ode:: python
+.. code:: python
 
-
- 'package_name': ['version'],
- ...
+   {
+     'package_name': ['version'],
+     ...
+   }
 
 
 .. _facts:opkg.OpkgUpgradeablePackages:
@@ -113,12 +114,12 @@ ode:: python
 
     host.get_fact(OpkgUpgradeablePackages, )
 
-rns a dict of installed and upgradable opkg packages:
+Returns a dict of installed and upgradable opkg packages:
 
-ode:: python
+.. code:: python
 
-{
-  'package_name': (installed='1.2.3', available='1.2.8')
-  ...
-}
+    {
+      'package_name': (installed='1.2.3', available='1.2.8')
+      ...
+    }
 

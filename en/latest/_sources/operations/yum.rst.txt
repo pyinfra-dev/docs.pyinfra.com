@@ -24,20 +24,20 @@ Add yum gpg keys with ``rpm``.
 
     yum.key(src: str, **kwargs)
 
-src**: filename or URL
++ **src**: filename or URL
 
-:
-always returns one command, not state checking
+Note:
+    always returns one command, not state checking
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-linux_id = host.get_fact(LinuxDistribution)["release_meta"].get("ID")
-yum.key(
-    name="Add the Docker CentOS gpg key",
-    src=f"https://download.docker.com/linux/{linux_id}/gpg",
-)
+    linux_id = host.get_fact(LinuxDistribution)["release_meta"].get("ID")
+    yum.key(
+        name="Add the Docker CentOS gpg key",
+        src=f"https://download.docker.com/linux/{linux_id}/gpg",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -57,35 +57,35 @@ Install/remove/update yum packages & updates.
         extra_uninstall_args: str | None=None, **kwargs,
     )
 
-packages**: list of packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-update**: run ``yum update`` before installing packages
-clean**: run ``yum clean all`` before installing packages
-nobest**: add the no best option to install
-extra_install_args**: additional arguments to the yum install command
-extra_uninstall_args**: additional arguments to the yum uninstall command
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``yum update`` before installing packages
++ **clean**: run ``yum clean all`` before installing packages
++ **nobest**: add the no best option to install
++ **extra_install_args**: additional arguments to the yum install command
++ **extra_uninstall_args**: additional arguments to the yum uninstall command
 
-ions:
-Package versions can be pinned as follows: ``<pkg>=<version>``
+Versions:
+    Package versions can be pinned as follows: ``<pkg>=<version>``
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Update package list and install packages
-yum.packages(
-    name="Install Vim and Vim enhanced",
-    packages=["vim-enhanced", "vim"],
-    update=True,
-)
+    # Update package list and install packages
+    yum.packages(
+        name="Install Vim and Vim enhanced",
+        packages=["vim-enhanced", "vim"],
+        update=True,
+    )
 
-# Install the latest versions of packages (always check)
-yum.packages(
-    name="Install latest Vim",
-    packages=["vim"],
-    latest=True,
-)
+    # Install the latest versions of packages (always check)
+    yum.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -104,35 +104,35 @@ Add/remove/update yum repositories.
         enabled=True, gpgcheck=True, gpgkey: str | None=None, **kwargs,
     )
 
-src**: URL or name for the ``.repo``   file
-present**: whether the ``.repo`` file should be present
-baseurl**: the baseurl of the repo (if ``src`` is not a URL)
-description**: optional verbose description
-enabled**: whether this repo is enabled
-gpgcheck**: whether set ``gpgcheck=1``
-gpgkey**: the URL to the gpg key for this repo
++ **src**: URL or name for the ``.repo``   file
++ **present**: whether the ``.repo`` file should be present
++ **baseurl**: the baseurl of the repo (if ``src`` is not a URL)
++ **description**: optional verbose description
++ **enabled**: whether this repo is enabled
++ **gpgcheck**: whether set ``gpgcheck=1``
++ **gpgkey**: the URL to the gpg key for this repo
 
-seurl``/``description``/``gpgcheck``/``gpgkey``:
-These are only valid when ``src`` is a filename (ie not a URL). This is
-for manual construction of repository files. Use a URL to download and
-install remote repository files.
+``Baseurl``/``description``/``gpgcheck``/``gpgkey``:
+    These are only valid when ``src`` is a filename (ie not a URL). This is
+    for manual construction of repository files. Use a URL to download and
+    install remote repository files.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Download a repository file
-yum.repo(
-    name="Install Docker-CE repo via URL",
-    src="https://download.docker.com/linux/centos/docker-ce.repo",
-)
+    # Download a repository file
+    yum.repo(
+        name="Install Docker-CE repo via URL",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
+    )
 
-# Create the repository file from baseurl/etc
-yum.repo(
-    name="Add the Docker CentOS repo",
-    src="DockerCE",
-    baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
-)
+    # Create the repository file from baseurl/etc
+    yum.repo(
+        name="Add the Docker CentOS repo",
+        src="DockerCE",
+        baseurl="https://download.docker.com/linux/centos/7/$basearch/stable",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -148,22 +148,22 @@ Add/remove ``.rpm`` file packages.
 
     yum.rpm(src: str, present=True, **kwargs)
 
-src**: filename or URL of the ``.rpm`` package
-present**: whether ore not the package should exist on the system
++ **src**: filename or URL of the ``.rpm`` package
++ **present**: whether ore not the package should exist on the system
 
-sources with ``present=False``:
-If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
-package as the file won't exist until mid-deploy.
+URL sources with ``present=False``:
+    If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
+    package as the file won't exist until mid-deploy.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-major_version = host.get_fact(LinuxDistribution)["major"]
-dnf.rpm(
-   name="Install EPEL rpm to enable EPEL repo",
-   src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_version}.noarch.rpm",
-)
+    major_version = host.get_fact(LinuxDistribution)["major"]
+    dnf.rpm(
+       name="Install EPEL rpm to enable EPEL repo",
+       src=f"https://dl.fedoraproject.org/pub/epel/epel-release-latest-{major_version}.noarch.rpm",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 

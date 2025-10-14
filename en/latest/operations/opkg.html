@@ -204,29 +204,33 @@ OpenWrt recommends against upgrading all packages  thus there is no <code class=
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>packages**: package or list of packages to that must/must not be present
-present**: whether the package(s) should be installed (default True) or removed
-latest**: whether to attempt to upgrade the specified package(s) (default False)
-update**: run <code class="docutils literal notranslate"><span class="pre">opkg</span> <span class="pre">update</span></code> before installing packages (default True)</p>
-<p>Supported:
-Opkg does not support version pinning, i.e. <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code> is not allowed
+<ul class="simple">
+<li><p><strong>packages</strong>: package or list of packages to that must/must not be present</p></li>
+<li><p><strong>present</strong>: whether the package(s) should be installed (default True) or removed</p></li>
+<li><p><strong>latest</strong>: whether to attempt to upgrade the specified package(s) (default False)</p></li>
+<li><p><strong>update</strong>: run <code class="docutils literal notranslate"><span class="pre">opkg</span> <span class="pre">update</span></code> before installing packages (default True)</p></li>
+</ul>
+<dl class="simple">
+<dt>Not Supported:</dt><dd><p>Opkg does not support version pinning, i.e. <code class="docutils literal notranslate"><span class="pre">&lt;pkg&gt;=&lt;version&gt;</span></code> is not allowed
 and will cause an exception.</p>
-<p>amples:**</p>
-<p>ode:: python</p>
-<p># Ensure packages are installed∂ (will not force package upgrade)
-opkg.packages([‘asterisk’, ‘vim’], name=”Install Asterisk and Vim”)</p>
-<p># Install the latest versions of packages (always check)
-opkg.packages(</p>
-<blockquote>
-<div><p>‘vim’,
-latest=True,
-name=”Ensure we have the latest version of Vim”</p>
-</div></blockquote>
-<p>)
-Note:</p>
-<blockquote>
-<div><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</div></blockquote>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure packages are installed∂ (will not force package upgrade)</span>
+<span class="n">opkg</span><span class="o">.</span><span class="n">packages</span><span class="p">([</span><span class="s1">&#39;asterisk&#39;</span><span class="p">,</span> <span class="s1">&#39;vim&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Asterisk and Vim&quot;</span><span class="p">)</span>
+
+<span class="c1"># Install the latest versions of packages (always check)</span>
+<span class="n">opkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+    <span class="s1">&#39;vim&#39;</span><span class="p">,</span>
+    <span class="n">latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure we have the latest version of Vim&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
 </section>
 <section id="opkg-update">
 <span id="operations-opkg-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.update</span></code><a class="headerlink" href="#opkg-update" title="Link to this heading">¶</a></h2>

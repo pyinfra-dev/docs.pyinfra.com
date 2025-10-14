@@ -210,167 +210,172 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Block</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a (possibly empty) list of the lines found between the markers.</p>
-<p>ode:: python</p>
+<p>Returns a (possibly empty) list of the lines found between the markers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s2">&quot;xray: one&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alpha: two&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>[</dt><dd><p>“xray: one”,
-“alpha: two”</p>
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> doesn’t exist</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the <code class="docutils literal notranslate"><span class="pre">path</span></code> exists but the markers are not found</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
 </dd>
 </dl>
-<p>]</p>
-<p>he <code class="docutils literal notranslate"><span class="pre">path</span></code> doesn’t exist
-returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-<p>he <code class="docutils literal notranslate"><span class="pre">path</span></code> exists but the markers are not found
-returns <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
 </section>
 <section id="files-directory">
 <span id="facts-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Directory</span></code><a class="headerlink" href="#files-directory" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Directory</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns information about a directory on the remote system:</p>
-<p>ode:: python</p>
+<p>Returns information about a directory on the remote system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">644</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>{</dt><dd><p>“user”: “pyinfra”,
-“group”: “pyinfra”,
-“mode”: 644,</p>
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a directory:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
-<p>}</p>
-<p>he path does not exist:
-returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-<p>he path exists but is not a directory:
-returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </section>
 <section id="files-file">
 <span id="facts-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.File</span></code><a class="headerlink" href="#files-file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns information about a file on the remote system:</p>
-<p>ode:: python</p>
+<p>Returns information about a file on the remote system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="mi">644</span><span class="p">,</span>
+    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">3928</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>{</dt><dd><p>“user”: “pyinfra”,
-“group”: “pyinfra”,
-“mode”: 644,
-“size”: 3928,</p>
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a file:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
-<p>}</p>
-<p>he path does not exist:
-returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-<p>he path exists but is not a file:
-returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </section>
 <section id="files-filecontents">
 <span id="facts-files-filecontents"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FileContents</span></code><a class="headerlink" href="#files-filecontents" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FileContents</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns the contents of a file as a list of lines. Works with both sha1sum and sha1. Returns
-ne`` if the file doest not exist.</p>
+<p>Returns the contents of a file as a list of lines. Works with both sha1sum and sha1. Returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the file doest not exist.</p>
 </section>
 <section id="files-finddirectories">
 <span id="facts-files-finddirectories"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindDirectories</span></code><a class="headerlink" href="#files-finddirectories" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindDirectories</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a list of directories from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
+<p>Returns a list of directories from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
 </section>
 <section id="files-findfiles">
 <span id="facts-files-findfiles"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindFiles</span></code><a class="headerlink" href="#files-findfiles" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindFiles</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a list of files from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
+<p>Returns a list of files from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
 </section>
 <section id="files-findinfile">
 <span id="facts-files-findinfile"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindInFile</span></code><a class="headerlink" href="#files-findinfile" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindInFile</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>ks for the existence of text in a file using grep. Returns a list of matching
-s if the file exists, and <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not.</p>
+<p>Checks for the existence of text in a file using grep. Returns a list of matching
+lines if the file exists, and <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not.</p>
 </section>
 <section id="files-findlinks">
 <span id="facts-files-findlinks"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.FindLinks</span></code><a class="headerlink" href="#files-findlinks" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">FindLinks</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxdepth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quote_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a list of links from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
+<p>Returns a list of links from a start path, recursively using <code class="docutils literal notranslate"><span class="pre">find</span></code>.</p>
 </section>
 <section id="files-flags">
 <span id="facts-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Flags</span></code><a class="headerlink" href="#files-flags" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Flags</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a list of the file flags set for the specified file or directory.</p>
+<p>Returns a list of the file flags set for the specified file or directory.</p>
 </section>
 <section id="files-link">
 <span id="facts-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Link</span></code><a class="headerlink" href="#files-link" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Link</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns information about a link on the remote system:</p>
-<p>ode:: python</p>
+<p>Returns information about a link on the remote system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;link_target&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/link/target&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>{</dt><dd><p>“user”: “pyinfra”,
-“group”: “pyinfra”,
-“link_target”: “/path/to/link/target”</p>
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a link:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
-<p>}</p>
-<p>he path does not exist:
-returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-<p>he path exists but is not a link:
-returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </section>
 <section id="files-md5file">
 <span id="facts-files-md5file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Md5File</span></code><a class="headerlink" href="#files-md5file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Md5File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns an MD5 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
+<p>Returns an MD5 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
 </section>
 <section id="files-sha1file">
 <span id="facts-files-sha1file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha1File</span></code><a class="headerlink" href="#files-sha1file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha1File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
-ne`` if the file doest not exist.</p>
+<p>Returns a SHA1 hash of a file. Works with both sha1sum and sha1. Returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if the file doest not exist.</p>
 </section>
 <section id="files-sha256file">
 <span id="facts-files-sha256file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha256File</span></code><a class="headerlink" href="#files-sha256file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha256File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a SHA256 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
+<p>Returns a SHA256 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
 </section>
 <section id="files-sha384file">
 <span id="facts-files-sha384file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Sha384File</span></code><a class="headerlink" href="#files-sha384file" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Sha384File</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns a SHA384 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
+<p>Returns a SHA384 hash of a file, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if the file does not exist.</p>
 </section>
 <section id="files-socket">
 <span id="facts-files-socket"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.Socket</span></code><a class="headerlink" href="#files-socket" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Socket</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>rns information about a socket on the remote system:</p>
-<p>ode:: python</p>
+<p>Returns information about a socket on the remote system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <dl class="simple">
-<dt>{</dt><dd><p>“user”: “pyinfra”,
-“group”: “pyinfra”,</p>
+<dt>If the path does not exist:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt>If the path exists but is not a socket:</dt><dd><p>returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
-<p>}</p>
-<p>he path does not exist:
-returns <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-<p>he path exists but is not a socket:
-returns <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </section>
 </section>
 

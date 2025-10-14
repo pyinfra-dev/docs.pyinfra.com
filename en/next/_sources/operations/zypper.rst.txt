@@ -20,36 +20,36 @@ Install/remove/update zypper packages & updates.
         extra_uninstall_args: str | None=None, **kwargs,
     )
 
-packages**: list of packages to ensure
-present**: whether the packages should be installed
-latest**: whether to upgrade packages without a specified version
-update**: run ``zypper update`` before installing packages
-clean**: run ``zypper clean --all`` before installing packages
-extra_global_install_args**: additional global arguments to the zypper install command
-extra_install_args**: additional arguments to the zypper install command
-extra_global_uninstall_args**: additional global arguments to the zypper uninstall command
-extra_uninstall_args**: additional arguments to the zypper uninstall command
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``zypper update`` before installing packages
++ **clean**: run ``zypper clean --all`` before installing packages
++ **extra_global_install_args**: additional global arguments to the zypper install command
++ **extra_install_args**: additional arguments to the zypper install command
++ **extra_global_uninstall_args**: additional global arguments to the zypper uninstall command
++ **extra_uninstall_args**: additional arguments to the zypper uninstall command
 
-ions:
-Package versions can be pinned like zypper: ``<pkg>=<version>``
+Versions:
+    Package versions can be pinned like zypper: ``<pkg>=<version>``
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Update package list and install packages
-zypper.packages(
-    name="Install Vim and Vim enhanced",
-    packages=["vim-enhanced", "vim"],
-    update=True,
-)
+    # Update package list and install packages
+    zypper.packages(
+        name="Install Vim and Vim enhanced",
+        packages=["vim-enhanced", "vim"],
+        update=True,
+    )
 
-# Install the latest versions of packages (always check)
-zypper.packages(
-    name="Install latest Vim",
-    packages=["vim"],
-    latest=True,
-)
+    # Install the latest versions of packages (always check)
+    zypper.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -68,36 +68,36 @@ Add/remove/update zypper repositories.
         gpgkey=None, type="rpm-md", **kwargs,
     )
 
-src**: URL or name for the ``.repo``   file
-baseurl**: the baseurl of the repo (if ``name`` is not a URL)
-present**: whether the ``.repo`` file should be present
-description**: optional verbose description
-enabled**: whether this repo is enabled
-gpgcheck**: whether set ``gpgcheck=1``
-gpgkey**: the URL to the gpg key for this repo
-type**: the type field this repo (defaults to ``rpm-md``)
++ **src**: URL or name for the ``.repo``   file
++ **baseurl**: the baseurl of the repo (if ``name`` is not a URL)
++ **present**: whether the ``.repo`` file should be present
++ **description**: optional verbose description
++ **enabled**: whether this repo is enabled
++ **gpgcheck**: whether set ``gpgcheck=1``
++ **gpgkey**: the URL to the gpg key for this repo
++ **type**: the type field this repo (defaults to ``rpm-md``)
 
-seurl``/``description``/``gpgcheck``/``gpgkey``:
-These are only valid when ``name`` is a filename (ie not a URL). This is
-for manual construction of repository files. Use a URL to download and
-install remote repository files.
+``Baseurl``/``description``/``gpgcheck``/``gpgkey``:
+    These are only valid when ``name`` is a filename (ie not a URL). This is
+    for manual construction of repository files. Use a URL to download and
+    install remote repository files.
 
-amples:**
+**Examples:**
 
-ode:: python
+.. code:: python
 
-# Download a repository file
-zypper.repo(
-    name="Install container virtualization repo via URL",
-    src="https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo",
-)
+    # Download a repository file
+    zypper.repo(
+        name="Install container virtualization repo via URL",
+        src="https://download.opensuse.org/repositories/Virtualization:containers/openSUSE_Tumbleweed/Virtualization:containers.repo",
+    )
 
-# Create the repository file from baseurl/etc
-zypper.repo(
-    name="Install container virtualization repo",
-    src=="Virtualization:containers (openSUSE_Tumbleweed)",
-    baseurl="https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/",
-)
+    # Create the repository file from baseurl/etc
+    zypper.repo(
+        name="Install container virtualization repo",
+        src=="Virtualization:containers (openSUSE_Tumbleweed)",
+        baseurl="https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
@@ -113,21 +113,21 @@ Add/remove ``.rpm`` file packages.
 
     zypper.rpm(src, present=True, **kwargs)
 
-src**: filename or URL of the ``.rpm`` package
-present**: whether ore not the package should exist on the system
++ **src**: filename or URL of the ``.rpm`` package
++ **present**: whether ore not the package should exist on the system
 
-sources with ``present=False``:
-If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
-package as the file won't exist until mid-deploy.
+URL sources with ``present=False``:
+    If the ``.rpm`` file isn't downloaded, pyinfra can't remove any existing
+    package as the file won't exist until mid-deploy.
 
-ample:**
+**Example:**
 
-ode:: python
+.. code:: python
 
-zypper.rpm(
-   name="Install task from rpm",
-   src="https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm",
-)
+    zypper.rpm(
+       name="Install task from rpm",
+       src="https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm",
+    )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
