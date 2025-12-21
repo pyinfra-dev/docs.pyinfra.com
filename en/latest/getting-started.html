@@ -161,8 +161,11 @@
 <span class="c1"># Execute over SSH</span>
 pyinfra<span class="w"> </span>my-server.net<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
 
+<span class="c1"># Execute over SSH with options</span>
+pyinfra<span class="w"> </span>localhost<span class="w"> </span>--ssh-port<span class="w"> </span><span class="m">2222</span><span class="w"> </span>--ssh-user<span class="w"> </span>vagrant<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+
 <span class="c1"># Execute within a new docker container</span>
-pyinfra<span class="w"> </span>@docker/ubuntu:18.04<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+pyinfra<span class="w"> </span>@docker/ubuntu:22.04<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
 
 <span class="c1"># Execute on the local machine (MacOS/Linux only - for now)</span>
 pyinfra<span class="w"> </span>@local<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
@@ -191,7 +194,17 @@ pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>init.systemd
 <p>A deploy is a collection of inventories and operations defined in Python files. These deploys can be saved and reused (committed to git, etc). Think of a deploy like Ansible’s playbook or Chef’s cookbook.</p>
 <p>To get started create an <code class="docutils literal notranslate"><span class="pre">inventory.py</span></code> containing our hosts to target:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a group as a list of hosts</span>
-<span class="n">my_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my-server.net&quot;</span><span class="p">,</span> <span class="s2">&quot;@docker/ubuntu:18.04&quot;</span><span class="p">]</span>
+<span class="n">my_hosts</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="c1"># vagrant instance</span>
+   <span class="p">(</span><span class="s2">&quot;ubuntu2204&quot;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="s2">&quot;ssh_port&quot;</span><span class="p">:</span> <span class="mi">2222</span><span class="p">,</span>
+      <span class="s2">&quot;ssh_hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;ssh_user&quot;</span><span class="p">:</span> <span class="s2">&quot;vagrant&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;_sudo&quot;</span><span class="p">:</span> <span class="kc">True</span>
+   <span class="p">}),</span>
+  <span class="s2">&quot;my-server.net&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;@docker/ubuntu:22.04&quot;</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 <p>Now create a <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code> containing our operations to execute:</p>
@@ -201,7 +214,7 @@ pyinfra<span class="w"> </span>my-server.net<span class="w"> </span>init.systemd
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure the vim apt package is installed&quot;</span><span class="p">,</span>
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vim&quot;</span><span class="p">],</span>
-    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># use sudo when installing the packages</span>
+    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

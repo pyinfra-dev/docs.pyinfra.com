@@ -173,7 +173,6 @@
     <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;644&quot;</span><span class="p">,</span>
-    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -261,17 +260,31 @@
 </section>
 <section id="host-facts">
 <h3>Host Facts<a class="headerlink" href="#host-facts" title="Link to this heading">¶</a></h3>
-<p>Facts allow you to use information about the target host to control and configure operations. A good example is switching between <code class="docutils literal notranslate"><span class="pre">apt</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">yum</span></code> depending on the Linux distribution. Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be retrieved using the <code class="docutils literal notranslate"><span class="pre">host.get_fact</span></code> function:</p>
+<p>Facts allow you to use information about the target host to control and configure operations. A good example is switching between <code class="docutils literal notranslate"><span class="pre">apt</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">yum</span></code> depending on the Linux distribution. You can get a fact like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>fact<span class="w"> </span>server.LinuxName
+</pre></div>
+</div>
+<p>Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be retrieved using the <code class="docutils literal notranslate"><span class="pre">host.get_fact</span></code> function. If you save this in a file called <cite>nano.py</cite>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinuxName</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">yum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">yum</span><span class="p">,</span> <span class="n">apt</span>
 
-<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;CentOS&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Fedora&quot;</span><span class="p">:</span>
     <span class="n">yum</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nano via yum&quot;</span><span class="p">,</span>
         <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nano&quot;</span><span class="p">],</span>
         <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
+<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Ubuntu&quot;</span><span class="p">:</span>
+    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nano via apt&quot;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nano&quot;</span><span class="p">],</span>
+        <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>nano.py
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="facts.html"><span class="doc">Facts Index</span></a> for a full list of available facts and arguments.</p>
@@ -428,23 +441,32 @@
 </div>
 <section id="enforcing-requirements">
 <h3>Enforcing Requirements<a class="headerlink" href="#enforcing-requirements" title="Link to this heading">¶</a></h3>
-<p>The config object can be used to enforce a pyinfra version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements:</p>
+<p>The config object can be used to enforce a pyinfra version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements. For example, if you create a <cite>requirements.py</cite> file with:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Require a certain pyinfra version</span>
-<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PYINFRA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;~=1.1&quot;</span>
+<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PYINFRA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;~=3.0&quot;</span>
 
 <span class="c1"># Require certain packages</span>
-<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PACKAGES</span> <span class="o">=</span> <span class="s2">&quot;requirements.txt&quot;</span>  <span class="c1"># path relative to the current working directory</span>
+<span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PACKAGES</span> <span class="o">=</span> <span class="s2">&quot;requirements.txt&quot;</span>  <span class="c1"># path is relative to the current working directory</span>
 <span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PACKAGES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;pyinfra~=1.1&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;pyinfra-docker~=1.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pyinfra~=3.0&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
+<p>And create a <cite>requirements.txt</cite> file with something like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyinfra
+</pre></div>
+</div>
+<p>Then modify the <cite>nano.py</cite> above to include these lines:
+.. code:: python</p>
+<blockquote>
+<div><p>from pyinfra import local
+local.include(“requirements.py”)</p>
+</div></blockquote>
 </section>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
-<p>A great way to learn more about writing pyinfra deploys is to see some in action. There’s a number of resources for this:</p>
+<p>A great way to learn more about writing pyinfra deploys is to see some in action. Check out:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/pyinfra-dev/pyinfra-examples">the pyinfra examples repository on GitHub</a></p></li>
 </ul>

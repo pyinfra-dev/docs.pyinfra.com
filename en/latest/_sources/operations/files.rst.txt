@@ -96,7 +96,7 @@ WARNING: This will break if the content contains raw single quotes.
     # put complex alias into .zshrc
     files.block(
         path="/home/user/.zshrc",
-        content="eval $(thefuck -a)",
+        content="eval $(thef -a)",
         try_prevent_shell_expansion=True,
         marker="## {mark} ALIASES ##"
     )
@@ -202,6 +202,7 @@ Download files from remote locations using ``curl`` or ``wget``.
 
 .. code:: python
 
+    from pyinfra.operations import files
     files.download(
         name="Download the Docker repo file",
         src="https://download.docker.com/linux/centos/docker-ce.repo",
