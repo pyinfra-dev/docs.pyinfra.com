@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=fb44425a" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -185,15 +185,15 @@
 <p>Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
 <section id="docker-container">
 <span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Link to this heading">¶</a></h2>
 <p>Manage Docker containers</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
     <span class="n">container</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">networks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">env_vars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull_always</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="n">env_vars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull_always</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -204,13 +204,15 @@ as inventory directly.</p>
 <li><p><strong>ports</strong>: port list to expose</p></li>
 <li><p><strong>volumes</strong>: volume list to map on container</p></li>
 <li><p><strong>env_vars</strong>: environment variable list to inject on container</p></li>
+<li><p><strong>labels</strong>: Label list to attach to the container</p></li>
 <li><p><strong>pull_always</strong>: force image pull</p></li>
 <li><p><strong>force</strong>: remove a container with same name and create a new one</p></li>
 <li><p><strong>present</strong>: whether the container should be up and running</p></li>
 <li><p><strong>start</strong>: start or stop the container</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a container</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+<span class="c1"># Run a container</span>
 <span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy Nginx container&quot;</span><span class="p">,</span>
     <span class="n">container</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
@@ -245,17 +247,14 @@ as inventory directly.</p>
 </section>
 <section id="docker-image">
 <span id="operations-docker-image"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code><a class="headerlink" href="#docker-image" title="Link to this heading">¶</a></h2>
-<div class="important admonition">
-<p class="admonition-title">Stateless operation</p>
-<p>This operation will always execute commands and is not idempotent.</p>
-</div>
 <p>Manage Docker images</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p><strong>image</strong>: Image and tag ex: nginx:alpine</p></li>
 <li><p><strong>present</strong>: whether the Docker image should exist</p></li>
+<li><p><strong>force</strong>: always pull the image if present is True</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull a Docker image</span>

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
-    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=1c50d839" />
+    <link rel="stylesheet" type="text/css" href="../_static/guzzle.css?v=fb44425a" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#inventory-connector">Inventory Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#executing-connector">Executing Connector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#where-to-make-changes">Where to make changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-run-shell-command">Implementing <code class="docutils literal notranslate"><span class="pre">run_shell_command</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pyproject-toml">pyproject.toml</a></li>
 </ul>
 </li>
@@ -183,7 +184,7 @@ handled in code separately from <code class="docutils literal notranslate"><span
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="o">...</span>  <span class="c1"># see above</span>
- 
+
     <span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">command</span><span class="p">:</span> <span class="n">StringCommand</span><span class="p">,</span>
@@ -309,6 +310,54 @@ screen.</p>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">disconnect</span></code> can be used after all operations complete to clean up any connection/s remaining to the hosts being managed.</p>
+</section>
+<section id="implementing-run-shell-command">
+<h2>Implementing <code class="docutils literal notranslate"><span class="pre">run_shell_command</span></code><a class="headerlink" href="#implementing-run-shell-command" title="Link to this heading">¶</a></h2>
+<p>When implementing <code class="docutils literal notranslate"><span class="pre">run_shell_command</span></code>, connectors should use pyinfra’s command wrapping utilities rather than manually constructing commands. The <code class="docutils literal notranslate"><span class="pre">make_unix_command_for_host()</span></code> function from <code class="docutils literal notranslate"><span class="pre">pyinfra.connectors.util</span></code> handles shell wrapping, sudo elevation, environment variables, working directory changes, command retries and shell executable selection.</p>
+<p>Its worth being aware that when passing <code class="docutils literal notranslate"><span class="pre">arguments</span></code> to <code class="docutils literal notranslate"><span class="pre">make_unix_command_for_host()</span></code>, connector control parameters must be filtered out. These parameters (<code class="docutils literal notranslate"><span class="pre">_success_exit_codes</span></code>, <code class="docutils literal notranslate"><span class="pre">_timeout</span></code>, <code class="docutils literal notranslate"><span class="pre">_get_pty</span></code>, <code class="docutils literal notranslate"><span class="pre">_stdin</span></code>) are defined in <code class="docutils literal notranslate"><span class="pre">pyinfra.api.arguments.ConnectorArguments</span></code> and are meant for the connector’s internal logic after command generation, not for command construction itself.</p>
+<p>The recommended approach is to use <code class="docutils literal notranslate"><span class="pre">extract_control_arguments()</span></code> from <code class="docutils literal notranslate"><span class="pre">pyinfra.connectors.util</span></code> which handles this filtering for you:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.connectors.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_control_arguments</span><span class="p">,</span> <span class="n">make_unix_command_for_host</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyConnector</span><span class="p">(</span><span class="n">BaseConnector</span><span class="p">):</span>
+    <span class="n">handles_execution</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">command</span><span class="p">:</span> <span class="n">StringCommand</span><span class="p">,</span>
+        <span class="n">print_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">print_input</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">arguments</span><span class="p">:</span> <span class="n">Unpack</span><span class="p">[</span><span class="s2">&quot;ConnectorArguments&quot;</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">CommandOutput</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute a command with proper shell wrapping.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Extract and remove control parameters from arguments</span>
+        <span class="c1"># This modifies arguments dict in place and returns the extracted params</span>
+        <span class="n">control_args</span> <span class="o">=</span> <span class="n">extract_control_arguments</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+
+        <span class="c1"># Generate properly wrapped command with sudo, environment, etc</span>
+        <span class="c1"># arguments now contains only command generation parameters</span>
+        <span class="n">wrapped_command</span> <span class="o">=</span> <span class="n">make_unix_command_for_host</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+            <span class="n">command</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">arguments</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Use control parameters for execution</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">control_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_timeout&quot;</span><span class="p">)</span>
+        <span class="n">success_exit_codes</span> <span class="o">=</span> <span class="n">control_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_success_exit_codes&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Execute the wrapped command using your connector&#39;s method</span>
+        <span class="n">exit_code</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">wrapped_command</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+        <span class="c1"># Check success based on exit codes</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">exit_code</span> <span class="ow">in</span> <span class="n">success_exit_codes</span>
+
+        <span class="k">return</span> <span class="n">success</span><span class="p">,</span> <span class="n">output</span>
+</pre></div>
+</div>
+<p>Without proper command wrapping, shell operators and complex commands will fail. For example <code class="docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">60</span> <span class="pre">bash</span> <span class="pre">-c</span> <span class="pre">'command'</span> <span class="pre">||</span> <span class="pre">true</span></code> executed without shell wrapping will result in <code class="docutils literal notranslate"><span class="pre">bash:</span> <span class="pre">||:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>. PyInfra operations and fact gathering rely on shell operators (<code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code>, pipes, redirects) so using <code class="docutils literal notranslate"><span class="pre">make_unix_command_for_host()</span></code> ensures your connector handles these correctly.</p>
+<p>For complete examples see pyinfra’s built-in connectors in <code class="docutils literal notranslate"><span class="pre">pyinfra/connectors/docker.py</span></code>, <code class="docutils literal notranslate"><span class="pre">pyinfra/connectors/chroot.py</span></code>, <code class="docutils literal notranslate"><span class="pre">pyinfra/connectors/ssh.py</span></code> and <code class="docutils literal notranslate"><span class="pre">pyinfra/connectors/local.py</span></code>, as well as the command wrapping utilities in <code class="docutils literal notranslate"><span class="pre">pyinfra/connectors/util.py</span></code>.</p>
 </section>
 <section id="pyproject-toml">
 <h2>pyproject.toml<a class="headerlink" href="#pyproject-toml" title="Link to this heading">¶</a></h2>

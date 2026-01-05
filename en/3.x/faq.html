@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=1c50d839" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=fb44425a" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -147,13 +147,15 @@
 <span class="c1"># Get the actual current hostname from the host</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Hostname</span>
 <span class="n">hostname</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Hostname</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hostname:</span><span class="si">{</span><span class="n">hostname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="how-do-i-use-sudo-in-an-operation">
 <h2>How do I use sudo in an operation?<a class="headerlink" href="#how-do-i-use-sudo-in-an-operation" title="Link to this heading">¶</a></h2>
 <p>Sudo is controlled by one of the <a class="reference external" href="arguments.html#privilege-user-escalation">privilege and user escalation arguments</a>, there are a number of additional arguments to control sudo execution:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
+<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
     <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">_sudo_user</span><span class="o">=</span><span class="s2">&quot;someuser&quot;</span><span class="p">,</span>    <span class="c1"># sudo to this user</span>
@@ -166,7 +168,8 @@
 <section id="how-do-i-chmod-or-chown-a-file-directory-link">
 <h2>How do I chmod or chown a file/directory/link?<a class="headerlink" href="#how-do-i-chmod-or-chown-a-file-directory-link" title="Link to this heading">¶</a></h2>
 <p>Use the LINK <code class="docutils literal notranslate"><span class="pre">files.file</span></code>, <code class="docutils literal notranslate"><span class="pre">files.directory</span></code> or <code class="docutils literal notranslate"><span class="pre">files.link</span></code> operations to set the permissions and ownership of files, directories &amp; links:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+<span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
     <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/default/elasticsearch&quot;</span><span class="p">,</span>
     <span class="n">user</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
     <span class="n">group</span><span class="o">=</span><span class="s2">&quot;pyinfra&quot;</span><span class="p">,</span>
@@ -178,7 +181,8 @@
 <section id="how-do-i-handle-unreliable-operations-or-network-issues">
 <h2>How do I handle unreliable operations or network issues?<a class="headerlink" href="#how-do-i-handle-unreliable-operations-or-network-issues" title="Link to this heading">¶</a></h2>
 <p>Use the <a class="reference external" href="arguments.html#retry-behavior">retry behavior arguments</a> to automatically retry failed operations. This is especially useful for network operations or services that may be temporarily unavailable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retry a network operation up to 3 times</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+<span class="c1"># Retry a network operation up to 3 times</span>
 <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download file with retries&quot;</span><span class="p">,</span>
     <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;wget https://example.com/file.zip&quot;</span><span class="p">],</span>

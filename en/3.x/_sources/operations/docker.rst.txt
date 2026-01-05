@@ -7,7 +7,7 @@ the view of the current inventory host. See the :doc:`../connectors/docker` to u
 as inventory directly.
 
 
-Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
+Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerImage`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
 
 .. _operations:docker.container:
 
@@ -21,8 +21,8 @@ Manage Docker containers
     docker.container(
         container: str, image: str="", ports: list[str] | None=None,
         networks: list[str] | None=None, volumes: list[str] | None=None,
-        env_vars: list[str] | None=None, pull_always: bool=False, present: bool=True,
-        force: bool=False, start: bool=True, **kwargs,
+        env_vars: list[str] | None=None, labels: list[str] | None=None, pull_always: bool=False,
+        present: bool=True, force: bool=False, start: bool=True, **kwargs,
     )
 
 + **container**: name to identify the container
@@ -31,6 +31,7 @@ Manage Docker containers
 + **ports**: port list to expose
 + **volumes**: volume list to map on container
 + **env_vars**: environment variable list to inject on container
++ **labels**: Label list to attach to the container
 + **pull_always**: force image pull
 + **force**: remove a container with same name and create a new one
 + **present**: whether the container should be up and running
@@ -40,6 +41,7 @@ Manage Docker containers
 
 .. code:: python
 
+    from pyinfra.operations import docker
     # Run a container
     docker.container(
         name="Deploy Nginx container",
@@ -75,20 +77,15 @@ Note:
 :code:`docker.image`
 ~~~~~~~~~~~~~~~~~~~~
 
-.. admonition:: Stateless operation
-    :class: important
-
-    This operation will always execute commands and is not idempotent.
-
-
 Manage Docker images
 
 .. code:: python
 
-    docker.image(image, present=True, **kwargs)
+    docker.image(image: str, present: bool=True, force: bool=False, **kwargs)
 
 + **image**: Image and tag ex: nginx:alpine
 + **present**: whether the Docker image should exist
++ **force**: always pull the image if present is True
 
 **Examples:**
 

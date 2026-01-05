@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-6">v3.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-3">v3.5.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-2">v3.5.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-1">v3.5.1</a></li>
@@ -162,6 +163,48 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-6">
+<h2>v3.6<a class="headerlink" href="#v3-6" title="Link to this heading">¶</a></h2>
+<p>First 2026 release - Happy New Year all! Thank you to all contributors. One big highlight is new metadata spec for plugins, this is the start of better discovery and documentation generation for third party facts and operations:</p>
+<ul class="simple">
+<li><p>add metadata spec for pyinfra plugins (&#64;rod7760)</p></li>
+</ul>
+<p>New and updated operations/facts:</p>
+<ul class="simple">
+<li><p>operations: add <code class="docutils literal notranslate"><span class="pre">_temp_dir</span></code> global argument for configuring temp directory (&#64;wowi42)</p></li>
+<li><p>operations: add <code class="docutils literal notranslate"><span class="pre">files.copy</span></code> operation (&#64;EricDriussi)</p></li>
+<li><p>operations.crontab: fix modification not properly relying on the <code class="docutils literal notranslate"><span class="pre">cron_name</span></code> parameter (&#64;information-redacted)</p></li>
+<li><p>operations.docker.container: add support for setting labels (&#64;spookyvision)</p></li>
+<li><p>operations: add import statements on at least one example of every operation (&#64;mkinney)</p></li>
+<li><p>operations.docker.image: make operation idempotent (&#64;DonDebonair)</p></li>
+<li><p>operations.files.template: allow custom jinja2 template loaders (&#64;DaRasch)</p></li>
+<li><p>operations.files.block/connectors.util: use correct temporary directory (&#64;morrison12)</p></li>
+<li><p>operations.util.packaging: allow empty package list in <code class="docutils literal notranslate"><span class="pre">ensure_packages</span></code> (&#64;schenker)</p></li>
+<li><p>operations: fix tmpdir to properly use all the POSIX environment variables (&#64;wowi42)</p></li>
+<li><p>facts.files.FileContents: improve docstring (&#64;adonm)</p></li>
+<li><p>facts.apt.update: fix computation of cache_time when host is not UTC (&#64;philippemilink)</p></li>
+<li><p>facts: add <code class="docutils literal notranslate"><span class="pre">FactProcessError</span></code> to log, not explode, issues processing facts (&#64;NichtJens)</p></li>
+<li><p>facts.npm: check directory exists before cd-ing (wowi42)</p></li>
+</ul>
+<p>Connectors:</p>
+<ul class="simple">
+<li><p>connectors.docker: add platform and architecture option via connector data (&#64;JP-Ellis)</p></li>
+<li><p>connectors: close stdin after writing any input</p></li>
+<li><p>connectors.ssh: add workaround for paramiko no session error (&#64;dfaerch)</p></li>
+</ul>
+<p>CLI:</p>
+<ul class="simple">
+<li><p>cli: change color of “No changes” to cyan</p></li>
+<li><p>cli: add option <code class="docutils literal notranslate"><span class="pre">--same-sudo-password</span></code> (&#64;philippemilink)</p></li>
+</ul>
+<p>Docs/meta:</p>
+<ul class="simple">
+<li><p>docs: replace <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span></code> with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">-m</span></code> (&#64;JP-Ellis)</p></li>
+<li><p>docs: fix URLs in API documentation (&#64;kelno)</p></li>
+<li><p>docs/connectors: document command wrapping and parameter filtering best practices (&#64;elazar)</p></li>
+<li><p>tests: freeze date for fact tests</p></li>
+</ul>
+</section>
 <section id="v3-5-3">
 <h2>v3.5.3<a class="headerlink" href="#v3-5-3" title="Link to this heading">¶</a></h2>
 <ul class="simple">

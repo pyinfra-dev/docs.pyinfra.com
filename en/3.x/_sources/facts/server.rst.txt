@@ -468,7 +468,13 @@ Returns a dictionary of sysctl settings and values.
 
     host.get_fact(TmpDir, )
 
-Returns the temporary directory of the current server, if configured.
+Returns the temporary directory of the current server.
+
+According to POSIX standards, checks environment variables in this order:
+1. TMPDIR (if set and accessible)
+2. TMP (if set and accessible)
+3. TEMP (if set and accessible)
+4. Falls back to empty string
 
 
 .. _facts:server.User:
