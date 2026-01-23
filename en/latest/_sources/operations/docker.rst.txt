@@ -22,7 +22,8 @@ Manage Docker containers
         container: str, image: str="", ports: list[str] | None=None,
         networks: list[str] | None=None, volumes: list[str] | None=None,
         env_vars: list[str] | None=None, labels: list[str] | None=None, pull_always: bool=False,
-        present: bool=True, force: bool=False, start: bool=True, **kwargs,
+        present: bool=True, force: bool=False, start: bool=True, restart_policy: str | None=None,
+        auto_remove: bool=False, **kwargs,
     )
 
 + **container**: name to identify the container
@@ -36,6 +37,8 @@ Manage Docker containers
 + **force**: remove a container with same name and create a new one
 + **present**: whether the container should be up and running
 + **start**: start or stop the container
++ **restart_policy**: restart policy to apply when a container exits
++ **auto_remove**: automatically remove the container and its associated anonymous volumes when it exits
 
 **Examples:**
 
@@ -53,6 +56,8 @@ Manage Docker containers
         networks=["proxy", "services"],
         volumes=["nginx_data:/usr/share/nginx/html"],
         pull_always=True,
+        restart_policy="unless-stopped",
+        auto_remove=True,
     )
 
     # Stop a container
