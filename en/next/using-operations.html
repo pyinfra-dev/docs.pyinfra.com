@@ -264,7 +264,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>fact<span class="w"> </span>server.LinuxName
 </pre></div>
 </div>
-<p>Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be retrieved using the <code class="docutils literal notranslate"><span class="pre">host.get_fact</span></code> function. If you save this in a file called <cite>nano.py</cite>:</p>
+<p>Facts are imported from <code class="docutils literal notranslate"><span class="pre">pyinfra.facts.*</span></code> and can be retrieved using the <code class="docutils literal notranslate"><span class="pre">host.get_fact</span></code> function. If you save this in a file called <code class="file docutils literal notranslate"><em><span class="pre">nano</span></em><span class="pre">.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinuxName</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">yum</span><span class="p">,</span> <span class="n">apt</span>
@@ -290,7 +290,7 @@
 <p>See <a class="reference internal" href="facts.html"><span class="doc">Facts Index</span></a> for a full list of available facts and arguments.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change. See: <a class="reference external" href="deploy-process.html#using-host-facts">using host facts</a>.</p>
+<p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change. See: <a href="#id1"><span class="problematic" id="id2">:ref:`using host facts &lt;deploy-process#using-host-facts&gt;`_</span></a>.</p>
 </div>
 <section id="fact-errors">
 <h4>Fact Errors<a class="headerlink" href="#fact-errors" title="Link to this heading">¶</a></h4>
@@ -358,7 +358,8 @@
 </section>
 <section id="output-callbacks">
 <h2>Output &amp; Callbacks<a class="headerlink" href="#output-callbacks" title="Link to this heading">¶</a></h2>
-<p>pyinfra doesn’t immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation. Callback functions may also call other operations which will be immediately executed. Why/how this works <a class="reference external" href="deploy-process.html#how-pyinfra-detects-changes-orders-operations">is described here</a>.</p>
+<p>pyinfra doesn’t immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a class="reference internal" href="operations/python.html#operations-python-call"><span class="std std-ref">python.call</span></a> operation. Callback functions may also call other operations which will be immediately executed.
+Why/how this works <a href="#id3"><span class="problematic" id="id4">:ref:`is described here &lt;deploy-process#how-pyinfra-detects-changes-orders-operations&gt;`_</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
 
@@ -400,7 +401,7 @@
 <span class="n">local</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;tasks/install_something.py&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Additional data can be passed across files via the <code class="docutils literal notranslate"><span class="pre">data</span></code> param to parameterize tasks and is available in <code class="docutils literal notranslate"><span class="pre">host.data</span></code>. For example <cite>tasks/create_user.py</cite> could look like:</p>
+<p>Additional data can be passed across files via the <code class="docutils literal notranslate"><span class="pre">data</span></code> param to parameterize tasks and is available in <code class="docutils literal notranslate"><span class="pre">host.data</span></code>. For example <code class="file docutils literal notranslate"><span class="pre">tasks/</span><em><span class="pre">create_user</span></em><span class="pre">.py</span></code> could look like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">getpass</span><span class="w"> </span><span class="kn">import</span> <span class="n">getpass</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
@@ -441,7 +442,8 @@
 </div>
 <section id="enforcing-requirements">
 <h3>Enforcing Requirements<a class="headerlink" href="#enforcing-requirements" title="Link to this heading">¶</a></h3>
-<p>The config object can be used to enforce a pyinfra version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements. For example, if you create a <cite>requirements.py</cite> file with:</p>
+<p>The config object can be used to enforce a pyinfra version or Python package requirements. This can either be defined as a requirements text file path or simply a list of requirements.
+For example, if you create a <code class="file docutils literal notranslate"><em><span class="pre">requirements</span></em><span class="pre">.py</span></code> file with:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Require a certain pyinfra version</span>
 <span class="n">config</span><span class="o">.</span><span class="n">REQUIRE_PYINFRA_VERSION</span> <span class="o">=</span> <span class="s2">&quot;~=3.0&quot;</span>
 
@@ -452,16 +454,15 @@
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>And create a <cite>requirements.txt</cite> file with something like this:</p>
+<p>And create a <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> file with something like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyinfra
 </pre></div>
 </div>
-<p>Then modify the <cite>nano.py</cite> above to include these lines:
-.. code:: python</p>
-<blockquote>
-<div><p>from pyinfra import local
-local.include(“requirements.py”)</p>
-</div></blockquote>
+<p>Then modify the <code class="file docutils literal notranslate"><em><span class="pre">nano</span></em><span class="pre">.py</span></code> above to include these lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">local</span>
+<span class="n">local</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s2">&quot;requirements.py&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="examples">
