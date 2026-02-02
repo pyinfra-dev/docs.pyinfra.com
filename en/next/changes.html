@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-6-1">v3.6.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6">v3.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-3">v3.5.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-2">v3.5.2</a></li>
@@ -163,6 +164,42 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-6-1">
+<h2>v3.6.1<a class="headerlink" href="#v3-6-1" title="Link to this heading">¶</a></h2>
+<p>Thank you to all contributors. A solid bugfix release including some rather old bugs at this point.</p>
+<p>Core fixes:</p>
+<ul class="simple">
+<li><p>api: handle/propagate nested operation errors</p></li>
+<li><p>api: don’t apply stage check in API mode</p></li>
+<li><p>api: change <code class="docutils literal notranslate"><span class="pre">iter_active_hosts</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">get_active_hosts</span></code></p></li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul class="simple">
+<li><p>operations.docker.container: add support for <code class="docutils literal notranslate"><span class="pre">--restart</span></code> and <code class="docutils literal notranslate"><span class="pre">--rm</span></code> arguments (&#64;levinion)</p></li>
+<li><p>operations.postgres: add idempotency notice on passwords to <code class="docutils literal notranslate"><span class="pre">postgres.role</span></code></p></li>
+<li><p>facts.flatpak.FlatpakPackages: handle headless output correctly</p></li>
+<li><p>facts.crontab: don’t return non-command cron entries in <code class="docutils literal notranslate"><span class="pre">get_command</span></code></p></li>
+<li><p>facts.files.FileContents: fix return None when no file exists</p></li>
+<li><p>facts.files.FindFiles: fix args parameter being ignored (&#64;wowi42)</p></li>
+</ul>
+<p>Connector fixes:</p>
+<ul class="simple">
+<li><p>connectors.ssh: handle multiple known hosts files in SSH config</p></li>
+</ul>
+<p>CLI fixes:</p>
+<ul class="simple">
+<li><p>cli: fix missing config lock</p></li>
+<li><p>cli: fix config flags lost on multiple deploy files (&#64;wowi42)</p></li>
+<li><p>cli/inventory: support loading host groups directly from module attributes (&#64;wowi42)</p></li>
+</ul>
+<p>Docs/meta:</p>
+<ul class="simple">
+<li><p>docs: fix many minor errors (&#64;romain-dartigues)</p></li>
+<li><p>docs: fix typo in inventory-data.rst (&#64;EshemMimi)</p></li>
+<li><p>meta: add arguments linter</p></li>
+<li><p>meta: fix dev linting scripts</p></li>
+</ul>
+</section>
 <section id="v3-6">
 <h2>v3.6<a class="headerlink" href="#v3-6" title="Link to this heading">¶</a></h2>
 <p>First 2026 release - Happy New Year all! Thank you to all contributors. One big highlight is new metadata spec for plugins, this is the start of better discovery and documentation generation for third party facts and operations:</p>
