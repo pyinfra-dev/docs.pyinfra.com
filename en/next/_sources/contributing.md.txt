@@ -39,7 +39,11 @@ Code style is enforced via [ruff](https://docs.astral.sh/ruff/). Types are check
 recommended for local development though currently optional. There is a script to run the linting & type-checking:
 
 ```sh
+# Check formatting & types
 scripts/dev-lint.sh
+
+# Fix formatting
+scripts/dev-format.sh
 ```
 
 ### Commit Messages
