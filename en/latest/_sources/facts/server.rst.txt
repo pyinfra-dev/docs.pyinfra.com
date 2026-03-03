@@ -330,9 +330,19 @@ Returns the path environment variable of the current user.
 
 .. code:: python
 
-    host.get_fact(Port, port)
+    host.get_fact(Port, port, protocol='tcp')
 
-Returns the process occuping a port and its PID
+Returns the process occupying a port and its PID.
+
+Supports TCP and UDP protocols via the ``protocol`` argument (default ``"tcp"``).
+Uses ``ss`` on Linux (with ``netstat`` fallback) and ``sockstat`` on FreeBSD.
+
+.. code:: python
+
+    # TCP (default)
+    host.get_fact(Port, port=80)
+    # UDP
+    host.get_fact(Port, port=53, protocol="udp")
 
 
 .. _facts:server.RebootRequired:
@@ -347,10 +357,12 @@ Returns the process occuping a port and its PID
 Returns a boolean indicating whether the system requires a reboot.
 
 On Linux systems:
+
 - Checks /var/run/reboot-required and /var/run/reboot-required.pkgs
 - On Alpine Linux, compares installed kernel with running kernel
 
 On FreeBSD systems:
+
 - Compares running kernel version with installed kernel version
 
 

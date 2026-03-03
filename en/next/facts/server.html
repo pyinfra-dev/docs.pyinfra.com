@@ -432,10 +432,18 @@ release files.</p>
 </section>
 <section id="server-port">
 <span id="facts-server-port"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Port</span></code><a class="headerlink" href="#server-port" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Port</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Port</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="s1">&#39;tcp&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns the process occuping a port and its PID</p>
+<p>Returns the process occupying a port and its PID.</p>
+<p>Supports TCP and UDP protocols via the <code class="docutils literal notranslate"><span class="pre">protocol</span></code> argument (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp&quot;</span></code>).
+Uses <code class="docutils literal notranslate"><span class="pre">ss</span></code> on Linux (with <code class="docutils literal notranslate"><span class="pre">netstat</span></code> fallback) and <code class="docutils literal notranslate"><span class="pre">sockstat</span></code> on FreeBSD.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TCP (default)</span>
+<span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Port</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="c1"># UDP</span>
+<span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">Port</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;udp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="server-rebootrequired">
 <span id="facts-server-rebootrequired"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.RebootRequired</span></code><a class="headerlink" href="#server-rebootrequired" title="Link to this heading">¶</a></h2>
@@ -443,11 +451,15 @@ release files.</p>
 </pre></div>
 </div>
 <p>Returns a boolean indicating whether the system requires a reboot.</p>
-<p>On Linux systems:
-- Checks /var/run/reboot-required and /var/run/reboot-required.pkgs
-- On Alpine Linux, compares installed kernel with running kernel</p>
-<p>On FreeBSD systems:
-- Compares running kernel version with installed kernel version</p>
+<p>On Linux systems:</p>
+<ul class="simple">
+<li><p>Checks /var/run/reboot-required and /var/run/reboot-required.pkgs</p></li>
+<li><p>On Alpine Linux, compares installed kernel with running kernel</p></li>
+</ul>
+<p>On FreeBSD systems:</p>
+<ul class="simple">
+<li><p>Compares running kernel version with installed kernel version</p></li>
+</ul>
 </section>
 <section id="server-securitylimits">
 <span id="facts-server-securitylimits"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.SecurityLimits</span></code><a class="headerlink" href="#server-securitylimits" title="Link to this heading">¶</a></h2>
