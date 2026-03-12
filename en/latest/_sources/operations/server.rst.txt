@@ -6,7 +6,7 @@ The server module takes care of os-level state. Targets POSIX compatibility, tes
 Linux/BSD.
 
 
-Facts used in these operations: :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.Kernel`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Directory`, :ref:`facts:files.FindInFile`, :ref:`facts:server.Groups`, :ref:`facts:server.Home`, :ref:`facts:server.Hostname`, :ref:`facts:server.Kernel`, :ref:`facts:server.KernelModules`, :ref:`facts:files.Link`, :ref:`facts:server.Locales`, :ref:`facts:server.Mounts`, :ref:`facts:server.Os`, :ref:`facts:server.Sysctl`, :ref:`facts:server.Timezone`, :ref:`facts:server.Users`, :ref:`facts:server.Which`.
 
 .. _operations:server.group:
 
@@ -435,6 +435,34 @@ Edit sysctl configuration.
         key="fs.file-max",
         value=100000,
         persist=True,
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:server.timezone:
+
+:code:`server.timezone`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Set the system timezone.
+
+.. code:: python
+
+    server.timezone(timezone: str, **kwargs)
+
+Uses ``timedatectl`` when available (systemd systems), otherwise falls back to
+symlinking ``/etc/localtime`` directly.
+
++ **timezone**: the timezone to set (e.g. ``Europe/Amsterdam``, ``UTC``)
+
+**Example:**
+
+.. code:: python
+
+    server.timezone(
+        name="Set the timezone to Europe/Amsterdam",
+        timezone="Europe/Amsterdam",
     )
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
