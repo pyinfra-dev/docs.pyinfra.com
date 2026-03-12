@@ -5,7 +5,7 @@ Files Operations
 The files operations handles filesystem state, file uploads and template generation.
 
 
-Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FileContents`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FileContents`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.FindLinks`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
 
 .. _operations:files.block:
 
@@ -687,7 +687,7 @@ Note:
 ~~~~~~~~~~~~~~~~~~
 
 Syncs a local directory with a remote one, with delete support. Note that delete will
-remove extra files on the remote side, but not extra directories.
+remove extra files and symlinks on the remote side, but not extra directories.
 
 .. code:: python
 
@@ -702,9 +702,10 @@ remove extra files on the remote side, but not extra directories.
 + **dest**: remote directory to sync to
 + **user**: user to own the files and directories
 + **group**: group to own the files and directories
-+ **mode**: permissions of the files
++ **mode**: permissions of the files (also used as fallback for directories if ``dir_mode``
+  is not specified)
 + **dir_mode**: permissions of the directories
-+ **delete**: delete remote files not present locally
++ **delete**: delete remote files and symlinks not present locally
 + **exclude**: string or list/tuple of strings to match & exclude files (eg ``*.pyc``)
 + **exclude_dir**: string or list/tuple of strings to match & exclude directories (eg node_modules)
 + **add_deploy_dir**: interpret src as relative to deploy directory instead of current directory
@@ -727,6 +728,11 @@ Note: ``exclude`` and ``exclude_dir`` use ``fnmatch`` behind the scenes to do th
   Since fnmatch does not treat path separators (``/`` or ``\``) as special characters,
   excluding all directories matching a given name, however deep under ``src`` they are,
   can be done for example with ``exclude_dir=["__pycache__", "*/__pycache__"]``
+
+Symlinks:
+    Local symlinks (both to files and directories) are synced to the remote as symlinks,
+    preserving the link target as-is (relative or absolute). Symlinked directories are not
+    traversed. When ``delete=True``, remote symlinks not present locally are also removed.
 Note:
 	This operation also inherits all :doc:`global arguments </arguments>`.
 
