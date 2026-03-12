@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-7">v3.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6-1">v3.6.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6">v3.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-5-3">v3.5.3</a></li>
@@ -157,6 +158,48 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-7">
+<h2>v3.7<a class="headerlink" href="#v3-7" title="Link to this heading">¶</a></h2>
+<p>Thank you to all contributors - particular shout out to &#64;wowi42 for an incredible run of PRs!</p>
+<p>Core:</p>
+<ul class="simple">
+<li><p>api.facts: fix <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> shell operator precedence with compound commands (#1579) (&#64;wowi42)</p></li>
+</ul>
+<p>Operations/facts:</p>
+<ul class="simple">
+<li><p>operations.docker: add support for env files (#1572) (&#64;EricDriussi)</p></li>
+<li><p>operations.docker: add support for dns (#1590) (&#64;EricDriussi)</p></li>
+<li><p>operations.files.sync: support symlinks</p></li>
+<li><p>facts.server.Port: add UDP support and multi-platform backends (#1550) (&#64;wowi42)</p></li>
+<li><p>facts.hardware.Memory: use LANG=C while calling vmstat (#1553) (&#64;soltysek)</p></li>
+<li><p>facts.hardware: add <code class="docutils literal notranslate"><span class="pre">CpuInfo</span></code> fact (#1577) (&#64;soltysek)</p></li>
+<li><p>facts.server.Sysctl: fix non-zero exit code causing empty result (#1578) (&#64;wowi42)</p></li>
+<li><p>facts.runit.RunitManaged: handle missing service directory gracefully (#1580) (&#64;wowi42)</p></li>
+<li><p>facts.hardware.Memory: fix FreeBSD support by summing page categories (#1584) (&#64;wowi42)</p></li>
+<li><p>facts.server.SecurityLimits: handle missing limits.conf (#1582) (&#64;wowi42)</p></li>
+<li><p>facts.server.Port: fix <code class="docutils literal notranslate"><span class="pre">ss</span></code> command for Alpine/BusyBox compatibility (#1586) (&#64;wowi42)</p></li>
+<li><p>facts.iptables: add <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> to all iptables facts (#1587) (&#64;wowi42)</p></li>
+<li><p>facts.opkg: add <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> and stop hardcoding /bin/opkg (#1588) (&#64;wowi42)</p></li>
+<li><p>facts.choco: add <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> to <code class="docutils literal notranslate"><span class="pre">ChocoPackages</span></code> and <code class="docutils literal notranslate"><span class="pre">ChocoVersion</span></code> (#1589) (&#64;wowi42)</p></li>
+</ul>
+<p>Connectors:</p>
+<ul class="simple">
+<li><p>connectors: <code class="docutils literal notranslate"><span class="pre">&#64;podmanssh</span></code> connector for remote Podman container operations (#1547) (&#64;elazar)</p></li>
+<li><p>connectors.ssh: exclude <code class="docutils literal notranslate"><span class="pre">_chdir</span></code> from global arguments used when removing temporary file (fix #1426) (#1429) (&#64;morrison12)</p></li>
+<li><p>connectors.ssh: don’t include password in SSH exception authentication data (#1538) (&#64;oliverhr)</p></li>
+</ul>
+<p>CLI:</p>
+<ul class="simple">
+<li><p>cli: use gevent for the progress spinner</p></li>
+<li><p>cli: add <code class="docutils literal notranslate"><span class="pre">--ssh-password-prompt</span></code> flag for interactive SSH password input (#1585) (&#64;wowi42)</p></li>
+</ul>
+<p>Other:</p>
+<ul class="simple">
+<li><p>global arguments: <code class="docutils literal notranslate"><span class="pre">_su_password</span></code> argument for su password authentication (#1573) (&#64;wowi42)</p></li>
+<li><p>operations+facts: <code class="docutils literal notranslate"><span class="pre">server.timezone</span></code> and <code class="docutils literal notranslate"><span class="pre">server.Timezone</span></code> fact (#1575) (&#64;wowi42)</p></li>
+<li><p>scripts: add <code class="docutils literal notranslate"><span class="pre">generate_changelog.py</span></code></p></li>
+</ul>
+</section>
 <section id="v3-6-1">
 <h2>v3.6.1<a class="headerlink" href="#v3-6-1" title="Link to this heading">¶</a></h2>
 <p>Thank you to all contributors. A solid bugfix release including some rather old bugs at this point.</p>

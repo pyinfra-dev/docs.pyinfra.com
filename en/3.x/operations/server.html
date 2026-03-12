@@ -142,6 +142,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#server-service"><code class="code docutils literal notranslate"><span class="pre">server.service</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-shell"><code class="code docutils literal notranslate"><span class="pre">server.shell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-sysctl"><code class="code docutils literal notranslate"><span class="pre">server.sysctl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-timezone"><code class="code docutils literal notranslate"><span class="pre">server.timezone</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-user"><code class="code docutils literal notranslate"><span class="pre">server.user</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-user-authorized-keys"><code class="code docutils literal notranslate"><span class="pre">server.user_authorized_keys</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-wait"><code class="code docutils literal notranslate"><span class="pre">server.wait</span></code></a></li>
@@ -194,7 +195,7 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Link to this heading">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernel"><span class="std std-ref">server.Kernel</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernel"><span class="std std-ref">server.Kernel</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-timezone"><span class="std std-ref">server.Timezone</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
 <section id="server-group">
 <span id="operations-server-group"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.group</span></code><a class="headerlink" href="#server-group" title="Link to this heading">¶</a></h2>
 <p>Add/remove system groups.</p>
@@ -559,6 +560,29 @@ since facts are only run at the start of a deploy.</p>
     <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fs.file-max&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span>
     <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</dd>
+</dl>
+</section>
+<section id="server-timezone">
+<span id="operations-server-timezone"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.timezone</span></code><a class="headerlink" href="#server-timezone" title="Link to this heading">¶</a></h2>
+<p>Set the system timezone.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">timezone</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">timedatectl</span></code> when available (systemd systems), otherwise falls back to
+symlinking <code class="docutils literal notranslate"><span class="pre">/etc/localtime</span></code> directly.</p>
+<ul class="simple">
+<li><p><strong>timezone</strong>: the timezone to set (e.g. <code class="docutils literal notranslate"><span class="pre">Europe/Amsterdam</span></code>, <code class="docutils literal notranslate"><span class="pre">UTC</span></code>)</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the timezone to Europe/Amsterdam&quot;</span><span class="p">,</span>
+    <span class="n">timezone</span><span class="o">=</span><span class="s2">&quot;Europe/Amsterdam&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
