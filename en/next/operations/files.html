@@ -990,8 +990,9 @@ a dict with arguments that will be passed as keyword args to the jinja2
 <a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</p>
 </dd>
 </dl>
-<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template
-if not set explicitly.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template.
+To pass additional data or variables, explicitly add them as keyword arguments to the operation
+call itself.</p>
 <dl>
 <dt>Notes:</dt><dd><p>Common convention is to store templates in a “templates” directory and
 have a filename suffix with ‘.j2’ (for jinja2).</p>
@@ -1017,8 +1018,16 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">group</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Example showing how to pass python variable to template file. You can also</span>
-<span class="c1"># use dicts and lists. The .j2 file can use `{{ foo_variable }}` to be interpolated.</span>
+<span class="c1"># You can use a (local) file path or an IO-like object as src:</span>
+<span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;This is a template file content&quot;</span><span class="p">),</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/somefile.conf&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># To pass variables to the template file, just add them to the operation call.</span>
+<span class="c1"># You can also use dicts and lists. The .j2 file can use `{{ foo_variable }}`</span>
+<span class="c1"># to interpolate them:</span>
 <span class="n">foo_variable</span> <span class="o">=</span> <span class="s1">&#39;This is some foo variable contents&#39;</span>
 <span class="n">foo_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;str1&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 1&quot;</span><span class="p">,</span>
@@ -1049,7 +1058,8 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">foo_list</span><span class="o">=</span><span class="n">foo_list</span>
 <span class="p">)</span>
 
-<span class="c1"># Example showing how to use host and inventory in a template file.</span>
+<span class="c1"># Host, state and inventory are automatically passed to the template,</span>
+<span class="c1"># no need to explicitly pass them in the operation call:</span>
 <span class="n">template</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">name: &quot;{{ host.name }}&quot;</span>
 <span class="s2">list_contents:</span>
