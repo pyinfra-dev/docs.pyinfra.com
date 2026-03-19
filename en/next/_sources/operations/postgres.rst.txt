@@ -29,11 +29,21 @@ Add/remove PostgreSQL databases.
 .. code:: python
 
     postgres.database(
-        database: str, present=True, owner: str | None=None, template: str | None=None,
-        encoding: str | None=None, lc_collate: str | None=None, lc_ctype: str | None=None,
-        tablespace: str | None=None, connection_limit: int | None=None,
-        psql_user: str | None=None, psql_password: str | None=None, psql_host: str | None=None,
-        psql_port: int | None=None, psql_database: str | None=None, **kwargs,
+         database: 'str',
+         present=True,
+         owner: 'str | None' = None,
+         template: 'str | None' = None,
+         encoding: 'str | None' = None,
+         lc_collate: 'str | None' = None,
+         lc_ctype: 'str | None' = None,
+         tablespace: 'str | None' = None,
+         connection_limit: 'int | None' = None,
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
     )
 
 + **name**: name of the database
@@ -62,8 +72,9 @@ Updates:
         encoding="UTF8",
         _sudo_user="postgres",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.dump:
@@ -82,9 +93,13 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
 .. code:: python
 
     postgres.dump(
-        dest: str, psql_user: str | None=None, psql_password: str | None=None,
-        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
-        **kwargs,
+         dest: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
     )
 
 + **dest**: name of the file to dump the SQL to
@@ -99,8 +114,9 @@ Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
         dest="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.load:
@@ -119,9 +135,13 @@ Load ``.sql`` file into a database.
 .. code:: python
 
     postgres.load(
-        src: str, psql_user: str | None=None, psql_password: str | None=None,
-        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
-        **kwargs,
+         src: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
     )
 
 + **src**: the filename to read from
@@ -136,8 +156,9 @@ Load ``.sql`` file into a database.
         src="/tmp/pyinfra_stuff.dump",
         sudo_user="postgres",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.role:
@@ -150,11 +171,22 @@ Add/remove PostgreSQL roles.
 .. code:: python
 
     postgres.role(
-        role: str, present: bool=True, password: str | None=None, login: bool=True,
-        superuser: bool=False, inherit: bool=False, createdb: bool=False, createrole: bool=False,
-        replication: bool=False, connection_limit: int | None=None, psql_user: str | None=None,
-        psql_password: str | None=None, psql_host: str | None=None, psql_port: int | None=None,
-        psql_database: str | None=None, **kwargs,
+         role: 'str',
+         present: 'bool' = True,
+         password: 'str | None' = None,
+         login: 'bool' = True,
+         superuser: 'bool' = False,
+         inherit: 'bool' = False,
+         createdb: 'bool' = False,
+         createrole: 'bool' = False,
+         replication: 'bool' = False,
+         connection_limit: 'int | None' = None,
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
     )
 
 + **role**: name of the role
@@ -187,8 +219,9 @@ Updates:
         login=True,
         _sudo_user="postgres",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:postgres.sql:
@@ -207,13 +240,18 @@ Execute arbitrary SQL against PostgreSQL.
 .. code:: python
 
     postgres.sql(
-        sql: str, psql_user: str | None=None, psql_password: str | None=None,
-        psql_host: str | None=None, psql_port: int | None=None, psql_database: str | None=None,
-        **kwargs,
+         sql: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
     )
 
 + **sql**: SQL command(s) to execute
 + **psql_***: global module arguments, see above
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

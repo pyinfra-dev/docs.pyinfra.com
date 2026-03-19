@@ -191,97 +191,98 @@
 <section id="gpg-dearmor">
 <span id="operations-gpg-dearmor"></span><h2><code class="code docutils literal notranslate"><span class="pre">gpg.dearmor</span></code><a class="headerlink" href="#gpg-dearmor" title="Link to this heading">¶</a></h2>
 <p>Convert ASCII armored GPG key to binary format.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span><span class="o">.</span><span class="n">dearmor</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nc">str</span><span class="s1">&#39;&gt;, dest: &lt;class &#39;</span><span class="nb">str</span><span class="s1">&#39;&gt;, mode: &lt;class &#39;</span><span class="nb">str</span><span class="s1">&#39;&gt;=&quot;0644&quot;, **kwargs)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span><span class="o">.</span><span class="n">dearmor</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;0644&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<dl>
-<dt>Args:</dt><dd><p>src: source ASCII armored key file
-dest: destination binary key file
-mode: file permissions for the output file</p>
-</dd>
-<dt>Example:</dt><dd><dl class="simple">
-<dt>gpg.dearmor(</dt><dd><p>name=”Convert key to binary”,
-src=”/tmp/key.asc”,
-dest=”/etc/apt/keyrings/key.gpg”,</p>
-</dd>
-</dl>
-<p>)</p>
-</dd>
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p><strong>src</strong>: source ASCII armored key file</p></li>
+<li><p><strong>dest</strong>: destination binary key file</p></li>
+<li><p><strong>mode</strong>: file permissions for the output file</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span><span class="o">.</span><span class="n">dearmor</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Convert key to binary&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/key.asc&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/key.gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="gpg-key">
 <span id="operations-gpg-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">gpg.key</span></code><a class="headerlink" href="#gpg-key" title="Link to this heading">¶</a></h2>
 <p>Install or remove GPG keys from various sources.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyserver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">keyid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dearmor</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nc">bool</span><span class="s1">&#39;&gt;=True,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nc">str</span><span class="s1">&#39;&gt;=&quot;0644&quot;, present: &lt;class &#39;</span><span class="nb">bool</span><span class="s1">&#39;&gt;=True,</span>
-    <span class="n">working_dirs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">keyserver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">keyid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dearmor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;0644&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">working_dirs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl>
-<dt>Args:</dt><dd><p>src: filename or URL to a key (ASCII .asc or binary .gpg)
-dest: destination path for the key file (required for installation, optional for removal)
-keyserver: keyserver URL for fetching keys by ID
-keyid: key ID or list of key IDs (required with keyserver, optional for removal)
-dearmor: whether to convert ASCII armored keys to binary format
-mode: file permissions for the installed key
-present: whether the key should be present (True) or absent (False)
-working_dirs: dirs to search for existing keyrings (required for removal without dest)</p>
-<blockquote>
-<div><dl class="simple">
-<dt>When False: if dest is provided, removes from specific keyring;</dt><dd><p>if dest is None, removes from keyrings found in working_dirs;
+<ul class="simple">
+<li><p><strong>src</strong>: filename or URL to a key (ASCII .asc or binary .gpg)</p></li>
+<li><p><strong>dest</strong>: destination path for the key file (required for installation, optional for removal)</p></li>
+<li><p><strong>keyserver</strong>: keyserver URL for fetching keys by ID</p></li>
+<li><p><strong>keyid</strong>: key ID or list of key IDs (required with keyserver, optional for removal)</p></li>
+<li><p><strong>dearmor</strong>: whether to convert ASCII armored keys to binary format</p></li>
+<li><p><strong>mode</strong>: file permissions for the installed key</p></li>
+<li><p><strong>present</strong>: whether the key should be present (True) or absent (False)</p></li>
+<li><p><strong>working_dirs</strong>: dirs to search for existing keyrings (required for removal without dest).
+When False: if dest is provided, removes from specific keyring;
+if dest is None, removes from keyrings found in working_dirs;
 if keyid is provided, removes specific key(s);
-if keyid is None, removes entire keyring file(s)</p>
-</dd>
-</dl>
-</div></blockquote>
-</dd>
-<dt>Examples:</dt><dd><dl class="simple">
-<dt>gpg.key(</dt><dd><p>name=”Install Docker GPG key”,
-src=”<a class="reference external" href="https://download.docker.com/linux/debian/gpg">https://download.docker.com/linux/debian/gpg</a>”,
-dest=”/etc/apt/keyrings/docker.gpg”,</p>
-</dd>
-</dl>
-<p>)</p>
-<dl class="simple">
-<dt>gpg.key(</dt><dd><p>name=”Remove old GPG key file”,
-dest=”/etc/apt/keyrings/old-key.gpg”,
-present=False,</p>
-</dd>
-</dl>
-<p>)</p>
-<dl class="simple">
-<dt>gpg.key(</dt><dd><p>name=”Remove specific key by ID”,
-dest=”/etc/apt/keyrings/vendor.gpg”,
-keyid=”0xABCDEF12”,
-present=False,</p>
-</dd>
-</dl>
-<p>)</p>
-<dl class="simple">
-<dt>gpg.key(</dt><dd><p>name=”Remove key from specific directories”,
-keyid=”0xCOMPROMISED123”,
-present=False,
-working_dirs=[“/etc/apt/keyrings”, “/usr/share/keyrings”],</p>
-</dd>
-</dl>
-<p>)</p>
-<dl class="simple">
-<dt>gpg.key(</dt><dd><p>name=”Fetch keys from keyserver”,
-keyserver=”hkps://keyserver.ubuntu.com”,
-keyid=[“0xD88E42B4”, “0x7EA0A9C3”],
-dest=”/etc/apt/keyrings/vendor.gpg”,</p>
-</dd>
-</dl>
-<p>)</p>
-</dd>
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+if keyid is None, removes entire keyring file(s)</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Docker GPG key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/debian/gpg&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/docker.gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove old GPG key file&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/old-key.gpg&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove specific key by ID&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/vendor.gpg&quot;</span><span class="p">,</span>
+    <span class="n">keyid</span><span class="o">=</span><span class="s2">&quot;0xABCDEF12&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove key from specific directories&quot;</span><span class="p">,</span>
+    <span class="n">keyid</span><span class="o">=</span><span class="s2">&quot;0xCOMPROMISED123&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">working_dirs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;/etc/apt/keyrings&quot;</span><span class="p">,</span> <span class="s2">&quot;/usr/share/keyrings&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">gpg</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Fetch keys from keyserver&quot;</span><span class="p">,</span>
+    <span class="n">keyserver</span><span class="o">=</span><span class="s2">&quot;hkps://keyserver.ubuntu.com&quot;</span><span class="p">,</span>
+    <span class="n">keyid</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;0xD88E42B4&quot;</span><span class="p">,</span> <span class="s2">&quot;0x7EA0A9C3&quot;</span><span class="p">],</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/vendor.gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

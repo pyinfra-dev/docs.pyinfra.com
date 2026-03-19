@@ -16,7 +16,9 @@ Add/remove/update iptables chains.
 
 .. code:: python
 
-    iptables.chain(chain: str, present=True, table="filter", policy: str | None=None, version=4, **kwargs)
+    iptables.chain(chain: 'str', present=True, table='filter', policy: 'str | None' = None, version=4,
+         **kwargs,
+    )
 
 + **chain**: the name of the chain
 + **present**: whether the chain should exist
@@ -26,8 +28,9 @@ Add/remove/update iptables chains.
 
 Policy:
     These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:iptables.rule:
@@ -40,14 +43,30 @@ Add/remove iptables rules.
 .. code:: python
 
     iptables.rule(
-        chain: str, jump: str, present: bool=True, table: str="filter", append: bool=True,
-        version: int=4, protocol: str | None=None, not_protocol: str | None=None,
-        source: str | None=None, not_source: str | None=None, destination: str | None=None,
-        not_destination: str | None=None, in_interface: str | None=None,
-        not_in_interface: str | None=None, out_interface: str | None=None,
-        not_out_interface: str | None=None, to_destination: str | None=None,
-        to_source: str | None=None, to_ports: int | str | None=None, log_prefix: str | None=None,
-        destination_port: int | None=None, source_port: int | None=None, extras: str="", **kwargs,
+         chain: 'str',
+         jump: 'str',
+         present: 'bool' = True,
+         table: 'str' = 'filter',
+         append: 'bool' = True,
+         version: 'int' = 4,
+         protocol: 'str | None' = None,
+         not_protocol: 'str | None' = None,
+         source: 'str | None' = None,
+         not_source: 'str | None' = None,
+         destination: 'str | None' = None,
+         not_destination: 'str | None' = None,
+         in_interface: 'str | None' = None,
+         not_in_interface: 'str | None' = None,
+         out_interface: 'str | None' = None,
+         not_out_interface: 'str | None' = None,
+         to_destination: 'str | None' = None,
+         to_source: 'str | None' = None,
+         to_ports: 'int | str | None' = None,
+         log_prefix: 'str | None' = None,
+         destination_port: 'int | None' = None,
+         source_port: 'int | None' = None,
+         extras: 'str' = '',
+         **kwargs,
     )
 
 + **chain**: the chain this rule should live in
@@ -95,6 +114,7 @@ Extras:
         destination_port=53,
         to_destination="8.8.4.4:8080",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

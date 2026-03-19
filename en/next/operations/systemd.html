@@ -195,7 +195,9 @@
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Reload the systemd daemon to read unit file changes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">daemon_reload</span><span class="p">(</span><span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">user_name</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -203,18 +205,26 @@
 <li><p><strong>machine</strong>: the machine name to connect to</p></li>
 <li><p><strong>user_name</strong>: connect to a specific user’s systemd session</p></li>
 </ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="systemd-service">
 <span id="operations-systemd-service"></span><h2><code class="code docutils literal notranslate"><span class="pre">systemd.service</span></code><a class="headerlink" href="#systemd-service" title="Link to this heading">¶</a></h2>
 <p>Manage the state of systemd managed units.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">systemd</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">service</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">machine</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">user_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">service</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">command</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">daemon_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">user_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">machine</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">user_name</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -248,10 +258,10 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

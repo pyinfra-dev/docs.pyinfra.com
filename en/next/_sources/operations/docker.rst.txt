@@ -19,12 +19,22 @@ Manage Docker containers
 .. code:: python
 
     docker.container(
-        container: str, image: str="", ports: list[str] | None=None,
-        networks: list[str] | None=None, volumes: list[str] | None=None,
-        env_vars: list[str] | None=None, env_files: list[str] | None=None,
-        labels: list[str] | None=None, pull_always: bool=False, present: bool=True,
-        force: bool=False, start: bool=True, restart_policy: str | None=None,
-        auto_remove: bool=False, dns: list[str] | None=None, **kwargs,
+         container: 'str',
+         image: 'str' = '',
+         ports: 'list[str] | None' = None,
+         networks: 'list[str] | None' = None,
+         volumes: 'list[str] | None' = None,
+         env_vars: 'list[str] | None' = None,
+         env_files: 'list[str] | None' = None,
+         labels: 'list[str] | None' = None,
+         pull_always: 'bool' = False,
+         present: 'bool' = True,
+         force: 'bool' = False,
+         start: 'bool' = True,
+         restart_policy: 'str | None' = None,
+         auto_remove: 'bool' = False,
+         dns: 'list[str] | None' = None,
+         **kwargs,
     )
 
 + **container**: name to identify the container
@@ -76,8 +86,9 @@ Manage Docker containers
         container="nginx",
         start=True,
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.image:
@@ -89,7 +100,9 @@ Manage Docker images
 
 .. code:: python
 
-    docker.image(image: str, present: bool=True, force: bool=False, **kwargs)
+    docker.image(image: 'str', present: 'bool' = True, force: 'bool' = False,
+         **kwargs,
+    )
 
 + **image**: Image and tag ex: nginx:alpine
 + **present**: whether the Docker image should exist
@@ -112,8 +125,9 @@ Manage Docker images
         image:"nginx:image",
         present=False,
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.network:
@@ -126,11 +140,21 @@ Manage docker networks
 .. code:: python
 
     docker.network(
-        network: str, driver: str="", gateway: str="", ip_range: str="", ipam_driver: str="",
-        subnet: str="", scope: str="", aux_addresses: dict[str, str] | None=None,
-        opts: list[str] | None=None, ipam_opts: list[str] | None=None,
-        labels: list[str] | None=None, ingress: bool=False, attachable: bool=False,
-        present: bool=True, **kwargs,
+         network: 'str',
+         driver: 'str' = '',
+         gateway: 'str' = '',
+         ip_range: 'str' = '',
+         ipam_driver: 'str' = '',
+         subnet: 'str' = '',
+         scope: 'str' = '',
+         aux_addresses: 'dict[str, str] | None' = None,
+         opts: 'list[str] | None' = None,
+         ipam_opts: 'list[str] | None' = None,
+         labels: 'list[str] | None' = None,
+         ingress: 'bool' = False,
+         attachable: 'bool' = False,
+         present: 'bool' = True,
+         **kwargs,
     )
 
 + **network**: Network name
@@ -158,8 +182,9 @@ Manage docker networks
         attachable=True,
         present=True,
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.plugin:
@@ -172,8 +197,12 @@ Manage Docker plugins
 .. code:: python
 
     docker.plugin(
-        plugin: str, alias: str | None=None, present: bool=True, enabled: bool=True,
-        plugin_options: dict[str, str] | None=None, **kwargs,
+         plugin: 'str',
+         alias: 'str | None' = None,
+         present: 'bool' = True,
+         enabled: 'bool' = True,
+         plugin_options: 'dict[str, str] | None' = None,
+         **kwargs,
     )
 
 + **plugin**: Plugin name
@@ -195,8 +224,9 @@ Manage Docker plugins
         enabled=True,
         plugin_options={"option1": "value1", "option2": "value2"},
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.prune:
@@ -214,7 +244,9 @@ Execute a docker system prune.
 
 .. code:: python
 
-    docker.prune(all: bool=False, volumes: bool=False, filter: str="", **kwargs)
+    docker.prune(all: 'bool' = False, volumes: 'bool' = False, filter: 'str' = '',
+         **kwargs,
+    )
 
 + **all**: Remove all unused images not just dangling ones
 + **volumes**: Prune anonymous volumes
@@ -241,8 +273,9 @@ Execute a docker system prune.
         name="Remove unused older than 90 days",
         filter="until=2160h"
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:docker.volume:
@@ -254,7 +287,13 @@ Manage Docker volumes
 
 .. code:: python
 
-    docker.volume(volume: str, driver: str="", labels: list[str] | None=None, present: bool=True, **kwargs)
+    docker.volume(
+         volume: 'str',
+         driver: 'str' = '',
+         labels: 'list[str] | None' = None,
+         present: 'bool' = True,
+         **kwargs,
+    )
 
 + **volume**: Volume name
 + **driver**: Docker volume storage driver
@@ -271,6 +310,7 @@ Manage Docker volumes
         volume="nginx_data",
         present=True
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

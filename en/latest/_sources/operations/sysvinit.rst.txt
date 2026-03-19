@@ -17,8 +17,12 @@ Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.
 .. code:: python
 
     sysvinit.enable(
-        service: str, start_priority=20, stop_priority=80, start_levels=(2, 3, 4, 5),
-        stop_levels=(0, 1, 6), **kwargs,
+         service: 'str',
+         start_priority=20,
+         stop_priority=80,
+         start_levels=(2, 3, 4, 5),
+         stop_levels=(0, 1, 6),
+         **kwargs,
     )
 
 + **service**: name of the service to enable
@@ -37,8 +41,9 @@ Manually enable /etc/init.d scripts by creating /etc/rcX.d/Y links.
         start_levels=(3, 4, 5),
         stop_levels=(0, 1, 2, 6),
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:sysvinit.service:
@@ -51,8 +56,13 @@ Manage the state of SysV Init (/etc/init.d) services.
 .. code:: python
 
     sysvinit.service(
-        service: str, running=True, restarted=False, reloaded=False, enabled: bool | None=None,
-        command: str | None=None, **kwargs,
+         service: 'str',
+         running=True,
+         restarted=False,
+         reloaded=False,
+         enabled: 'bool | None' = None,
+         command: 'str | None' = None,
+         **kwargs,
     )
 
 + **service**: name of the service to manage
@@ -84,6 +94,7 @@ Enabled:
         restarted=True,
         enabled=True,
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

@@ -154,7 +154,7 @@
 </ol>
 <p>Every time you run pyinfra it steps through each of these stages with the goal of updating the inventory to match the commands or state provided. Most of these stages are simple to reason about. The one exception to this is the <strong>prepare</strong>, or change detection, phase which is used to define the order operations are executed.</p>
 <section id="how-pyinfra-detects-changes-orders-operations">
-<h2>How pyinfra Detects Changes &amp; Orders Operations<a class="headerlink" href="#how-pyinfra-detects-changes-orders-operations" title="Link to this heading">¶</a></h2>
+<span id="deploy-process-detects-changes"></span><h2>How pyinfra Detects Changes &amp; Orders Operations<a class="headerlink" href="#how-pyinfra-detects-changes-orders-operations" title="Link to this heading">¶</a></h2>
 <p>Below we’ll look at an in depth example that explains why the prepare / ordering stage is so critical. This example deploys a single database server and three webservers, here’s the inventory:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">web_servers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;web-01&quot;</span><span class="p">,</span> <span class="s2">&quot;web-02&quot;</span><span class="p">,</span> <span class="s2">&quot;web-03&quot;</span><span class="p">]</span>
 <span class="n">db_server</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;db-01&quot;</span><span class="p">]</span>
@@ -198,7 +198,7 @@
 <section id="when-does-this-matter">
 <h2>When does this matter?<a class="headerlink" href="#when-does-this-matter" title="Link to this heading">¶</a></h2>
 <section id="using-host-facts">
-<h3>Using Host Facts<a class="headerlink" href="#using-host-facts" title="Link to this heading">¶</a></h3>
+<span id="deploy-process-using-host-facts"></span><h3>Using Host Facts<a class="headerlink" href="#using-host-facts" title="Link to this heading">¶</a></h3>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change.</p>
