@@ -31,18 +31,15 @@ Returns information on GPG keys apt has in its keychain:
 
     host.get_fact(AptSources)
 
-Returns a list of installed apt sources:
+Returns a list of installed apt sources (legacy .list + **deb822** .sources).
 
-.. code:: python
+Returns a list of AptRepo instances that behave like dicts for backward compatibility:
 
-    [
-        {
-            "type": "deb",
-            "url": "http://archive.ubuntu.org",
-            "distribution": "trusty",
-            "components", ["main", "multiverse"],
-        },
-    ]
+    [AptRepo(type="deb", url="http://archive.ubuntu.org", ...)]
+
+Each AptRepo can be accessed like a dict:
+    repo['type']  # works like repo.type
+    repo.get('url')  # works like getattr(repo, 'url')
 
 
 .. _facts:apt.SimulateOperationWillChange:

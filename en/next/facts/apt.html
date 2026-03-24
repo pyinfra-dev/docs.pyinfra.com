@@ -210,17 +210,16 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a list of installed apt sources:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;deb&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://archive.ubuntu.org&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;distribution&quot;</span><span class="p">:</span> <span class="s2">&quot;trusty&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;components&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;main&quot;</span><span class="p">,</span> <span class="s2">&quot;multiverse&quot;</span><span class="p">],</span>
-    <span class="p">},</span>
-<span class="p">]</span>
-</pre></div>
-</div>
+<p>Returns a list of installed apt sources (legacy .list + <strong>deb822</strong> .sources).</p>
+<p>Returns a list of AptRepo instances that behave like dicts for backward compatibility:</p>
+<blockquote>
+<div><p>[AptRepo(type=”deb”, url=”<a class="reference external" href="http://archive.ubuntu.org">http://archive.ubuntu.org</a>”, …)]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Each AptRepo can be accessed like a dict:</dt><dd><p>repo[‘type’]  # works like repo.type
+repo.get(‘url’)  # works like getattr(repo, ‘url’)</p>
+</dd>
+</dl>
 </section>
 <section id="apt-simulateoperationwillchange">
 <span id="facts-apt-simulateoperationwillchange"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.SimulateOperationWillChange</span></code><a class="headerlink" href="#apt-simulateoperationwillchange" title="Link to this heading">¶</a></h2>
