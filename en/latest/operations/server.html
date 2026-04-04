@@ -132,6 +132,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#server-group"><code class="code docutils literal notranslate"><span class="pre">server.group</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-hostname"><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-kill"><code class="code docutils literal notranslate"><span class="pre">server.kill</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-locale"><code class="code docutils literal notranslate"><span class="pre">server.locale</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-modprobe"><code class="code docutils literal notranslate"><span class="pre">server.modprobe</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-mount"><code class="code docutils literal notranslate"><span class="pre">server.mount</span></code></a></li>
@@ -266,6 +267,35 @@ on Linux and <code class="docutils literal notranslate"><span class="pre">/etc/m
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the hostname&quot;</span><span class="p">,</span>
     <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;server1.example.com&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="server-kill">
+<span id="operations-server-kill"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.kill</span></code><a class="headerlink" href="#server-kill" title="Link to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Kill a running process.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;TERM&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>pid</strong>: PID of the process to kill</p></li>
+<li><p><strong>signal</strong>: signal to send (default <code class="docutils literal notranslate"><span class="pre">TERM</span></code>)</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Kill process 1234&quot;</span><span class="p">,</span>
+    <span class="n">pid</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>
+    <span class="n">signal</span><span class="o">=</span><span class="s2">&quot;KILL&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
