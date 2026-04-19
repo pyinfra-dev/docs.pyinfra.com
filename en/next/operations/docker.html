@@ -214,6 +214,14 @@ as inventory directly.</p>
      <span class="n">start</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
      <span class="n">restart_policy</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">mounts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">privileged</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">hostname</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">entrypoint</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cpus</span><span class="p">:</span> <span class="s1">&#39;float | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">memory</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_args</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">dns</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
@@ -234,6 +242,14 @@ as inventory directly.</p>
 <li><p><strong>start</strong>: start or stop the container</p></li>
 <li><p><strong>restart_policy</strong>: restart policy to apply when a container exits</p></li>
 <li><p><strong>auto_remove</strong>: automatically remove the container and its associated anonymous volumes when it exits</p></li>
+<li><p><strong>mounts</strong>: list of <code class="docutils literal notranslate"><span class="pre">--mount</span></code> specifications (e.g. <code class="docutils literal notranslate"><span class="pre">type=bind,source=/src,target=/app</span></code>)</p></li>
+<li><p><strong>privileged</strong>: give extended privileges to the container</p></li>
+<li><p><strong>hostname</strong>: container hostname</p></li>
+<li><p><strong>entrypoint</strong>: override the default entrypoint</p></li>
+<li><p><strong>user</strong>: username or UID to run as</p></li>
+<li><p><strong>cpus</strong>: number of CPUs (e.g. <code class="docutils literal notranslate"><span class="pre">1.5</span></code>)</p></li>
+<li><p><strong>memory</strong>: memory limit (e.g. <code class="docutils literal notranslate"><span class="pre">512m</span></code>, <code class="docutils literal notranslate"><span class="pre">1g</span></code>)</p></li>
+<li><p><strong>extra_args</strong>: list of additional raw arguments passed to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">create</span></code></p></li>
 <li><p><strong>dns</strong>: list of dns servers to be used by the container</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
@@ -251,6 +267,21 @@ as inventory directly.</p>
     <span class="n">pull_always</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">restart_policy</span><span class="o">=</span><span class="s2">&quot;unless-stopped&quot;</span><span class="p">,</span>
     <span class="n">auto_remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Run a container with mounts and resource limits</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app container&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;myapp:latest&quot;</span><span class="p">,</span>
+    <span class="n">mounts</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;type=bind,source=/host/data,target=/app/data&quot;</span><span class="p">],</span>
+    <span class="n">privileged</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;myapp-host&quot;</span><span class="p">,</span>
+    <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;1000:1000&quot;</span><span class="p">,</span>
+    <span class="n">cpus</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;512m&quot;</span><span class="p">,</span>
+    <span class="n">extra_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--cap-add&quot;</span><span class="p">,</span> <span class="s2">&quot;NET_ADMIN&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 
 <span class="c1"># Stop a container</span>
