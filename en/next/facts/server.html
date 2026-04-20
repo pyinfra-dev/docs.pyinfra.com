@@ -136,6 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#server-arch"><code class="code docutils literal notranslate"><span class="pre">server.Arch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-authorizedkeys"><code class="code docutils literal notranslate"><span class="pre">server.AuthorizedKeys</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-command"><code class="code docutils literal notranslate"><span class="pre">server.Command</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-date"><code class="code docutils literal notranslate"><span class="pre">server.Date</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-groups"><code class="code docutils literal notranslate"><span class="pre">server.Groups</span></code></a></li>
@@ -228,6 +229,21 @@
 </pre></div>
 </div>
 <p>Returns the system architecture according to <code class="docutils literal notranslate"><span class="pre">uname</span></code>.</p>
+</section>
+<section id="server-authorizedkeys">
+<span id="facts-server-authorizedkeys"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.AuthorizedKeys</span></code><a class="headerlink" href="#server-authorizedkeys" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AuthorizedKeys</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the SSH public keys listed in a user’s <code class="docutils literal notranslate"><span class="pre">~/.ssh/authorized_keys</span></code> file as a
+list of full key strings. Empty lines and lines starting with <code class="docutils literal notranslate"><span class="pre">#</span></code> are skipped; the
+file’s order is preserved.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s2">&quot;ssh-ed25519 AAAAC3Nz... user@host&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ssh-rsa AAAAB3Nz... other@host&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="server-command">
 <span id="facts-server-command"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.Command</span></code><a class="headerlink" href="#server-command" title="Link to this heading">¶</a></h2>

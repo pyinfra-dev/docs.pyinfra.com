@@ -15,6 +15,27 @@ See also: :doc:`../operations/server`.
 Returns the system architecture according to ``uname``.
 
 
+.. _facts:server.AuthorizedKeys:
+
+:code:`server.AuthorizedKeys`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(AuthorizedKeys, user, path=None)
+
+Returns the SSH public keys listed in a user's ``~/.ssh/authorized_keys`` file as a
+list of full key strings. Empty lines and lines starting with ``#`` are skipped; the
+file's order is preserved.
+
+.. code:: python
+
+    [
+        "ssh-ed25519 AAAAC3Nz... user@host",
+        "ssh-rsa AAAAB3Nz... other@host",
+    ]
+
+
 .. _facts:server.Command:
 
 :code:`server.Command`
