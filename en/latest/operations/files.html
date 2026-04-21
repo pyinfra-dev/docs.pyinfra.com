@@ -122,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#files-rsync"><code class="code docutils literal notranslate"><span class="pre">files.rsync</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-sync"><code class="code docutils literal notranslate"><span class="pre">files.sync</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-template"><code class="code docutils literal notranslate"><span class="pre">files.template</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#files-unarchive"><code class="code docutils literal notranslate"><span class="pre">files.unarchive</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
@@ -1076,6 +1077,58 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
     <span class="n">src</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
     <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/foo.yml&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="files-unarchive">
+<span id="operations-files-unarchive"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.unarchive</span></code><a class="headerlink" href="#files-unarchive" title="Link to this heading">¶</a></h2>
+<p>Extract archive files on the remote system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">remote_src</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">creates</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_opts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>src</strong>: path to the archive file (local or remote depending on <code class="docutils literal notranslate"><span class="pre">remote_src</span></code>)</p></li>
+<li><p><strong>dest</strong>: remote directory to extract into (must exist)</p></li>
+<li><p><strong>remote_src</strong>: set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if the archive is already on the remote system</p></li>
+<li><p><strong>creates</strong>: if this path already exists, the operation is skipped (idempotency)</p></li>
+<li><p><strong>extra_opts</strong>: list of additional arguments to pass to the extract command</p></li>
+<li><p><strong>user</strong>: user to own the extracted files</p></li>
+<li><p><strong>group</strong>: group to own the extracted files</p></li>
+</ul>
+<dl class="simple">
+<dt>Supported formats:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">.tar</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>/<code class="docutils literal notranslate"><span class="pre">.tgz</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.bz2</span></code>/<code class="docutils literal notranslate"><span class="pre">.tbz2</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.tar.xz</span></code>/<code class="docutils literal notranslate"><span class="pre">.txz</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.zst</span></code>, <code class="docutils literal notranslate"><span class="pre">.zip</span></code></p>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract a remote archive</span>
+<span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Extract app tarball&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/app.tar.gz&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+    <span class="n">remote_src</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Upload and extract a local archive</span>
+<span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy release&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;releases/app-v1.0.tar.gz&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+    <span class="n">creates</span><span class="o">=</span><span class="s2">&quot;/opt/app/bin/start&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

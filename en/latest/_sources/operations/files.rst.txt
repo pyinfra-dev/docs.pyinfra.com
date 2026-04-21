@@ -968,3 +968,59 @@ Notes:
 .. note::
     This operation also inherits all :doc:`global arguments </arguments>`.
 
+
+.. _operations:files.unarchive:
+
+:code:`files.unarchive`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Extract archive files on the remote system.
+
+.. code:: python
+
+    files.unarchive(
+         src: 'str',
+         dest: 'str',
+         remote_src: 'bool' = False,
+         creates: 'str | None' = None,
+         extra_opts: 'list[str] | None' = None,
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         **kwargs,
+    )
+
++ **src**: path to the archive file (local or remote depending on ``remote_src``)
++ **dest**: remote directory to extract into (must exist)
++ **remote_src**: set to ``True`` if the archive is already on the remote system
++ **creates**: if this path already exists, the operation is skipped (idempotency)
++ **extra_opts**: list of additional arguments to pass to the extract command
++ **user**: user to own the extracted files
++ **group**: group to own the extracted files
+
+Supported formats:
+    ``.tar``, ``.tar.gz``/``.tgz``, ``.tar.bz2``/``.tbz2``,
+    ``.tar.xz``/``.txz``, ``.tar.zst``, ``.zip``
+
+**Examples:**
+
+.. code:: python
+
+    # Extract a remote archive
+    files.unarchive(
+        name="Extract app tarball",
+        src="/tmp/app.tar.gz",
+        dest="/opt/app",
+        remote_src=True,
+    )
+
+    # Upload and extract a local archive
+    files.unarchive(
+        name="Deploy release",
+        src="releases/app-v1.0.tar.gz",
+        dest="/opt/app",
+        creates="/opt/app/bin/start",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
