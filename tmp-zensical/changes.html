@@ -1,0 +1,1669 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="pyinfra automates infrastructure using idempotent Python operations.">
+      
+      
+        <meta name="author" content="Nick Barrett">
+      
+      
+        <link rel="canonical" href="https://docs.pyinfra.com/changes.html">
+      
+      
+        <link rel="prev" href="./performance.html">
+      
+      
+        <link rel="next" href="./api/reference.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="./static/logo_small.png">
+      <meta name="generator" content="zensical-0.0.34">
+    
+    
+      
+        <title>Changelog - pyinfra</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="./assets/stylesheets/modern/main.53a7feaf.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="./assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+    
+      
+    
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script>
+        docsearch({
+            appId: "XXGX6EX4KA",
+            apiKey: "25a25b5f5310f306641f9ce07dcb06eb",
+            indexName: "pyinfra",
+            container: "#docsearch",
+            debug: false,
+        });
+    </script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="./assets/pyinfra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+    
+      
+
+    
+    <script defer
+            data-domain="docs.pyinfra.com"
+            data-api="https://stats.oxygem.com/api/event"
+            src="https://stats.oxygem.com/js/script.js"></script>
+
+    
+    
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+    
+        
+            You are reading the most recent documentation which may contain
+            unreleased features. The latest release is
+            <a href="/en/3.x/"><strong>3.x</strong></a>.
+        
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./index.html" title="pyinfra" class="md-header__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="./static/logo_small.png" alt="pyinfra">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyinfra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./index.html" title="pyinfra" class="md-nav__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="./static/logo_small.png" alt="pyinfra">
+
+    </a>
+    pyinfra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using pyinfra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using pyinfra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./getting-started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./using-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./inventory-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory & Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deploy Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./arguments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How pyinfra Works
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How pyinfra Works
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./deploy-process.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/deploys.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Meta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./support.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./compatibility.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+      <a href="changes.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h1 id="v37">v3.7<a class="headerlink" href="#v37" title="Permanent link">&para;</a></h1>
+<p>Thank you to all contributors - particular shout out to @wowi42 for an incredible run of PRs!</p>
+<p>Core:</p>
+<ul>
+<li>api.facts: fix <code>requires_command</code> shell operator precedence with compound commands (#1579) (@wowi42)</li>
+</ul>
+<p>Operations/facts:</p>
+<ul>
+<li>operations.docker: add support for env files (#1572) (@EricDriussi)</li>
+<li>operations.docker: add support for dns (#1590) (@EricDriussi)</li>
+<li>operations.files.sync: support symlinks</li>
+<li>facts.server.Port: add UDP support and multi-platform backends (#1550) (@wowi42)</li>
+<li>facts.hardware.Memory: use LANG=C while calling vmstat (#1553) (@soltysek)</li>
+<li>facts.hardware: add <code>CpuInfo</code> fact (#1577) (@soltysek)</li>
+<li>facts.server.Sysctl: fix non-zero exit code causing empty result (#1578) (@wowi42)</li>
+<li>facts.runit.RunitManaged: handle missing service directory gracefully (#1580) (@wowi42)</li>
+<li>facts.hardware.Memory: fix FreeBSD support by summing page categories (#1584) (@wowi42)</li>
+<li>facts.server.SecurityLimits: handle missing limits.conf (#1582) (@wowi42)</li>
+<li>facts.server.Port: fix <code>ss</code> command for Alpine/BusyBox compatibility (#1586) (@wowi42)</li>
+<li>facts.iptables: add <code>requires_command</code> to all iptables facts (#1587) (@wowi42)</li>
+<li>facts.opkg: add <code>requires_command</code> and stop hardcoding /bin/opkg (#1588) (@wowi42)</li>
+<li>facts.choco: add <code>requires_command</code> to <code>ChocoPackages</code> and <code>ChocoVersion</code> (#1589) (@wowi42)</li>
+</ul>
+<p>Connectors:</p>
+<ul>
+<li>connectors: <code>@podmanssh</code> connector for remote Podman container operations (#1547) (@elazar)</li>
+<li>connectors.ssh: exclude <code>_chdir</code> from global arguments used when removing temporary file (fix #1426) (#1429) (@morrison12)</li>
+<li>connectors.ssh: don't include password in SSH exception authentication data (#1538) (@oliverhr)</li>
+</ul>
+<p>CLI:</p>
+<ul>
+<li>cli: use gevent for the progress spinner</li>
+<li>cli: add <code>--ssh-password-prompt</code> flag for interactive SSH password input (#1585) (@wowi42)</li>
+</ul>
+<p>Other:</p>
+<ul>
+<li>global arguments: <code>_su_password</code> argument for su password authentication (#1573) (@wowi42)</li>
+<li>operations+facts: <code>server.timezone</code> and <code>server.Timezone</code> fact (#1575) (@wowi42)</li>
+<li>scripts: add <code>generate_changelog.py</code></li>
+</ul>
+<h1 id="v361">v3.6.1<a class="headerlink" href="#v361" title="Permanent link">&para;</a></h1>
+<p>Thank you to all contributors. A solid bugfix release including some rather old bugs at this point.</p>
+<p>Core fixes:</p>
+<ul>
+<li>api: handle/propagate nested operation errors</li>
+<li>api: don't apply stage check in API mode</li>
+<li>api: change <code>iter_active_hosts</code> -&gt; <code>get_active_hosts</code></li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul>
+<li>operations.docker.container: add support for <code>--restart</code> and <code>--rm</code> arguments (@levinion)</li>
+<li>operations.postgres: add idempotency notice on passwords to <code>postgres.role</code></li>
+<li>facts.flatpak.FlatpakPackages: handle headless output correctly</li>
+<li>facts.crontab: don't return non-command cron entries in <code>get_command</code></li>
+<li>facts.files.FileContents: fix return None when no file exists</li>
+<li>facts.files.FindFiles: fix args parameter being ignored (@wowi42)</li>
+</ul>
+<p>Connector fixes:</p>
+<ul>
+<li>connectors.ssh: handle multiple known hosts files in SSH config</li>
+</ul>
+<p>CLI fixes:</p>
+<ul>
+<li>cli: fix missing config lock</li>
+<li>cli: fix config flags lost on multiple deploy files (@wowi42)</li>
+<li>cli/inventory: support loading host groups directly from module attributes (@wowi42)</li>
+</ul>
+<p>Docs/meta:</p>
+<ul>
+<li>docs: fix many minor errors (@romain-dartigues)</li>
+<li>docs: fix typo in inventory-data.rst (@EshemMimi)</li>
+<li>meta: add arguments linter</li>
+<li>meta: fix dev linting scripts</li>
+</ul>
+<h1 id="v36">v3.6<a class="headerlink" href="#v36" title="Permanent link">&para;</a></h1>
+<p>First 2026 release - Happy New Year all! Thank you to all contributors. One big highlight is new metadata spec for plugins, this is the start of better discovery and documentation generation for third party facts and operations:</p>
+<ul>
+<li>add metadata spec for pyinfra plugins (@rod7760)</li>
+</ul>
+<p>New and updated operations/facts:</p>
+<ul>
+<li>operations: add <code>_temp_dir</code> global argument for configuring temp directory (@wowi42)</li>
+<li>operations: add <code>files.copy</code> operation (@EricDriussi)</li>
+<li>operations.crontab: fix modification not properly relying on the <code>cron_name</code> parameter (@information-redacted)</li>
+<li>operations.docker.container: add support for setting labels (@spookyvision)</li>
+<li>operations: add import statements on at least one example of every operation (@mkinney)</li>
+<li>operations.docker.image: make operation idempotent (@DonDebonair)</li>
+<li>operations.files.template: allow custom jinja2 template loaders (@DaRasch)</li>
+<li>operations.files.block/connectors.util: use correct temporary directory (@morrison12)</li>
+<li>operations.util.packaging: allow empty package list in <code>ensure_packages</code> (@schenker)</li>
+<li>operations: fix tmpdir to properly use all the POSIX environment variables (@wowi42)</li>
+<li>facts.files.FileContents: improve docstring (@adonm)</li>
+<li>facts.apt.update: fix computation of cache_time when host is not UTC (@philippemilink)</li>
+<li>facts: add <code>FactProcessError</code> to log, not explode, issues processing facts (@NichtJens)</li>
+<li>facts.npm: check directory exists before cd-ing (wowi42)</li>
+</ul>
+<p>Connectors:</p>
+<ul>
+<li>connectors.docker: add platform and architecture option via connector data (@JP-Ellis)</li>
+<li>connectors: close stdin after writing any input</li>
+<li>connectors.ssh: add workaround for paramiko no session error (@dfaerch)</li>
+</ul>
+<p>CLI:  </p>
+<ul>
+<li>cli: change color of "No changes" to cyan</li>
+<li>cli: add option <code>--same-sudo-password</code> (@philippemilink)</li>
+</ul>
+<p>Docs/meta:</p>
+<ul>
+<li>docs: replace <code>python -m</code> with <code>uv run -m</code> (@JP-Ellis)</li>
+<li>docs: fix URLs in API documentation (@kelno)</li>
+<li>docs/connectors: document command wrapping and parameter filtering best practices (@elazar)</li>
+<li>tests: freeze date for fact tests</li>
+</ul>
+<h1 id="v353">v3.5.3<a class="headerlink" href="#v353" title="Permanent link">&para;</a></h1>
+<ul>
+<li>another release to fix different doc generation issues 🫠</li>
+</ul>
+<h1 id="v352">v3.5.2<a class="headerlink" href="#v352" title="Permanent link">&para;</a></h1>
+<ul>
+<li>fix operation &amp; fact docs generation</li>
+</ul>
+<h1 id="v351">v3.5.1<a class="headerlink" href="#v351" title="Permanent link">&para;</a></h1>
+<p>Patch release with a bunch of great fixes. But notably want to call out two major changes for anyone working on the pyinfra code itself (huge thank you Daan for implementing these):</p>
+<ul>
+<li>feat: use ruff for linting and formatting (@DonDebonair)</li>
+<li>feat: use uv for project and dependency management (@DonDebonair)</li>
+</ul>
+<p>Core fixes:</p>
+<ul>
+<li>api: correctly set context state+host when calling <code>get_facts</code> </li>
+<li>cli: catch exceptions when testing inventory/operation imports </li>
+<li>cli: fix/remove datetime timezone warnings (@wowi42)</li>
+<li>operations/files.block: correct behaviour when markers/block not found and no line provided (@morrison12)</li>
+<li>operations.util.packaging: extend PkgInfo for winget (@rod7760)</li>
+<li>facts/server: support negative value in sysctl (@imlonghao)</li>
+</ul>
+<p>Docs:</p>
+<ul>
+<li>docs: fix dynamic execution example (@wowi42)</li>
+<li>docs: Specify how the recursive argument to directory() works (@cliffmccarthy)</li>
+<li>docs: change recommended installation methods (@DonDebonair)</li>
+<li>docs: update writing connectors </li>
+</ul>
+<p>Tests:</p>
+<ul>
+<li>op.server.user tests: add exists_noop.json for user existence checks (fix warning) (@maisim)</li>
+<li>op.server.user tests: add noop_description (fix warning) (@maisim)</li>
+<li>fix: add missing command field in test (@maisim)</li>
+<li>tests: clear the host sftp memoization cache before setting up the mock (@wowi42)</li>
+<li>tests: export testgen class to a new package/repo </li>
+<li>tests: fix missing stage sets on state </li>
+</ul>
+<h1 id="v35">v3.5<a class="headerlink" href="#v35" title="Permanent link">&para;</a></h1>
+<p>New release with some really awesome new features, brought to you by the fantastic contributions of the community. New stuff:</p>
+<ul>
+<li>add <code>--diff</code> argument to show file diffs for potential file changes (@jgelens)</li>
+<li>add <code>_retries</code>, <code>_retry_delay</code> and <code>_retry_until</code> global arguments (@shohamd4)</li>
+<li>parallelize disconnecting from hosts (@gwelch-contegix)</li>
+<li>enable using SCP instead of SFTP for SSH file transfers (@DonDebonair)</li>
+</ul>
+<p>New and updated operations/facts:</p>
+<ul>
+<li>facts/server: add <code>RebootRequired</code> fact (@wowi42)</li>
+<li>operations/pip: support PEP-508 package versions (@morrison12)</li>
+<li>operations+facts/docker: add Docker plugin support (@DonDebonair)</li>
+<li>operations/files.put: add <code>atime</code> and <code>mtime</code> arguments (@vram0gh2)</li>
+<li>operations/openrc: support runlevel when enabling services (@sengo4hd)</li>
+<li>facts/yum+dnf+zypper: return <code>repoid</code> in repository facts</li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul>
+<li>facts/files.File: add ls fallback support (@mrkbac)</li>
+<li>operations/openrc: add missing noop messages (@sengo4hd)</li>
+<li>operations/server.crontab: fix newline when replacing existing values (@Nananas)</li>
+<li>operations/files.block: fix examples doc (@morrison12)</li>
+<li>operations/files.block: fix case where file exists but line is missing (@morrison12)</li>
+<li>operations/files.block: improve handling of special characters in marker lines (@morrison12)</li>
+</ul>
+<p>Internal/meta:</p>
+<ul>
+<li>documentation link fix (@sengo4hd)</li>
+</ul>
+<h1 id="v341">v3.4.1<a class="headerlink" href="#v341" title="Permanent link">&para;</a></h1>
+<ul>
+<li>fix config context when getting operation arguments</li>
+</ul>
+<h1 id="v34">v3.4<a class="headerlink" href="#v34" title="Permanent link">&para;</a></h1>
+<p>Much delayed 3.4, great collection of additions and improvements. Huge THANK YOU to all contributors as always. New features:</p>
+<ul>
+<li>Add @podman connector (@Griffoen)</li>
+</ul>
+<p>New and updated operations/facts:</p>
+<ul>
+<li>operations/docker.network: add support for aux addresses (@DonDebonair)</li>
+<li>operations/files: try multiple hash functions in <code>files.get</code> + <code>files.put</code> (@mrkbac)</li>
+<li>operations/files.download: add <code>temp_dir</code> argument (@scy)</li>
+<li>operations/files.download: add <code>extra_curl_args</code> and <code>extra_wget_args</code> arguments (@jgelens)</li>
+<li>operations/flatpak: add remote support (@Griffoen)</li>
+<li>operations/git + facts/git: add <code>GitTag</code> fact and support tag checkout (@wowi42)</li>
+<li>operations/server.mount: add support for FreeBSD mounts (@DtxdF)</li>
+<li>facts/server: add <code>server.Port</code> fact to find process listening on port (@missytake)</li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul>
+<li>operations/docker: handle case where no docker containers/etc exist (@wowi42)</li>
+<li>operations/files + operations/crontab: fix deletion of lines when <code>present=False</code> (@bad)</li>
+<li>operations/files.block: avoid use of non-POSIX <code>chown -n</code></li>
+<li>operations/files.put: fix copying of local file mode (@vram0gh2)</li>
+<li>operations/server.user: fix appending of user groups (@aaron-riact)</li>
+<li>facts/server.Mounts: fix whitespace and escaped character parsing (@lemmi)</li>
+<li>facts/systemd: treat mounted units as active</li>
+</ul>
+<p>Internal/meta:</p>
+<ul>
+<li>remove unnecessary setuptools runtime dependency (@karlicoss)</li>
+</ul>
+<h1 id="v331">v3.3.1<a class="headerlink" href="#v331" title="Permanent link">&para;</a></h1>
+<ul>
+<li>connectors/ssh: fix extra <code>keep_alive</code> key passing through to paramiko <code>connect</code> call (@chipot)</li>
+<li>docs: refine installation guide with updated Python requirements and best practices (@wowi42)</li>
+</ul>
+<h1 id="v33">v3.3<a class="headerlink" href="#v33" title="Permanent link">&para;</a></h1>
+<p>Second release of 2025: loads of adds, fixes and documentation improvements. A huge THANK YOU to all contributors. Slightly changed format for the change list based on commit messages which should speed up releases:</p>
+<p>New operations &amp; arguments:</p>
+<ul>
+<li>operations/freebsd: add FreeBSD operations &amp; facts (@DtxdF)</li>
+<li>operations/files.move: new operation (@Pirols)</li>
+<li>operations/server.user: enable adding user to secondary groups (Pirols)</li>
+<li>operations/postgres: enhance role management by adding <code>ALTER ROLE</code> support (@wowi42)</li>
+<li>operations/postgres: enable modifying existing postgres databases (@wowi42)</li>
+<li>operations/docker.container: refactor to support container recreation (@minor-fixes)</li>
+</ul>
+<p>Operation/fact fixes:</p>
+<ul>
+<li>operations/postgres: fix quoting of locale parameters (@xvello)</li>
+<li>operations/server: remove leftover deprecated parameter (@wowi42)</li>
+<li>operations/pacmen: update PACMAN_REGEX to support additional characters (@wowi42)</li>
+<li>operations/server.sysctl: handle 0 integer values correctly (@lemmi)</li>
+<li>operations/apt: dist-upgrade also supports --autoremove (@bauen1)</li>
+<li>operations/apt: fix parameter name in docs (@bauen1)</li>
+<li>operations/server: fix: lastlog is always null (@ingstem)</li>
+<li>operations/docker: Fixed a typo with the volumes parameter to docker.prune operation (@mpilone)</li>
+<li>facts/xbps.XbpsPackages: allow . in package names (@lemmi)</li>
+</ul>
+<p>Connectors, CLI:</p>
+<ul>
+<li>connectors: improve detection of sudo password needed</li>
+<li>connectors/ssh: add support for <code>ServerAliveInterval</code> (@chipot)</li>
+<li>cli: enable -h as shorthand for --help (@NichtJens)</li>
+</ul>
+<p>Docs:</p>
+<ul>
+<li>docs: Add a section explaining connector flow (@goetzk)</li>
+<li>docs: Add inventory processing note and reference it (@goetzk)</li>
+<li>docs: Add example of logging to using operations docs (@goetzk)</li>
+<li>docs: fix wrong example operation using forbidden argument 'name' (@robertmx)</li>
+<li>docs: Add a note to the docs about using <code>_inner</code> when calling operations from other operations (@CSDUMMI)</li>
+<li>docs: Document host, state, inventory in files.template (@mpilone)</li>
+<li>docs: Minor adjustments to wording help docs and help (@goetzk)</li>
+<li>docs: expand connectors documentation (@goetzk)</li>
+<li>docs: correct import path for any_changed, all_changed (@lemmi)</li>
+<li>docs: Add note re: global arguments to operations (@simonhammes)</li>
+</ul>
+<p>Internal/meta:</p>
+<ul>
+<li>refactor: update opkg documentation and add requires_command to ZFS and Git tests (@wowi42)</li>
+<li>Update testing and development dependencies in setup.py (@wowi42)</li>
+<li>tests: Load test specs with PyYAML instead of json (@taliaferro)</li>
+<li>typing: Require explicit override decorator (@bauen1)</li>
+<li>api: don't execute callbacks within a greenlet if we're already in one</li>
+<li>ci: Github Actions support for python 3.12 (@wowi42)</li>
+<li>ci: Prevent docs job from running on forks (@simonhammes)</li>
+</ul>
+<h1 id="v32">v3.2<a class="headerlink" href="#v32" title="Permanent link">&para;</a></h1>
+<p>Hello 2025! Here's pyinfra 3.2 - with another incredible round of contributions from the community, THANK YOU ALL. New stuff:</p>
+<ul>
+<li>Add total counts to results summary (@NichtJens)</li>
+<li>Enable passing extra data via <code>local.include</code> (@TimothyWillard)</li>
+<li>Validate inventory files and display warnings for unexpected variables (@simonhammes)</li>
+</ul>
+<p>New operations/facts:</p>
+<ul>
+<li>Add <code>pipx</code> operations (<code>packages</code>, <code>upgrade_all</code>, <code>ensure_path</code>) facts (<code>PipxPackages</code>, <code>PipxEnvironment</code>) and operations (@maisim)</li>
+<li>Add <code>server.OsRelease</code> fact (@wowi42)</li>
+<li>Add <code>podman.PodmanSystemInfo</code> and <code>podman.PodmanPs</code> facts (@bauen1)</li>
+<li>Add many extra arguments (including generic args) to <code>files.FindFiles*</code> facts (@JakkuSakura)</li>
+<li>Add <code>system</code> argument to <code>git.config</code> operation (@Pirols)</li>
+<li>Add <code>psql_database</code> argument to postgres operations &amp; facts (@hamishfagg)</li>
+<li>Add <code>files.Sha384File</code> fact and <code>sha384sum</code> argument to <code>files.download</code> operation (@simonhammes)</li>
+<li>Add <code>apt.SimulateOperationWillChange</code> fact (@bauen1)</li>
+<li>Detect changes in <code>apt.upgrade</code> and <code>apt.dist_upgrade</code> operations (@bauen1)</li>
+<li>Add <code>fibootmgr.EFIBootMgr</code> fact (@bauen1)</li>
+<li>Add opkg facts and operations (@morrison12)</li>
+</ul>
+<p>Fixes:</p>
+<ul>
+<li>Multiple fixes for <code>server.crontab</code> operation and facts (@JakkuSakura)</li>
+<li>Correctly handle <code>latest</code> argument with requirements file in <code>pip.packages</code> operation (@amiraliakbari)</li>
+<li>Fix regex used to parse installed apk packages (@simonhammes)</li>
+<li>Fix SSH connector overwriting known hosts files (@vo452)</li>
+</ul>
+<p>Docs/internal tweaks:</p>
+<ul>
+<li>Add type annotations for many more operations (@simonhammes)</li>
+<li>Add typos CI checking to replace flake8-spellcheck (@simonhammes)</li>
+<li>Bump CI actions and dependencies (@simonhammes)</li>
+<li>Require JSON tests to include all arguments</li>
+<li>Remove unused <code>configparser</code> dependency (@bkmgit)</li>
+<li>Many small documentation fixes/tweaks</li>
+</ul>
+<h1 id="v311">v3.1.1<a class="headerlink" href="#v311" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Improve errors with 2.x style <code>@decorator</code> (vs <code>@decorator()</code>) functions</li>
+<li>Document adding custom connectors (@simonhammes)</li>
+<li>Add basic API example to docs (@pirate)</li>
+<li>Fix sphinx warnings (@simonhammes)</li>
+<li>Fix force &amp; pull arguments in <code>git.worktree</code> operation</li>
+<li>Fix <code>server.reboot</code> reconnection (@wackou)</li>
+<li>Fix chroot/local connector non-utf file gets (@evoldstad)</li>
+<li>Fix <code>AptSources</code> fact to parse components in order &amp; with digits (@rsfzi)</li>
+</ul>
+<h1 id="v31">v3.1<a class="headerlink" href="#v31" title="Permanent link">&para;</a></h1>
+<p>Here's pyinfra 3.1 - a release primarily driven by contributors new and old - a HUGE THANK YOU to all of you who dedicate time to work on pushing pyinfra forward. New stuff:</p>
+<ul>
+<li>Add <code>zfs</code> operations (<code>dataset</code>, <code>snapshot</code>, <code>volume</code>, <code>filesystem</code>) facts (<code>Pools</code>, <code>Datasets</code>, <code>Filesystems</code>, <code>Snapshots</code>, <code>Volumes</code>) (@taliaferro)</li>
+<li>Add <code>flatpak</code> operations (<code>packages</code>) and facts (<code>FlatpakPackage</code>, <code>FlatpakPackages</code>) (@JustScreaMy)</li>
+<li>Add <code>jinja_env_kwargs</code> argument to <code>files.template</code> operation (@DonDebonair)</li>
+<li>Add using dictionaries as <code>@terraform</code> output (map from group -&gt; hosts)</li>
+<li>Add default <code>@terraform</code> output key - <code>pyinfra_inventory.value</code>, promote connector to beta</li>
+<li>Add support for multiple keys in each <code>server.authorized_keys</code> file (@matthijskooijman)</li>
+<li>Add print all dependency versions with <code>--support</code> flag (@kytta)</li>
+</ul>
+<p>Fixes:</p>
+<ul>
+<li>Fix when <code>ssh_hostname</code> is set as override data, don't do inventory hostname check</li>
+<li>Fix <code>apt.AptSources</code> parsing special characters (@CondensedTea)</li>
+<li>Fix <code>server.reboot</code> connection detection (@bauen1 + @lemmi)</li>
+<li>Fix systemd flagging of sockets running (@bauen1)</li>
+<li>Fix mysql dump quoting (@simonhammes)</li>
+<li>Fix tilde expansion in files facts (@simonhammes)</li>
+<li>Fix host lookup check with SSH alias config (@simonhammes)</li>
+<li>Fix crontab comparison (@andrew-d)</li>
+</ul>
+<p>Docs/internal tweaks:</p>
+<ul>
+<li>Improve operations documentation (@bauen1)</li>
+<li>Default to local machine if <code>user_name</code> set in systecmt (@bauen1)</li>
+<li>Improve efficiency of Docker operations (@apecnascimento)</li>
+<li>Shallow copy <code>host.data</code> data to mutation</li>
+</ul>
+<h1 id="v302">v3.0.2<a class="headerlink" href="#v302" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Fix <code>OperationMeta.did_change</code>: this is now a function as originally designed</li>
+<li>Add quick test for <code>host.when</code> context manager</li>
+<li>Remove extra detected changes note when not relevant</li>
+</ul>
+<h1 id="v301">v3.0.1<a class="headerlink" href="#v301" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Switch to <code>command -v</code> not <code>which</code> in <code>server.Which</code> fact (@lemmi)</li>
+<li>Fix detection of xbps in <code>server.packages</code> operation (@romain-dartigues)</li>
+<li>Fix argument typo in operations doc (@scoufman)</li>
+<li>Add expanded note about detected changes + hidden side effects during execution</li>
+<li>Fix missing global arguments in group data files</li>
+<li>Fix <code>--group-data</code> CLI argument behaviour</li>
+<li>Remove unused/dead <code>--quiet</code> flag</li>
+</ul>
+<h1 id="v30">v3.0<a class="headerlink" href="#v30" title="Permanent link">&para;</a></h1>
+<p>Welcome to pyinfra v3! This version is the biggest overhaul of pyinfra since it was created back in 2015. Most v2 deployment code should be automatically compatible, but as always be aware. Major changes:</p>
+<h3 id="runtime-operation-execution">Runtime operation execution<a class="headerlink" href="#runtime-operation-execution" title="Permanent link">&para;</a></h3>
+<p>pyinfra now executes operations at runtime, rather than pre-generating commands. Although the change isn't noticeable this fixes an entire class of bugs and confusion. See the <a href="https://docs.pyinfra.com/en/2.x/deploy-process.html#limitations">limitations</a> section in the v2 docs. All of those issues are now a thing of the past.</p>
+<p>This represents a huge overhaul of pyinfra's internals and should be a huge improvement for users.</p>
+<p>Care has been taken to reduce the overhead of this change which still supports the same diffs and change proposal mechanism.</p>
+<h3 id="cli-flow-prompts">CLI flow &amp; prompts<a class="headerlink" href="#cli-flow-prompts" title="Permanent link">&para;</a></h3>
+<p>The pyinfra CLI will now prompt (instead of ignore, or immediately exit) when problems are encountered, allowing the user to choose to continue. Additionally an approval step is added before executing changes (this can be skipped with <code>-y</code> or setting the <code>PYINFRA_YES</code> environment variable).</p>
+<h3 id="extendable-connectors-api-typing-overhaul">Extendable connectors API, typing overhaul<a class="headerlink" href="#extendable-connectors-api-typing-overhaul" title="Permanent link">&para;</a></h3>
+<p>v3 of pyinfra includes for the first time a (mostly) typed internal API with proper support for IDE linting. There's a whole new connectors API that provides a framework for building new connectors.</p>
+<h3 id="breaking-changes">Breaking changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Rename <code>_use_sudo_password</code> argument to <code>_sudo_password</code></li>
+<li>Remove <code>winrm</code> connector and <code>windows*</code> operations/facts, moving to <a href="https://github.com/pyinfra-dev/pyinfra-windows"><code>pyinfra-windows</code></a></li>
+<li>The deploy decorator must now be called, ie used as <code>@deploy()</code>, and is now typed</li>
+<li>Remove broken Ansible inventory connector</li>
+</ul>
+<h3 id="operations-facts">Operations &amp; Facts<a class="headerlink" href="#operations-facts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Add <code>docker.container</code>, <code>docker.image</code>, <code>docker.volume</code>, <code>docker.network</code> &amp; <code>docker.prune</code> operations (@apecnascimento)</li>
+<li>Add <code>runit.service</code> operation and <code>RunitStatus</code> fact (@lemmi)</li>
+<li>Add <code>TmpDir</code> fact</li>
+<li>Add <code>services</code> argument to systemd facts for filtering</li>
+<li>Add type hints for all the operations (@stone-w4tch3r)</li>
+<li>Lowercase pip packages properly (PEP-0426)</li>
+<li>Rename <code>postgresql</code> -&gt; <code>postgres</code> operations &amp; facts (old ones still work)</li>
+<li>Improve IP/MAC parsing in <code>NetworkDevices</code> fact (@sudoBash418)</li>
+<li>Enable getting <code>Home</code> fact for other users (@matthijskooijman)</li>
+<li>Use users correct home directory in <code>server.user_authorized_keys</code> operation (@matthijskooijman)</li>
+<li>Fix <code>destination</code>/<code>not_destination</code> arguments in <code>iptables.rule</code> operation</li>
+<li>Fix remote dirs when executing from Windows in <code>files.sync</code> operation (@Renerick)</li>
+<li>Fix quoting of systemd unit names (@martenlienen)</li>
+</ul>
+<h3 id="other-changes">Other Changes<a class="headerlink" href="#other-changes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Add new <code>_if</code> global argument to control operation execution at runtime</li>
+<li>Add <code>--debug-all</code> flag to set debug logging for all packages</li>
+<li>Retry SSH connections on failure (configurable, see <a href="https://docs.pyinfra.com/en/3.x/connectors/ssh.html#available-data">SSH connector</a>) (@fwiesel)</li>
+<li>Documentation typo fixes (@szepeviktor, @sudoBash418)</li>
+<li>Fix handling of binary files in Docker connector (@matthijskooijman)</li>
+<li>Add <code>will_change</code> attribute and <code>did_change</code> context manager to <code>OperationMeta</code></li>
+<li>Replace use of <code>pkg_resources</code> with <code>importlib.metadata</code> (@diazona)</li>
+<li>Fix identifying Python inventory files as modules (@martenlienen)</li>
+<li>Fix typed arguments order (@cdleonard)</li>
+<li>Check that fact commands don't take global arguments (@martenlienen)</li>
+</ul>
+<h1 id="v2x">v2.x<a class="headerlink" href="#v2x" title="Permanent link">&para;</a></h1>
+<p><a href="https://github.com/Fizzadar/pyinfra/blob/2.x/CHANGELOG.md">See this file in the <code>2.x</code> branch</a>.</p>
+<h1 id="v1x">v1.x<a class="headerlink" href="#v1x" title="Permanent link">&para;</a></h1>
+<p><a href="https://github.com/Fizzadar/pyinfra/blob/1.x/CHANGELOG.md">See this file in the <code>1.x</code> branch</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nick Barrett / pyinfra contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":".","features":["navigation.sections","navigation.top","navigation.tracking","toc.follow","content.code.copy","content.code.annotate"],"search":"./assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="./assets/javascripts/bundle.9f55f5b1.min.js"></script>
+      
+    
+  </body>
+</html>

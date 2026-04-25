@@ -1,0 +1,1949 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="pyinfra automates infrastructure using idempotent Python operations.">
+      
+      
+        <meta name="author" content="Nick Barrett">
+      
+      
+        <link rel="canonical" href="https://docs.pyinfra.com/operations/server.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../static/logo_small.png">
+      <meta name="generator" content="zensical-0.0.34">
+    
+    
+      
+        <title>server Operations - pyinfra</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.53a7feaf.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+    
+      
+    
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script>
+        docsearch({
+            appId: "XXGX6EX4KA",
+            apiKey: "25a25b5f5310f306641f9ce07dcb06eb",
+            indexName: "pyinfra",
+            container: "#docsearch",
+            debug: false,
+        });
+    </script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/pyinfra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+    
+      
+
+    
+    <script defer
+            data-domain="docs.pyinfra.com"
+            data-api="https://stats.oxygem.com/api/event"
+            src="https://stats.oxygem.com/js/script.js"></script>
+
+    
+    
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#server-operations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+    
+        
+            You are reading the most recent documentation which may contain
+            unreleased features. The latest release is
+            <a href="/en/3.x/"><strong>3.x</strong></a>.
+        
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="pyinfra" class="md-header__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="../static/logo_small.png" alt="pyinfra">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyinfra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              server Operations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="pyinfra" class="md-nav__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="../static/logo_small.png" alt="pyinfra">
+
+    </a>
+    pyinfra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using pyinfra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using pyinfra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory & Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deploy Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arguments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How pyinfra Works
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How pyinfra Works
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-process.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/deploys.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Meta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#server-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-hostname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.hostname
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.kill
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-locale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.locale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-modprobe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.modprobe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.mount
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.reboot
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-script_template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.script_template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-security_limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.security_limit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.shell
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-sysctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.sysctl
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-timezone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.timezone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.user
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-user_authorized_keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.user_authorized_keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server.wait
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <script type="text/javascript">
+    document.querySelectorAll(".md-nav__list a").forEach(e => {
+      if (e.getAttribute("href") === "../operations.html") {
+        e.classList.add("md-nav__link--active")
+      }
+    })
+  </script>
+
+  <div class="md-content" data-md-component="content">
+
+    <!-- Navigation path (breadcrumbs) -->
+    
+
+    <!-- Page content -->
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+
+<h1 id="server-operations">server Operations<a class="headerlink" href="#server-operations" title="Permanent link">&para;</a></h1>
+<p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
+Linux/BSD.</p>
+<p>Facts used in these operations: <a href="../facts/server.html#server-AuthorizedKeys"><code>server.AuthorizedKeys</code></a>, <a href="../facts/files.html#files-Directory"><code>files.Directory</code></a>, <a href="../facts/files.html#files-FindInFile"><code>files.FindInFile</code></a>, <a href="../facts/server.html#server-Groups"><code>server.Groups</code></a>, <a href="../facts/server.html#server-Home"><code>server.Home</code></a>, <a href="../facts/server.html#server-Hostname"><code>server.Hostname</code></a>, <a href="../facts/server.html#server-Kernel"><code>server.Kernel</code></a>, <a href="../facts/server.html#server-KernelModules"><code>server.KernelModules</code></a>, <a href="../facts/files.html#files-Link"><code>files.Link</code></a>, <a href="../facts/server.html#server-Locales"><code>server.Locales</code></a>, <a href="../facts/server.html#server-Mounts"><code>server.Mounts</code></a>, <a href="../facts/server.html#server-Os"><code>server.Os</code></a>, <a href="../facts/server.html#server-Sysctl"><code>server.Sysctl</code></a>, <a href="../facts/server.html#server-Timezone"><code>server.Timezone</code></a>, <a href="../facts/server.html#server-Users"><code>server.Users</code></a>, <a href="../facts/server.html#server-Which"><code>server.Which</code></a>.</p>
+<h2 id="server-group"><code>server.group</code><a class="headerlink" href="#server-group" title="Permanent link">&para;</a></h2>
+<p>Add/remove system groups.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">gid</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>group</strong>: name of the group to ensure</li>
+<li><strong>present</strong>: whether the group should be present or not</li>
+<li><strong>system</strong>: whether to create a system group</li>
+<li><strong>gid</strong>: use a specific groupid number</li>
+</ul>
+<p>System users:
+    System users don't exist on BSD, so the argument is ignored for BSD targets.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create docker group&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;docker&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># multiple groups</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;wheel&quot;</span><span class="p">,</span> <span class="s2">&quot;lusers&quot;</span><span class="p">]:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">server</span><span class="o">.</span><span class="n">group</span><span class="p">(</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Create the group </span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-hostname"><code>server.hostname</code><a class="headerlink" href="#server-hostname" title="Permanent link">&para;</a></h2>
+<p>Set the system hostname using <code>hostnamectl</code> or <code>hostname</code> on older systems.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">hostname_file</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>hostname</strong>: the hostname that should be set</li>
+<li><strong>hostname_file</strong>: the file that permanently sets the hostname</li>
+</ul>
+<p>Hostname file:
+    The hostname file only matters no systems that do not have <code>hostnamectl</code>,
+    which is part of <code>systemd</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>By default pyinfra will auto detect this by targeting `/etc/hostname`
+on Linux and `/etc/myname` on OpenBSD.
+
+To completely disable writing the hostname file, set `hostname_file=False`.
+</code></pre></div>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">server</span><span class="o">.</span><span class="n">hostname</span><span class="p">(</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the hostname&quot;</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;server1.example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-kill"><code>server.kill</code><a class="headerlink" href="#server-kill" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Kill a running process.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">server</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;TERM&#39;</span><span class="p">,</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>pid</strong>: PID of the process to kill</li>
+<li><strong>signal</strong>: signal to send (default <code>TERM</code>)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">server</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Kill process 1234&quot;</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">pid</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">signal</span><span class="o">=</span><span class="s2">&quot;KILL&quot;</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-locale"><code>server.locale</code><a class="headerlink" href="#server-locale" title="Permanent link">&para;</a></h2>
+<p>Enable/Disable locale.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="n">locale</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>locale</strong>: name of the locale to enable/disable</li>
+<li><strong>present</strong>: whether this locale should be present or not</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is not present&quot;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">server</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure en_GB.UTF-8 locale is present&quot;</span><span class="p">,</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">locale</span><span class="o">=</span><span class="s2">&quot;en_GB.UTF-8&quot;</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-modprobe"><code>server.modprobe</code><a class="headerlink" href="#server-modprobe" title="Permanent link">&para;</a></h2>
+<p>Load/unload kernel modules.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>module</strong>: name of the module to manage</li>
+<li><strong>present</strong>: whether the module should be loaded or not</li>
+<li><strong>force</strong>: whether to force any add/remove modules</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">server</span><span class="o">.</span><span class="n">modprobe</span><span class="p">(</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Silly example for modprobe&quot;</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;floppy&quot;</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-mount"><code>server.mount</code><a class="headerlink" href="#server-mount" title="Permanent link">&para;</a></h2>
+<p>Manage mounted filesystems.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">server</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">mounted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fs_type</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: the path of the mounted filesystem</li>
+<li><strong>mounted</strong>: whether the filesystem should be mounted</li>
+<li><strong>options</strong>: the mount options</li>
+</ul>
+<p>Options:
+    If the currently mounted filesystem does not have all of the provided
+    options it will be remounted with the options provided.</p>
+<p><code>/etc/fstab</code>:
+    This operation does not attempt to modify the on disk fstab file - for
+    that you should use the <code>files.line operation &lt;./files.html#files-line&gt;</code>_.</p>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-packages"><code>server.packages</code><a class="headerlink" href="#server-packages" title="Permanent link">&para;</a></h2>
+<p>Add or remove system packages. This command checks for the presence of all the system package managers pyinfra can handle and executes the relevant operation.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="s1">&#39;str | list[str]&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>packages</strong>: list of packages to ensure</li>
+<li><strong>present</strong>: whether the packages should be installed</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">server</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install Vim and vimpager&quot;</span><span class="p">,</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;vimpager&quot;</span><span class="p">,</span> <span class="s2">&quot;vim&quot;</span><span class="p">],</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-reboot"><code>server.reboot</code><a class="headerlink" href="#server-reboot" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Reboot the server and wait for reconnection.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reboot_timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>delay</strong>: number of seconds to wait before attempting reconnect</li>
+<li><strong>interval</strong>: interval (s) between reconnect attempts</li>
+<li><strong>reboot_timeout</strong>: total time before giving up reconnecting</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">(</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reboot the server and wait to reconnect&quot;</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">delay</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">reboot_timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-script"><code>server.script</code><a class="headerlink" href="#server-script" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Upload and execute a local script on the remote host.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: local script filename to upload &amp; execute</li>
+<li><strong>args</strong>: iterable to pass as arguments to the script</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Note: This assumes there is a file in files/hello.bash locally.</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Example passing arguments to the script</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="n">server</span><span class="o">.</span><span class="n">script</span><span class="p">(</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/hello.bash&quot;</span><span class="p">,</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;do-something&quot;</span><span class="p">,</span> <span class="s2">&quot;with-this&quot;</span><span class="p">),</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-script_template"><code>server.script_template</code><a class="headerlink" href="#server-script_template" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Generate, upload and execute a local script template on the remote host.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">server</span><span class="o">.</span><span class="n">script_template</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="o">**</span><span class="n">data</span><span class="p">,</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: local script template filename</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Example showing how to pass python variable to a script template file.</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># The .j2 file can use `{{ some_var }}` to be interpolated.</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># To see output need to run pyinfra with &#39;-v&#39;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Note: This assumes there is a file in templates/hello2.bash.j2 locally.</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">some_var</span> <span class="o">=</span> <span class="s1">&#39;blah blah blah &#39;</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">server</span><span class="o">.</span><span class="n">script_template</span><span class="p">(</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Hello from script&quot;</span><span class="p">,</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/hello2.bash.j2&quot;</span><span class="p">,</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="n">some_var</span><span class="o">=</span><span class="n">some_var</span><span class="p">,</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-security_limit"><code>server.security_limit</code><a class="headerlink" href="#server-security_limit" title="Permanent link">&para;</a></h2>
+<p>Edit /etc/security/limits.conf configuration.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">server</span><span class="o">.</span><span class="n">security_limit</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">limit_type</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>domain</strong>: the domain (user, group, or wildcard) for the limit</li>
+<li><strong>limit_type</strong>: the type of limit (hard or soft)</li>
+<li><strong>item</strong>: the item to limit (e.g., nofile, nproc)</li>
+<li><strong>value</strong>: the value for the limit</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">security_limit</span><span class="p">(</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set nofile limit for all users&quot;</span><span class="p">,</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">domain</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">limit_type</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">,</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    <span class="n">item</span><span class="o">=</span><span class="s1">&#39;nofile&#39;</span><span class="p">,</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="n">value</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-service"><code>server.service</code><a class="headerlink" href="#server-service" title="Permanent link">&para;</a></h2>
+<p>Manage the state of services. This command checks for the presence of all the Linux init systems pyinfra can handle and executes the relevant operation.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>service</strong>: name of the service to manage</li>
+<li><strong>running</strong>: whether the service should be running</li>
+<li><strong>restarted</strong>: whether the service should be restarted</li>
+<li><strong>reloaded</strong>: whether the service should be reloaded</li>
+<li><strong>command</strong>: custom command execute</li>
+<li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable open-vm-tools service&quot;</span><span class="p">,</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;open-vm-tools&quot;</span><span class="p">,</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-shell"><code>server.shell</code><a class="headerlink" href="#server-shell" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Run raw shell code on server during a deploy. If the command would modify data that would be in a fact, the fact would not be updated since facts are only run at the start of a deploy.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="p">:</span> <span class="s1">&#39;str | list[str]&#39;</span><span class="p">,</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>commands</strong>: command or list of commands to execute on the remote server</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run lxd auto init&quot;</span><span class="p">,</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd init --auto&quot;</span><span class="p">],</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-sysctl"><code>server.sysctl</code><a class="headerlink" href="#server-sysctl" title="Permanent link">&para;</a></h2>
+<p>Edit sysctl configuration.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;str | int | list[str | int]&#39;</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">persist_file</span><span class="o">=</span><span class="s1">&#39;/etc/sysctl.conf&#39;</span><span class="p">,</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>key</strong>: name of the sysctl setting to ensure</li>
+<li><strong>value</strong>: the value or list of values the sysctl should be</li>
+<li><strong>persist</strong>: whether to write this sysctl to the config</li>
+<li><strong>persist_file</strong>: file to write the sysctl to persist on reboot</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">server</span><span class="o">.</span><span class="n">sysctl</span><span class="p">(</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Change the fs.file-max value&quot;</span><span class="p">,</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">key</span><span class="o">=</span><span class="s2">&quot;fs.file-max&quot;</span><span class="p">,</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">value</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-timezone"><code>server.timezone</code><a class="headerlink" href="#server-timezone" title="Permanent link">&para;</a></h2>
+<p>Set the system timezone.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">server</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">timezone</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<p>Uses <code>timedatectl</code> when available (systemd systems), otherwise falls back to
+symlinking <code>/etc/localtime</code> directly.</p>
+<ul>
+<li><strong>timezone</strong>: the timezone to set (e.g. <code>Europe/Amsterdam</code>, <code>UTC</code>)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">server</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Set the timezone to Europe/Amsterdam&quot;</span><span class="p">,</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="n">timezone</span><span class="o">=</span><span class="s2">&quot;Europe/Amsterdam&quot;</span><span class="p">,</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-user"><code>server.user</code><a class="headerlink" href="#server-user" title="Permanent link">&para;</a></h2>
+<p>Add/remove/update system users &amp; their ssh <code>authorized_keys</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">home</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">shell</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">public_keys</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ensure_home</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_home</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>user</strong>: name of the user to ensure</li>
+<li><strong>present</strong>: whether this user should exist</li>
+<li><strong>home</strong>: the users home directory</li>
+<li><strong>shell</strong>: the users shell</li>
+<li><strong>group</strong>: the users primary group</li>
+<li><strong>groups</strong>: the users secondary groups</li>
+<li><strong>append</strong>: whether to add <code>user</code> to <code>groups</code>, w/o losing membership of other groups</li>
+<li><strong>public_keys</strong>: list of public keys to attach to this user, <code>home</code> must be specified</li>
+<li><strong>delete_keys</strong>: whether to remove any keys not specified in <code>public_keys</code></li>
+<li><strong>ensure_home</strong>: whether to ensure the <code>home</code> directory exists</li>
+<li><strong>create_home</strong>: whether user create new user home directories from the system skeleton</li>
+<li><strong>system</strong>: whether to create a system account</li>
+<li><strong>uid</strong>: use a specific userid number</li>
+<li><strong>comment</strong>: the user GECOS comment</li>
+<li><strong>unique</strong>: prevent creating users with duplicate UID</li>
+<li><strong>password</strong>: set the encrypted password for the user</li>
+</ul>
+<p>Home directory:
+    When <code>ensure_home</code> or <code>public_keys</code> are provided, <code>home</code> defaults to
+    <code>/home/{name}</code>. When <code>create_home</code> is <code>True</code> any newly created users
+    will be created with the <code>-m</code> flag to build a new home directory from the
+    systems skeleton directory.</p>
+<p>Public keys:
+    These can be provided as strings containing the public key or as a path to
+    a public key file which pyinfra will read.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user is removed&quot;</span><span class="p">,</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">)</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure myweb user exists&quot;</span><span class="p">,</span>
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myweb&quot;</span><span class="p">,</span>
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>    <span class="n">shell</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="p">)</span>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="c1"># multiple users</span>
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span> <span class="s2">&quot;bob&quot;</span><span class="p">]:</span>
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>    <span class="n">server</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Ensure user </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2"> is removed&quot;</span><span class="p">,</span>
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>        <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>        <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-user_authorized_keys"><code>server.user_authorized_keys</code><a class="headerlink" href="#server-user_authorized_keys" title="Permanent link">&para;</a></h2>
+<p>Manage <code>authorized_keys</code> of system users.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">public_keys</span><span class="p">:</span> <span class="s1">&#39;str | list[str]&#39;</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">authorized_key_directory</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">authorized_key_filename</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>user</strong>: name of the user to ensure</li>
+<li><strong>public_keys</strong>: list of public keys to attach to this user, <code>home</code> must be specified</li>
+<li><strong>group</strong>: the users primary group</li>
+<li><strong>delete_keys</strong>: whether to remove any keys not specified in <code>public_keys</code></li>
+</ul>
+<p>Public keys:
+    These can be provided as strings containing the public key or as a path to
+    a public key file which pyinfra will read.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">server</span><span class="o">.</span><span class="n">user_authorized_keys</span><span class="p">(</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure user has a public key&quot;</span><span class="p">,</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;kevin&quot;</span><span class="p">,</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>    <span class="n">public_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ed25519...&quot;</span><span class="p">],</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="server-wait"><code>server.wait</code><a class="headerlink" href="#server-wait" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Waits for a port to come active on the target machine. Requires netstat, checks every second.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">server</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>port</strong>: port number to wait for</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">server</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Wait for webserver to start&quot;</span><span class="p">,</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>    <span class="n">port</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nick Barrett / pyinfra contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.sections","navigation.top","navigation.tracking","toc.follow","content.code.copy","content.code.annotate"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9f55f5b1.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2179 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="pyinfra automates infrastructure using idempotent Python operations.">
+      
+      
+        <meta name="author" content="Nick Barrett">
+      
+      
+        <link rel="canonical" href="https://docs.pyinfra.com/operations/files.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../static/logo_small.png">
+      <meta name="generator" content="zensical-0.0.34">
+    
+    
+      
+        <title>files Operations - pyinfra</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.53a7feaf.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+    
+      
+    
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script>
+        docsearch({
+            appId: "XXGX6EX4KA",
+            apiKey: "25a25b5f5310f306641f9ce07dcb06eb",
+            indexName: "pyinfra",
+            container: "#docsearch",
+            debug: false,
+        });
+    </script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/pyinfra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+    
+      
+
+    
+    <script defer
+            data-domain="docs.pyinfra.com"
+            data-api="https://stats.oxygem.com/api/event"
+            src="https://stats.oxygem.com/js/script.js"></script>
+
+    
+    
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#files-operations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+    
+        
+            You are reading the most recent documentation which may contain
+            unreleased features. The latest release is
+            <a href="/en/3.x/"><strong>3.x</strong></a>.
+        
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="pyinfra" class="md-header__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="../static/logo_small.png" alt="pyinfra">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyinfra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              files Operations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="pyinfra" class="md-nav__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="../static/logo_small.png" alt="pyinfra">
+
+    </a>
+    pyinfra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using pyinfra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using pyinfra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory & Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deploy Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arguments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How pyinfra Works
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How pyinfra Works
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-process.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/deploys.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Meta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#files-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.copy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.download
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.get
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.link
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.move
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-put" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.put
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.replace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-rsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.rsync
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.sync
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.template
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files-unarchive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files.unarchive
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <script type="text/javascript">
+    document.querySelectorAll(".md-nav__list a").forEach(e => {
+      if (e.getAttribute("href") === "../operations.html") {
+        e.classList.add("md-nav__link--active")
+      }
+    })
+  </script>
+
+  <div class="md-content" data-md-component="content">
+
+    <!-- Navigation path (breadcrumbs) -->
+    
+
+    <!-- Page content -->
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+  
+
+
+<h1 id="files-operations">files Operations<a class="headerlink" href="#files-operations" title="Permanent link">&para;</a></h1>
+<p>The files operations handles filesystem state, file uploads and template generation.</p>
+<p>Facts used in these operations: <a href="../facts/files.html#files-Block"><code>files.Block</code></a>, <a href="../facts/server.html#server-Date"><code>server.Date</code></a>, <a href="../facts/files.html#files-Directory"><code>files.Directory</code></a>, <a href="../facts/files.html#files-File"><code>files.File</code></a>, <a href="../facts/files.html#files-FileContents"><code>files.FileContents</code></a>, <a href="../facts/files.html#files-FindFiles"><code>files.FindFiles</code></a>, <a href="../facts/files.html#files-FindInFile"><code>files.FindInFile</code></a>, <a href="../facts/files.html#files-FindLinks"><code>files.FindLinks</code></a>, <a href="../facts/files.html#files-Flags"><code>files.Flags</code></a>, <a href="../facts/files.html#files-Link"><code>files.Link</code></a>, <a href="../facts/files.html#files-Md5File"><code>files.Md5File</code></a>, <a href="../facts/files.html#files-Sha1File"><code>files.Sha1File</code></a>, <a href="../facts/files.html#files-Sha256File"><code>files.Sha256File</code></a>, <a href="../facts/files.html#files-Sha384File"><code>files.Sha384File</code></a>, <a href="../facts/server.html#server-Which"><code>server.Which</code></a>.</p>
+<h2 id="files-block"><code>files.block</code><a class="headerlink" href="#files-block" title="Permanent link">&para;</a></h2>
+<p>Ensure content, surrounded by the appropriate markers, is present (or not) in the file.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">try_prevent_shell_expansion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">before</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: target remote file</li>
+<li><strong>content</strong>: what should be present in the file (between markers).</li>
+<li><strong>present</strong>: whether the content should be present in the file</li>
+<li><strong>before</strong>: should the content be added before <code>line</code> if it doesn't exist</li>
+<li><strong>after</strong>: should the content be added after <code>line</code> if it doesn't exist</li>
+<li><strong>line</strong>: regex before or after which the content should be added if it doesn't exist.</li>
+<li><strong>backup</strong>: whether to backup the file (see <code>files.line</code>). Default False.</li>
+<li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
+<li><strong>try_prevent_shell_expansion</strong>: tries to prevent shell expanding by values like <code>$</code></li>
+<li><strong>marker</strong>: the base string used to mark the text.  Default is <code># {mark} PYINFRA BLOCK</code></li>
+<li><strong>begin</strong>: the value for <code>{mark}</code> in the marker before the content. Default is <code>BEGIN</code></li>
+<li><strong>end</strong>: the value for <code>{mark}</code> in the marker after the content. Default is <code>END</code></li>
+</ul>
+<p>Content appended if <code>line</code> not found in the file
+    If <code>content</code> is not in the file but is required (<code>present=True</code>) and <code>line</code> is not
+    found in the file, <code>content</code> (surrounded by markers) will be appended to the file.  The
+    file is created if necessary.</p>
+<p>Content prepended or appended if <code>line</code> not specified
+    If <code>content</code> is not in the file but is required and <code>line</code> was not provided the content
+    will either be  prepended to the file (if both <code>before</code> and <code>after</code>
+    are <code>True</code>) or appended to the file (if both are <code>False</code>).</p>
+<p>If the file is created, it is created with the default umask; otherwise the umask is preserved
+as is the owner.</p>
+<p>Removal ignores <code>content</code> and <code>line</code></p>
+<p>Preventing shell expansion works by wrapping the content in '<code>' before passing to</code>awk`.
+WARNING: This will break if the content contains raw single quotes.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># add entry to /etc/host</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add IP address for red server&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">content</span><span class="o">=</span><span class="s2">&quot;10.0.0.1 mars-one&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">before</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">line</span><span class="o">=</span><span class="s2">&quot;.*localhost&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># have two entries in /etc/host</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add IP address for red server&quot;</span><span class="p">,</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">content</span><span class="o">=</span><span class="s2">&quot;10.0.0.1 mars-one</span><span class="se">\n</span><span class="s2">10.0.0.2 mars-two&quot;</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">before</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">line</span><span class="o">=</span><span class="s2">&quot;.*localhost&quot;</span><span class="p">,</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1"># remove marked entry from /etc/hosts</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;remove all 10.* addresses from /etc/hosts&quot;</span><span class="p">,</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/hosts&quot;</span><span class="p">,</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="p">)</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="c1"># add out of date warning to web page</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add out of date warning to web page&quot;</span><span class="p">,</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/var/www/html/something.html&quot;</span><span class="p">,</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    <span class="n">content</span><span class="o">=</span> <span class="s2">&quot;&lt;p&gt;Warning: this page is out of date.&lt;/p&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    <span class="n">line</span><span class="o">=</span><span class="s2">&quot;.*&lt;body&gt;.*&quot;</span><span class="p">,</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    <span class="n">after</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&lt;!-- </span><span class="si">{mark}</span><span class="s2"> PYINFRA BLOCK --&gt;&quot;</span><span class="p">,</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="p">)</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="c1"># put complex alias into .zshrc</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/home/user/.zshrc&quot;</span><span class="p">,</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>    <span class="n">content</span><span class="o">=</span><span class="s2">&quot;eval $(thef -a)&quot;</span><span class="p">,</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>    <span class="n">try_prevent_shell_expansion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;## </span><span class="si">{mark}</span><span class="s2"> ALIASES ##&quot;</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-copy"><code>files.copy</code><a class="headerlink" href="#files-copy" title="Permanent link">&para;</a></h2>
+<p>Copy remote file/directory/link into remote directory</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">files</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: remote file/directory to copy</li>
+<li><strong>dest</strong>: remote directory to copy <code>src</code> into</li>
+<li><strong>overwrite</strong>: whether to overwrite dest, if present</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-directory"><code>files.directory</code><a class="headerlink" href="#files-directory" title="Permanent link">&para;</a></h2>
+<p>Add/remove/update directories.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">_no_check_owner_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">_no_fail_on_link</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: path of the remote folder</li>
+<li><strong>present</strong>: whether the folder should exist</li>
+<li><strong>user</strong>: user to own the folder</li>
+<li><strong>group</strong>: group to own the folder</li>
+<li><strong>mode</strong>: permissions of the folder</li>
+<li><strong>recursive</strong>: recursively apply user/group/mode</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code>False</code> to remove any existing non-file when <code>force=True</code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code>force=True</code></li>
+</ul>
+<p><code>recursive</code>:
+    Mode is only applied recursively if the base directory mode does not match
+    the specified value.  User and group are both applied recursively if the
+    base directory does not match either one; otherwise they are unchanged for
+    the whole tree.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure the /tmp/dir_that_we_want_removed is removed&quot;</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/tmp/dir_that_we_want_removed&quot;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure /web exists&quot;</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/web&quot;</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;myweb&quot;</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;myweb&quot;</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># Multiple directories</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;/netboot/tftp&quot;</span><span class="p">,</span> <span class="s2">&quot;/netboot/nfs&quot;</span><span class="p">]:</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure the directory `</span><span class="si">{}</span><span class="s2">` exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="p">),</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="n">path</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-download"><code>files.download</code><a class="headerlink" href="#files-download" title="Permanent link">&para;</a></h2>
+<p>Download files from remote locations using <code>curl</code> or <code>wget</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cache_time</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sha384sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sha256sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sha1sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">md5sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limit_rate</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">temp_dir</span><span class="p">:</span> <span class="s1">&#39;str | Path | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extra_curl_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extra_wget_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: source URL of the file</li>
+<li><strong>dest</strong>: where to save the file</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files</li>
+<li><strong>cache_time</strong>: if the file exists already, re-download after this time (in seconds)</li>
+<li><strong>force</strong>: always download the file, even if it already exists</li>
+<li><strong>sha384sum</strong>: sha384 hash to checksum the downloaded file against</li>
+<li><strong>sha256sum</strong>: sha256 hash to checksum the downloaded file against</li>
+<li><strong>sha1sum</strong>: sha1 hash to checksum the downloaded file against</li>
+<li><strong>md5sum</strong>: md5 hash to checksum the downloaded file against</li>
+<li><strong>headers</strong>: optional dictionary of headers to set for the HTTP request</li>
+<li><strong>insecure</strong>: disable SSL verification for the HTTP request</li>
+<li><strong>proxy</strong>: simple HTTP proxy through which we can download files, form <code>http://&lt;yourproxy&gt;:&lt;port&gt;</code></li>
+<li><strong>limit_rate</strong>: cap the download bandwidth, accepts the curl/wget format (e.g. <code>1M</code>, <code>500k</code>)</li>
+<li><strong>temp_dir</strong>: use this custom temporary directory during the download</li>
+<li><strong>extra_curl_args</strong>: optional dictionary with custom arguments for curl</li>
+<li><strong>extra_wget_args</strong>: optional dictionary with custom arguments for wget</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download the Docker repo file&quot;</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/centos/docker-ce.repo&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/yum.repos.d/docker-ce.repo&quot;</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-file"><code>files.file</code><a class="headerlink" href="#files-file" title="Permanent link">&para;</a></h2>
+<p>Add/remove/update files.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">touch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: name/path of the remote file</li>
+<li><strong>present</strong>: whether the file should exist</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files as an integer, eg: 755</li>
+<li><strong>touch</strong>: whether to touch the file</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn't exist</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code>False</code> to remove any existing non-file when <code>force=True</code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code>force=True</code></li>
+</ul>
+<p><code>create_remote_dir</code>:
+    If the remote directory does not exist it will be created using the same
+    user &amp; group as passed to <code>files.put</code>. The mode will <em>not</em> be copied over,
+    if this is required call <code>files.directory</code> separately.</p>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Note: The directory /tmp/secret will get created with the default umask.</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create /tmp/secret/file&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/tmp/secret/file&quot;</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;600&quot;</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">touch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-flags"><code>files.flags</code><a class="headerlink" href="#files-flags" title="Permanent link">&para;</a></h2>
+<p>Set/clear file flags.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: path of the remote folder</li>
+<li><strong>flags</strong>: a list of the file flags to be set or cleared</li>
+<li><strong>present</strong>: whether the flags should be set or cleared</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure ~/Library is visible in the GUI&quot;</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;~/Library&quot;</span><span class="p">,</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">flags</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure no one can change these files&quot;</span><span class="p">,</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/something/very/important&quot;</span><span class="p">,</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">flags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;uchg&quot;</span><span class="p">,</span> <span class="s2">&quot;schg&quot;</span><span class="p">],</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-get"><code>files.get</code><a class="headerlink" href="#files-get" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Download a file from the remote system.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_local_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: the remote filename to download</li>
+<li><strong>dest</strong>: the local filename to download the file to</li>
+<li><strong>add_deploy_dir</strong>: dest is relative to the deploy directory</li>
+<li><strong>create_local_dir</strong>: create the local directory if it doesn't exist</li>
+<li><strong>force</strong>: always download the file, even if the local copy matches</li>
+</ul>
+<p>Note:
+    This operation is not suitable for large files as it may involve copying
+    the remote file before downloading it.</p>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Download a file from a remote&quot;</span><span class="p">,</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/etc/centos-release&quot;</span><span class="p">,</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/whocares&quot;</span><span class="p">,</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-line"><code>files.line</code><a class="headerlink" href="#files-line" title="Permanent link">&para;</a></h2>
+<p>Ensure lines in files using grep to locate and sed to replace.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ensure_newline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: target remote file to edit</li>
+<li><strong>line</strong>: string or regex matching the target line</li>
+<li><strong>present</strong>: whether the line should be in the file</li>
+<li><strong>replace</strong>: text to replace entire matching lines when <code>present=True</code></li>
+<li><strong>flags</strong>: list of flags to pass to sed when replacing/deleting</li>
+<li><strong>backup</strong>: whether to backup the file (see below)</li>
+<li><strong>interpolate_variables</strong>: whether to interpolate variables in <code>replace</code></li>
+<li><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</li>
+<li><strong>ensure_newline</strong>: ensures that the appended line is on a new line</li>
+</ul>
+<p>Regex line matching:
+    Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
+    it does, like: <code>^.*LINE.*$</code>. This means we don't swap parts of lines out. To
+    change bits of lines, see <code>files.replace</code>.</p>
+<p>Regex line escaping:
+    If matching special characters (eg a crontab line containing <code>*</code>), remember to escape
+    it first using Python's <code>re.escape</code>.</p>
+<p>Backup:
+    If set to <code>True</code>, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running <code>pyinfra</code>) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.</p>
+<p>Append:
+    If <code>line</code> is not in the file but we want it (<code>present</code> set to <code>True</code>), then
+    it will be append to the end of the file.</p>
+<p>Ensure new line:
+    This will ensure that the <code>line</code> being appended is always on a separate new
+    line in case the file doesn't end with a newline character.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># prepare to do some maintenance</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">maintenance_line</span> <span class="o">=</span> <span class="s2">&quot;SYSTEM IS DOWN FOR MAINTENANCE&quot;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the down-for-maintenance line in /etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">line</span><span class="o">=</span><span class="n">maintenance_line</span><span class="p">,</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="c1"># Then, after the maintenance is done, remove the maintenance line</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove the down-for-maintenance line in /etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="n">line</span><span class="o">=</span><span class="n">maintenance_line</span><span class="p">,</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="n">replace</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p">)</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="c1"># example where there is &#39;*&#39; in the line</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure /netboot/nfs is in /etc/exports&quot;</span><span class="p">,</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/exports&quot;</span><span class="p">,</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>    <span class="n">line</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;/netboot/nfs .*&quot;</span><span class="p">,</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>    <span class="n">replace</span><span class="o">=</span><span class="s2">&quot;/netboot/nfs *(ro,sync,no_wdelay,insecure_locks,no_root_squash,&quot;</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>    <span class="s2">&quot;insecure,no_subtree_check)&quot;</span><span class="p">,</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="p">)</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ensure myweb can run /usr/bin/python3 without password&quot;</span><span class="p">,</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/sudoers&quot;</span><span class="p">,</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>    <span class="n">line</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;myweb .*&quot;</span><span class="p">,</span>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>    <span class="n">replace</span><span class="o">=</span><span class="s2">&quot;myweb ALL=(ALL) NOPASSWD: /usr/bin/python3&quot;</span><span class="p">,</span>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="p">)</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="c1"># example when there are double quotes (&quot;)</span>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;QUOTAUSER=&quot;&quot;&#39;</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Example with double quotes (&quot;</span><span class="p">)</span><span class="s2">&quot;,</span>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/adduser.conf&quot;</span><span class="p">,</span>
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>    <span class="n">line</span><span class="o">=</span><span class="s2">&quot;^</span><span class="si">{}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">),</span>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>    <span class="n">replace</span><span class="o">=</span><span class="n">line</span><span class="p">,</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-link"><code>files.link</code><a class="headerlink" href="#files-link" title="Permanent link">&para;</a></h2>
+<p>Add/remove/update links.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: the name of the link</li>
+<li><strong>target</strong>: the file/directory the link points to</li>
+<li><strong>present</strong>: whether the link should exist</li>
+<li><strong>user</strong>: user to own the link</li>
+<li><strong>group</strong>: group to own the link</li>
+<li><strong>symbolic</strong>: whether to make a symbolic link (vs hard link)</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn't exist</li>
+<li><strong>force</strong>: if the target exists and is not a file, move or remove it and continue</li>
+<li><strong>force_backup</strong>: set to <code>False</code> to remove any existing non-file when <code>force=True</code></li>
+<li><strong>force_backup_dir</strong>: directory to move any backup to when <code>force=True</code></li>
+</ul>
+<p><code>create_remote_dir</code>:
+    If the remote directory does not exist it will be created using the same
+    user &amp; group as passed to <code>files.put</code>. The mode will <em>not</em> be copied over,
+    if this is required call <code>files.directory</code> separately.</p>
+<p>Source changes:
+    If the link exists and points to a different target, pyinfra will remove it and
+    recreate a new one pointing to then new target.</p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create link /etc/issue2 that points to /etc/issue&quot;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/issue2&quot;</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">target</span><span class="o">=</span><span class="s2">&quot;/etc/issue&quot;</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-move"><code>files.move</code><a class="headerlink" href="#files-move" title="Permanent link">&para;</a></h2>
+<p>Move remote file/directory/link into remote directory</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">files</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: remote file/directory to move</li>
+<li><strong>dest</strong>: remote directory to move <code>src</code> into</li>
+<li><strong>overwrite</strong>: whether to overwrite dest, if present</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-put"><code>files.put</code><a class="headerlink" href="#files-put" title="Permanent link">&para;</a></h2>
+<p>Upload a local file, or file-like object, to the remote system.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | IO[Any]&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atime</span><span class="p">:</span> <span class="s1">&#39;datetime | float | int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mtime</span><span class="p">:</span> <span class="s1">&#39;datetime | float | int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: filename or IO-like object to upload</li>
+<li><strong>dest</strong>: remote filename to upload to</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files, use <code>True</code> to copy the local file</li>
+<li><strong>add_deploy_dir</strong>: src is relative to the deploy directory</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn't exist</li>
+<li><strong>force</strong>: always upload the file, even if the remote copy matches</li>
+<li><strong>assume_exists</strong>: whether to assume the local file exists</li>
+<li><strong>atime</strong>: value of atime the file should have, use <code>True</code> to match the local file</li>
+<li><strong>mtime</strong>: value of mtime the file should have, use <code>True</code> to match the local file</li>
+</ul>
+<p><code>dest</code>:
+    If this is a directory that already exists on the remote side, the local
+    file will be uploaded to that directory with the same filename.</p>
+<p><code>mode</code>:
+    When set to <code>True</code> the permissions of the local file are applied to the
+    remote file after the upload is complete.  If set to an octal value with
+    digits for at least user, group, and other, either as an <code>int</code> or
+    <code>str</code>, those permissions will be used.</p>
+<p><code>create_remote_dir</code>:
+    If the remote directory does not exist it will be created using the same
+    user &amp; group as passed to <code>files.put</code>. The mode will <em>not</em> be copied over,
+    if this is required call <code>files.directory</code> separately.</p>
+<p><code>atime</code> and <code>mtime</code>:
+    When set to values other than <code>False</code> or <code>None</code>, the respective metadata
+    fields on the remote file will updated accordingly.  Timestamp values are
+    considered equivalent if the difference is less than one second and they have
+    the identical number in the seconds field.  If set to <code>True</code> the local
+    file is the source of the value.  Otherwise, these values can be provided as
+    <code>datetime</code> objects, POSIX timestamps, or strings that can be parsed into
+    either of these date and time specifications.  They can also be reference file
+    paths on the remote host, as with the <code>-r</code> argument to <code>touch</code>.  If a
+    <code>datetime</code> argument has no <code>tzinfo</code> value (i.e., it is naive), it is
+    assumed to be in the remote host's local timezone.  There is no shortcut for
+    setting both <code>`atime</code> and <code>mtime</code> values with a single time specification,
+    unlike the native <code>touch</code> command.</p>
+<p>Notes:
+    This operation is not suitable for large files as it may involve copying
+    the file before uploading it.</p>
+<div class="language-text highlight"><pre><span></span><code>Currently, if the mode argument is anything other than a `bool` or a full
+octal permission set and the remote file exists, the operation will always
+behave as if the remote file does not match the specified permissions and
+requires a change.
+
+If the `atime` argument is set for a given file, unless the remote
+filesystem is mounted `noatime` or `relatime`, multiple runs of this
+operation will trigger the change detection for that file, since the act of
+reading and checksumming the file will cause the host OS to update the file&#39;s
+`atime`.
+</code></pre></div>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Update the message of the day file&quot;</span><span class="p">,</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;644&quot;</span><span class="p">,</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">)</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upload a StringIO object&quot;</span><span class="p">,</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="n">src</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;file contents&quot;</span><span class="p">),</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-replace"><code>files.replace</code><a class="headerlink" href="#files-replace" title="Permanent link">&para;</a></h2>
+<p>Replace contents of a file using <code>sed</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>path</strong>: target remote file to edit</li>
+<li><strong>text</strong>: text/regex to match against</li>
+<li><strong>replace</strong>: text to replace with</li>
+<li><strong>flags</strong>: list of flags to pass to sed</li>
+<li><strong>backup</strong>: whether to backup the file (see below)</li>
+<li><strong>interpolate_variables</strong>: whether to interpolate variables in <code>replace</code></li>
+</ul>
+<p>Backup:
+    If set to <code>True</code>, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running <code>pyinfra</code>) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.</p>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Change part of a line in a file&quot;</span><span class="p">,</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;verboten&quot;</span><span class="p">,</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">replace</span><span class="o">=</span><span class="s2">&quot;forbidden&quot;</span><span class="p">,</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-rsync"><code>files.rsync</code><a class="headerlink" href="#files-rsync" title="Permanent link">&para;</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Use <code>rsync</code> to sync a local directory to the remote system. This operation will actually call the <code>rsync</code> binary on your system.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">files</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code>files.rsync</code> operation is in alpha, and only supported using SSH
+or <code>@local</code> connectors. When using the SSH connector, rsync will automatically use the
+StrictHostKeyChecking setting, config and known_hosts file (when specified).</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>When using SSH, the <code>files.rsync</code> operation only supports the <code>sudo</code> and <code>sudo_user</code>
+global arguments.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-sync"><code>files.sync</code><a class="headerlink" href="#files-sync" title="Permanent link">&para;</a></h2>
+<p>Syncs a local directory with a remote one, with delete support. Note that delete will remove extra files and symlinks on the remote side, but not extra directories.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">files</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dir_mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | tuple[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">exclude_dir</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | tuple[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: local directory to sync</li>
+<li><strong>dest</strong>: remote directory to sync to</li>
+<li><strong>user</strong>: user to own the files and directories</li>
+<li><strong>group</strong>: group to own the files and directories</li>
+<li><strong>mode</strong>: permissions of the files (also used as fallback for directories if <code>dir_mode</code>
+  is not specified)</li>
+<li><strong>dir_mode</strong>: permissions of the directories</li>
+<li><strong>delete</strong>: delete remote files and symlinks not present locally</li>
+<li><strong>exclude</strong>: string or list/tuple of strings to match &amp; exclude files (eg <code>*.pyc</code>)</li>
+<li><strong>exclude_dir</strong>: string or list/tuple of strings to match &amp; exclude directories (eg node_modules)</li>
+<li><strong>add_deploy_dir</strong>: interpret src as relative to deploy directory instead of current directory</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Sync local files/tempdir to remote /tmp/tempdir</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">files</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Sync a local directory with remote&quot;</span><span class="p">,</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/tempdir&quot;</span><span class="p">,</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/tempdir&quot;</span><span class="p">,</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>Note: <code>exclude</code> and <code>exclude_dir</code> use <code>fnmatch</code> behind the scenes to do the filtering.</p>
+<ul>
+<li><code>exclude</code> matches against the filename.</li>
+<li><code>exclude_dir</code> matches against the path of the directory, relative to <code>src</code>.
+  Since fnmatch does not treat path separators (<code>/</code> or <code>\</code>) as special characters,
+  excluding all directories matching a given name, however deep under <code>src</code> they are,
+  can be done for example with <code>exclude_dir=["__pycache__", "*/__pycache__"]</code></li>
+</ul>
+<p>Symlinks:
+    Local symlinks (both to files and directories) are synced to the remote as symlinks,
+    preserving the link target as-is (relative or absolute). Symlinked directories are not
+    traversed. When <code>delete=True</code>, remote symlinks not present locally are also removed.</p>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-template"><code>files.template</code><a class="headerlink" href="#files-template" title="Permanent link">&para;</a></h2>
+<p>Generate a template using jinja2 and write it to the remote system.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | IO[Any]&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">jinja_env_kwargs</span><span class="p">:</span> <span class="s1">&#39;dict[str, Any] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">,</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: template filename or IO-like object</li>
+<li><strong>dest</strong>: remote filename</li>
+<li><strong>user</strong>: user to own the files</li>
+<li><strong>group</strong>: group to own the files</li>
+<li><strong>mode</strong>: permissions of the files</li>
+<li><strong>create_remote_dir</strong>: create the remote directory if it doesn't exist</li>
+<li><strong>jinja_env_kwargs</strong>: keyword arguments to be passed into the jinja Environment()</li>
+</ul>
+<p><code>create_remote_dir</code>:
+    If the remote directory does not exist it will be created using the same
+    user &amp; group as passed to <code>files.put</code>. The mode will <em>not</em> be copied over,
+    if this is required call <code>files.directory</code> separately.</p>
+<p><code>jinja_env_kwargs</code>:
+    To have more control over how jinja2 renders your template, you can pass
+    a dict with arguments that will be passed as keyword args to the jinja2
+    <code>Environment() &lt;https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment&gt;</code>_.</p>
+<p>The <code>host</code>, <code>state</code>, and <code>inventory</code> objects will be automatically passed to the template.
+To pass additional data or variables, explicitly add them as keyword arguments to the operation
+call itself.</p>
+<p>Notes:
+    Common convention is to store templates in a "templates" directory and
+    have a filename suffix with '.j2' (for jinja2).</p>
+<div class="language-text highlight"><pre><span></span><code>The default template lookup directory (used with jinjas `extends`, `import` and
+`include` statements) is the current working directory.
+
+For information on the template syntax, see
+`the jinja2 docs &lt;https://jinja.palletsprojects.com&gt;`_.
+</code></pre></div>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/somefile.conf.j2&quot;</span><span class="p">,</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/somefile.conf&quot;</span><span class="p">,</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="p">)</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create service file&quot;</span><span class="p">,</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;templates/myweb.service.j2&quot;</span><span class="p">,</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/systemd/system/myweb.service&quot;</span><span class="p">,</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;755&quot;</span><span class="p">,</span>
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a><span class="p">)</span>
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a><span class="c1"># You can use a (local) file path or an IO-like object as src:</span>
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>    <span class="n">src</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;This is a template file content&quot;</span><span class="p">),</span>
+</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/somefile.conf&quot;</span><span class="p">,</span>
+</span><span id="__span-26-21"><a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a><span class="p">)</span>
+</span><span id="__span-26-22"><a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>
+</span><span id="__span-26-23"><a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a><span class="c1"># To pass variables to the template file, just add them to the operation call.</span>
+</span><span id="__span-26-24"><a id="__codelineno-26-24" name="__codelineno-26-24" href="#__codelineno-26-24"></a><span class="c1"># You can also use dicts and lists. The .j2 file can use `{{ foo_variable }}`</span>
+</span><span id="__span-26-25"><a id="__codelineno-26-25" name="__codelineno-26-25" href="#__codelineno-26-25"></a><span class="c1"># to interpolate them:</span>
+</span><span id="__span-26-26"><a id="__codelineno-26-26" name="__codelineno-26-26" href="#__codelineno-26-26"></a><span class="n">foo_variable</span> <span class="o">=</span> <span class="s1">&#39;This is some foo variable contents&#39;</span>
+</span><span id="__span-26-27"><a id="__codelineno-26-27" name="__codelineno-26-27" href="#__codelineno-26-27"></a><span class="n">foo_dict</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-26-28"><a id="__codelineno-26-28" name="__codelineno-26-28" href="#__codelineno-26-28"></a>    <span class="s2">&quot;str1&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 1&quot;</span><span class="p">,</span>
+</span><span id="__span-26-29"><a id="__codelineno-26-29" name="__codelineno-26-29" href="#__codelineno-26-29"></a>    <span class="s2">&quot;str2&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 2&quot;</span>
+</span><span id="__span-26-30"><a id="__codelineno-26-30" name="__codelineno-26-30" href="#__codelineno-26-30"></a><span class="p">}</span>
+</span><span id="__span-26-31"><a id="__codelineno-26-31" name="__codelineno-26-31" href="#__codelineno-26-31"></a><span class="n">foo_list</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-26-32"><a id="__codelineno-26-32" name="__codelineno-26-32" href="#__codelineno-26-32"></a>    <span class="s2">&quot;entry 1&quot;</span><span class="p">,</span>
+</span><span id="__span-26-33"><a id="__codelineno-26-33" name="__codelineno-26-33" href="#__codelineno-26-33"></a>    <span class="s2">&quot;entry 2&quot;</span>
+</span><span id="__span-26-34"><a id="__codelineno-26-34" name="__codelineno-26-34" href="#__codelineno-26-34"></a><span class="p">]</span>
+</span><span id="__span-26-35"><a id="__codelineno-26-35" name="__codelineno-26-35" href="#__codelineno-26-35"></a>
+</span><span id="__span-26-36"><a id="__codelineno-26-36" name="__codelineno-26-36" href="#__codelineno-26-36"></a><span class="n">template</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-26-37"><a id="__codelineno-26-37" name="__codelineno-26-37" href="#__codelineno-26-37"></a><span class="s2">name: &quot;{{ foo_variable }}&quot;</span>
+</span><span id="__span-26-38"><a id="__codelineno-26-38" name="__codelineno-26-38" href="#__codelineno-26-38"></a><span class="s2">dict_contents:</span>
+</span><span id="__span-26-39"><a id="__codelineno-26-39" name="__codelineno-26-39" href="#__codelineno-26-39"></a><span class="s2">    str1: &quot;{{ foo_dict.str1 }}&quot;</span>
+</span><span id="__span-26-40"><a id="__codelineno-26-40" name="__codelineno-26-40" href="#__codelineno-26-40"></a><span class="s2">    str2: &quot;{{ foo_dict.str2 }}&quot;</span>
+</span><span id="__span-26-41"><a id="__codelineno-26-41" name="__codelineno-26-41" href="#__codelineno-26-41"></a><span class="s2">list_contents:</span>
+</span><span id="__span-26-42"><a id="__codelineno-26-42" name="__codelineno-26-42" href="#__codelineno-26-42"></a><span class="s2">{</span><span class="si">% f</span><span class="s2">or entry in foo_list %}</span>
+</span><span id="__span-26-43"><a id="__codelineno-26-43" name="__codelineno-26-43" href="#__codelineno-26-43"></a><span class="s2">    - &quot;{{ entry }}&quot;</span>
+</span><span id="__span-26-44"><a id="__codelineno-26-44" name="__codelineno-26-44" href="#__codelineno-26-44"></a><span class="s2">{</span><span class="si">% e</span><span class="s2">ndfor %}</span>
+</span><span id="__span-26-45"><a id="__codelineno-26-45" name="__codelineno-26-45" href="#__codelineno-26-45"></a><span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-26-46"><a id="__codelineno-26-46" name="__codelineno-26-46" href="#__codelineno-26-46"></a>
+</span><span id="__span-26-47"><a id="__codelineno-26-47" name="__codelineno-26-47" href="#__codelineno-26-47"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+</span><span id="__span-26-48"><a id="__codelineno-26-48" name="__codelineno-26-48" href="#__codelineno-26-48"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+</span><span id="__span-26-49"><a id="__codelineno-26-49" name="__codelineno-26-49" href="#__codelineno-26-49"></a>    <span class="n">src</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+</span><span id="__span-26-50"><a id="__codelineno-26-50" name="__codelineno-26-50" href="#__codelineno-26-50"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/foo.yml&quot;</span><span class="p">,</span>
+</span><span id="__span-26-51"><a id="__codelineno-26-51" name="__codelineno-26-51" href="#__codelineno-26-51"></a>    <span class="n">foo_variable</span><span class="o">=</span><span class="n">foo_variable</span><span class="p">,</span>
+</span><span id="__span-26-52"><a id="__codelineno-26-52" name="__codelineno-26-52" href="#__codelineno-26-52"></a>    <span class="n">foo_dict</span><span class="o">=</span><span class="n">foo_dict</span><span class="p">,</span>
+</span><span id="__span-26-53"><a id="__codelineno-26-53" name="__codelineno-26-53" href="#__codelineno-26-53"></a>    <span class="n">foo_list</span><span class="o">=</span><span class="n">foo_list</span>
+</span><span id="__span-26-54"><a id="__codelineno-26-54" name="__codelineno-26-54" href="#__codelineno-26-54"></a><span class="p">)</span>
+</span><span id="__span-26-55"><a id="__codelineno-26-55" name="__codelineno-26-55" href="#__codelineno-26-55"></a>
+</span><span id="__span-26-56"><a id="__codelineno-26-56" name="__codelineno-26-56" href="#__codelineno-26-56"></a><span class="c1"># Host, state and inventory are automatically passed to the template,</span>
+</span><span id="__span-26-57"><a id="__codelineno-26-57" name="__codelineno-26-57" href="#__codelineno-26-57"></a><span class="c1"># no need to explicitly pass them in the operation call:</span>
+</span><span id="__span-26-58"><a id="__codelineno-26-58" name="__codelineno-26-58" href="#__codelineno-26-58"></a><span class="n">template</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+</span><span id="__span-26-59"><a id="__codelineno-26-59" name="__codelineno-26-59" href="#__codelineno-26-59"></a><span class="s2">name: &quot;{{ host.name }}&quot;</span>
+</span><span id="__span-26-60"><a id="__codelineno-26-60" name="__codelineno-26-60" href="#__codelineno-26-60"></a><span class="s2">list_contents:</span>
+</span><span id="__span-26-61"><a id="__codelineno-26-61" name="__codelineno-26-61" href="#__codelineno-26-61"></a><span class="s2">{</span><span class="si">% f</span><span class="s2">or entry in inventory.groups.my_servers %}</span>
+</span><span id="__span-26-62"><a id="__codelineno-26-62" name="__codelineno-26-62" href="#__codelineno-26-62"></a><span class="s2">    - &quot;{{ entry }}&quot;</span>
+</span><span id="__span-26-63"><a id="__codelineno-26-63" name="__codelineno-26-63" href="#__codelineno-26-63"></a><span class="s2">{</span><span class="si">% e</span><span class="s2">ndfor %}</span>
+</span><span id="__span-26-64"><a id="__codelineno-26-64" name="__codelineno-26-64" href="#__codelineno-26-64"></a><span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-26-65"><a id="__codelineno-26-65" name="__codelineno-26-65" href="#__codelineno-26-65"></a>
+</span><span id="__span-26-66"><a id="__codelineno-26-66" name="__codelineno-26-66" href="#__codelineno-26-66"></a><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+</span><span id="__span-26-67"><a id="__codelineno-26-67" name="__codelineno-26-67" href="#__codelineno-26-67"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+</span><span id="__span-26-68"><a id="__codelineno-26-68" name="__codelineno-26-68" href="#__codelineno-26-68"></a>    <span class="n">src</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+</span><span id="__span-26-69"><a id="__codelineno-26-69" name="__codelineno-26-69" href="#__codelineno-26-69"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/tmp/foo.yml&quot;</span>
+</span><span id="__span-26-70"><a id="__codelineno-26-70" name="__codelineno-26-70" href="#__codelineno-26-70"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="files-unarchive"><code>files.unarchive</code><a class="headerlink" href="#files-unarchive" title="Permanent link">&para;</a></h2>
+<p>Extract archive files on the remote system.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">remote_src</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">creates</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extra_opts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>src</strong>: path to the archive file (local or remote depending on <code>remote_src</code>)</li>
+<li><strong>dest</strong>: remote directory to extract into (must exist)</li>
+<li><strong>remote_src</strong>: set to <code>True</code> if the archive is already on the remote system</li>
+<li><strong>creates</strong>: if this path already exists, the operation is skipped (idempotency)</li>
+<li><strong>extra_opts</strong>: list of additional arguments to pass to the extract command</li>
+<li><strong>user</strong>: user to own the extracted files</li>
+<li><strong>group</strong>: group to own the extracted files</li>
+</ul>
+<p>Supported formats:
+    <code>.tar</code>, <code>.tar.gz</code>/<code>.tgz</code>, <code>.tar.bz2</code>/<code>.tbz2</code>,
+    <code>.tar.xz</code>/<code>.txz</code>, <code>.tar.zst</code>, <code>.zip</code></p>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Extract a remote archive</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Extract app tarball&quot;</span><span class="p">,</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/app.tar.gz&quot;</span><span class="p">,</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="n">remote_src</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="p">)</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># Upload and extract a local archive</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy release&quot;</span><span class="p">,</span>
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;releases/app-v1.0.tar.gz&quot;</span><span class="p">,</span>
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    <span class="n">creates</span><span class="o">=</span><span class="s2">&quot;/opt/app/bin/start&quot;</span><span class="p">,</span>
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nick Barrett / pyinfra contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.sections","navigation.top","navigation.tracking","toc.follow","content.code.copy","content.code.annotate"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9f55f5b1.min.js"></script>
+      
+    
+  </body>
+</html>
