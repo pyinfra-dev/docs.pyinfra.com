@@ -116,6 +116,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Git Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#git-gitbranch"><code class="code docutils literal notranslate"><span class="pre">git.GitBranch</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-gitconfig"><code class="code docutils literal notranslate"><span class="pre">git.GitConfig</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-gitlocalcommit"><code class="code docutils literal notranslate"><span class="pre">git.GitLocalCommit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-gitremotebranchcommit"><code class="code docutils literal notranslate"><span class="pre">git.GitRemoteBranchCommit</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-gittag"><code class="code docutils literal notranslate"><span class="pre">git.GitTag</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-gittrackingbranch"><code class="code docutils literal notranslate"><span class="pre">git.GitTrackingBranch</span></code></a></li>
 </ul>
@@ -204,6 +206,24 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitConfig</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="git-gitlocalcommit">
+<span id="facts-git-gitlocalcommit"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.GitLocalCommit</span></code><a class="headerlink" href="#git-gitlocalcommit" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitLocalCommit</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the SHA of <code class="docutils literal notranslate"><span class="pre">ref</span></code> (defaults to <code class="docutils literal notranslate"><span class="pre">HEAD</span></code>) in a local git repository,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code> when the repository does not exist, the ref is unknown, or the
+command fails.</p>
+</section>
+<section id="git-gitremotebranchcommit">
+<span id="facts-git-gitremotebranchcommit"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.GitRemoteBranchCommit</span></code><a class="headerlink" href="#git-gitremotebranchcommit" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitRemoteBranchCommit</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the SHA of the tip of <code class="docutils literal notranslate"><span class="pre">branch</span></code> on <code class="docutils literal notranslate"><span class="pre">remote</span></code> as reported by
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">ls-remote</span></code>. Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> when the remote is unreachable, the
+branch does not exist on the remote, or the repository is missing.</p>
 </section>
 <section id="git-gittag">
 <span id="facts-git-gittag"></span><h2><code class="code docutils literal notranslate"><span class="pre">git.GitTag</span></code><a class="headerlink" href="#git-gittag" title="Link to this heading">¶</a></h2>
