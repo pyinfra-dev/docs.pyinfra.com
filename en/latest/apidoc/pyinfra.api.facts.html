@@ -182,6 +182,19 @@ other host B while I operate on this host A).</p>
 <span class="sig-name descname"><span class="pre">abstract</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.abstract" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.check_preconditions">
+<span class="sig-name descname"><span class="pre">check_preconditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.state.html#pyinfra.api.state.State" title="pyinfra.api.state.State"><span class="pre">State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pyinfra.api.host.html#pyinfra.api.host.Host" title="pyinfra.api.host.Host"><span class="pre">Host</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.facts.FactBase.check_preconditions" title="Link to this definition">¶</a></dt>
+<dd><p>Check that this fact’s prerequisites are satisfied before running.</p>
+<p>Override this method to call <code class="docutils literal notranslate"><span class="pre">host.get_fact(...)</span></code> and return:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> (or no return) — all prerequisites satisfied, proceed normally</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;reason</span> <span class="pre">message&quot;</span></code> — prerequisite not satisfied with explanation</p></li>
+</ul>
+<p>The framework handles raising <code class="docutils literal notranslate"><span class="pre">FactPreconditionError</span></code> and phase-awareness
+automatically; fact authors never need to import exception classes.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.command">
 <span class="sig-name descname"><span class="pre">command</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="pyinfra.api.command.html#pyinfra.api.command.StringCommand" title="pyinfra.api.command.StringCommand"><span class="pre">StringCommand</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyinfra.api.facts.FactBase.command" title="Link to this definition">¶</a></dt>
@@ -211,7 +224,9 @@ other host B while I operate on this host A).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.requires_command">
 <span class="sig-name descname"><span class="pre">requires_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyinfra.api.facts.FactBase.requires_command" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the binary name that must exist on the remote host for this fact to run.
+If the binary is absent the fact returns its <code class="docutils literal notranslate"><span class="pre">default()</span></code> value silently.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyinfra.api.facts.FactBase.shell_executable">

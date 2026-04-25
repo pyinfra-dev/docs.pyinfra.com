@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unreleased">Unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-7">v3.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6-1">v3.6.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6">v3.6</a></li>
@@ -165,6 +166,20 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="unreleased">
+<h2>Unreleased<a class="headerlink" href="#unreleased" title="Link to this heading">¶</a></h2>
+<p>Core:</p>
+<ul class="simple">
+<li><p>api.facts: <code class="docutils literal notranslate"><span class="pre">requires_command</span></code> now uses an if/then/else shell guard with a sentinel marker
+(<code class="docutils literal notranslate"><span class="pre">##PYINFRA_NOCMD##</span></code>) so that “binary absent” can be distinguished from “binary returned no data”</p></li>
+<li><p>api.facts: add <code class="docutils literal notranslate"><span class="pre">check_preconditions(state,</span> <span class="pre">host)</span></code> hook on <code class="docutils literal notranslate"><span class="pre">FactBase</span></code> for runtime prerequisite checks
+(e.g. kernel module loaded, service running) — return a reason string or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p>api.exceptions: add <code class="docutils literal notranslate"><span class="pre">FactNotCollected</span></code>, <code class="docutils literal notranslate"><span class="pre">MissingCommandError</span></code>, <code class="docutils literal notranslate"><span class="pre">FactPreconditionError</span></code> exception
+hierarchy; both exceptions are phase-aware (silent during prepare, raised during execute)</p></li>
+<li><p>facts.zfs: fix <code class="docutils literal notranslate"><span class="pre">ZfsDatasets.requires_command</span></code> returning <code class="docutils literal notranslate"><span class="pre">&quot;zpool&quot;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&quot;zfs&quot;</span></code>; add
+<code class="docutils literal notranslate"><span class="pre">ZfsPools</span></code> fact; add <code class="docutils literal notranslate"><span class="pre">ZfsDatasets.check_preconditions()</span></code> checking kernel module via <code class="docutils literal notranslate"><span class="pre">server.KernelModules</span></code></p></li>
+</ul>
+</section>
 <section id="v3-7">
 <h2>v3.7<a class="headerlink" href="#v3-7" title="Link to this heading">¶</a></h2>
 <p>Thank you to all contributors - particular shout out to &#64;wowi42 for an incredible run of PRs!</p>
