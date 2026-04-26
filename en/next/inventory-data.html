@@ -94,6 +94,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#host-name">Host Name</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#function-based-inventories-alpha">Function-based Inventories (alpha)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#groups">Groups</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#group-data-files">Group Data Files</a></li>
 </ul>
@@ -212,6 +213,35 @@ to store multiple related inventories. Code can be imported from files under <co
 </div>
 </section>
 </section>
+<section id="function-based-inventories-alpha">
+<h2>Function-based Inventories (alpha)<a class="headerlink" href="#function-based-inventories-alpha" title="Link to this heading">¶</a></h2>
+<p>In addition to inventory files, pyinfra can load an inventory from a Python function or module-level iterable passed on the command line as <code class="docutils literal notranslate"><span class="pre">module.path.attribute</span></code> (or <code class="docutils literal notranslate"><span class="pre">module.path:attribute</span></code>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call a function that returns a dict of groups</span>
+pyinfra<span class="w"> </span>myproject.inventory.make_prod<span class="w"> </span>OPERATIONS...
+
+<span class="c1"># Or point at a module-level list/tuple of hosts</span>
+pyinfra<span class="w"> </span>myproject.inventory:HOSTS<span class="w"> </span>OPERATIONS...
+</pre></div>
+</div>
+<p>The function must return a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of group name to either a list of hosts or a <code class="docutils literal notranslate"><span class="pre">(hosts,</span> <span class="pre">data)</span></code> tuple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># myproject/inventory.py</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_prod</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;app_servers&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;app-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;app-2.net&quot;</span><span class="p">],</span>
+            <span class="p">{</span><span class="s2">&quot;app_user&quot;</span><span class="p">:</span> <span class="s2">&quot;myuser&quot;</span><span class="p">,</span> <span class="s2">&quot;app_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;/opt/pyinfra&quot;</span><span class="p">},</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;db_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;db-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;db-2.net&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">group_data/ is not loaded for function-based inventories</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">group_data/</span></code> directory convention described below is tied to the location of an inventory <strong>file</strong>. It is not loaded when the inventory comes from a function or module attribute — there is no on-disk inventory to anchor the lookup against.</p>
+<p>Provide per-group data via the <code class="docutils literal notranslate"><span class="pre">(hosts,</span> <span class="pre">data)</span></code> tuple in the function’s return value, or compose the data inside the function itself (e.g. by reading files, calling APIs, or importing Python modules). The <code class="docutils literal notranslate"><span class="pre">function-based</span> <span class="pre">inventory</span></code> loader is also still in alpha and will log a warning at startup.</p>
+</div>
+</section>
 <section id="groups">
 <h2>Groups<a class="headerlink" href="#groups" title="Link to this heading">¶</a></h2>
 <p>It is often useful to access the list of groups a host belongs to in operation code, this can be done via the <code class="docutils literal notranslate"><span class="pre">pyinfra.host.groups</span></code> attribute:</p>
@@ -241,6 +271,10 @@ to store multiple related inventories. Code can be imported from files under <co
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">group_data</span></code> directory is relative to the current working directory. This can be changed at runtime via the <code class="docutils literal notranslate"><span class="pre">--chdir</span></code> flag.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">group_data/</span></code> is only loaded for file-based inventories. When the inventory is provided as a Python function or module attribute (see <a class="reference internal" href="#function-based-inventories-alpha">Function-based Inventories (alpha)</a>), supply group data via the <code class="docutils literal notranslate"><span class="pre">(hosts,</span> <span class="pre">data)</span></code> tuple in the function’s return value instead.</p>
 </div>
 </section>
 </section>
