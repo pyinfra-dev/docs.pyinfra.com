@@ -7,7 +7,7 @@ the view of the current inventory host. See the :doc:`../connectors/docker` to u
 as inventory directly.
 
 
-Facts used in these operations: :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerImage`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
+Facts used in these operations: :ref:`facts:docker.DockerAuths`, :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerImage`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
 
 .. _operations:docker.container:
 
@@ -166,6 +166,94 @@ Manage Docker images
         image:"nginx:image",
         present=False,
     )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.login:
+
+:code:`docker.login`
+~~~~~~~~~~~~~~~~~~~~
+
+Log in to a Docker registry.
+
+.. code:: python
+
+    docker.login(username: 'str', password: 'str', server: 'str | None' = None, force: 'bool' = False,
+         **kwargs,
+    )
+
++ **username**: username to authenticate with
++ **password**: password to authenticate with
++ **server**: registry server to log in to (defaults to Docker Hub)
++ **force**: log in even if ``~/.docker/config.json`` already has an entry for the server
+
+Idempotency is checked against the ``auths`` section of
+``${DOCKER_CONFIG:-$HOME/.docker}/config.json``: if the server is already
+present, the operation is a no-op. Use ``force=True`` to re-run ``docker
+login`` (e.g. after rotating credentials).
+
+The password is piped to ``docker login --password-stdin`` so it is not
+exposed on the command line, and is masked in pyinfra's command log.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+
+    # Log in to a private registry
+    docker.login(
+        name="Log in to private registry",
+        server="myregistry.io:5000",
+        username="ci",
+        password="s3cret",
+    )
+
+    # Log in to Docker Hub
+    docker.login(
+        name="Log in to Docker Hub",
+        username="ci",
+        password="s3cret",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.logout:
+
+:code:`docker.logout`
+~~~~~~~~~~~~~~~~~~~~~
+
+Log out of a Docker registry.
+
+.. code:: python
+
+    docker.logout(server: 'str | None' = None,
+         **kwargs,
+    )
+
++ **server**: registry server to log out of (defaults to Docker Hub)
+
+No-ops when the server is not present in
+``${DOCKER_CONFIG:-$HOME/.docker}/config.json``.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+
+    # Log out of a private registry
+    docker.logout(
+        name="Log out of private registry",
+        server="myregistry.io:5000",
+    )
+
+    # Log out of Docker Hub
+    docker.logout(name="Log out of Docker Hub")
 
 .. note::
     This operation also inherits all :doc:`global arguments </arguments>`.

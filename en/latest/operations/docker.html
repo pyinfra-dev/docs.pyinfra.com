@@ -108,6 +108,8 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-login"><code class="code docutils literal notranslate"><span class="pre">docker.login</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-logout"><code class="code docutils literal notranslate"><span class="pre">docker.logout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-network"><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-plugin"><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-prune"><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code></a></li>
@@ -195,7 +197,7 @@
 <p>Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockerauths"><span class="std std-ref">docker.DockerAuths</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
 <section id="docker-container">
 <span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Link to this heading">¶</a></h2>
 <p>Manage Docker containers</p>
@@ -341,6 +343,81 @@ as inventory directly.</p>
     <span class="n">image</span><span class="p">:</span><span class="s2">&quot;nginx:image&quot;</span><span class="p">,</span>
     <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="docker-login">
+<span id="operations-docker-login"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.login</span></code><a class="headerlink" href="#docker-login" title="Link to this heading">¶</a></h2>
+<p>Log in to a Docker registry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>username</strong>: username to authenticate with</p></li>
+<li><p><strong>password</strong>: password to authenticate with</p></li>
+<li><p><strong>server</strong>: registry server to log in to (defaults to Docker Hub)</p></li>
+<li><p><strong>force</strong>: log in even if <code class="docutils literal notranslate"><span class="pre">~/.docker/config.json</span></code> already has an entry for the server</p></li>
+</ul>
+<p>Idempotency is checked against the <code class="docutils literal notranslate"><span class="pre">auths</span></code> section of
+<code class="docutils literal notranslate"><span class="pre">${DOCKER_CONFIG:-$HOME/.docker}/config.json</span></code>: if the server is already
+present, the operation is a no-op. Use <code class="docutils literal notranslate"><span class="pre">force=True</span></code> to re-run <code class="docutils literal notranslate"><span class="pre">docker</span>
+<span class="pre">login</span></code> (e.g. after rotating credentials).</p>
+<p>The password is piped to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span> <span class="pre">--password-stdin</span></code> so it is not
+exposed on the command line, and is masked in pyinfra’s command log.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Log in to a private registry</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log in to private registry&quot;</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">=</span><span class="s2">&quot;myregistry.io:5000&quot;</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="s2">&quot;ci&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;s3cret&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Log in to Docker Hub</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log in to Docker Hub&quot;</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="s2">&quot;ci&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;s3cret&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="docker-logout">
+<span id="operations-docker-logout"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.logout</span></code><a class="headerlink" href="#docker-logout" title="Link to this heading">¶</a></h2>
+<p>Log out of a Docker registry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">server</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>server</strong>: registry server to log out of (defaults to Docker Hub)</p></li>
+</ul>
+<p>No-ops when the server is not present in
+<code class="docutils literal notranslate"><span class="pre">${DOCKER_CONFIG:-$HOME/.docker}/config.json</span></code>.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Log out of a private registry</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log out of private registry&quot;</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">=</span><span class="s2">&quot;myregistry.io:5000&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Log out of Docker Hub</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log out of Docker Hub&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">

@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="deb.html">Deb Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-dockerauths"><code class="code docutils literal notranslate"><span class="pre">docker.DockerAuths</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-dockercontainer"><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainer</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-dockercontainerenvs"><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainerEnvs</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-dockercontainerfschanges"><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainerFsChanges</span></code></a></li>
@@ -218,6 +219,15 @@
 of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers as
 inventory directly.</p>
 <p>See also: <a class="reference internal" href="../operations/docker.html"><span class="doc">Docker Operations</span></a>.</p>
+<section id="docker-dockerauths">
+<span id="facts-docker-dockerauths"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerAuths</span></code><a class="headerlink" href="#docker-dockerauths" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerAuths</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the list of registry servers the current user is authenticated
+against, read from <code class="docutils literal notranslate"><span class="pre">${DOCKER_CONFIG:-$HOME/.docker}/config.json</span></code>.</p>
+<p>Returns an empty list if no config file exists or no auths are stored.</p>
+</section>
 <section id="docker-dockercontainer">
 <span id="facts-docker-dockercontainer"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.DockerContainer</span></code><a class="headerlink" href="#docker-dockercontainer" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainer</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
