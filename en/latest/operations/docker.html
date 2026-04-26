@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-compose"><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-login"><code class="code docutils literal notranslate"><span class="pre">docker.login</span></code></a></li>
@@ -198,6 +199,92 @@
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockerauths"><span class="std std-ref">docker.DockerAuths</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<section id="docker-compose">
+<span id="operations-docker-compose"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code><a class="headerlink" href="#docker-compose" title="Link to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Deploy a Docker Compose stack on the target.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+     <span class="n">project_directory</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">files</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">project_name</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">pull</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">force_recreate</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">remove_orphans</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">remove_volumes</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">compose_command</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;docker compose&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>project_directory</strong>: project directory on the target (maps to
+<code class="docutils literal notranslate"><span class="pre">--project-directory</span></code>). Compose discovers <code class="docutils literal notranslate"><span class="pre">compose.yaml</span></code> /
+<code class="docutils literal notranslate"><span class="pre">compose.yml</span></code> / <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> / <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> inside
+this directory by default.</p></li>
+<li><p><strong>files</strong>: optional path or list of paths to specific compose file(s) on the
+target (maps to <code class="docutils literal notranslate"><span class="pre">-f</span></code>); use this to override the default discovery or to
+layer overrides.</p></li>
+<li><p><strong>project_name</strong>: compose project name (maps to <code class="docutils literal notranslate"><span class="pre">--project-name</span></code>; defaults
+to compose’s own default — typically the basename of <code class="docutils literal notranslate"><span class="pre">project_directory</span></code>)</p></li>
+<li><p><strong>present</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code> runs <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">-d</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code> runs <code class="docutils literal notranslate"><span class="pre">down</span></code></p></li>
+<li><p><strong>pull</strong>: policy for <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--pull</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;always&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;missing&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;never&quot;</span></code>)</p></li>
+<li><p><strong>build</strong>: pass <code class="docutils literal notranslate"><span class="pre">--build</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code></p></li>
+<li><p><strong>force_recreate</strong>: pass <code class="docutils literal notranslate"><span class="pre">--force-recreate</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code></p></li>
+<li><p><strong>remove_orphans</strong>: pass <code class="docutils literal notranslate"><span class="pre">--remove-orphans</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code> / <code class="docutils literal notranslate"><span class="pre">down</span></code></p></li>
+<li><p><strong>remove_volumes</strong>: pass <code class="docutils literal notranslate"><span class="pre">-v</span></code> on <code class="docutils literal notranslate"><span class="pre">down</span></code> (only honored when <code class="docutils literal notranslate"><span class="pre">present=False</span></code>)</p></li>
+<li><p><strong>compose_command</strong>: compose binary to invoke; use <code class="docutils literal notranslate"><span class="pre">&quot;docker-compose&quot;</span></code> for v1</p></li>
+</ul>
+<p>This operation is not idempotent from pyinfra’s perspective: it always shells out
+to compose. Docker itself skips services whose definition has not changed, so
+re-runs are safe and cheap.</p>
+<p><code class="docutils literal notranslate"><span class="pre">_env</span></code> and <code class="docutils literal notranslate"><span class="pre">_chdir</span></code> are the standard pyinfra global operation kwargs and
+work here without any special handling, which is useful for compose variable
+interpolation.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span><span class="p">,</span> <span class="n">files</span>
+
+<span class="c1"># Upload the compose file then bring the stack up using compose&#39;s</span>
+<span class="c1"># default discovery (looks for compose.yaml / docker-compose.yml in</span>
+<span class="c1"># the project directory)</span>
+<span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upload compose file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/docker-compose.yml&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/srv/app/docker-compose.yml&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app stack&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">,</span>
+    <span class="n">_env</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;DIR_STORAGE&quot;</span><span class="p">:</span> <span class="s2">&quot;/srv/app/data&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Layer a base compose file with an override</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app stack with override&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;docker-compose.yml&quot;</span><span class="p">,</span> <span class="s2">&quot;docker-compose.prod.yml&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Tear the stack down, including named volumes</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove app stack&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">remove_volumes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
 <section id="docker-container">
 <span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Link to this heading">¶</a></h2>
 <p>Manage Docker containers</p>
