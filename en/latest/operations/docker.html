@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-build"><code class="code docutils literal notranslate"><span class="pre">docker.build</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-compose"><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code></a></li>
@@ -199,6 +200,88 @@
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockerauths"><span class="std std-ref">docker.DockerAuths</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<section id="docker-build">
+<span id="operations-docker-build"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.build</span></code><a class="headerlink" href="#docker-build" title="Link to this heading">¶</a></h2>
+<p>Build a Docker image from a context directory or URL.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">tags</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dockerfile</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">labels</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">platform</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">network</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cache_from</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cache_to</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">secrets</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">pull</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">no_cache</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">builder</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build_cmd</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;docker build&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>path</strong>: build context (local directory or git/http URL)</p></li>
+<li><p><strong>tags</strong>: tag or list of tags to apply to the built image (maps to <code class="docutils literal notranslate"><span class="pre">-t</span></code>)</p></li>
+<li><p><strong>dockerfile</strong>: path to the Dockerfile (maps to <code class="docutils literal notranslate"><span class="pre">-f</span></code>; relative to the context)</p></li>
+<li><p><strong>build_args</strong>: <code class="docutils literal notranslate"><span class="pre">--build-arg</span></code> values as a mapping</p></li>
+<li><p><strong>labels</strong>: <code class="docutils literal notranslate"><span class="pre">--label</span></code> values as a mapping</p></li>
+<li><p><strong>target</strong>: <code class="docutils literal notranslate"><span class="pre">--target</span></code> stage for multi-stage Dockerfiles</p></li>
+<li><p><strong>platform</strong>: <code class="docutils literal notranslate"><span class="pre">--platform</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">linux/amd64</span></code>)</p></li>
+<li><p><strong>network</strong>: <code class="docutils literal notranslate"><span class="pre">--network</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">host</span></code>)</p></li>
+<li><p><strong>cache_from</strong>: <code class="docutils literal notranslate"><span class="pre">--cache-from</span></code> value or list of values; accepts image
+references and full backend specs (e.g. <code class="docutils literal notranslate"><span class="pre">type=registry,ref=...</span></code>,
+<code class="docutils literal notranslate"><span class="pre">type=gha</span></code>, <code class="docutils literal notranslate"><span class="pre">type=local,src=/tmp/.buildx-cache</span></code>)</p></li>
+<li><p><strong>cache_to</strong>: <code class="docutils literal notranslate"><span class="pre">--cache-to</span></code> value or list of values; same backend syntax as
+<code class="docutils literal notranslate"><span class="pre">cache_from</span></code> (BuildKit / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">buildx</span> <span class="pre">build</span></code> only)</p></li>
+<li><p><strong>secrets</strong>: list of raw <code class="docutils literal notranslate"><span class="pre">--secret</span></code> specs (e.g. <code class="docutils literal notranslate"><span class="pre">id=mysecret,src=/run/secret</span></code>)</p></li>
+<li><p><strong>pull</strong>: pass <code class="docutils literal notranslate"><span class="pre">--pull</span></code> to always fetch newer base images</p></li>
+<li><p><strong>no_cache</strong>: pass <code class="docutils literal notranslate"><span class="pre">--no-cache</span></code></p></li>
+<li><p><strong>force</strong>: rebuild even if all provided tags already exist locally</p></li>
+<li><p><strong>builder</strong>: optional name passed via <code class="docutils literal notranslate"><span class="pre">--builder</span></code> to select a buildx
+builder instance (BuildKit only)</p></li>
+<li><p><strong>build_cmd</strong>: command used to invoke the build, defaults to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>;
+set to <code class="docutils literal notranslate"><span class="pre">&quot;docker</span> <span class="pre">buildx</span> <span class="pre">build&quot;</span></code> to force BuildKit</p></li>
+</ul>
+<p>Idempotency is tag-based: when <code class="docutils literal notranslate"><span class="pre">tags</span></code> is provided and <code class="docutils literal notranslate"><span class="pre">force</span></code> is false, the
+operation no-ops if every tag already exists on the target. Without <code class="docutils literal notranslate"><span class="pre">tags</span></code>
+the build always runs (Docker’s own layer cache still applies).</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Build and tag a local context</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Build app image&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;app:1.0&quot;</span><span class="p">,</span> <span class="s2">&quot;app:latest&quot;</span><span class="p">],</span>
+    <span class="n">build_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;VERSION&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">},</span>
+    <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># BuildKit cross-platform build from a custom Dockerfile,</span>
+<span class="c1"># using a named buildx builder and a registry cache backend</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Build multi-arch app&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;registry.io/app:arm64&quot;</span><span class="p">,</span>
+    <span class="n">dockerfile</span><span class="o">=</span><span class="s2">&quot;docker/Dockerfile.prod&quot;</span><span class="p">,</span>
+    <span class="n">platform</span><span class="o">=</span><span class="s2">&quot;linux/arm64&quot;</span><span class="p">,</span>
+    <span class="n">build_cmd</span><span class="o">=</span><span class="s2">&quot;docker buildx build&quot;</span><span class="p">,</span>
+    <span class="n">builder</span><span class="o">=</span><span class="s2">&quot;multiarch&quot;</span><span class="p">,</span>
+    <span class="n">cache_from</span><span class="o">=</span><span class="s2">&quot;type=registry,ref=registry.io/app:cache&quot;</span><span class="p">,</span>
+    <span class="n">cache_to</span><span class="o">=</span><span class="s2">&quot;type=registry,ref=registry.io/app:cache,mode=max&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
 <section id="docker-compose">
 <span id="operations-docker-compose"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code><a class="headerlink" href="#docker-compose" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
