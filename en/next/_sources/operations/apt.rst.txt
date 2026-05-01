@@ -167,6 +167,7 @@ Install/remove/update packages & update apt.
          force=False,
          no_recommends=False,
          allow_downgrades=False,
+         purge=False,
          extra_install_args: 'str | None' = None,
          extra_uninstall_args: 'str | None' = None,
          **kwargs,
@@ -181,6 +182,8 @@ Install/remove/update packages & update apt.
 + **force**: whether to force package installs by passing `--force-yes` to apt
 + **no_recommends**: don't install recommended packages
 + **allow_downgrades**: allow downgrading packages with version (--allow-downgrades)
++ **purge**: when removing packages (``present=False``) use ``apt purge`` so configuration files
+  are removed alongside the package
 + **extra_install_args**: additional arguments to the apt install command
 + **extra_uninstall_args**: additional arguments to the apt uninstall command
 
