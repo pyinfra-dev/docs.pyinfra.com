@@ -195,7 +195,7 @@
   <section id="apt-operations">
 <h1>Apt Operations<a class="headerlink" href="#apt-operations" title="Link to this heading">¶</a></h1>
 <p>Manage apt packages and repositories.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/apt.html#facts-apt-aptkeys"><span class="std std-ref">apt.AptKeys</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-aptsources"><span class="std std-ref">apt.AptSources</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackage"><span class="std std-ref">deb.DebPackage</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackages"><span class="std std-ref">deb.DebPackages</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/gpg.html#facts-gpg-gpgkey"><span class="std std-ref">gpg.GpgKey</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-simulateoperationwillchange"><span class="std std-ref">apt.SimulateOperationWillChange</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/apt.html#facts-apt-aptsources"><span class="std std-ref">apt.AptSources</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-date"><span class="std std-ref">server.Date</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackage"><span class="std std-ref">deb.DebPackage</span></a>, <a class="reference internal" href="../facts/deb.html#facts-deb-debpackages"><span class="std std-ref">deb.DebPackages</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-file"><span class="std std-ref">files.File</span></a>, <a class="reference internal" href="../facts/apt.html#facts-apt-simulateoperationwillchange"><span class="std std-ref">apt.SimulateOperationWillChange</span></a>.</p>
 <section id="apt-deb">
 <span id="operations-apt-deb"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.deb</span></code><a class="headerlink" href="#apt-deb" title="Link to this heading">¶</a></h2>
 <p>Add/remove <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file packages.</p>
@@ -254,41 +254,67 @@ package as the file won’t exist until mid-deploy.</p>
 </section>
 <section id="apt-key">
 <span id="operations-apt-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.key</span></code><a class="headerlink" href="#apt-key" title="Link to this heading">¶</a></h2>
-<p>Add apt gpg keys with <code class="docutils literal notranslate"><span class="pre">apt-key</span></code>.</p>
+<p>Add or remove APT GPG keys using modern keyring management (no <code class="docutils literal notranslate"><span class="pre">apt-key</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
      <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">keyserver</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">keyid</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
      <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
+<p>Keys are written to <code class="docutils literal notranslate"><span class="pre">/etc/apt/keyrings/</span></code> and can be referenced in source entries
+via <code class="docutils literal notranslate"><span class="pre">signed-by=</span></code>. The destination filename is derived automatically from the source
+URL or key IDs when not specified explicitly.</p>
 <ul class="simple">
-<li><p><strong>src</strong>: filename or URL</p></li>
-<li><p><strong>keyserver</strong>: URL of keyserver to fetch key from</p></li>
-<li><p><strong>keyid</strong>: key ID or list of key IDs when using keyserver</p></li>
+<li><p><strong>src</strong>: filename or URL to a key (<code class="docutils literal notranslate"><span class="pre">.asc</span></code> ASCII-armored or binary <code class="docutils literal notranslate"><span class="pre">.gpg</span></code>)</p></li>
+<li><p><strong>keyserver</strong>: keyserver URL for fetching keys by ID</p></li>
+<li><p><strong>keyid</strong>: key ID or list of key IDs (required with <code class="docutils literal notranslate"><span class="pre">keyserver</span></code>, optional for removal)</p></li>
+<li><p><strong>dest</strong>: destination filename or absolute path — <code class="docutils literal notranslate"><span class="pre">.gpg</span></code> extension is enforced;
+relative names are resolved under <code class="docutils literal notranslate"><span class="pre">/etc/apt/keyrings/</span></code></p></li>
+<li><p><strong>present</strong>: whether the key should be present (default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) or removed</p></li>
 </ul>
-<dl class="simple">
-<dt>keyserver/id:</dt><dd><p>These must be provided together.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ASCII-armored keys (<code class="docutils literal notranslate"><span class="pre">.asc</span></code>) are automatically dearmored on installation.
+Keyserver fetches use a temporary <code class="docutils literal notranslate"><span class="pre">GNUPGHOME</span></code> and export binary keyrings.
+Removal without <code class="docutils literal notranslate"><span class="pre">keyid</span></code> deletes the whole keyring file; with <code class="docutils literal notranslate"><span class="pre">keyid</span></code> it
+removes individual keys and prunes empty files.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">apt-key</span></code> is deprecated in Debian, it is recommended NOT to use this
-operation and instead follow the instructions here:</p>
-<p><a class="reference external" href="https://wiki.debian.org/DebianRepository/UseThirdParty">https://wiki.debian.org/DebianRepository/UseThirdParty</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">apt-key</span></code> is deprecated in Debian. This operation follows the modern approach:
+<a class="reference external" href="https://wiki.debian.org/DebianRepository/UseThirdParty">https://wiki.debian.org/DebianRepository/UseThirdParty</a></p>
 </div>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
 <span class="c1"># Note: If using URL, wget is assumed to be installed.</span>
+
 <span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Docker apt gpg key&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/ubuntu/gpg&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add Docker apt GPG key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/debian/gpg&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;docker.gpg&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install VirtualBox key&quot;</span><span class="p">,</span>
-    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://www.virtualbox.org/download/oracle_vbox_2016.asc&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove specific keyring file&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;old-vendor.gpg&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove key by ID from all APT keyrings&quot;</span><span class="p">,</span>
+    <span class="n">keyid</span><span class="o">=</span><span class="s2">&quot;0xCOMPROMISED123&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Fetch keys from keyserver&quot;</span><span class="p">,</span>
+    <span class="n">keyserver</span><span class="o">=</span><span class="s2">&quot;hkps://keyserver.ubuntu.com&quot;</span><span class="p">,</span>
+    <span class="n">keyid</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;0xD88E42B4&quot;</span><span class="p">,</span> <span class="s2">&quot;0x7EA0A9C3&quot;</span><span class="p">],</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;vendor-archive.gpg&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

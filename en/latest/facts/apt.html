@@ -194,14 +194,22 @@
 <p>See also: <a class="reference internal" href="../operations/apt.html"><span class="doc">Apt Operations</span></a>.</p>
 <section id="apt-aptkeys">
 <span id="facts-apt-aptkeys"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.AptKeys</span></code><a class="headerlink" href="#apt-aptkeys" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptKeys</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptKeys</span><span class="p">,</span> <span class="n">directories</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns information on GPG keys apt has in its keychain:</p>
+<p>Returns information on GPG keys available to APT.</p>
+<p>This fact reuses the GpgKeyrings infrastructure to search APT’s modern keyring
+directories instead of using the deprecated apt-key command. It provides
+compatibility with the old AptKeys interface while leveraging the modern
+GPG infrastructure.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;KEY-ID&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;3B4FE6ACC0B21F32&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;validity&quot;</span><span class="p">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
         <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Oxygem &lt;hello@oxygem.com&gt;&quot;</span>
+        <span class="s2">&quot;subkeys&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;fingerprint&quot;</span><span class="p">:</span> <span class="s2">&quot;790BC7277767219C42C86F933B4FE6ACC0B21F32&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid_hash&quot;</span><span class="p">:</span> <span class="s2">&quot;B7A02867A0C1D32B594B36C00E20C8C57E397748&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu Archive Automatic Signing Key (2012) &lt;ftpmaster@ubuntu.com&gt;&quot;</span>
     <span class="p">},</span>
 <span class="p">}</span>
 </pre></div>
