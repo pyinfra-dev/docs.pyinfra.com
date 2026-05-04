@@ -146,6 +146,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
@@ -185,19 +186,21 @@
           
   <section id="opkg-facts">
 <h1>Opkg Facts<a class="headerlink" href="#opkg-facts" title="Link to this heading">¶</a></h1>
-<dl>
+<dl class="simple">
 <dt>Gather the information provided by <code class="docutils literal notranslate"><span class="pre">opkg</span></code> on OpenWrt systems:</dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">opkg</span></code> configuration</p></li>
 <li><p>feeds configuration</p></li>
 <li><p>list of installed packages</p></li>
 <li><p>list of packages with available upgrades</p></li>
 </ul>
-<p>see <a class="reference external" href="https://openwrt.org/docs/guide-user/additional-software/opkg">https://openwrt.org/docs/guide-user/additional-software/opkg</a></p>
 </dd>
 </dl>
+<p>See <a class="reference external" href="https://openwrt.org/docs/guide-user/additional-software/opkg">https://openwrt.org/docs/guide-user/additional-software/opkg</a></p>
+<p><strong>Note:</strong> as of OpenWrt Release <a class="reference external" href="https://openwrt.org/releases/25.12/notes-25.12.0#switch_package_manager_from_opkg_to_apk">2025.12</a>, OpenWrt uses <code class="docutils literal notranslate"><span class="pre">apk</span></code>.</p>
+<p>See also: <a class="reference internal" href="../operations/opkg.html"><span class="doc">Opkg Operations</span></a>.</p>
 <section id="opkg-opkgconf">
 <span id="facts-opkg-opkgconf"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.OpkgConf</span></code><a class="headerlink" href="#opkg-opkgconf" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgConf</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgConf</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a NamedTuple with the current configuration:</p>
@@ -221,7 +224,7 @@
 </section>
 <section id="opkg-opkgfeeds">
 <span id="facts-opkg-opkgfeeds"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.OpkgFeeds</span></code><a class="headerlink" href="#opkg-opkgfeeds" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgFeeds</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgFeeds</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dictionary containing the information for the distribution-provided and
@@ -239,7 +242,7 @@ custom opkg feeds:</p>
 </section>
 <section id="opkg-opkginstallablearchitectures">
 <span id="facts-opkg-opkginstallablearchitectures"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.OpkgInstallableArchitectures</span></code><a class="headerlink" href="#opkg-opkginstallablearchitectures" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgInstallableArchitectures</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgInstallableArchitectures</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dictionary containing the currently installable architectures for this system along
@@ -254,7 +257,7 @@ with their priority:</p>
 </section>
 <section id="opkg-opkgpackages">
 <span id="facts-opkg-opkgpackages"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.OpkgPackages</span></code><a class="headerlink" href="#opkg-opkgpackages" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgPackages</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgPackages</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of installed opkg packages:</p>
@@ -267,7 +270,7 @@ with their priority:</p>
 </section>
 <section id="opkg-opkgupgradeablepackages">
 <span id="facts-opkg-opkgupgradeablepackages"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.OpkgUpgradeablePackages</span></code><a class="headerlink" href="#opkg-opkgupgradeablepackages" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgUpgradeablePackages</span><span class="p">,</span> <span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">OpkgUpgradeablePackages</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Returns a dict of installed and upgradable opkg packages:</p>

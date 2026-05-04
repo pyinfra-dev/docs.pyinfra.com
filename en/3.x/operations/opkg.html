@@ -108,8 +108,10 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -138,6 +140,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
@@ -185,15 +188,19 @@
 </ul>
 </dd>
 </dl>
-<p>see <a class="reference external" href="https://openwrt.org/docs/guide-user/additional-software/opkg">https://openwrt.org/docs/guide-user/additional-software/opkg</a>
-OpenWrt recommends against upgrading all packages  thus there is no <code class="docutils literal notranslate"><span class="pre">opkg.upgrade</span></code> function</p>
+<p>See <a class="reference external" href="https://openwrt.org/docs/guide-user/additional-software/opkg">https://openwrt.org/docs/guide-user/additional-software/opkg</a></p>
+<p>OpenWrt recommends against upgrading all packages  thus there is no <code class="docutils literal notranslate"><span class="pre">opkg.upgrade</span></code> function</p>
+<p><strong>Note:</strong> as of OpenWrt Release <a class="reference external" href="https://openwrt.org/releases/25.12/notes-25.12.0#switch_package_manager_from_opkg_to_apk">2025.12</a>, OpenWrt uses <code class="docutils literal notranslate"><span class="pre">apk</span></code>.</p>
 <p>Facts used in these operations: <a class="reference internal" href="../facts/opkg.html#facts-opkg-opkgpackages"><span class="std std-ref">opkg.OpkgPackages</span></a>.</p>
 <section id="opkg-packages">
 <span id="operations-opkg-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.packages</span></code><a class="headerlink" href="#opkg-packages" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update opkg packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opkg</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">packages</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nc">bool</span><span class="s1">&#39;&gt;=True,</span>
-    <span class="n">latest</span><span class="p">:</span> <span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nc">bool</span><span class="s1">&#39;&gt;=False, update: &lt;class &#39;</span><span class="nb">bool</span><span class="s1">&#39;&gt;=True, **kwargs,</span>
+     <span class="n">packages</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">latest</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -221,10 +228,10 @@ and will cause an exception.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="opkg-update">
 <span id="operations-opkg-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">opkg.update</span></code><a class="headerlink" href="#opkg-update" title="Link to this heading">¶</a></h2>
@@ -233,13 +240,13 @@ and will cause an exception.</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Update the local opkg information.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opkg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opkg</span><span class="o">.</span><span class="n">update</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

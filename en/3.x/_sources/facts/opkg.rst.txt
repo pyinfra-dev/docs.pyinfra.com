@@ -8,8 +8,13 @@ Gather the information provided by ``opkg`` on OpenWrt systems:
     + list of installed packages
     + list of packages with available upgrades
 
+See https://openwrt.org/docs/guide-user/additional-software/opkg
 
-    see https://openwrt.org/docs/guide-user/additional-software/opkg
+**Note:** as of OpenWrt Release `2025.12`_, OpenWrt uses ``apk``.
+
+.. _2025.12: https://openwrt.org/releases/25.12/notes-25.12.0#switch_package_manager_from_opkg_to_apk
+
+See also: :doc:`../operations/opkg`.
 
 .. _facts:opkg.OpkgConf:
 
@@ -18,7 +23,7 @@ Gather the information provided by ``opkg`` on OpenWrt systems:
 
 .. code:: python
 
-    host.get_fact(OpkgConf, )
+    host.get_fact(OpkgConf)
 
 Returns a NamedTuple with the current configuration:
 
@@ -48,7 +53,7 @@ Returns a NamedTuple with the current configuration:
 
 .. code:: python
 
-    host.get_fact(OpkgFeeds, )
+    host.get_fact(OpkgFeeds)
 
 Returns a dictionary containing the information for the distribution-provided and
 custom opkg feeds:
@@ -72,7 +77,7 @@ custom opkg feeds:
 
 .. code:: python
 
-    host.get_fact(OpkgInstallableArchitectures, )
+    host.get_fact(OpkgInstallableArchitectures)
 
 Returns a dictionary containing the currently installable architectures for this system along
 with their priority:
@@ -93,7 +98,7 @@ with their priority:
 
 .. code:: python
 
-    host.get_fact(OpkgPackages, )
+    host.get_fact(OpkgPackages)
 
 Returns a dict of installed opkg packages:
 
@@ -112,7 +117,7 @@ Returns a dict of installed opkg packages:
 
 .. code:: python
 
-    host.get_fact(OpkgUpgradeablePackages, )
+    host.get_fact(OpkgUpgradeablePackages)
 
 Returns a dict of installed and upgradable opkg packages:
 

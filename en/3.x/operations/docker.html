@@ -106,8 +106,12 @@
 <li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dnf.html">Dnf Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Docker Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-build"><code class="code docutils literal notranslate"><span class="pre">docker.build</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-compose"><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-container"><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-image"><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-login"><code class="code docutils literal notranslate"><span class="pre">docker.login</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-logout"><code class="code docutils literal notranslate"><span class="pre">docker.logout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-network"><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-plugin"><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#docker-prune"><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code></a></li>
@@ -116,8 +120,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -142,6 +148,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
@@ -185,17 +192,204 @@
 <p>Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
 the view of the current inventory host. See the <a class="reference internal" href="../connectors/docker.html"><span class="doc">&#64;docker Connector</span></a> to use Docker containers
 as inventory directly.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/docker.html#facts-docker-dockerauths"><span class="std std-ref">docker.DockerAuths</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockercontainer"><span class="std std-ref">docker.DockerContainer</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerimage"><span class="std std-ref">docker.DockerImage</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockernetwork"><span class="std std-ref">docker.DockerNetwork</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockerplugin"><span class="std std-ref">docker.DockerPlugin</span></a>, <a class="reference internal" href="../facts/docker.html#facts-docker-dockervolume"><span class="std std-ref">docker.DockerVolume</span></a>.</p>
+<section id="docker-build">
+<span id="operations-docker-build"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.build</span></code><a class="headerlink" href="#docker-build" title="Link to this heading">¶</a></h2>
+<p>Build a Docker image from a context directory or URL.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">tags</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dockerfile</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">labels</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">platform</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">network</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cache_from</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cache_to</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">secrets</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">pull</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">no_cache</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">builder</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build_cmd</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;docker build&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>path</strong>: build context (local directory or git/http URL)</p></li>
+<li><p><strong>tags</strong>: tag or list of tags to apply to the built image (maps to <code class="docutils literal notranslate"><span class="pre">-t</span></code>)</p></li>
+<li><p><strong>dockerfile</strong>: path to the Dockerfile (maps to <code class="docutils literal notranslate"><span class="pre">-f</span></code>; relative to the context)</p></li>
+<li><p><strong>build_args</strong>: <code class="docutils literal notranslate"><span class="pre">--build-arg</span></code> values as a mapping</p></li>
+<li><p><strong>labels</strong>: <code class="docutils literal notranslate"><span class="pre">--label</span></code> values as a mapping</p></li>
+<li><p><strong>target</strong>: <code class="docutils literal notranslate"><span class="pre">--target</span></code> stage for multi-stage Dockerfiles</p></li>
+<li><p><strong>platform</strong>: <code class="docutils literal notranslate"><span class="pre">--platform</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">linux/amd64</span></code>)</p></li>
+<li><p><strong>network</strong>: <code class="docutils literal notranslate"><span class="pre">--network</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">host</span></code>)</p></li>
+<li><p><strong>cache_from</strong>: <code class="docutils literal notranslate"><span class="pre">--cache-from</span></code> value or list of values; accepts image
+references and full backend specs (e.g. <code class="docutils literal notranslate"><span class="pre">type=registry,ref=...</span></code>,
+<code class="docutils literal notranslate"><span class="pre">type=gha</span></code>, <code class="docutils literal notranslate"><span class="pre">type=local,src=/tmp/.buildx-cache</span></code>)</p></li>
+<li><p><strong>cache_to</strong>: <code class="docutils literal notranslate"><span class="pre">--cache-to</span></code> value or list of values; same backend syntax as
+<code class="docutils literal notranslate"><span class="pre">cache_from</span></code> (BuildKit / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">buildx</span> <span class="pre">build</span></code> only)</p></li>
+<li><p><strong>secrets</strong>: list of raw <code class="docutils literal notranslate"><span class="pre">--secret</span></code> specs (e.g. <code class="docutils literal notranslate"><span class="pre">id=mysecret,src=/run/secret</span></code>)</p></li>
+<li><p><strong>pull</strong>: pass <code class="docutils literal notranslate"><span class="pre">--pull</span></code> to always fetch newer base images</p></li>
+<li><p><strong>no_cache</strong>: pass <code class="docutils literal notranslate"><span class="pre">--no-cache</span></code></p></li>
+<li><p><strong>force</strong>: rebuild even if all provided tags already exist locally</p></li>
+<li><p><strong>builder</strong>: optional name passed via <code class="docutils literal notranslate"><span class="pre">--builder</span></code> to select a buildx
+builder instance (BuildKit only)</p></li>
+<li><p><strong>build_cmd</strong>: command used to invoke the build, defaults to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>;
+set to <code class="docutils literal notranslate"><span class="pre">&quot;docker</span> <span class="pre">buildx</span> <span class="pre">build&quot;</span></code> to force BuildKit</p></li>
+</ul>
+<p>Idempotency is tag-based: when <code class="docutils literal notranslate"><span class="pre">tags</span></code> is provided and <code class="docutils literal notranslate"><span class="pre">force</span></code> is false, the
+operation no-ops if every tag already exists on the target. Without <code class="docutils literal notranslate"><span class="pre">tags</span></code>
+the build always runs (Docker’s own layer cache still applies).</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Build and tag a local context</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Build app image&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;app:1.0&quot;</span><span class="p">,</span> <span class="s2">&quot;app:latest&quot;</span><span class="p">],</span>
+    <span class="n">build_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;VERSION&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">},</span>
+    <span class="n">pull</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># BuildKit cross-platform build from a custom Dockerfile,</span>
+<span class="c1"># using a named buildx builder and a registry cache backend</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Build multi-arch app&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;registry.io/app:arm64&quot;</span><span class="p">,</span>
+    <span class="n">dockerfile</span><span class="o">=</span><span class="s2">&quot;docker/Dockerfile.prod&quot;</span><span class="p">,</span>
+    <span class="n">platform</span><span class="o">=</span><span class="s2">&quot;linux/arm64&quot;</span><span class="p">,</span>
+    <span class="n">build_cmd</span><span class="o">=</span><span class="s2">&quot;docker buildx build&quot;</span><span class="p">,</span>
+    <span class="n">builder</span><span class="o">=</span><span class="s2">&quot;multiarch&quot;</span><span class="p">,</span>
+    <span class="n">cache_from</span><span class="o">=</span><span class="s2">&quot;type=registry,ref=registry.io/app:cache&quot;</span><span class="p">,</span>
+    <span class="n">cache_to</span><span class="o">=</span><span class="s2">&quot;type=registry,ref=registry.io/app:cache,mode=max&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="docker-compose">
+<span id="operations-docker-compose"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.compose</span></code><a class="headerlink" href="#docker-compose" title="Link to this heading">¶</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Stateless operation</p>
+<p>This operation will always execute commands and is not idempotent.</p>
+</div>
+<p>Deploy a Docker Compose stack on the target.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+     <span class="n">project_directory</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">files</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">project_name</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">pull</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">build</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">force_recreate</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">remove_orphans</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">remove_volumes</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">compose_command</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;docker compose&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>project_directory</strong>: project directory on the target (maps to
+<code class="docutils literal notranslate"><span class="pre">--project-directory</span></code>). Compose discovers <code class="docutils literal notranslate"><span class="pre">compose.yaml</span></code> /
+<code class="docutils literal notranslate"><span class="pre">compose.yml</span></code> / <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> / <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> inside
+this directory by default.</p></li>
+<li><p><strong>files</strong>: optional path or list of paths to specific compose file(s) on the
+target (maps to <code class="docutils literal notranslate"><span class="pre">-f</span></code>); use this to override the default discovery or to
+layer overrides.</p></li>
+<li><p><strong>project_name</strong>: compose project name (maps to <code class="docutils literal notranslate"><span class="pre">--project-name</span></code>; defaults
+to compose’s own default — typically the basename of <code class="docutils literal notranslate"><span class="pre">project_directory</span></code>)</p></li>
+<li><p><strong>present</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code> runs <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">-d</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code> runs <code class="docutils literal notranslate"><span class="pre">down</span></code></p></li>
+<li><p><strong>pull</strong>: policy for <code class="docutils literal notranslate"><span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--pull</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;always&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;missing&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;never&quot;</span></code>)</p></li>
+<li><p><strong>build</strong>: pass <code class="docutils literal notranslate"><span class="pre">--build</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code></p></li>
+<li><p><strong>force_recreate</strong>: pass <code class="docutils literal notranslate"><span class="pre">--force-recreate</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code></p></li>
+<li><p><strong>remove_orphans</strong>: pass <code class="docutils literal notranslate"><span class="pre">--remove-orphans</span></code> on <code class="docutils literal notranslate"><span class="pre">up</span></code> / <code class="docutils literal notranslate"><span class="pre">down</span></code></p></li>
+<li><p><strong>remove_volumes</strong>: pass <code class="docutils literal notranslate"><span class="pre">-v</span></code> on <code class="docutils literal notranslate"><span class="pre">down</span></code> (only honored when <code class="docutils literal notranslate"><span class="pre">present=False</span></code>)</p></li>
+<li><p><strong>compose_command</strong>: compose binary to invoke; use <code class="docutils literal notranslate"><span class="pre">&quot;docker-compose&quot;</span></code> for v1</p></li>
+</ul>
+<p>This operation is not idempotent from pyinfra’s perspective: it always shells out
+to compose. Docker itself skips services whose definition has not changed, so
+re-runs are safe and cheap.</p>
+<p><code class="docutils literal notranslate"><span class="pre">_env</span></code> and <code class="docutils literal notranslate"><span class="pre">_chdir</span></code> are the standard pyinfra global operation kwargs and
+work here without any special handling, which is useful for compose variable
+interpolation.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span><span class="p">,</span> <span class="n">files</span>
+
+<span class="c1"># Upload the compose file then bring the stack up using compose&#39;s</span>
+<span class="c1"># default discovery (looks for compose.yaml / docker-compose.yml in</span>
+<span class="c1"># the project directory)</span>
+<span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Upload compose file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;files/docker-compose.yml&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/srv/app/docker-compose.yml&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app stack&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">,</span>
+    <span class="n">_env</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;DIR_STORAGE&quot;</span><span class="p">:</span> <span class="s2">&quot;/srv/app/data&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Layer a base compose file with an override</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app stack with override&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;docker-compose.yml&quot;</span><span class="p">,</span> <span class="s2">&quot;docker-compose.prod.yml&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Tear the stack down, including named volumes</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove app stack&quot;</span><span class="p">,</span>
+    <span class="n">project_directory</span><span class="o">=</span><span class="s2">&quot;/srv/app&quot;</span><span class="p">,</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">remove_volumes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
 <section id="docker-container">
 <span id="operations-docker-container"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.container</span></code><a class="headerlink" href="#docker-container" title="Link to this heading">¶</a></h2>
 <p>Manage Docker containers</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
-    <span class="n">container</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">networks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">env_vars</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env_files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pull_always</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">restart_policy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">auto_remove</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">container</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">image</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">ports</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">networks</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">volumes</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">env_vars</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">env_files</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">labels</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">pull_always</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">start</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">restart_policy</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">mounts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">privileged</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">hostname</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">entrypoint</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cpus</span><span class="p">:</span> <span class="s1">&#39;float | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">memory</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_args</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dns</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">command</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -214,7 +408,16 @@ as inventory directly.</p>
 <li><p><strong>start</strong>: start or stop the container</p></li>
 <li><p><strong>restart_policy</strong>: restart policy to apply when a container exits</p></li>
 <li><p><strong>auto_remove</strong>: automatically remove the container and its associated anonymous volumes when it exits</p></li>
+<li><p><strong>mounts</strong>: list of <code class="docutils literal notranslate"><span class="pre">--mount</span></code> specifications (e.g. <code class="docutils literal notranslate"><span class="pre">type=bind,source=/src,target=/app</span></code>)</p></li>
+<li><p><strong>privileged</strong>: give extended privileges to the container</p></li>
+<li><p><strong>hostname</strong>: container hostname</p></li>
+<li><p><strong>entrypoint</strong>: override the default entrypoint</p></li>
+<li><p><strong>user</strong>: username or UID to run as</p></li>
+<li><p><strong>cpus</strong>: number of CPUs (e.g. <code class="docutils literal notranslate"><span class="pre">1.5</span></code>)</p></li>
+<li><p><strong>memory</strong>: memory limit (e.g. <code class="docutils literal notranslate"><span class="pre">512m</span></code>, <code class="docutils literal notranslate"><span class="pre">1g</span></code>)</p></li>
+<li><p><strong>extra_args</strong>: list of additional raw arguments passed to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">container</span> <span class="pre">create</span></code></p></li>
 <li><p><strong>dns</strong>: list of dns servers to be used by the container</p></li>
+<li><p><strong>command</strong>: custom command to run on container start</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
@@ -233,6 +436,21 @@ as inventory directly.</p>
     <span class="n">auto_remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="c1"># Run a container with mounts and resource limits</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy app container&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="s2">&quot;myapp:latest&quot;</span><span class="p">,</span>
+    <span class="n">mounts</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;type=bind,source=/host/data,target=/app/data&quot;</span><span class="p">],</span>
+    <span class="n">privileged</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">hostname</span><span class="o">=</span><span class="s2">&quot;myapp-host&quot;</span><span class="p">,</span>
+    <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;1000:1000&quot;</span><span class="p">,</span>
+    <span class="n">cpus</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;512m&quot;</span><span class="p">,</span>
+    <span class="n">extra_args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--cap-add&quot;</span><span class="p">,</span> <span class="s2">&quot;NET_ADMIN&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
 <span class="c1"># Stop a container</span>
 <span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Stop Nginx container&quot;</span><span class="p">,</span>
@@ -246,17 +464,27 @@ as inventory directly.</p>
     <span class="n">container</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
     <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="c1"># Run a custom command on container start</span>
+<span class="c1"># Note: you can omit the shell (sh -c) to use the default shell of the container</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">container</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run a custom command&quot;</span><span class="p">,</span>
+    <span class="n">container</span><span class="o">=</span><span class="s2">&quot;alpine&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;sh -c &#39;echo Whatever you want&#39;&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="docker-image">
 <span id="operations-docker-image"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.image</span></code><a class="headerlink" href="#docker-image" title="Link to this heading">¶</a></h2>
 <p>Manage Docker images</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -280,20 +508,105 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="docker-login">
+<span id="operations-docker-login"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.login</span></code><a class="headerlink" href="#docker-login" title="Link to this heading">¶</a></h2>
+<p>Log in to a Docker registry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>username</strong>: username to authenticate with</p></li>
+<li><p><strong>password</strong>: password to authenticate with</p></li>
+<li><p><strong>server</strong>: registry server to log in to (defaults to Docker Hub)</p></li>
+<li><p><strong>force</strong>: log in even if <code class="docutils literal notranslate"><span class="pre">~/.docker/config.json</span></code> already has an entry for the server</p></li>
+</ul>
+<p>Idempotency is checked against the <code class="docutils literal notranslate"><span class="pre">auths</span></code> section of
+<code class="docutils literal notranslate"><span class="pre">${DOCKER_CONFIG:-$HOME/.docker}/config.json</span></code>: if the server is already
+present, the operation is a no-op. Use <code class="docutils literal notranslate"><span class="pre">force=True</span></code> to re-run <code class="docutils literal notranslate"><span class="pre">docker</span>
+<span class="pre">login</span></code> (e.g. after rotating credentials).</p>
+<p>The password is piped to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span> <span class="pre">--password-stdin</span></code> so it is not
+exposed on the command line, and is masked in pyinfra’s command log.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Log in to a private registry</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log in to private registry&quot;</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">=</span><span class="s2">&quot;myregistry.io:5000&quot;</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="s2">&quot;ci&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;s3cret&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Log in to Docker Hub</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">login</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log in to Docker Hub&quot;</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="s2">&quot;ci&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;s3cret&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="docker-logout">
+<span id="operations-docker-logout"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.logout</span></code><a class="headerlink" href="#docker-logout" title="Link to this heading">¶</a></h2>
+<p>Log out of a Docker registry.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">server</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>server</strong>: registry server to log out of (defaults to Docker Hub)</p></li>
+</ul>
+<p>No-ops when the server is not present in
+<code class="docutils literal notranslate"><span class="pre">${DOCKER_CONFIG:-$HOME/.docker}/config.json</span></code>.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">docker</span>
+
+<span class="c1"># Log out of a private registry</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log out of private registry&quot;</span><span class="p">,</span>
+    <span class="n">server</span><span class="o">=</span><span class="s2">&quot;myregistry.io:5000&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Log out of Docker Hub</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">logout</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Log out of Docker Hub&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="docker-network">
 <span id="operations-docker-network"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.network</span></code><a class="headerlink" href="#docker-network" title="Link to this heading">¶</a></h2>
 <p>Manage docker networks</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">network</span><span class="p">(</span>
-    <span class="n">network</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">gateway</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ip_range</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ipam_driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">subnet</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">aux_addresses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">opts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ipam_opts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ingress</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">attachable</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">network</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">driver</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">gateway</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">ip_range</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">ipam_driver</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">subnet</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">scope</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">aux_addresses</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">opts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">ipam_opts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">labels</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">ingress</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">attachable</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -322,17 +635,21 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="docker-plugin">
 <span id="operations-docker-plugin"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.plugin</span></code><a class="headerlink" href="#docker-plugin" title="Link to this heading">¶</a></h2>
 <p>Manage Docker plugins</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">plugin</span><span class="p">(</span>
-    <span class="n">plugin</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">alias</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">plugin_options</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">plugin</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">alias</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">plugin_options</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -355,10 +672,10 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="docker-prune">
 <span id="operations-docker-prune"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.prune</span></code><a class="headerlink" href="#docker-prune" title="Link to this heading">¶</a></h2>
@@ -367,7 +684,9 @@ as inventory directly.</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Execute a docker system prune.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="nb">all</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="nb">all</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">volumes</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -395,15 +714,21 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="docker-volume">
 <span id="operations-docker-volume"></span><h2><code class="code docutils literal notranslate"><span class="pre">docker.volume</span></code><a class="headerlink" href="#docker-volume" title="Link to this heading">¶</a></h2>
 <p>Manage Docker volumes</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">driver</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span>
+     <span class="n">volume</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">driver</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">labels</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -421,10 +746,10 @@ as inventory directly.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

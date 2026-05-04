@@ -122,11 +122,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#files-rsync"><code class="code docutils literal notranslate"><span class="pre">files.rsync</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-sync"><code class="code docutils literal notranslate"><span class="pre">files.sync</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-template"><code class="code docutils literal notranslate"><span class="pre">files.template</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#files-unarchive"><code class="code docutils literal notranslate"><span class="pre">files.unarchive</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -151,6 +154,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
@@ -197,10 +201,19 @@
 <span id="operations-files-block"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.block</span></code><a class="headerlink" href="#files-block" title="Link to this heading">¶</a></h2>
 <p>Ensure content, surrounded by the appropriate markers, is present (or not) in the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">try_prevent_shell_expansion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">before</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">end</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">content</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">line</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">try_prevent_shell_expansion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">before</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">after</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">marker</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">begin</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">end</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -278,15 +291,17 @@ WARNING: This will break if the content contains raw single quotes.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-copy">
 <span id="operations-files-copy"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.copy</span></code><a class="headerlink" href="#files-copy" title="Link to this heading">¶</a></h2>
 <p>Copy remote file/directory/link into remote directory</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -294,18 +309,27 @@ WARNING: This will break if the content contains raw single quotes.</p>
 <li><p><strong>dest</strong>: remote directory to copy <cite>src</cite> into</p></li>
 <li><p><strong>overwrite</strong>: whether to overwrite dest, if present</p></li>
 </ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-directory">
 <span id="operations-files-directory"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.directory</span></code><a class="headerlink" href="#files-directory" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">directory</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">force_backup_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">_no_check_owner_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">_no_fail_on_link</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -349,21 +373,34 @@ the whole tree.</p>
     <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-download">
 <span id="operations-files-download"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.download</span></code><a class="headerlink" href="#files-download" title="Link to this heading">¶</a></h2>
 <p>Download files from remote locations using <code class="docutils literal notranslate"><span class="pre">curl</span></code> or <code class="docutils literal notranslate"><span class="pre">wget</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">cache_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sha384sum</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">sha256sum</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sha1sum</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">md5sum</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">headers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">temp_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra_curl_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">extra_wget_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">cache_time</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">sha384sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">sha256sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">sha1sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">md5sum</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">headers</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">insecure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">proxy</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">limit_rate</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">temp_dir</span><span class="p">:</span> <span class="s1">&#39;str | Path | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_curl_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_wget_args</span><span class="p">:</span> <span class="s1">&#39;dict[str, str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -382,6 +419,7 @@ the whole tree.</p>
 <li><p><strong>headers</strong>: optional dictionary of headers to set for the HTTP request</p></li>
 <li><p><strong>insecure</strong>: disable SSL verification for the HTTP request</p></li>
 <li><p><strong>proxy</strong>: simple HTTP proxy through which we can download files, form <cite>http://&lt;yourproxy&gt;:&lt;port&gt;</cite></p></li>
+<li><p><strong>limit_rate</strong>: cap the download bandwidth, accepts the curl/wget format (e.g. <code class="docutils literal notranslate"><span class="pre">1M</span></code>, <code class="docutils literal notranslate"><span class="pre">500k</span></code>)</p></li>
 <li><p><strong>temp_dir</strong>: use this custom temporary directory during the download</p></li>
 <li><p><strong>extra_curl_args</strong>: optional dictionary with custom arguments for curl</p></li>
 <li><p><strong>extra_wget_args</strong>: optional dictionary with custom arguments for wget</p></li>
@@ -395,18 +433,26 @@ the whole tree.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-file">
 <span id="operations-files-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.file</span></code><a class="headerlink" href="#files-file" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">touch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">touch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -441,15 +487,17 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-flags">
 <span id="operations-files-flags"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.flags</span></code><a class="headerlink" href="#files-flags" title="Link to this heading">¶</a></h2>
 <p>Set/clear file flags.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">flags</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -474,10 +522,10 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-get">
 <span id="operations-files-get"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.get</span></code><a class="headerlink" href="#files-get" title="Link to this heading">¶</a></h2>
@@ -486,7 +534,9 @@ if this is required call <code class="docutils literal notranslate"><span class=
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Download a file from the remote system.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_local_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_local_dir</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -509,18 +559,25 @@ the remote file before downloading it.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-line">
 <span id="operations-files-line"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.line</span></code><a class="headerlink" href="#files-line" title="Link to this heading">¶</a></h2>
 <p>Ensure lines in files using grep to locate and sed to replace.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ensure_newline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">line</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">replace</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">ensure_newline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -598,18 +655,26 @@ line in case the file doesn’t end with a newline character.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-link">
 <span id="operations-files-link"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.link</span></code><a class="headerlink" href="#files-link" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update links.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">link</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_backup_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">symbolic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">force_backup</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force_backup_dir</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -642,15 +707,17 @@ recreate a new one pointing to then new target.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-move">
 <span id="operations-files-move"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.move</span></code><a class="headerlink" href="#files-move" title="Link to this heading">¶</a></h2>
 <p>Move remote file/directory/link into remote directory</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -658,19 +725,27 @@ recreate a new one pointing to then new target.</p>
 <li><p><strong>dest</strong>: remote directory to move <cite>src</cite> into</p></li>
 <li><p><strong>overwrite</strong>: whether to overwrite dest, if present</p></li>
 </ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-put">
 <span id="operations-files-put"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.put</span></code><a class="headerlink" href="#files-put" title="Link to this heading">¶</a></h2>
 <p>Upload a local file, or file-like object, to the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atime</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mtime</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | IO[Any]&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">create_remote_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">assume_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">atime</span><span class="p">:</span> <span class="s1">&#39;datetime | float | int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mtime</span><span class="p">:</span> <span class="s1">&#39;datetime | float | int | str | bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -741,17 +816,23 @@ reading and checksumming the file will cause the host OS to update the file’s
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-replace">
 <span id="operations-files-replace"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.replace</span></code><a class="headerlink" href="#files-replace" title="Link to this heading">¶</a></h2>
 <p>Replace contents of a file using <code class="docutils literal notranslate"><span class="pre">sed</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">replace</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">match</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -778,10 +859,10 @@ you pass a string value this will be used as the extension of the backed up file
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-rsync">
 <span id="operations-files-rsync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.rsync</span></code><a class="headerlink" href="#files-rsync" title="Link to this heading">¶</a></h2>
@@ -791,7 +872,9 @@ you pass a string value this will be used as the extension of the backed up file
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">rsync</span></code> to sync a local directory to the remote system. This operation will actually call
 the <code class="docutils literal notranslate"><span class="pre">rsync</span></code> binary on your system.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -805,20 +888,27 @@ StrictHostKeyChecking setting, config and known_hosts file (when specified).</p>
 <p>When using SSH, the <code class="docutils literal notranslate"><span class="pre">files.rsync</span></code> operation only supports the <code class="docutils literal notranslate"><span class="pre">sudo</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo_user</span></code>
 global arguments.</p>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-sync">
 <span id="operations-files-sync"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.sync</span></code><a class="headerlink" href="#files-sync" title="Link to this heading">¶</a></h2>
 <p>Syncs a local directory with a remote one, with delete support. Note that delete will
 remove extra files and symlinks on the remote side, but not extra directories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">dir_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">exclude</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">exclude_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">dir_mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">exclude</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | tuple[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">exclude_dir</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | tuple[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">add_deploy_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -857,17 +947,25 @@ can be done for example with <code class="docutils literal notranslate"><span cl
 preserving the link target as-is (relative or absolute). Symlinked directories are not
 traversed. When <code class="docutils literal notranslate"><span class="pre">delete=True</span></code>, remote symlinks not present locally are also removed.</p>
 </dd>
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="files-template">
 <span id="operations-files-template"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.template</span></code><a class="headerlink" href="#files-template" title="Link to this heading">¶</a></h2>
 <p>Generate a template using jinja2 and write it to the remote system.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">IO</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_remote_dir</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">jinja_env_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | IO[Any]&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">create_remote_dir</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">jinja_env_kwargs</span><span class="p">:</span> <span class="s1">&#39;dict[str, Any] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">data</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -890,8 +988,9 @@ a dict with arguments that will be passed as keyword args to the jinja2
 <a class="reference external" href="https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment">Environment()</a>.</p>
 </dd>
 </dl>
-<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template
-if not set explicitly.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, and <code class="docutils literal notranslate"><span class="pre">inventory</span></code> objects will be automatically passed to the template.
+To pass additional data or variables, explicitly add them as keyword arguments to the operation
+call itself.</p>
 <dl>
 <dt>Notes:</dt><dd><p>Common convention is to store templates in a “templates” directory and
 have a filename suffix with ‘.j2’ (for jinja2).</p>
@@ -917,8 +1016,16 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">group</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Example showing how to pass python variable to template file. You can also</span>
-<span class="c1"># use dicts and lists. The .j2 file can use `{{ foo_variable }}` to be interpolated.</span>
+<span class="c1"># You can use a (local) file path or an IO-like object as src:</span>
+<span class="n">files</span><span class="o">.</span><span class="n">template</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a templated file&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;This is a template file content&quot;</span><span class="p">),</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/etc/somefile.conf&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># To pass variables to the template file, just add them to the operation call.</span>
+<span class="c1"># You can also use dicts and lists. The .j2 file can use `{{ foo_variable }}`</span>
+<span class="c1"># to interpolate them:</span>
 <span class="n">foo_variable</span> <span class="o">=</span> <span class="s1">&#39;This is some foo variable contents&#39;</span>
 <span class="n">foo_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;str1&quot;</span><span class="p">:</span> <span class="s2">&quot;This is string 1&quot;</span><span class="p">,</span>
@@ -949,7 +1056,8 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
     <span class="n">foo_list</span><span class="o">=</span><span class="n">foo_list</span>
 <span class="p">)</span>
 
-<span class="c1"># Example showing how to use host and inventory in a template file.</span>
+<span class="c1"># Host, state and inventory are automatically passed to the template,</span>
+<span class="c1"># no need to explicitly pass them in the operation call:</span>
 <span class="n">template</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">name: &quot;{{ host.name }}&quot;</span>
 <span class="s2">list_contents:</span>
@@ -965,10 +1073,62 @@ have a filename suffix with ‘.j2’ (for jinja2).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="files-unarchive">
+<span id="operations-files-unarchive"></span><h2><code class="code docutils literal notranslate"><span class="pre">files.unarchive</span></code><a class="headerlink" href="#files-unarchive" title="Link to this heading">¶</a></h2>
+<p>Extract archive files on the remote system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">remote_src</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">creates</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_opts</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>src</strong>: path to the archive file (local or remote depending on <code class="docutils literal notranslate"><span class="pre">remote_src</span></code>)</p></li>
+<li><p><strong>dest</strong>: remote directory to extract into (must exist)</p></li>
+<li><p><strong>remote_src</strong>: set to <code class="docutils literal notranslate"><span class="pre">True</span></code> if the archive is already on the remote system</p></li>
+<li><p><strong>creates</strong>: if this path already exists, the operation is skipped (idempotency)</p></li>
+<li><p><strong>extra_opts</strong>: list of additional arguments to pass to the extract command</p></li>
+<li><p><strong>user</strong>: user to own the extracted files</p></li>
+<li><p><strong>group</strong>: group to own the extracted files</p></li>
+</ul>
 <dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+<dt>Supported formats:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">.tar</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code>/<code class="docutils literal notranslate"><span class="pre">.tgz</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.bz2</span></code>/<code class="docutils literal notranslate"><span class="pre">.tbz2</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.tar.xz</span></code>/<code class="docutils literal notranslate"><span class="pre">.txz</span></code>, <code class="docutils literal notranslate"><span class="pre">.tar.zst</span></code>, <code class="docutils literal notranslate"><span class="pre">.zip</span></code></p>
 </dd>
 </dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract a remote archive</span>
+<span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Extract app tarball&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;/tmp/app.tar.gz&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+    <span class="n">remote_src</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Upload and extract a local archive</span>
+<span class="n">files</span><span class="o">.</span><span class="n">unarchive</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deploy release&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;releases/app-v1.0.tar.gz&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/opt/app&quot;</span><span class="p">,</span>
+    <span class="n">creates</span><span class="o">=</span><span class="s2">&quot;/opt/app/bin/start&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

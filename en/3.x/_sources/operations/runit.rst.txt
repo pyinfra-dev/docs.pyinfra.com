@@ -16,13 +16,16 @@ Start service automatically by managing the ``service/down`` file.
 
 .. code:: python
 
-    runit.auto(service: str, auto: bool=True, sourcedir: str="/etc/sv", **kwargs)
+    runit.auto(service: 'str', auto: 'bool' = True, sourcedir: 'str' = '/etc/sv',
+         **kwargs,
+    )
 
 + **service**: name of the service to manage
 + **auto**: whether the service should start automatically
 + **sourcedir**: where to search for available services
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:runit.manage:
@@ -35,16 +38,20 @@ Manage runit svdir links.
 .. code:: python
 
     runit.manage(
-        service: str, managed: bool=True, svdir: str="/var/service", sourcedir: str="/etc/sv",
-        **kwargs,
+         service: 'str',
+         managed: 'bool' = True,
+         svdir: 'str' = '/var/service',
+         sourcedir: 'str' = '/etc/sv',
+         **kwargs,
     )
 
 + **service**: name of the service to manage
 + **managed**: whether the link should exist
 + **svdir**: alternative ``SVDIR``
 + **sourcedir**: where to search for available services
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:runit.service:
@@ -57,9 +64,16 @@ Manage the state of runit services.
 .. code:: python
 
     runit.service(
-        service: str, running: bool=True, restarted: bool=False, reloaded: bool=False,
-        command: Optional[str]=None, enabled: Optional[bool]=None, managed: bool=True,
-        svdir: str="/var/service", sourcedir: str="/etc/sv", **kwargs,
+         service: 'str',
+         running: 'bool' = True,
+         restarted: 'bool' = False,
+         reloaded: 'bool' = False,
+         command: 'Optional[str]' = None,
+         enabled: 'Optional[bool]' = None,
+         managed: 'bool' = True,
+         svdir: 'str' = '/var/service',
+         sourcedir: 'str' = '/etc/sv',
+         **kwargs,
     )
 
 + **service**: name of the service to manage
@@ -85,8 +99,9 @@ Manage the state of runit services.
 
   An alternative directory for available services can be specified.
   Example: ``sourcedir=/etc/sv.local`` for services managed by the administrator.
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:runit.wait_runsv:
@@ -104,11 +119,14 @@ Wait for runsv for ``service`` to be available.
 
 .. code:: python
 
-    runit.wait_runsv(service: str, svdir: str="/var/service", timeout: int=10, **kwargs)
+    runit.wait_runsv(service: 'str', svdir: 'str' = '/var/service', timeout: 'int' = 10,
+         **kwargs,
+    )
 
 + **service**: name of the service to manage
 + **svdir**: alternative ``SVDIR``
 + **timeout**: time in seconds to wait
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

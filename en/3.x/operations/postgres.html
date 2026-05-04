@@ -108,8 +108,10 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -141,6 +143,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
@@ -199,11 +202,21 @@
 <span id="operations-postgres-database"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.database</span></code><a class="headerlink" href="#postgres-database" title="Link to this heading">¶</a></h2>
 <p>Add/remove PostgreSQL databases.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">database</span><span class="p">(</span>
-    <span class="n">database</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_collate</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lc_ctype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">tablespace</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connection_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">database</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">owner</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">template</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">encoding</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">lc_collate</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">lc_ctype</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">tablespace</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">connection_limit</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_host</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_port</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_database</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -234,10 +247,10 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="postgres-dump">
 <span id="operations-postgres-dump"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.dump</span></code><a class="headerlink" href="#postgres-dump" title="Link to this heading">¶</a></h2>
@@ -247,9 +260,13 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 </div>
 <p>Dump a PostgreSQL database into a <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file. Requires <code class="docutils literal notranslate"><span class="pre">pg_dump</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">psql_user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_host</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_port</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_database</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -265,10 +282,10 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="postgres-load">
 <span id="operations-postgres-load"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.load</span></code><a class="headerlink" href="#postgres-load" title="Link to this heading">¶</a></h2>
@@ -278,9 +295,13 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 </div>
 <p>Load <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file into a database.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">psql_user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_host</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_port</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_database</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -296,20 +317,31 @@ changeable (template, encoding, lc_collate and lc_ctype).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="postgres-role">
 <span id="operations-postgres-role"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.role</span></code><a class="headerlink" href="#postgres-role" title="Link to this heading">¶</a></h2>
 <p>Add/remove PostgreSQL roles.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">role</span><span class="p">(</span>
-    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">login</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">superuser</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inherit</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createdb</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">createrole</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">replication</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">connection_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">role</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">login</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">superuser</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">inherit</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">createdb</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">createrole</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">replication</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">connection_limit</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_host</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_port</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_database</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -344,10 +376,10 @@ operation will make no changes).</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="postgres-sql">
 <span id="operations-postgres-sql"></span><h2><code class="code docutils literal notranslate"><span class="pre">postgres.sql</span></code><a class="headerlink" href="#postgres-sql" title="Link to this heading">¶</a></h2>
@@ -357,9 +389,13 @@ operation will make no changes).</p>
 </div>
 <p>Execute arbitrary SQL against PostgreSQL.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">psql_user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">psql_host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">psql_database</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">sql</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">psql_user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_password</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_host</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_port</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">psql_database</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -367,10 +403,10 @@ operation will make no changes).</p>
 <li><p><strong>sql</strong>: SQL command(s) to execute</p></li>
 <li><p><strong>psql_*</strong>: global module arguments, see above</p></li>
 </ul>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

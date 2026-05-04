@@ -115,8 +115,10 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html">Docker Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Files Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatpak.html">Flatpak Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="freebsd.html">Freebsd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gem.html">Gem Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpg.html">Gpg Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iptables.html">Iptables Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="launchd.html">Launchd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lxd.html">Lxd Operations</a></li>
@@ -141,6 +143,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Operations</a></li>
@@ -190,7 +193,9 @@
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Add dnf gpg keys with <code class="docutils literal notranslate"><span class="pre">rpm</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -211,18 +216,24 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="dnf-packages">
 <span id="operations-dnf-packages"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.packages</span></code><a class="headerlink" href="#dnf-packages" title="Link to this heading">¶</a></h2>
 <p>Install/remove/update dnf packages &amp; updates.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">packages</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nobest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extra_install_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">extra_uninstall_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">packages</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">latest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">nobest</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">extra_install_args</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">extra_uninstall_args</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -256,17 +267,23 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="dnf-repo">
 <span id="operations-dnf-repo"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.repo</span></code><a class="headerlink" href="#dnf-repo" title="Link to this heading">¶</a></h2>
 <p>Add/remove/update dnf repositories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">baseurl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gpgcheck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gpgkey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+     <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">baseurl</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">description</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">gpgcheck</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="n">gpgkey</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -300,15 +317,17 @@ install remote repository files.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="dnf-rpm">
 <span id="operations-dnf-rpm"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.rpm</span></code><a class="headerlink" href="#dnf-rpm" title="Link to this heading">¶</a></h2>
 <p>Add/remove <code class="docutils literal notranslate"><span class="pre">.rpm</span></code> file packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">rpm</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -328,10 +347,10 @@ package as the file won’t exist until mid-deploy.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 <section id="dnf-update">
 <span id="operations-dnf-update"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.update</span></code><a class="headerlink" href="#dnf-update" title="Link to this heading">¶</a></h2>
@@ -340,13 +359,13 @@ package as the file won’t exist until mid-deploy.</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Updates all dnf packages.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">update</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>Note:</dt><dd><p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
-</dd>
-</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
 </section>
 </section>
 

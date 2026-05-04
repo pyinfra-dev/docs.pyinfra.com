@@ -14,10 +14,16 @@ Install/remove/update zypper packages & updates.
 .. code:: python
 
     zypper.packages(
-        packages: str | list[str] | None=None, present=True, latest=False, update=False,
-        clean=False, extra_global_install_args: str | None=None,
-        extra_install_args: str | None=None, extra_global_uninstall_args: str | None=None,
-        extra_uninstall_args: str | None=None, **kwargs,
+         packages: 'str | list[str] | None' = None,
+         present=True,
+         latest=False,
+         update=False,
+         clean=False,
+         extra_global_install_args: 'str | None' = None,
+         extra_install_args: 'str | None' = None,
+         extra_global_uninstall_args: 'str | None' = None,
+         extra_uninstall_args: 'str | None' = None,
+         **kwargs,
     )
 
 + **packages**: list of packages to ensure
@@ -50,8 +56,9 @@ Versions:
         packages=["vim"],
         latest=True,
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:zypper.repo:
@@ -64,8 +71,15 @@ Add/remove/update zypper repositories.
 .. code:: python
 
     zypper.repo(
-        src, baseurl=None, present=True, description=None, enabled=True, gpgcheck=True,
-        gpgkey=None, type="rpm-md", **kwargs,
+         src,
+         baseurl=None,
+         present=True,
+         description=None,
+         enabled=True,
+         gpgcheck=True,
+         gpgkey=None,
+         type='rpm-md',
+         **kwargs,
     )
 
 + **src**: URL or name for the ``.repo``   file
@@ -99,8 +113,9 @@ Add/remove/update zypper repositories.
         src=="Virtualization:containers (openSUSE_Tumbleweed)",
         baseurl="https://download.opensuse.org/repositories/Virtualization:/containers/openSUSE_Tumbleweed/",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:zypper.rpm:
@@ -112,7 +127,9 @@ Add/remove ``.rpm`` file packages.
 
 .. code:: python
 
-    zypper.rpm(src, present=True, **kwargs)
+    zypper.rpm(src, present=True,
+         **kwargs,
+    )
 
 + **src**: filename or URL of the ``.rpm`` package
 + **present**: whether ore not the package should exist on the system
@@ -129,8 +146,9 @@ URL sources with ``present=False``:
        name="Install task from rpm",
        src="https://github.com/go-task/task/releases/download/v2.8.1/task_linux_amd64.rpm",
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:zypper.update:
@@ -148,7 +166,8 @@ Updates all zypper packages.
 
 .. code:: python
 
-    zypper.update(**kwargs)
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+    zypper.update**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 

@@ -142,11 +142,11 @@
 <p>With the exception of <code class="docutils literal notranslate"><span class="pre">name</span></code> these are prefixed with <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid clashes with other operation and deploy arguments.</p>
 </div>
 <section id="privilege-user-escalation">
-<h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Link to this heading">¶</a></h2>
+<span id="arguments-privilege-user-escalation"></span><h2>Privilege &amp; user escalation<a class="headerlink" href="#privilege-user-escalation" title="Link to this heading">¶</a></h2>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>When combining privilege escalation arguments it is important to know the order they
-are applied: <code class="docutils literal notranslate"><span class="pre">doas</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sudo</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">su</span></code>. For example
+are applied: <code class="docutils literal notranslate"><span class="pre">doas</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">dzdo</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">sudo</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">su</span></code>. For example
 <code class="docutils literal notranslate"><span class="pre">_sudo=True,_su_user=&quot;pyinfra&quot;</span></code> yields a command like <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">pyinfra..</span></code>.</p>
 </div>
 <table class="table table-bordered">
@@ -224,6 +224,16 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 <td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
 <td></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_dzdo</span></code></p></td>
+<td><p>Execute/apply any changes with dzdo.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_dzdo_user</span></code></p></td>
+<td><p>Execute/apply any changes with dzdo as a non-root user.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
@@ -245,7 +255,7 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 </div>
 </section>
 <section id="shell-control-features">
-<h2>Shell control &amp; features<a class="headerlink" href="#shell-control-features" title="Link to this heading">¶</a></h2>
+<span id="arguments-shell-control-features"></span><h2>Shell control &amp; features<a class="headerlink" href="#shell-control-features" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
 <col style="width: 25.0%" />
@@ -314,7 +324,7 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 </div>
 </section>
 <section id="operation-meta-callbacks">
-<h2>Operation meta &amp; callbacks<a class="headerlink" href="#operation-meta-callbacks" title="Link to this heading">¶</a></h2>
+<span id="arguments-operation-meta-callbacks"></span><h2>Operation meta &amp; callbacks<a class="headerlink" href="#operation-meta-callbacks" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
 <col style="width: 25.0%" />
@@ -354,7 +364,7 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 </table>
 </section>
 <section id="execution-strategy">
-<h2>Execution strategy<a class="headerlink" href="#execution-strategy" title="Link to this heading">¶</a></h2>
+<span id="arguments-execution-strategy"></span><h2>Execution strategy<a class="headerlink" href="#execution-strategy" title="Link to this heading">¶</a></h2>
 <table class="table table-bordered">
 <colgroup>
 <col style="width: 25.0%" />
@@ -389,7 +399,7 @@ are applied: <code class="docutils literal notranslate"><span class="pre">doas</
 </table>
 </section>
 <section id="retry-behavior">
-<h2>Retry behavior<a class="headerlink" href="#retry-behavior" title="Link to this heading">¶</a></h2>
+<span id="arguments-retry-behavior"></span><h2>Retry behavior<a class="headerlink" href="#retry-behavior" title="Link to this heading">¶</a></h2>
 <p>Retry arguments allow you to automatically retry operations that fail. You can specify
 how many times to retry, the delay between retries, and optionally a condition
 function to determine when to stop retrying.</p>

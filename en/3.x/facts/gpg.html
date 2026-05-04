@@ -116,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="git.html">Git Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Gpg Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gpg-gpgkey"><code class="code docutils literal notranslate"><span class="pre">gpg.GpgKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gpg-gpgkeyrings"><code class="code docutils literal notranslate"><span class="pre">gpg.GpgKeyrings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gpg-gpgkeys"><code class="code docutils literal notranslate"><span class="pre">gpg.GpgKeys</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gpg-gpgsecretkeys"><code class="code docutils literal notranslate"><span class="pre">gpg.GpgSecretKeys</span></code></a></li>
 </ul>
@@ -144,6 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sysvinit.html">Sysvinit Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upstart.html">Upstart Facts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uv.html">Uv Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vzctl.html">Vzctl Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="xbps.html">Xbps Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="yum.html">Yum Facts</a></li>
@@ -183,6 +185,7 @@
           
   <section id="gpg-facts">
 <h1>Gpg Facts<a class="headerlink" href="#gpg-facts" title="Link to this heading">¶</a></h1>
+<p>See also: <a class="reference internal" href="../operations/gpg.html"><span class="doc">Gpg Operations</span></a>.</p>
 <section id="gpg-gpgkey">
 <span id="facts-gpg-gpgkey"></span><h2><code class="code docutils literal notranslate"><span class="pre">gpg.GpgKey</span></code><a class="headerlink" href="#gpg-gpgkey" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GpgKey</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
@@ -194,6 +197,21 @@
         <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
         <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Oxygem &lt;hello@oxygem.com&gt;&quot;</span>
     <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="gpg-gpgkeyrings">
+<span id="facts-gpg-gpgkeyrings"></span><h2><code class="code docutils literal notranslate"><span class="pre">gpg.GpgKeyrings</span></code><a class="headerlink" href="#gpg-gpgkeyrings" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GpgKeyrings</span><span class="p">,</span> <span class="n">directories</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns information on all GPG keyrings found in specified directories.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;/etc/apt/keyrings/docker.gpg&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;gpg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;keys&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>  <span class="c1"># Same format as GpgKeys fact</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

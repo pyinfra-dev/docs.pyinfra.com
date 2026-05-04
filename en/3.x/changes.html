@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v3-8-0">v3.8.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-7">v3.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6-1">v3.6.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v3-6">v3.6</a></li>
@@ -158,6 +159,90 @@
           
   <section id="changes">
 <h1>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h1>
+<section id="v3-8-0">
+<h2>v3.8.0<a class="headerlink" href="#v3-8-0" title="Link to this heading">¶</a></h2>
+<p>Big release with a lot of fixes and improvements across the board! We’re also switching to full semver (so .0 on the 3.8.0) for this release and others going forward. Thank you to all contributors!</p>
+<p>Core:</p>
+<ul class="simple">
+<li><p>api.command: fix <code class="docutils literal notranslate"><span class="pre">make_formatted_string_command</span></code> adding unwanted spaces between format args (#1610) (&#64;wowi42)</p></li>
+<li><p>api: decouple core API from click by introducing pluggable output functions (#1616) (&#64;wowi42)</p></li>
+</ul>
+<p>Operations/facts:</p>
+<ul class="simple">
+<li><p>operations: expand quoting of user inputs to prevent command injection (#1576) (&#64;wowi42)</p></li>
+<li><p>facts.selinux.FileContext: handle missing SELinux context (#1581) (&#64;wowi42)</p></li>
+<li><p>facts.systemd: ensure that user-mode systemd facts do not fail if user manager is not available (#1604) (&#64;martenlienen)</p></li>
+<li><p>facts.apt.AptSources: add deb822 format support (#1465) (&#64;maisim)</p></li>
+<li><p>operations.files: expand diff output (#1552) (&#64;gwelch-contegix)</p></li>
+<li><p>facts.server: add Ports fact returning all listening ports (#1637) (&#64;wowi42)</p></li>
+<li><p>facts.choco: remove invalid shell_executable on ChocoPackages (#1598) (&#64;wowi42)</p></li>
+<li><p>operations.git.repo: add depth support (#1656) (&#64;bsaussay)</p></li>
+<li><p>operations.docker: add extra parameters (#1593) (&#64;wowi42)</p></li>
+<li><p>operations.selinux.port: fix a bug where the op would not find existing labels if <code class="docutils literal notranslate"><span class="pre">sepolicy</span></code> command was missing from the host (#1654) (&#64;yacoob)</p></li>
+<li><p>operations.server.reboot: survive dead SSH session during askpass cleanup (#1665) (&#64;wowi42)</p></li>
+<li><p>facts.docker: add version, container, image, network detail facts (#1668) (&#64;wowi42)</p></li>
+<li><p>facts.server: add AuthorizedKeys, make user_authorized_keys idempotent (#1670) (&#64;wowi42)</p></li>
+<li><p>facts.crontab: match full crontab(5) env var syntax (#1678) (&#64;wowi42)</p></li>
+<li><p>operations.files: add limit_rate to cap download bandwidth (#1681) (&#64;wowi42)</p></li>
+<li><p>operations.files: add files.unarchive (#1631) (&#64;wowi42)</p></li>
+<li><p>operations.docker: add support for custom command (#1625) (&#64;EricDriussi)</p></li>
+<li><p>facts.{yum,dnf,zypper}: add filename field to each repository entry (#1684) (&#64;wowi42)</p></li>
+<li><p>operations.server: dispatch BSD rc.d before sysvinit in server.service (#1685) (&#64;wowi42)</p></li>
+<li><p>operations.files.download: reconcile mode/user/group on existing files (#1687) (&#64;wowi42)</p></li>
+</ul>
+<p>Connectors:</p>
+<ul class="simple">
+<li><p>connectors.ssh: fix parsing of SSH config file comments (#1574) (&#64;wowi42)</p></li>
+<li><p>connectors: use gevent.subprocess in util for macOS + Python 3.13 compatibility (#1653) (&#64;Yaminyam)</p></li>
+<li><p>connectors: show askpass generation errors (#1628) (&#64;matthijskooijman)</p></li>
+<li><p>connectors.ssh: honor ConnectTimeout through ProxyJump (#1679) (&#64;wowi42)</p></li>
+</ul>
+<p>Docs/meta:</p>
+<ul class="simple">
+<li><p>docs: facts.opkg, operations.opkg - add note about Openwrt switch to apk (#1595) (&#64;morrison12)</p></li>
+<li><p>docs: fix extra trailing comma in operation argument lists (#1596) (&#64;morrison12)</p></li>
+<li><p>docs: fix missing keyword-only args in operations documentation (#1600) (&#64;morrison12)</p></li>
+<li><p>docs: fix <code class="docutils literal notranslate"><span class="pre">generate_operations_docs.py</span></code> and add docs build to CI (#1614) (&#64;wowi42)</p></li>
+<li><p>docs: operations.files - clarify template vars use (#1615) (&#64;EricDriussi)</p></li>
+<li><p>docs: update Python version requirements (#1627) (&#64;pascal-cm)</p></li>
+<li><p>docs: generate fact/operation docs for modules (vs files) (#1606) (&#64;morrison12)</p></li>
+<li><p>docs: clarify group_data/ is file-inventory only (#1696) (&#64;wowi42)</p></li>
+</ul>
+<p>Other:</p>
+<ul class="simple">
+<li><p>facts+operations: add <code class="docutils literal notranslate"><span class="pre">GpgKeyrings</span></code> fact and <code class="docutils literal notranslate"><span class="pre">gpg.*</span></code> operations (#1460) (&#64;maisim)</p></li>
+<li><p>dependencies/paramiko: support paramiko v4, remove DSS key support (#1525) (&#64;5long)</p></li>
+<li><p>operations.server.mount fix not detecting already-mounted devices (#1611) (&#64;wowi42)</p></li>
+<li><p>facts+operations: add uv support (#1500) (&#64;morrison12)</p></li>
+<li><p>meta,api: lazy load fact and operation modules (#1609) (&#64;Dexmachi)</p></li>
+<li><p>facts,operations: migrate <code class="docutils literal notranslate"><span class="pre">shlex.quote</span></code> to <code class="docutils literal notranslate"><span class="pre">StringCommand</span></code> + <code class="docutils literal notranslate"><span class="pre">QuoteString</span></code> everywhere (#1617) (&#64;wowi42)</p></li>
+<li><p>operations+facts: <code class="docutils literal notranslate"><span class="pre">server.Processes</span></code> fact and <code class="docutils literal notranslate"><span class="pre">server.kill</span></code> operation (#1583) (&#64;wowi42)</p></li>
+<li><p>arguments: add <code class="docutils literal notranslate"><span class="pre">dzdo</span></code> support for privilege escalation, including CLI options and configuration. (#1633) (&#64;guinuxbr)</p></li>
+<li><p>zfs: return an empty dict if zfs/zpool commands are not available (#1650) (&#64;yacoob)</p></li>
+<li><p>meta,ci: make ruff checks in ci+dev-lint.sh consistent</p></li>
+<li><p>progress: finish spinner as soon as possible (#1657) (&#64;matthijskooijman)</p></li>
+<li><p>feat: support SSH IdentityAgent config directive (#1630) (&#64;wowi42)</p></li>
+<li><p>security: quote untrusted values in command construction across connectors, operations, and util (#1664) (&#64;wowi42)</p></li>
+<li><p>ci: upgrade default Python to 3.14 (#1667) (&#64;wowi42)</p></li>
+<li><p>fix: Add timeout support in FunctionCommand (#1663) (&#64;Tbruno25)</p></li>
+<li><p>feat: add config.INHERIT_ENV to pass local process env vars to all op… (#1677) (&#64;maisim)</p></li>
+<li><p>Add support for using AI coding agents (#1672) (&#64;DonDebonair)</p></li>
+<li><p>fix(cli): exclude imports from group data (#1676) (&#64;wowi42)</p></li>
+<li><p>fix: scripts/generate_facts_docs: add canonical-name label for re-exported facts (#1686) (&#64;wowi42)</p></li>
+<li><p>fix(operations.git): don’t pull when already up to date (#1690) (&#64;wowi42)</p></li>
+<li><p>feat(facts): add requires_command guard sentinel and check_preconditions() hook (&#64;maisim)</p></li>
+<li><p>feat(facts.zfs): add check_preconditions for ZfsDatasets and update command method (&#64;maisim)</p></li>
+<li><p>feat(operations.docker): add login/logout operations (#1694) (&#64;wowi42)</p></li>
+<li><p>feat(operations.docker): add compose operation (#1693) (&#64;wowi42)</p></li>
+<li><p>feat(operations.docker): add build operation (#1695) (&#64;wowi42)</p></li>
+<li><p>operations/facts: modernize apt.key to replace deprecated apt-key command (&#64;maisim)</p></li>
+<li><p>chore: make Claude use modern type hints (#1692) (&#64;DonDebonair)</p></li>
+<li><p>feat(apt): add purge option to apt.packages (closes #1698) (#1702) (&#64;mvanhorn)</p></li>
+<li><p>fix(facts): add semicolons to TmpDir shell script for sh -c compatibility (#1703) (&#64;wucm667)</p></li>
+<li><p>fix(operations.server): normalize sysctl value for comparison (#1706) (&#64;wowi42)</p></li>
+<li><p>feat: add PR review skill (#1683)</p></li>
+</ul>
+</section>
 <section id="v3-7">
 <h2>v3.7<a class="headerlink" href="#v3-7" title="Link to this heading">¶</a></h2>
 <p>Thank you to all contributors - particular shout out to &#64;wowi42 for an incredible run of PRs!</p>

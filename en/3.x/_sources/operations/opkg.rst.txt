@@ -6,8 +6,13 @@ Manage packages on OpenWrt using opkg
     + ``update`` - update local copy of package information
     + ``packages`` -  install and remove packages
 
-see https://openwrt.org/docs/guide-user/additional-software/opkg
+See https://openwrt.org/docs/guide-user/additional-software/opkg
+
 OpenWrt recommends against upgrading all packages  thus there is no ``opkg.upgrade`` function
+
+**Note:** as of OpenWrt Release `2025.12`_, OpenWrt uses ``apk``.
+
+.. _2025.12: https://openwrt.org/releases/25.12/notes-25.12.0#switch_package_manager_from_opkg_to_apk
 
 
 Facts used in these operations: :ref:`facts:opkg.OpkgPackages`.
@@ -22,8 +27,11 @@ Add/remove/update opkg packages.
 .. code:: python
 
     opkg.packages(
-        packages: typing.Union[str, typing.List[str]]="", present: <class 'bool'>=True,
-        latest: <class 'bool'>=False, update: <class 'bool'>=True, **kwargs,
+         packages: Union[str, List[str]] = '',
+         present: bool = True,
+         latest: bool = False,
+         update: bool = True,
+         **kwargs,
     )
 
 + **packages**: package or list of packages to that must/must not be present
@@ -49,8 +57,9 @@ Not Supported:
         latest=True,
         name="Ensure we have the latest version of Vim"
     )
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
 
 .. _operations:opkg.update:
@@ -68,7 +77,8 @@ Update the local opkg information.
 
 .. code:: python
 
-    opkg.update(**kwargs)
-Note:
-	This operation also inherits all :doc:`global arguments </arguments>`.
+    opkg.update**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
 
