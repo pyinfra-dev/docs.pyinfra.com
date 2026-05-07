@@ -5,7 +5,7 @@ Dnf Operations
 Manage dnf packages and repositories. Note that dnf package names are case-sensitive.
 
 
-Facts used in these operations: :ref:`facts:rpm.RpmPackageProvides`, :ref:`facts:rpm.RpmPackages`.
+Facts used in these operations: :ref:`facts:dnf.DnfDisabledModules`, :ref:`facts:dnf.DnfEnabledModules`, :ref:`facts:rpm.RpmPackageProvides`, :ref:`facts:rpm.RpmPackages`.
 
 .. _operations:dnf.key:
 
@@ -42,6 +42,57 @@ Note:
     dnf.key(
         name="Add the Docker gpg key",
         src=f"https://download.docker.com/linux/{linux_id}/gpg",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:dnf.module:
+
+:code:`dnf.module`
+~~~~~~~~~~~~~~~~~~
+
+Manage a dnf module (application stream).
+
+.. code:: python
+
+    dnf.module(module: 'str', stream: 'str | None' = None, enabled: 'bool' = True,
+         **kwargs,
+    )
+
++ **module**: name of the dnf module
++ **stream**: name of the stream, required when ``enabled=True``, ignored               when ``enabled=False``
++ **enabled**: ``True`` (default) to enable the stream, ``False`` to disable the module
+
+Application streams let you install multiple parallel versions of the same
+component. Only one stream of a module can be enabled at a time.
+
+Stream switching:
+    ``dnf module enable`` will refuse to switch streams when packages from
+    the currently-active stream are installed. In that case, remove the
+    installed packages (or ``dnf module reset``) before switching.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import dnf
+
+    # Enable a stream
+    dnf.module(
+        name="Enable PostgreSQL 16 module stream",
+        module="postgresql",
+        stream="16",
+        _sudo=True,
+    )
+
+    # Disable a module (all streams become inactive)
+    dnf.module(
+        name="Disable the ruby module",
+        module="ruby",
+        enabled=False,
+        _sudo=True,
     )
 
 .. note::

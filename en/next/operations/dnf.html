@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Dnf Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dnf-key"><code class="code docutils literal notranslate"><span class="pre">dnf.key</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-module"><code class="code docutils literal notranslate"><span class="pre">dnf.module</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dnf-packages"><code class="code docutils literal notranslate"><span class="pre">dnf.packages</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dnf-repo"><code class="code docutils literal notranslate"><span class="pre">dnf.repo</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dnf-rpm"><code class="code docutils literal notranslate"><span class="pre">dnf.rpm</span></code></a></li>
@@ -192,7 +193,7 @@
   <section id="dnf-operations">
 <h1>Dnf Operations<a class="headerlink" href="#dnf-operations" title="Link to this heading">¶</a></h1>
 <p>Manage dnf packages and repositories. Note that dnf package names are case-sensitive.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/rpm.html#facts-rpm-rpmpackageprovides"><span class="std std-ref">rpm.RpmPackageProvides</span></a>, <a class="reference internal" href="../facts/rpm.html#facts-rpm-rpmpackages"><span class="std std-ref">rpm.RpmPackages</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/dnf.html#facts-dnf-dnfdisabledmodules"><span class="std std-ref">dnf.DnfDisabledModules</span></a>, <a class="reference internal" href="../facts/dnf.html#facts-dnf-dnfenabledmodules"><span class="std std-ref">dnf.DnfEnabledModules</span></a>, <a class="reference internal" href="../facts/rpm.html#facts-rpm-rpmpackageprovides"><span class="std std-ref">rpm.RpmPackageProvides</span></a>, <a class="reference internal" href="../facts/rpm.html#facts-rpm-rpmpackages"><span class="std std-ref">rpm.RpmPackages</span></a>.</p>
 <section id="dnf-key">
 <span id="operations-dnf-key"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.key</span></code><a class="headerlink" href="#dnf-key" title="Link to this heading">¶</a></h2>
 <div class="important admonition">
@@ -220,6 +221,52 @@
 <span class="n">dnf</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add the Docker gpg key&quot;</span><span class="p">,</span>
     <span class="n">src</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;https://download.docker.com/linux/</span><span class="si">{</span><span class="n">linux_id</span><span class="si">}</span><span class="s2">/gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="dnf-module">
+<span id="operations-dnf-module"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.module</span></code><a class="headerlink" href="#dnf-module" title="Link to this heading">¶</a></h2>
+<p>Manage a dnf module (application stream).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>module</strong>: name of the dnf module</p></li>
+<li><p><strong>stream</strong>: name of the stream, required when <code class="docutils literal notranslate"><span class="pre">enabled=True</span></code>, ignored               when <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code></p></li>
+<li><p><strong>enabled</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code> (default) to enable the stream, <code class="docutils literal notranslate"><span class="pre">False</span></code> to disable the module</p></li>
+</ul>
+<p>Application streams let you install multiple parallel versions of the same
+component. Only one stream of a module can be enabled at a time.</p>
+<dl class="simple">
+<dt>Stream switching:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">module</span> <span class="pre">enable</span></code> will refuse to switch streams when packages from
+the currently-active stream are installed. In that case, remove the
+installed packages (or <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">module</span> <span class="pre">reset</span></code>) before switching.</p>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">dnf</span>
+
+<span class="c1"># Enable a stream</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">module</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enable PostgreSQL 16 module stream&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;postgresql&quot;</span><span class="p">,</span>
+    <span class="n">stream</span><span class="o">=</span><span class="s2">&quot;16&quot;</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Disable a module (all streams become inactive)</span>
+<span class="n">dnf</span><span class="o">.</span><span class="n">module</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Disable the ruby module&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;ruby&quot;</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">_sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

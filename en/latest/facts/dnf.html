@@ -107,6 +107,8 @@
 <li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab Facts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deb.html">Deb Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Dnf Facts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-dnfdisabledmodules"><code class="code docutils literal notranslate"><span class="pre">dnf.DnfDisabledModules</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnf-dnfenabledmodules"><code class="code docutils literal notranslate"><span class="pre">dnf.DnfEnabledModules</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dnf-dnfrepositories"><code class="code docutils literal notranslate"><span class="pre">dnf.DnfRepositories</span></code></a></li>
 </ul>
 </li>
@@ -190,6 +192,29 @@
   <section id="dnf-facts">
 <h1>Dnf Facts<a class="headerlink" href="#dnf-facts" title="Link to this heading">¶</a></h1>
 <p>See also: <a class="reference internal" href="../operations/dnf.html"><span class="doc">Dnf Operations</span></a>.</p>
+<section id="dnf-dnfdisabledmodules">
+<span id="facts-dnf-dnfdisabledmodules"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.DnfDisabledModules</span></code><a class="headerlink" href="#dnf-dnfdisabledmodules" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DnfDisabledModules</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a sorted list of dnf module names that have been explicitly disabled:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;ruby&quot;</span><span class="p">,</span> <span class="s2">&quot;php&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="dnf-dnfenabledmodules">
+<span id="facts-dnf-dnfenabledmodules"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.DnfEnabledModules</span></code><a class="headerlink" href="#dnf-dnfenabledmodules" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DnfEnabledModules</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a dict mapping enabled dnf module names to their enabled stream:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;postgresql&quot;</span><span class="p">:</span> <span class="s2">&quot;16&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nodejs&quot;</span><span class="p">:</span> <span class="s2">&quot;20&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="dnf-dnfrepositories">
 <span id="facts-dnf-dnfrepositories"></span><h2><code class="code docutils literal notranslate"><span class="pre">dnf.DnfRepositories</span></code><a class="headerlink" href="#dnf-dnfrepositories" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DnfRepositories</span><span class="p">)</span>
