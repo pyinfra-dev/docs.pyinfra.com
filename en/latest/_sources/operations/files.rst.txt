@@ -428,6 +428,7 @@ Ensure lines in files using grep to locate and sed to replace.
          interpolate_variables=False,
          escape_regex_characters=False,
          ensure_newline=False,
+         extended_regex=False,
          **kwargs,
     )
 
@@ -440,6 +441,9 @@ Ensure lines in files using grep to locate and sed to replace.
 + **interpolate_variables**: whether to interpolate variables in ``replace``
 + **escape_regex_characters**: whether to escape regex characters from the matching line
 + **ensure_newline**: ensures that the appended line is on a new line
++ **extended_regex**: pass ``-E`` to ``grep`` and ``sed`` so quantifiers like ``+`` and
+  ``?`` and groups like ``(a|b)`` work without backslash escaping. Defaults to ``False``
+  (basic regular expressions) for backward compatibility.
 
 Regex line matching:
     Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
@@ -709,6 +713,7 @@ Replace contents of a file using ``sed``.
          flags: 'list[str] | None' = None,
          backup=False,
          interpolate_variables=False,
+         extended_regex=False,
          match=None,
          **kwargs,
     )
@@ -719,6 +724,9 @@ Replace contents of a file using ``sed``.
 + **flags**: list of flags to pass to sed
 + **backup**: whether to backup the file (see below)
 + **interpolate_variables**: whether to interpolate variables in ``replace``
++ **extended_regex**: pass ``-E`` to ``grep`` and ``sed`` so quantifiers like ``+`` and
+  ``?`` and groups like ``(a|b)`` work without backslash escaping. Defaults to ``False``
+  (basic regular expressions) for backward compatibility.
 
 Backup:
     If set to ``True``, any editing of the file will place an old copy with the ISO

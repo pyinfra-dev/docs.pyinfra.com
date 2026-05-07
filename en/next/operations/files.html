@@ -584,6 +584,7 @@ the remote file before downloading it.</p>
      <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="n">escape_regex_characters</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="n">ensure_newline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">extended_regex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -598,6 +599,9 @@ the remote file before downloading it.</p>
 <li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></p></li>
 <li><p><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</p></li>
 <li><p><strong>ensure_newline</strong>: ensures that the appended line is on a new line</p></li>
+<li><p><strong>extended_regex</strong>: pass <code class="docutils literal notranslate"><span class="pre">-E</span></code> to <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">sed</span></code> so quantifiers like <code class="docutils literal notranslate"><span class="pre">+</span></code> and
+<code class="docutils literal notranslate"><span class="pre">?</span></code> and groups like <code class="docutils literal notranslate"><span class="pre">(a|b)</span></code> work without backslash escaping. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+(basic regular expressions) for backward compatibility.</p></li>
 </ul>
 <dl class="simple">
 <dt>Regex line matching:</dt><dd><p>Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
@@ -838,6 +842,7 @@ reading and checksumming the file will cause the host OS to update the file’s
      <span class="n">flags</span><span class="p">:</span> <span class="s1">&#39;list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">backup</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+     <span class="n">extended_regex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="n">match</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
      <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span>
@@ -850,6 +855,9 @@ reading and checksumming the file will cause the host OS to update the file’s
 <li><p><strong>flags</strong>: list of flags to pass to sed</p></li>
 <li><p><strong>backup</strong>: whether to backup the file (see below)</p></li>
 <li><p><strong>interpolate_variables</strong>: whether to interpolate variables in <code class="docutils literal notranslate"><span class="pre">replace</span></code></p></li>
+<li><p><strong>extended_regex</strong>: pass <code class="docutils literal notranslate"><span class="pre">-E</span></code> to <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">sed</span></code> so quantifiers like <code class="docutils literal notranslate"><span class="pre">+</span></code> and
+<code class="docutils literal notranslate"><span class="pre">?</span></code> and groups like <code class="docutils literal notranslate"><span class="pre">(a|b)</span></code> work without backslash escaping. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+(basic regular expressions) for backward compatibility.</p></li>
 </ul>
 <dl class="simple">
 <dt>Backup:</dt><dd><p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, any editing of the file will place an old copy with the ISO
