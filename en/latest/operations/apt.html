@@ -105,6 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#apt-packages"><code class="code docutils literal notranslate"><span class="pre">apt.packages</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-ppa"><code class="code docutils literal notranslate"><span class="pre">apt.ppa</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-repo"><code class="code docutils literal notranslate"><span class="pre">apt.repo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apt-sources-file"><code class="code docutils literal notranslate"><span class="pre">apt.sources_file</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-update"><code class="code docutils literal notranslate"><span class="pre">apt.update</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-upgrade"><code class="code docutils literal notranslate"><span class="pre">apt.upgrade</span></code></a></li>
 </ul>
@@ -445,6 +446,61 @@ default uses <code class="docutils literal notranslate"><span class="pre">/etc/a
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install VirtualBox repo&quot;</span><span class="p">,</span>
     <span class="n">src</span><span class="o">=</span><span class="s2">&quot;deb https://download.virtualbox.org/virtualbox/debian bionic contrib&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
+<section id="apt-sources-file">
+<span id="operations-apt-sources-file"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.sources_file</span></code><a class="headerlink" href="#apt-sources-file" title="Link to this heading">¶</a></h2>
+<p>Manage a deb822 <code class="docutils literal notranslate"><span class="pre">.sources</span></code> file under <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">.</span><span class="n">sources_file</span><span class="p">(</span>
+     <span class="n">filename</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">types</span><span class="p">:</span> <span class="s1">&#39;list[str] | str&#39;</span> <span class="o">=</span> <span class="s1">&#39;deb&#39;</span><span class="p">,</span>
+     <span class="n">uris</span><span class="p">:</span> <span class="s1">&#39;list[str] | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">suites</span><span class="p">:</span> <span class="s1">&#39;list[str] | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">components</span><span class="p">:</span> <span class="s1">&#39;list[str] | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">architectures</span><span class="p">:</span> <span class="s1">&#39;list[str] | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">signed_by</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Creates or removes a modern deb822-format sources file.  Each field that
+accepts multiple values can be given as a list or a space-separated string.</p>
+<ul class="simple">
+<li><p><strong>filename</strong>: base name for the file (without extension); the <code class="docutils literal notranslate"><span class="pre">.sources</span></code>
+extension is added automatically</p></li>
+<li><p><strong>types</strong>: repository type(s) — <code class="docutils literal notranslate"><span class="pre">&quot;deb&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;deb-src&quot;</span></code>, or both</p></li>
+<li><p><strong>uris</strong>: one or more repository URLs</p></li>
+<li><p><strong>suites</strong>: one or more suite/distribution names (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;bookworm&quot;</span></code>)</p></li>
+<li><p><strong>components</strong>: one or more components (e.g. <code class="docutils literal notranslate"><span class="pre">[&quot;main&quot;,</span> <span class="pre">&quot;contrib&quot;]</span></code>)</p></li>
+<li><p><strong>architectures</strong>: restrict to specific architectures (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;amd64&quot;</span></code>)</p></li>
+<li><p><strong>signed_by</strong>: absolute path to the keyring file used for signature verification</p></li>
+<li><p><strong>present</strong>: whether the sources file should exist</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
+
+<span class="n">apt</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add Docker GPG key&quot;</span><span class="p">,</span>
+    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://download.docker.com/linux/debian/gpg&quot;</span><span class="p">,</span>
+    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;docker.gpg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">apt</span><span class="o">.</span><span class="n">sources_file</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add Docker apt repository (deb822)&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;docker&quot;</span><span class="p">,</span>
+    <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;deb&quot;</span><span class="p">],</span>
+    <span class="n">uris</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://download.docker.com/linux/debian&quot;</span><span class="p">],</span>
+    <span class="n">suites</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bookworm&quot;</span><span class="p">],</span>
+    <span class="n">components</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;stable&quot;</span><span class="p">],</span>
+    <span class="n">architectures</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;amd64&quot;</span><span class="p">],</span>
+    <span class="n">signed_by</span><span class="o">=</span><span class="s2">&quot;/etc/apt/keyrings/docker.gpg&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

@@ -294,6 +294,67 @@ Add/remove apt repositories.
     This operation also inherits all :doc:`global arguments </arguments>`.
 
 
+.. _operations:apt.sources_file:
+
+:code:`apt.sources_file`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Manage a deb822 ``.sources`` file under ``/etc/apt/sources.list.d/``.
+
+.. code:: python
+
+    apt.sources_file(
+         filename: 'str',
+         types: 'list[str] | str' = 'deb',
+         uris: 'list[str] | str | None' = None,
+         suites: 'list[str] | str | None' = None,
+         components: 'list[str] | str | None' = None,
+         architectures: 'list[str] | str | None' = None,
+         signed_by: 'str | None' = None,
+         present: 'bool' = True,
+         **kwargs,
+    )
+
+Creates or removes a modern deb822-format sources file.  Each field that
+accepts multiple values can be given as a list or a space-separated string.
+
++ **filename**: base name for the file (without extension); the ``.sources``
+  extension is added automatically
++ **types**: repository type(s) — ``"deb"``, ``"deb-src"``, or both
++ **uris**: one or more repository URLs
++ **suites**: one or more suite/distribution names (e.g. ``"bookworm"``)
++ **components**: one or more components (e.g. ``["main", "contrib"]``)
++ **architectures**: restrict to specific architectures (e.g. ``"amd64"``)
++ **signed_by**: absolute path to the keyring file used for signature verification
++ **present**: whether the sources file should exist
+
+**Example:**
+
+.. code:: python
+
+    from pyinfra.operations import apt
+
+    apt.key(
+        name="Add Docker GPG key",
+        src="https://download.docker.com/linux/debian/gpg",
+        dest="docker.gpg",
+    )
+
+    apt.sources_file(
+        name="Add Docker apt repository (deb822)",
+        filename="docker",
+        types=["deb"],
+        uris=["https://download.docker.com/linux/debian"],
+        suites=["bookworm"],
+        components=["stable"],
+        architectures=["amd64"],
+        signed_by="/etc/apt/keyrings/docker.gpg",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
 .. _operations:apt.update:
 
 :code:`apt.update`
