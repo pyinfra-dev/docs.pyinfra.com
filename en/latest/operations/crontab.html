@@ -196,11 +196,11 @@
      <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
      <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">cron_name</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-     <span class="n">minute</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-     <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-     <span class="n">month</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-     <span class="n">day_of_week</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
-     <span class="n">day_of_month</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+     <span class="n">minute</span><span class="p">:</span> <span class="s1">&#39;list[str | int] | str | int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">hour</span><span class="p">:</span> <span class="s1">&#39;list[str | int] | str | int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">month</span><span class="p">:</span> <span class="s1">&#39;list[str | int] | str | int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">day_of_week</span><span class="p">:</span> <span class="s1">&#39;list[str | int] | str | int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">day_of_month</span><span class="p">:</span> <span class="s1">&#39;list[str | int] | str | int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">special_time</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
      <span class="n">interpolate_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
      <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -226,20 +226,40 @@
 This means commands must be unique within a given users crontab. If you require
 multiple identical commands, provide a different name argument for each.</p>
 </dd>
+<dt>Cron schedule:</dt><dd><p>The values for <code class="docutils literal notranslate"><span class="pre">minute</span></code>, <code class="docutils literal notranslate"><span class="pre">hour</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>,
+<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code> can be specified as an integer, a string containing
+a cron schedule or a list of integers or strings. The effective default
+value of all these arguments is “*” when <code class="docutils literal notranslate"><span class="pre">special_time</span></code> is not set.</p>
+</dd>
 <dt>Special times:</dt><dd><p>When provided, <code class="docutils literal notranslate"><span class="pre">special_time</span></code> will be used instead of any values passed in
 for <code class="docutils literal notranslate"><span class="pre">minute</span></code>/<code class="docutils literal notranslate"><span class="pre">hour</span></code>/<code class="docutils literal notranslate"><span class="pre">month</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_week</span></code>/<code class="docutils literal notranslate"><span class="pre">day_of_month</span></code>.</p>
 </dd>
 </dl>
-<p><strong>Example:</strong></p>
+<p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">crontab</span>
+
 <span class="c1"># simple example for a crontab</span>
 <span class="n">crontab</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Backup /etc weekly&quot;</span><span class="p">,</span>
     <span class="n">command</span><span class="o">=</span><span class="s2">&quot;/bin/tar cf /tmp/etc_bup.tar /etc&quot;</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;backup_etc&quot;</span><span class="p">,</span>
+    <span class="n">cron_name</span><span class="o">=</span><span class="s2">&quot;backup_etc&quot;</span><span class="p">,</span>
     <span class="n">day_of_week</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">hour</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># execute every five minutes</span>
+<span class="n">crontab</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A harmless monitoring example&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;/usr/bin/ping 127.0.0.1&quot;</span><span class="p">,</span>
+    <span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/5&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># execute on reboot</span>
+<span class="n">crontab</span><span class="o">.</span><span class="n">crontab</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Create a directory on reboot&quot;</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;/usr/bin/mkdir /var/run/my_directory&quot;</span><span class="p">,</span>
+    <span class="n">special_time</span><span class="o">=</span><span class="s2">&quot;@reboot&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
