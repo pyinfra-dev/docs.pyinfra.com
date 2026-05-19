@@ -33,6 +33,31 @@ GPG infrastructure.
     }
 
 
+.. _facts:apt.AptPackages:
+
+:code:`apt.AptPackages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(AptPackages)
+
+Returns a dict of installed apt packages, keyed by name with a list of
+versions as the value:
+
+.. code:: python
+
+    {
+        "package_name": ["version"],
+    }
+
+The list-of-versions shape mirrors :class:`pyinfra.facts.deb.DebPackages`
+so callers can swap between the two without reshaping their code. The
+main reason to reach for ``AptPackages`` is to surface packages whose
+presence is more reliably visible from ``apt`` than from ``dpkg`` (for
+example, packages with an architecture suffix like ``foo:i386``).
+
+
 .. _facts:apt.AptSources:
 
 :code:`apt.AptSources`

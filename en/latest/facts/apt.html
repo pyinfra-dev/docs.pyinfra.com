@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="apk.html">Apk Facts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Apt Facts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#apt-aptkeys"><code class="code docutils literal notranslate"><span class="pre">apt.AptKeys</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apt-aptpackages"><code class="code docutils literal notranslate"><span class="pre">apt.AptPackages</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-aptsources"><code class="code docutils literal notranslate"><span class="pre">apt.AptSources</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#apt-simulateoperationwillchange"><code class="code docutils literal notranslate"><span class="pre">apt.SimulateOperationWillChange</span></code></a></li>
 </ul>
@@ -214,6 +215,24 @@ GPG infrastructure.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="apt-aptpackages">
+<span id="facts-apt-aptpackages"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.AptPackages</span></code><a class="headerlink" href="#apt-aptpackages" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackages</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a dict of installed apt packages, keyed by name with a list of
+versions as the value:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The list-of-versions shape mirrors <code class="xref py py-class docutils literal notranslate"><span class="pre">pyinfra.facts.deb.DebPackages</span></code>
+so callers can swap between the two without reshaping their code. The
+main reason to reach for <code class="docutils literal notranslate"><span class="pre">AptPackages</span></code> is to surface packages whose
+presence is more reliably visible from <code class="docutils literal notranslate"><span class="pre">apt</span></code> than from <code class="docutils literal notranslate"><span class="pre">dpkg</span></code> (for
+example, packages with an architecture suffix like <code class="docutils literal notranslate"><span class="pre">foo:i386</span></code>).</p>
 </section>
 <section id="apt-aptsources">
 <span id="facts-apt-aptsources"></span><h2><code class="code docutils literal notranslate"><span class="pre">apt.AptSources</span></code><a class="headerlink" href="#apt-aptsources" title="Link to this heading">¶</a></h2>
