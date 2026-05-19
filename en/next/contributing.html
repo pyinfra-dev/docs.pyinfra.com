@@ -182,6 +182,17 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:pyinfra-d
 uv<span class="w"> </span>sync
 </pre></div>
 </div>
+<p>If you will use pyinfra as a module, and want to be able to edit its code as you go, make sure you add it as an editable dependency to your project instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># There is no need to create a virtualenv, uv will do that for you</span>
+
+<span class="c1"># Clone the repo</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">pyinfra</span><span class="o">-</span><span class="n">dev</span><span class="o">/</span><span class="n">pyinfra</span><span class="o">.</span><span class="n">git</span>
+
+<span class="c1"># Add as an editable dependency</span>
+<span class="c1"># Note that the path should be relative from you project to where you cloned pyinfra</span>
+<span class="n">uv</span> <span class="n">add</span> <span class="o">--</span><span class="n">editable</span> <span class="o">./</span><span class="n">pyinfra</span>
+</pre></div>
+</div>
 <section id="code-style-type-checking">
 <h3>Code Style &amp; Type Checking<a class="headerlink" href="#code-style-type-checking" title="Link to this heading">¶</a></h3>
 <p>Code style is enforced via <a class="reference external" href="https://docs.astral.sh/ruff/">ruff</a>. Types are checked with mypy currently, and pyright is
