@@ -60,6 +60,29 @@ Returns the raw output lines of a given command.
 Returns the current datetime on the server.
 
 
+.. _facts:server.EtcHosts:
+
+:code:`server.EtcHosts`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(EtcHosts, path='/etc/hosts')
+
+Returns ``/etc/hosts`` (or the file at ``path``) parsed as a mapping of IP address
+to the list of hostnames declared on the matching lines. Comments and empty lines
+are ignored; when the same IP is listed more than once, hostnames are merged in
+file order.
+
+.. code:: python
+
+    {
+        "127.0.0.1": ["localhost", "localhost.localdomain"],
+        "::1": ["localhost"],
+        "192.168.1.10": ["db.internal"],
+    }
+
+
 .. _facts:server.Groups:
 
 :code:`server.Groups`
@@ -154,6 +177,54 @@ Returns a dictionary of kernel module name -> info.
 Returns the kernel version according to ``uname``.
 
 
+.. _facts:server.Last:
+
+:code:`server.Last`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Last)
+
+Returns login records parsed from ``last`` as a list of dicts.
+
+Parsing is intentionally light: ``time`` holds the raw trailing string from the
+``last`` output (e.g. ``"Thu Apr 17 14:00   still logged in"``) so that callers can
+re-parse the date format that matches their system if needed.
+
+.. code:: python
+
+    [
+        {
+            "user": "alice",
+            "tty": "pts/0",
+            "host": "192.168.1.5",
+            "time": "Thu Apr 17 14:00   still logged in",
+        },
+        {
+            "user": "reboot",
+            "tty": "system boot",
+            "host": "6.19.10-arch1-1",
+            "time": "Thu Apr 17 11:00 - 12:00  (01:00)",
+        },
+    ]
+
+
+.. _facts:server.Lastb:
+
+:code:`server.Lastb`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Lastb)
+
+Returns failed login records parsed from ``lastb`` (``/var/log/btmp``).
+
+Output shape matches :class:`Last`; see that fact for details. ``lastb`` usually
+requires root to read ``/var/log/btmp``.
+
+
 .. _facts:server.LinuxDistribution:
 
 :code:`server.LinuxDistribution`
@@ -204,6 +275,29 @@ Returns a list of available Linux GUIs.
 
 Returns the name of the Linux distribution. Shortcut for
 ``host.get_fact(LinuxDistribution)['name']``.
+
+
+.. _facts:server.LoadAverage:
+
+:code:`server.LoadAverage`
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LoadAverage)
+
+Returns the system load average keyed by window (1, 5 and 15 minutes).
+
+Reads ``/proc/loadavg`` when available (Linux) and falls back to parsing
+``uptime`` output on systems without procfs (e.g. FreeBSD).
+
+.. code:: python
+
+    {
+        "1": 0.12,
+        "5": 0.21,
+        "15": 0.22,
+    }
 
 
 .. _facts:server.Locales:

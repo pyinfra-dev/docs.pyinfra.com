@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="runit.html">Runit Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="selinux.html">Selinux Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#server-etc-hosts"><code class="code docutils literal notranslate"><span class="pre">server.etc_hosts</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-group"><code class="code docutils literal notranslate"><span class="pre">server.group</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-hostname"><code class="code docutils literal notranslate"><span class="pre">server.hostname</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#server-kill"><code class="code docutils literal notranslate"><span class="pre">server.kill</span></code></a></li>
@@ -206,7 +207,62 @@
 <h1>Server Operations<a class="headerlink" href="#server-operations" title="Link to this heading">¶</a></h1>
 <p>The server module takes care of os-level state. Targets POSIX compatibility, tested on
 Linux/BSD.</p>
-<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-authorizedkeys"><span class="std std-ref">server.AuthorizedKeys</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernel"><span class="std std-ref">server.Kernel</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-timezone"><span class="std std-ref">server.Timezone</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<p>Facts used in these operations: <a class="reference internal" href="../facts/server.html#facts-server-authorizedkeys"><span class="std std-ref">server.AuthorizedKeys</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-directory"><span class="std std-ref">files.Directory</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-etchosts"><span class="std std-ref">server.EtcHosts</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-filecontents"><span class="std std-ref">files.FileContents</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-findinfile"><span class="std std-ref">files.FindInFile</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-groups"><span class="std std-ref">server.Groups</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-home"><span class="std std-ref">server.Home</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-hostname"><span class="std std-ref">server.Hostname</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernel"><span class="std std-ref">server.Kernel</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-kernelmodules"><span class="std std-ref">server.KernelModules</span></a>, <a class="reference internal" href="../facts/files.html#facts-files-link"><span class="std std-ref">files.Link</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-locales"><span class="std std-ref">server.Locales</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-mounts"><span class="std std-ref">server.Mounts</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-os"><span class="std std-ref">server.Os</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-sysctl"><span class="std std-ref">server.Sysctl</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-timezone"><span class="std std-ref">server.Timezone</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-users"><span class="std std-ref">server.Users</span></a>, <a class="reference internal" href="../facts/server.html#facts-server-which"><span class="std std-ref">server.Which</span></a>.</p>
+<section id="server-etc-hosts">
+<span id="operations-server-etc-hosts"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.etc_hosts</span></code><a class="headerlink" href="#server-etc-hosts" title="Link to this heading">¶</a></h2>
+<p>Add, update or remove an entry in <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> (or another hosts-file path)
+keyed by IP address.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">etc_hosts</span><span class="p">(</span>
+     <span class="n">ip</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+     <span class="n">hostnames</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+     <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+     <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="o">=</span> <span class="s1">&#39;/etc/hosts&#39;</span><span class="p">,</span>
+     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>ip</strong>: the IP address the entry is keyed by</p></li>
+<li><p><strong>hostnames</strong>: hostname (<code class="docutils literal notranslate"><span class="pre">str</span></code>) or list of hostnames to associate with <code class="docutils literal notranslate"><span class="pre">ip</span></code></p></li>
+<li><p><strong>present</strong>: whether the entry should be present (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or absent (<code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>path</strong>: path to the hosts file (defaults to <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>)</p></li>
+</ul>
+<dl>
+<dt>Behavior:</dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">present=True</span></code> the line for <code class="docutils literal notranslate"><span class="pre">ip</span></code> is ensured to be exactly
+<code class="docutils literal notranslate"><span class="pre">&lt;ip&gt;</span> <span class="pre">&lt;hostnames...&gt;</span></code>, adding it if missing or replacing it if the
+stored hostnames differ. Other lines are left untouched.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">present=False</span></code> and <code class="docutils literal notranslate"><span class="pre">hostnames</span></code> is omitted, every line for <code class="docutils literal notranslate"><span class="pre">ip</span></code>
+is removed. When <code class="docutils literal notranslate"><span class="pre">hostnames</span></code> is given, only those names are dropped
+from the IP’s line; the line is removed entirely if no hostnames remain.</p>
+</dd>
+</dl>
+<p>Comments on the edited line are not preserved.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">server</span><span class="o">.</span><span class="n">etc_hosts</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Register db.internal in /etc/hosts&quot;</span><span class="p">,</span>
+    <span class="n">ip</span><span class="o">=</span><span class="s2">&quot;192.168.1.10&quot;</span><span class="p">,</span>
+    <span class="n">hostnames</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;db.internal&quot;</span><span class="p">,</span> <span class="s2">&quot;db&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">etc_hosts</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Drop the legacy hostname&quot;</span><span class="p">,</span>
+    <span class="n">ip</span><span class="o">=</span><span class="s2">&quot;192.168.1.10&quot;</span><span class="p">,</span>
+    <span class="n">hostnames</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">server</span><span class="o">.</span><span class="n">etc_hosts</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove 10.0.0.1 entirely&quot;</span><span class="p">,</span>
+    <span class="n">ip</span><span class="o">=</span><span class="s2">&quot;10.0.0.1&quot;</span><span class="p">,</span>
+    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation also inherits all <a class="reference internal" href="../arguments.html"><span class="doc">global arguments</span></a>.</p>
+</div>
+</section>
 <section id="server-group">
 <span id="operations-server-group"></span><h2><code class="code docutils literal notranslate"><span class="pre">server.group</span></code><a class="headerlink" href="#server-group" title="Link to this heading">¶</a></h2>
 <p>Add/remove system groups.</p>
