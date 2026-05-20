@@ -355,6 +355,10 @@
 <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">_if</span><span class="o">=</span><span class="n">all_changed</span><span class="p">(</span><span class="n">create_user</span><span class="p">,</span> <span class="n">create_otheruser</span><span class="p">))</span>
 </pre></div>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">_if</span></code> must be a callable, or a list of callables. Passing a value directly (e.g. <code class="docutils literal notranslate"><span class="pre">_if=host.get_fact(MyFact)</span></code>) does not gate the operation: most non-callable values raise <code class="docutils literal notranslate"><span class="pre">ArgumentTypeError</span></code> at prepare time, and <code class="docutils literal notranslate"><span class="pre">None</span></code> is treated as “no condition” so the operation always runs. Wrap the value in a lambda to gate on it: <code class="docutils literal notranslate"><span class="pre">_if=lambda:</span> <span class="pre">bool(host.get_fact(MyFact))</span></code>.</p>
+</div>
 </section>
 <section id="output-callbacks">
 <h2>Output &amp; Callbacks<a class="headerlink" href="#output-callbacks" title="Link to this heading">¶</a></h2>
