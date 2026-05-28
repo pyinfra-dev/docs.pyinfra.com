@@ -1,0 +1,216 @@
+Vzctl Operations
+----------------
+
+
+Manage OpenVZ containers with ``vzctl``.
+
+
+Facts used in these operations: :ref:`facts:vzctl.OpenvzContainers`.
+
+.. _operations:vzctl.create:
+
+:code:`vzctl.create`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Create OpenVZ containers.
+
+.. code:: python
+
+    vzctl.create(ctid: 'str', template: 'str | None' = None,
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to create
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.delete:
+
+:code:`vzctl.delete`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Delete OpenVZ containers.
+
+.. code:: python
+
+    vzctl.delete(ctid: 'str',
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to delete
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.mount:
+
+:code:`vzctl.mount`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Mount OpenVZ container filesystems.
+
+.. code:: python
+
+    vzctl.mount(ctid: 'str',
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to mount
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.restart:
+
+:code:`vzctl.restart`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Restart OpenVZ containers.
+
+.. code:: python
+
+    vzctl.restart(ctid: 'str', force=False,
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to restart
++ **force**: whether to force container start
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.set:
+
+:code:`vzctl.set`
+~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Set OpenVZ container details.
+
+.. code:: python
+
+    vzctl.set(ctid: 'str', save=True, **settings,
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to set
++ **save**: whether to save the changes
++ **settings**: settings/arguments to apply to the container
+
+Settings/arguments:
+    these are mapped directly to ``vztctl`` arguments, eg
+    ``hostname='my-host.net'`` becomes ``--hostname my-host.net``.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.start:
+
+:code:`vzctl.start`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Start OpenVZ containers.
+
+.. code:: python
+
+    vzctl.start(ctid: 'str', force=False,
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to start
++ **force**: whether to force container start
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.stop:
+
+:code:`vzctl.stop`
+~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Stop OpenVZ containers.
+
+.. code:: python
+
+    vzctl.stop(ctid: 'str',
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to stop
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:vzctl.unmount:
+
+:code:`vzctl.unmount`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Unmount OpenVZ container filesystems.
+
+.. code:: python
+
+    vzctl.unmount(ctid: 'str',
+         **kwargs,
+    )
+
++ **ctid**: CTID of the container to unmount
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

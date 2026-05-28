@@ -1,0 +1,257 @@
+Postgres Operations
+-------------------
+
+
+The PostgreSQL modules manage PostgreSQL databases, users and privileges.
+
+Requires the ``psql`` CLI executable on the target host(s).
+
+All operations in this module take four optional arguments:
+    + ``psql_user``: the username to connect to postgresql to
+    + ``psql_password``: the password for the connecting user
+    + ``psql_host``: the hostname of the server to connect to
+    + ``psql_port``: the port of the server to connect to
+    + ``psql_database``: the database on the server to connect to
+
+See example/postgresql.py for detailed example
+
+
+
+Facts used in these operations: :ref:`facts:postgres.PostgresDatabases`, :ref:`facts:postgres.PostgresRoles`.
+
+.. _operations:postgres.database:
+
+:code:`postgres.database`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove PostgreSQL databases.
+
+.. code:: python
+
+    postgres.database(
+         database: 'str',
+         present=True,
+         owner: 'str | None' = None,
+         template: 'str | None' = None,
+         encoding: 'str | None' = None,
+         lc_collate: 'str | None' = None,
+         lc_ctype: 'str | None' = None,
+         tablespace: 'str | None' = None,
+         connection_limit: 'int | None' = None,
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
+    )
+
++ **name**: name of the database
++ **present**: whether the database should exist or not
++ **owner**: the PostgreSQL role that owns the database
++ **template**: name of the PostgreSQL template to use
++ **encoding**: encoding of the database
++ **lc_collate**: lc_collate of the database
++ **lc_ctype**: lc_ctype of the database
++ **tablespace**: the tablespace to use for the template
++ **connection_limit**: the connection limit to apply to the database
++ **psql_***: global module arguments, see above
+
+Updates:
+    pyinfra will change existing databases - but some parameters are not
+    changeable (template, encoding, lc_collate and lc_ctype).
+
+**Example:**
+
+.. code:: python
+
+    postgresql.database(
+        name="Create the pyinfra_stuff database",
+        database="pyinfra_stuff",
+        owner="pyinfra",
+        encoding="UTF8",
+        _sudo_user="postgres",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:postgres.dump:
+
+:code:`postgres.dump`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Dump a PostgreSQL database into a ``.sql`` file. Requires ``pg_dump``.
+
+.. code:: python
+
+    postgres.dump(
+         dest: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
+    )
+
++ **dest**: name of the file to dump the SQL to
++ **psql_***: global module arguments, see above
+
+**Example:**
+
+.. code:: python
+
+    postgresql.dump(
+        name="Dump the pyinfra_stuff database",
+        dest="/tmp/pyinfra_stuff.dump",
+        sudo_user="postgres",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:postgres.load:
+
+:code:`postgres.load`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Load ``.sql`` file into a database.
+
+.. code:: python
+
+    postgres.load(
+         src: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
+    )
+
++ **src**: the filename to read from
++ **psql_***: global module arguments, see above
+
+**Example:**
+
+.. code:: python
+
+    postgresql.load(
+        name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
+        src="/tmp/pyinfra_stuff.dump",
+        sudo_user="postgres",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:postgres.role:
+
+:code:`postgres.role`
+~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove PostgreSQL roles.
+
+.. code:: python
+
+    postgres.role(
+         role: 'str',
+         present: 'bool' = True,
+         password: 'str | None' = None,
+         login: 'bool' = True,
+         superuser: 'bool' = False,
+         inherit: 'bool' = False,
+         createdb: 'bool' = False,
+         createrole: 'bool' = False,
+         replication: 'bool' = False,
+         connection_limit: 'int | None' = None,
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
+    )
+
++ **role**: name of the role
++ **present**: whether the role should be present or absent
++ **password**: the password for the role
++ **login**: whether the role can login
++ **superuser**: whether role will be a superuser
++ **inherit**: whether the role inherits from other roles
++ **createdb**: whether the role is allowed to create databases
++ **createrole**: whether the role is allowed to create new roles
++ **replication**: whether this role is allowed to replicate
++ **connection_limit**: the connection limit for the role
++ **psql_***: global module arguments, see above
+
+Updates:
+    pyinfra will not attempt to change existing roles - it will either
+    create or drop roles, but not alter them (if the role exists this
+    operation will make no changes).
+
+**Example:**
+
+.. code:: python
+
+    from pyinfra.operations import postgresql
+    postgresql.role(
+        name="Create the pyinfra PostgreSQL role",
+        role="pyinfra",
+        password="somepassword",
+        superuser=True,
+        login=True,
+        _sudo_user="postgres",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:postgres.sql:
+
+:code:`postgres.sql`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Execute arbitrary SQL against PostgreSQL.
+
+.. code:: python
+
+    postgres.sql(
+         sql: 'str',
+         psql_user: 'str | None' = None,
+         psql_password: 'str | None' = None,
+         psql_host: 'str | None' = None,
+         psql_port: 'int | None' = None,
+         psql_database: 'str | None' = None,
+         **kwargs,
+    )
+
++ **sql**: SQL command(s) to execute
++ **psql_***: global module arguments, see above
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

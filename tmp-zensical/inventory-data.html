@@ -89,6 +89,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -155,11 +159,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="./index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -512,6 +516,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-based-inventories-alpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function-based Inventories (alpha)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1381,6 +1396,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#function-based-inventories-alpha" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function-based Inventories (alpha)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1535,30 +1561,59 @@ to store multiple related inventories. Code can be imported from files under <co
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">host</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># prints &quot;app-1.net&quot; for example</span>
 </span></code></pre></div>
+<h2 id="function-based-inventories-alpha">Function-based Inventories (alpha)<a class="headerlink" href="#function-based-inventories-alpha" title="Permanent link">&para;</a></h2>
+<p>In addition to inventory files, pyinfra can load an inventory from a Python function or module-level iterable passed on the command line as <code>module.path.attribute</code> (or <code>module.path:attribute</code>):</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Call a function that returns a dict of groups</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>pyinfra<span class="w"> </span>myproject.inventory.make_prod<span class="w"> </span>OPERATIONS...
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Or point at a module-level list/tuple of hosts</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>pyinfra<span class="w"> </span>myproject.inventory:HOSTS<span class="w"> </span>OPERATIONS...
+</span></code></pre></div>
+<p>The function must return a <code>dict</code> of group name to either a list of hosts or a <code>(hosts, data)</code> tuple:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># myproject/inventory.py</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_prod</span><span class="p">():</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">return</span> <span class="p">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">&quot;app_servers&quot;</span><span class="p">:</span> <span class="p">(</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            <span class="p">[</span><span class="s2">&quot;app-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;app-2.net&quot;</span><span class="p">],</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="p">{</span><span class="s2">&quot;app_user&quot;</span><span class="p">:</span> <span class="s2">&quot;myuser&quot;</span><span class="p">,</span> <span class="s2">&quot;app_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;/opt/pyinfra&quot;</span><span class="p">},</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="p">),</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="s2">&quot;db_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;db-1.net&quot;</span><span class="p">,</span> <span class="s2">&quot;db-2.net&quot;</span><span class="p">],</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">group_data/ is not loaded for function-based inventories</p>
+<p>The <code>group_data/</code> directory convention described below is tied to the location of an inventory <strong>file</strong>. It is not loaded when the inventory comes from a function or module attribute — there is no on-disk inventory to anchor the lookup against.</p>
+<p>Provide per-group data via the <code>(hosts, data)</code> tuple in the function's return value, or compose the data inside the function itself (e.g. by reading files, calling APIs, or importing Python modules). The function-based inventory loader is also still in alpha and will log a warning at startup.</p>
+</div>
 <h2 id="groups">Groups<a class="headerlink" href="#groups" title="Permanent link">&para;</a></h2>
 <p>It is often useful to access the list of groups a host belongs to in operation code, this can be done via the <code>pyinfra.host.groups</code> attribute:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">if</span> <span class="s2">&quot;app_servers&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">if</span> <span class="s2">&quot;app_servers&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="group-data-files">Group Data Files<a class="headerlink" href="#group-data-files" title="Permanent link">&para;</a></h3>
 <p>Group data can be stored in separate files under the <code>group_data</code> directory (there's also a <code>--group-data $DIR</code> flag). Files will be loaded that match <code>group_data/&lt;group_name&gt;.py</code>, and all hosts in any matching group will receive variables defined in the file as data:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">app_user</span> <span class="o">=</span> <span class="s2">&quot;myuser&quot;</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">app_dir</span> <span class="o">=</span> <span class="s2">&quot;/opt/pyinfra&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">app_user</span> <span class="o">=</span> <span class="s2">&quot;myuser&quot;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">app_dir</span> <span class="o">=</span> <span class="s2">&quot;/opt/pyinfra&quot;</span>
 </span></code></pre></div>
 <p>These variables can then be used in operations:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;git@github.com:Fizzadar/pyinfra.git&quot;</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">dest</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_dir</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">user</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_user</span><span class="p">,</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;git@github.com:Fizzadar/pyinfra.git&quot;</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">dest</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_dir</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">user</span><span class="o">=</span><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">app_user</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>group_data</code> directory is relative to the current working directory. This can be changed at runtime via the <code>--chdir</code> flag.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>group_data/</code> is only loaded for file-based inventories. When the inventory is provided as a Python function or module attribute (see <a href="#function-based-inventories-alpha">Function-based Inventories (alpha)</a>), supply group data via the <code>(hosts, data)</code> tuple in the function's return value instead.</p>
 </div>
 <h2 id="data-hierarchy">Data Hierarchy<a class="headerlink" href="#data-hierarchy" title="Permanent link">&para;</a></h2>
 <p>The same keys can be defined for host and group data - this means we can set a default in <code>all.py</code> and override it on a group or host basis. When accessing data, the first match in the following is returned:</p>
@@ -1574,27 +1629,27 @@ to store multiple related inventories. Code can be imported from files under <co
 </div>
 <h2 id="connecting-with-data">Connecting with Data<a class="headerlink" href="#connecting-with-data" title="Permanent link">&para;</a></h2>
 <p>Data can be used to configure connectors. For example, setting SSH connection details can be done like so:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">ssh_user</span> <span class="o">=</span> <span class="s2">&quot;ubuntu&quot;</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">ssh_key</span> <span class="o">=</span> <span class="s2">&quot;~/.ssh/some_key&quot;</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">ssh_key_password</span> <span class="o">=</span> <span class="s2">&quot;password for key&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">ssh_user</span> <span class="o">=</span> <span class="s2">&quot;ubuntu&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">ssh_key</span> <span class="o">=</span> <span class="s2">&quot;~/.ssh/some_key&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">ssh_key_password</span> <span class="o">=</span> <span class="s2">&quot;password for key&quot;</span>
 </span></code></pre></div>
 <p>The <a href="connectors/index.html">Connectors Index</a> contains full details of which data keys are available in each connector.</p>
 <h2 id="global-arguments-with-data">Global Arguments with Data<a class="headerlink" href="#global-arguments-with-data" title="Permanent link">&para;</a></h2>
 <p>Data can also provide default values for <a href="arguments.html">global arguments</a>, for example:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">_sudo</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">_sudo_user</span> <span class="o">=</span> <span class="s2">&quot;pyinfra&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">_sudo</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">_sudo_user</span> <span class="o">=</span> <span class="s2">&quot;pyinfra&quot;</span>
 </span></code></pre></div>
 <p>This can be set during a deploy by updating <code>host.data</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">_sudo_user</span> <span class="o">=</span> <span class="s1">&#39;apache&#39;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">host</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">_sudo_user</span> <span class="o">=</span> <span class="s1">&#39;apache&#39;</span>
 </span></code></pre></div>
 <h2 id="external-sources-for-data">External Sources for Data<a class="headerlink" href="#external-sources-for-data" title="Permanent link">&para;</a></h2>
 <p>Because pyinfra is configured in Python, you can pull in data from pretty much anywhere just using other Python packages.</p>
 <h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
 <p><code>config.INHERIT_ENV</code> lets you forward specific environment variables from the machine running pyinfra to all remote operations. This is useful for tools that authenticate via environment variables (SOPS, cloud CLIs, etc.):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># deploy.py</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">config</span><span class="o">.</span><span class="n">INHERIT_ENV</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SOPS_AGE_KEY_FILE&quot;</span><span class="p">,</span> <span class="s2">&quot;AWS_PROFILE&quot;</span><span class="p">,</span> <span class="s2">&quot;GITLAB_TOKEN&quot;</span><span class="p">]</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># deploy.py</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">config</span><span class="o">.</span><span class="n">INHERIT_ENV</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SOPS_AGE_KEY_FILE&quot;</span><span class="p">,</span> <span class="s2">&quot;AWS_PROFILE&quot;</span><span class="p">,</span> <span class="s2">&quot;GITLAB_TOKEN&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>The priority for environment variables passed to operations is (lowest to highest):</p>
 <ol>
@@ -1639,14 +1694,9 @@ to store multiple related inventories. Code can be imported from files under <co
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

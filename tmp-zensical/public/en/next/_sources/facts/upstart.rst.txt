@@ -1,0 +1,16 @@
+Upstart Facts
+-------------
+
+See also: :doc:`../operations/upstart`.
+
+.. _facts:upstart.UpstartStatus:
+
+:code:`upstart.UpstartStatus`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(UpstartStatus)
+
+Returns a dict of name -> status for upstart managed services.
+

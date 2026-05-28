@@ -85,6 +85,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -151,11 +155,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="../index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -1238,9 +1242,16 @@
 <p>Facts used in these operations: <a href="../facts/zfs.html#zfs-ZfsDatasets"><code>zfs.ZfsDatasets</code></a>.</p>
 <h2 id="zfs-dataset"><code>zfs.dataset</code><a class="headerlink" href="#zfs-dataset" title="Permanent link">&para;</a></h2>
 <p>Create, destroy or set properties on a  ZFS dataset (e.g. filesystem, volume, snapshot).</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">volume_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">extra_props</span><span class="p">,</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">zfs</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="n">dataset_name</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>         <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         <span class="n">sparse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>         <span class="n">volume_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         <span class="n">properties</span><span class="o">=</span><span class="p">{},</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>         <span class="o">**</span><span class="n">extra_props</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>dataset_name</strong>: name of the filesystem to operate on</li>
@@ -1308,9 +1319,16 @@
 </div>
 <h2 id="zfs-volume"><code>zfs.volume</code><a class="headerlink" href="#zfs-volume" title="Permanent link">&para;</a></h2>
 <p>Create or destroy a ZFS volume, or modify its properties.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">volume_name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">extra_props</span><span class="p">,</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">zfs</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>         <span class="n">volume_name</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>         <span class="n">size</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>         <span class="n">sparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>         <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>         <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>         <span class="n">properties</span><span class="o">=</span><span class="p">{},</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>         <span class="o">**</span><span class="n">extra_props</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>volume_name</strong>: name of the volume to operate on</li>
@@ -1368,14 +1386,9 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

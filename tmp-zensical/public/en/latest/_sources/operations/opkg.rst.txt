@@ -1,0 +1,84 @@
+Opkg Operations
+---------------
+
+
+Manage packages on OpenWrt using opkg
+    + ``update`` - update local copy of package information
+    + ``packages`` -  install and remove packages
+
+See https://openwrt.org/docs/guide-user/additional-software/opkg
+
+OpenWrt recommends against upgrading all packages  thus there is no ``opkg.upgrade`` function
+
+**Note:** as of OpenWrt Release `2025.12`_, OpenWrt uses ``apk``.
+
+.. _2025.12: https://openwrt.org/releases/25.12/notes-25.12.0#switch_package_manager_from_opkg_to_apk
+
+
+Facts used in these operations: :ref:`facts:opkg.OpkgPackages`.
+
+.. _operations:opkg.packages:
+
+:code:`opkg.packages`
+~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update opkg packages.
+
+.. code:: python
+
+    opkg.packages(
+         packages: str | list[str] = '',
+         present: bool = True,
+         latest: bool = False,
+         update: bool = True,
+         **kwargs,
+    )
+
++ **packages**: package or list of packages to that must/must not be present
++ **present**: whether the package(s) should be installed (default True) or removed
++ **latest**: whether to attempt to upgrade the specified package(s) (default False)
++ **update**: run ``opkg update`` before installing packages (default True)
+
+Not Supported:
+    Opkg does not support version pinning, i.e. ``<pkg>=<version>`` is not allowed
+    and will cause an exception.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import opkg
+    # Ensure packages are installed (will not force package upgrade)
+    opkg.packages(['asterisk', 'vim'], name="Install Asterisk and Vim")
+
+    # Install the latest versions of packages (always check)
+    opkg.packages(
+        'vim',
+        latest=True,
+        name="Ensure we have the latest version of Vim"
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:opkg.update:
+
+:code:`opkg.update`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Update the local opkg information.
+
+.. code:: python
+
+    opkg.update**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

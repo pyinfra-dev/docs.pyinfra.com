@@ -85,6 +85,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -151,11 +155,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="../index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -1182,6 +1186,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#git-GitLocalCommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        git.GitLocalCommit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-GitRemoteBranchCommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        git.GitRemoteBranchCommit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#git-GitTag" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1241,11 +1267,23 @@
 <h2 id="git-GitConfig"><code>git.GitConfig</code><a class="headerlink" href="#git-GitConfig" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitConfig</span><span class="p">,</span> <span class="n">repo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></code></pre></div>
+<h2 id="git-GitLocalCommit"><code>git.GitLocalCommit</code><a class="headerlink" href="#git-GitLocalCommit" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitLocalCommit</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Returns the SHA of <code>ref</code> (defaults to <code>HEAD</code>) in a local git repository,
+or <code>None</code> when the repository does not exist, the ref is unknown, or the
+command fails.</p>
+<h2 id="git-GitRemoteBranchCommit"><code>git.GitRemoteBranchCommit</code><a class="headerlink" href="#git-GitRemoteBranchCommit" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitRemoteBranchCommit</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="n">branch</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Returns the SHA of the tip of <code>branch</code> on <code>remote</code> as reported by
+<code>git ls-remote</code>. Returns <code>None</code> when the remote is unreachable, the
+branch does not exist on the remote, or the repository is missing.</p>
 <h2 id="git-GitTag"><code>git.GitTag</code><a class="headerlink" href="#git-GitTag" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitTag</span><span class="p">,</span> <span class="n">repo</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitTag</span><span class="p">,</span> <span class="n">repo</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="git-GitTrackingBranch"><code>git.GitTrackingBranch</code><a class="headerlink" href="#git-GitTrackingBranch" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitTrackingBranch</span><span class="p">,</span> <span class="n">repo</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GitTrackingBranch</span><span class="p">,</span> <span class="n">repo</span><span class="p">)</span>
 </span></code></pre></div>
 
 
@@ -1287,14 +1325,9 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

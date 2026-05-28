@@ -1,0 +1,1034 @@
+Files Operations
+----------------
+
+
+The files operations handles filesystem state, file uploads and template generation.
+
+
+Facts used in these operations: :ref:`facts:files.Block`, :ref:`facts:server.Date`, :ref:`facts:files.Directory`, :ref:`facts:files.File`, :ref:`facts:files.FileContents`, :ref:`facts:files.FindFiles`, :ref:`facts:files.FindInFile`, :ref:`facts:files.FindLinks`, :ref:`facts:files.Flags`, :ref:`facts:files.Link`, :ref:`facts:files.Md5File`, :ref:`facts:files.Sha1File`, :ref:`facts:files.Sha256File`, :ref:`facts:files.Sha384File`, :ref:`facts:server.Which`.
+
+.. _operations:files.block:
+
+:code:`files.block`
+~~~~~~~~~~~~~~~~~~~
+
+Ensure content, surrounded by the appropriate markers, is present (or not) in the file.
+
+.. code:: python
+
+    files.block(
+         path: 'str',
+         content: 'str | list[str] | None' = None,
+         present=True,
+         line: 'str | None' = None,
+         backup=False,
+         escape_regex_characters=False,
+         try_prevent_shell_expansion=False,
+         before=False,
+         after=False,
+         marker: 'str | None' = None,
+         begin: 'str | None' = None,
+         end: 'str | None' = None,
+         **kwargs,
+    )
+
++ **path**: target remote file
++ **content**: what should be present in the file (between markers).
++ **present**: whether the content should be present in the file
++ **before**: should the content be added before ``line`` if it doesn't exist
++ **after**: should the content be added after ``line`` if it doesn't exist
++ **line**: regex before or after which the content should be added if it doesn't exist.
++ **backup**: whether to backup the file (see ``files.line``). Default False.
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
++ **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
++ **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
++ **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
+
+Content appended if ``line`` not found in the file
+    If ``content`` is not in the file but is required (``present=True``) and ``line`` is not
+    found in the file, ``content`` (surrounded by markers) will be appended to the file.  The
+    file is created if necessary.
+
+Content prepended or appended if ``line`` not specified
+    If ``content`` is not in the file but is required and ``line`` was not provided the content
+    will either be  prepended to the file (if both ``before`` and ``after``
+    are ``True``) or appended to the file (if both are ``False``).
+
+If the file is created, it is created with the default umask; otherwise the umask is preserved
+as is the owner.
+
+Removal ignores ``content`` and ``line``
+
+Preventing shell expansion works by wrapping the content in '`' before passing to `awk`.
+WARNING: This will break if the content contains raw single quotes.
+
+**Examples:**
+
+.. code:: python
+
+    # add entry to /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one",
+        before=True,
+        line=".*localhost",
+    )
+
+    # have two entries in /etc/host
+    files.block(
+        name="add IP address for red server",
+        path="/etc/hosts",
+        content="10.0.0.1 mars-one\n10.0.0.2 mars-two",
+        before=True,
+        line=".*localhost",
+    )
+
+    # remove marked entry from /etc/hosts
+    files.block(
+        name="remove all 10.* addresses from /etc/hosts",
+        path="/etc/hosts",
+        present=False
+    )
+
+    # add out of date warning to web page
+    files.block(
+        name="add out of date warning to web page",
+        path="/var/www/html/something.html",
+        content= "<p>Warning: this page is out of date.</p>",
+        line=".*<body>.*",
+        after=True
+        marker="<!-- {mark} PYINFRA BLOCK -->",
+    )
+
+    # put complex alias into .zshrc
+    files.block(
+        path="/home/user/.zshrc",
+        content="eval $(thef -a)",
+        try_prevent_shell_expansion=True,
+        marker="## {mark} ALIASES ##"
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.copy:
+
+:code:`files.copy`
+~~~~~~~~~~~~~~~~~~
+
+Copy remote file/directory/link into remote directory
+
+.. code:: python
+
+    files.copy(src: 'str', dest: 'str', overwrite=False,
+         **kwargs,
+    )
+
++ **src**: remote file/directory to copy
++ **dest**: remote directory to copy `src` into
++ **overwrite**: whether to overwrite dest, if present
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.directory:
+
+:code:`files.directory`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update directories.
+
+.. code:: python
+
+    files.directory(
+         path: 'str',
+         present=True,
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'int | str | None' = None,
+         recursive=False,
+         force=False,
+         force_backup=True,
+         force_backup_dir: 'str | None' = None,
+         _no_check_owner_mode=False,
+         _no_fail_on_link=False,
+         **kwargs,
+    )
+
++ **path**: path of the remote folder
++ **present**: whether the folder should exist
++ **user**: user to own the folder
++ **group**: group to own the folder
++ **mode**: permissions of the folder
++ **recursive**: recursively apply user/group/mode
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
+
+``recursive``:
+    Mode is only applied recursively if the base directory mode does not match
+    the specified value.  User and group are both applied recursively if the
+    base directory does not match either one; otherwise they are unchanged for
+    the whole tree.
+
+**Examples:**
+
+.. code:: python
+
+    files.directory(
+        name="Ensure the /tmp/dir_that_we_want_removed is removed",
+        path="/tmp/dir_that_we_want_removed",
+        present=False,
+    )
+
+    files.directory(
+        name="Ensure /web exists",
+        path="/web",
+        user="myweb",
+        group="myweb",
+    )
+
+    # Multiple directories
+    for dir in ["/netboot/tftp", "/netboot/nfs"]:
+        files.directory(
+            name="Ensure the directory `{}` exists".format(dir),
+            path=dir,
+        )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.download:
+
+:code:`files.download`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Download files from remote locations using ``curl`` or ``wget``.
+
+.. code:: python
+
+    files.download(
+         src: 'str',
+         dest: 'str',
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'int | str | None' = None,
+         cache_time: 'int | None' = None,
+         force=False,
+         sha384sum: 'str | None' = None,
+         sha256sum: 'str | None' = None,
+         sha1sum: 'str | None' = None,
+         md5sum: 'str | None' = None,
+         headers: 'dict[str, str] | None' = None,
+         insecure=False,
+         proxy: 'str | None' = None,
+         limit_rate: 'str | None' = None,
+         temp_dir: 'str | Path | None' = None,
+         extra_curl_args: 'dict[str, str] | None' = None,
+         extra_wget_args: 'dict[str, str] | None' = None,
+         **kwargs,
+    )
+
++ **src**: source URL of the file
++ **dest**: where to save the file
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files
++ **cache_time**: if the file exists already, re-download after this time (in seconds)
++ **force**: always download the file, even if it already exists
++ **sha384sum**: sha384 hash to checksum the downloaded file against
++ **sha256sum**: sha256 hash to checksum the downloaded file against
++ **sha1sum**: sha1 hash to checksum the downloaded file against
++ **md5sum**: md5 hash to checksum the downloaded file against
++ **headers**: optional dictionary of headers to set for the HTTP request
++ **insecure**: disable SSL verification for the HTTP request
++ **proxy**: simple HTTP proxy through which we can download files, form `http://<yourproxy>:<port>`
++ **limit_rate**: cap the download bandwidth, accepts the curl/wget format (e.g. ``1M``, ``500k``)
++ **temp_dir**: use this custom temporary directory during the download
++ **extra_curl_args**: optional dictionary with custom arguments for curl
++ **extra_wget_args**: optional dictionary with custom arguments for wget
+
+**Example:**
+
+.. code:: python
+
+    from pyinfra.operations import files
+    files.download(
+        name="Download the Docker repo file",
+        src="https://download.docker.com/linux/centos/docker-ce.repo",
+        dest="/etc/yum.repos.d/docker-ce.repo",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.file:
+
+:code:`files.file`
+~~~~~~~~~~~~~~~~~~
+
+Add/remove/update files.
+
+.. code:: python
+
+    files.file(
+         path: 'str',
+         present=True,
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'int | str | None' = None,
+         touch=False,
+         create_remote_dir=True,
+         force=False,
+         force_backup=True,
+         force_backup_dir: 'str | None' = None,
+         **kwargs,
+    )
+
++ **path**: name/path of the remote file
++ **present**: whether the file should exist
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files as an integer, eg: 755
++ **touch**: whether to touch the file
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
+
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
+
+**Example:**
+
+.. code:: python
+
+    # Note: The directory /tmp/secret will get created with the default umask.
+    files.file(
+        name="Create /tmp/secret/file",
+        path="/tmp/secret/file",
+        mode="600",
+        user="root",
+        group="root",
+        touch=True,
+        create_remote_dir=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.flags:
+
+:code:`files.flags`
+~~~~~~~~~~~~~~~~~~~
+
+Set/clear file flags.
+
+.. code:: python
+
+    files.flags(path: 'str', flags: 'list[str] | None' = None, present=True,
+         **kwargs,
+    )
+
++ **path**: path of the remote folder
++ **flags**: a list of the file flags to be set or cleared
++ **present**: whether the flags should be set or cleared
+
+**Examples:**
+
+.. code:: python
+
+    files.flags(
+        name="Ensure ~/Library is visible in the GUI",
+        path="~/Library",
+        flags="hidden",
+        present=False
+    )
+
+    files.directory(
+        name="Ensure no one can change these files",
+        path="/something/very/important",
+        flags=["uchg", "schg"],
+        present=True,
+        _sudo=True
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.get:
+
+:code:`files.get`
+~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Download a file from the remote system.
+
+.. code:: python
+
+    files.get(src: 'str', dest: 'str', add_deploy_dir=True, create_local_dir=False, force=False,
+         **kwargs,
+    )
+
++ **src**: the remote filename to download
++ **dest**: the local filename to download the file to
++ **add_deploy_dir**: dest is relative to the deploy directory
++ **create_local_dir**: create the local directory if it doesn't exist
++ **force**: always download the file, even if the local copy matches
+
+Note:
+    This operation is not suitable for large files as it may involve copying
+    the remote file before downloading it.
+
+**Example:**
+
+.. code:: python
+
+    files.get(
+        name="Download a file from a remote",
+        src="/etc/centos-release",
+        dest="/tmp/whocares",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.line:
+
+:code:`files.line`
+~~~~~~~~~~~~~~~~~~
+
+Ensure lines in files using grep to locate and sed to replace.
+
+.. code:: python
+
+    files.line(
+         path: 'str',
+         line: 'str',
+         present=True,
+         replace: 'str | None' = None,
+         flags: 'list[str] | None' = None,
+         backup=False,
+         interpolate_variables=False,
+         escape_regex_characters=False,
+         ensure_newline=False,
+         extended_regex=False,
+         **kwargs,
+    )
+
++ **path**: target remote file to edit
++ **line**: string or regex matching the target line
++ **present**: whether the line should be in the file
++ **replace**: text to replace entire matching lines when ``present=True``
++ **flags**: list of flags to pass to sed when replacing/deleting
++ **backup**: whether to backup the file (see below)
++ **interpolate_variables**: whether to interpolate variables in ``replace``
++ **escape_regex_characters**: whether to escape regex characters from the matching line
++ **ensure_newline**: ensures that the appended line is on a new line
++ **extended_regex**: pass ``-E`` to ``grep`` and ``sed`` so quantifiers like ``+`` and
+  ``?`` and groups like ``(a|b)`` work without backslash escaping. Defaults to ``False``
+  (basic regular expressions) for backward compatibility.
+
+Regex line matching:
+    Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
+    it does, like: ``^.*LINE.*$``. This means we don't swap parts of lines out. To
+    change bits of lines, see ``files.replace``.
+
+Regex line escaping:
+    If matching special characters (eg a crontab line containing ``*``), remember to escape
+    it first using Python's ``re.escape``.
+
+Backup:
+    If set to ``True``, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running ``pyinfra``) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.
+
+Append:
+    If ``line`` is not in the file but we want it (``present`` set to ``True``), then
+    it will be append to the end of the file.
+
+Ensure new line:
+    This will ensure that the ``line`` being appended is always on a separate new
+    line in case the file doesn't end with a newline character.
+
+
+**Examples:**
+
+.. code:: python
+
+    # prepare to do some maintenance
+    maintenance_line = "SYSTEM IS DOWN FOR MAINTENANCE"
+    files.line(
+        name="Add the down-for-maintenance line in /etc/motd",
+        path="/etc/motd",
+        line=maintenance_line,
+    )
+
+    # Then, after the maintenance is done, remove the maintenance line
+    files.line(
+        name="Remove the down-for-maintenance line in /etc/motd",
+        path="/etc/motd",
+        line=maintenance_line,
+        replace="",
+        present=False,
+    )
+
+    # example where there is '*' in the line
+    files.line(
+        name="Ensure /netboot/nfs is in /etc/exports",
+        path="/etc/exports",
+        line=r"/netboot/nfs .*",
+        replace="/netboot/nfs *(ro,sync,no_wdelay,insecure_locks,no_root_squash,"
+        "insecure,no_subtree_check)",
+    )
+
+    files.line(
+        name="Ensure myweb can run /usr/bin/python3 without password",
+        path="/etc/sudoers",
+        line=r"myweb .*",
+        replace="myweb ALL=(ALL) NOPASSWD: /usr/bin/python3",
+    )
+
+    # example when there are double quotes (")
+    line = 'QUOTAUSER=""'
+    files.line(
+        name="Example with double quotes (")",
+        path="/etc/adduser.conf",
+        line="^{}$".format(line),
+        replace=line,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.link:
+
+:code:`files.link`
+~~~~~~~~~~~~~~~~~~
+
+Add/remove/update links.
+
+.. code:: python
+
+    files.link(
+         path: 'str',
+         target: 'str | None' = None,
+         present=True,
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         symbolic=True,
+         create_remote_dir=True,
+         force=False,
+         force_backup=True,
+         force_backup_dir: 'str | None' = None,
+         **kwargs,
+    )
+
++ **path**: the name of the link
++ **target**: the file/directory the link points to
++ **present**: whether the link should exist
++ **user**: user to own the link
++ **group**: group to own the link
++ **symbolic**: whether to make a symbolic link (vs hard link)
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: if the target exists and is not a file, move or remove it and continue
++ **force_backup**: set to ``False`` to remove any existing non-file when ``force=True``
++ **force_backup_dir**: directory to move any backup to when ``force=True``
+
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
+
+Source changes:
+    If the link exists and points to a different target, pyinfra will remove it and
+    recreate a new one pointing to then new target.
+
+**Examples:**
+
+.. code:: python
+
+    files.link(
+        name="Create link /etc/issue2 that points to /etc/issue",
+        path="/etc/issue2",
+        target="/etc/issue",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.move:
+
+:code:`files.move`
+~~~~~~~~~~~~~~~~~~
+
+Move remote file/directory/link into remote directory
+
+.. code:: python
+
+    files.move(src: 'str', dest: 'str', overwrite=False,
+         **kwargs,
+    )
+
++ **src**: remote file/directory to move
++ **dest**: remote directory to move `src` into
++ **overwrite**: whether to overwrite dest, if present
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.put:
+
+:code:`files.put`
+~~~~~~~~~~~~~~~~~
+
+Upload a local file, or file-like object, to the remote system.
+
+.. code:: python
+
+    files.put(
+         src: 'str | IO[Any]',
+         dest: 'str',
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'int | str | bool | None' = None,
+         add_deploy_dir=True,
+         create_remote_dir=True,
+         force=False,
+         assume_exists=False,
+         atime: 'datetime | float | int | str | bool | None' = None,
+         mtime: 'datetime | float | int | str | bool | None' = None,
+         **kwargs,
+    )
+
++ **src**: filename or IO-like object to upload
++ **dest**: remote filename to upload to
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files, use ``True`` to copy the local file
++ **add_deploy_dir**: src is relative to the deploy directory
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **force**: always upload the file, even if the remote copy matches
++ **assume_exists**: whether to assume the local file exists
++ **atime**: value of atime the file should have, use ``True`` to match the local file
++ **mtime**: value of mtime the file should have, use ``True`` to match the local file
+
+``dest``:
+    If this is a directory that already exists on the remote side, the local
+    file will be uploaded to that directory with the same filename.
+
+``mode``:
+    When set to ``True`` the permissions of the local file are applied to the
+    remote file after the upload is complete.  If set to an octal value with
+    digits for at least user, group, and other, either as an ``int`` or
+    ``str``, those permissions will be used.
+
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
+
+``atime`` and ``mtime``:
+    When set to values other than ``False`` or ``None``, the respective metadata
+    fields on the remote file will updated accordingly.  Timestamp values are
+    considered equivalent if the difference is less than one second and they have
+    the identical number in the seconds field.  If set to ``True`` the local
+    file is the source of the value.  Otherwise, these values can be provided as
+    ``datetime`` objects, POSIX timestamps, or strings that can be parsed into
+    either of these date and time specifications.  They can also be reference file
+    paths on the remote host, as with the ``-r`` argument to ``touch``.  If a
+    ``datetime`` argument has no ``tzinfo`` value (i.e., it is naive), it is
+    assumed to be in the remote host's local timezone.  There is no shortcut for
+    setting both ``atime` and ``mtime`` values with a single time specification,
+    unlike the native ``touch`` command.
+
+Notes:
+    This operation is not suitable for large files as it may involve copying
+    the file before uploading it.
+
+    Currently, if the mode argument is anything other than a ``bool`` or a full
+    octal permission set and the remote file exists, the operation will always
+    behave as if the remote file does not match the specified permissions and
+    requires a change.
+
+    If the ``atime`` argument is set for a given file, unless the remote
+    filesystem is mounted ``noatime`` or ``relatime``, multiple runs of this
+    operation will trigger the change detection for that file, since the act of
+    reading and checksumming the file will cause the host OS to update the file's
+    ``atime``.
+
+**Examples:**
+
+.. code:: python
+
+    files.put(
+        name="Update the message of the day file",
+        src="files/motd",
+        dest="/etc/motd",
+        mode="644",
+    )
+
+    files.put(
+        name="Upload a StringIO object",
+        src=StringIO("file contents"),
+        dest="/etc/motd",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.replace:
+
+:code:`files.replace`
+~~~~~~~~~~~~~~~~~~~~~
+
+Replace contents of a file using ``sed``.
+
+.. code:: python
+
+    files.replace(
+         path: 'str',
+         text: 'str | None' = None,
+         replace: 'str | None' = None,
+         flags: 'list[str] | None' = None,
+         backup=False,
+         interpolate_variables=False,
+         extended_regex=False,
+         match=None,
+         **kwargs,
+    )
+
++ **path**: target remote file to edit
++ **text**: text/regex to match against
++ **replace**: text to replace with
++ **flags**: list of flags to pass to sed
++ **backup**: whether to backup the file (see below)
++ **interpolate_variables**: whether to interpolate variables in ``replace``
++ **extended_regex**: pass ``-E`` to ``grep`` and ``sed`` so quantifiers like ``+`` and
+  ``?`` and groups like ``(a|b)`` work without backslash escaping. Defaults to ``False``
+  (basic regular expressions) for backward compatibility.
+
+Backup:
+    If set to ``True``, any editing of the file will place an old copy with the ISO
+    date (taken from the machine running ``pyinfra``) appended as the extension. If
+    you pass a string value this will be used as the extension of the backed up file.
+
+**Example:**
+
+.. code:: python
+
+    files.replace(
+        name="Change part of a line in a file",
+        path="/etc/motd",
+        text="verboten",
+        replace="forbidden",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.rsync:
+
+:code:`files.rsync`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Use ``rsync`` to sync a local directory to the remote system. This operation will actually call
+the ``rsync`` binary on your system.
+
+.. code:: python
+
+    files.rsync(src: 'str', dest: 'str', flags: 'list[str] | None' = None,
+         **kwargs,
+    )
+
+.. important::
+    The ``files.rsync`` operation is in alpha, and only supported using SSH
+    or ``@local`` connectors. When using the SSH connector, rsync will automatically use the
+    StrictHostKeyChecking setting, config and known_hosts file (when specified).
+
+.. caution::
+    When using SSH, the ``files.rsync`` operation only supports the ``sudo`` and ``sudo_user``
+    global arguments.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.sync:
+
+:code:`files.sync`
+~~~~~~~~~~~~~~~~~~
+
+Syncs a local directory with a remote one, with delete support. Note that delete will
+remove extra files and symlinks on the remote side, but not extra directories.
+
+.. code:: python
+
+    files.sync(
+         src: 'str',
+         dest: 'str',
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'str | None' = None,
+         dir_mode: 'str | None' = None,
+         delete=False,
+         exclude: 'str | list[str] | tuple[str] | None' = None,
+         exclude_dir: 'str | list[str] | tuple[str] | None' = None,
+         add_deploy_dir=True,
+         **kwargs,
+    )
+
++ **src**: local directory to sync
++ **dest**: remote directory to sync to
++ **user**: user to own the files and directories
++ **group**: group to own the files and directories
++ **mode**: permissions of the files (also used as fallback for directories if ``dir_mode``
+  is not specified)
++ **dir_mode**: permissions of the directories
++ **delete**: delete remote files and symlinks not present locally
++ **exclude**: string or list/tuple of strings to match & exclude files (eg ``*.pyc``)
++ **exclude_dir**: string or list/tuple of strings to match & exclude directories (eg node_modules)
++ **add_deploy_dir**: interpret src as relative to deploy directory instead of current directory
+
+**Example:**
+
+.. code:: python
+
+    # Sync local files/tempdir to remote /tmp/tempdir
+    files.sync(
+        name="Sync a local directory with remote",
+        src="files/tempdir",
+        dest="/tmp/tempdir",
+    )
+
+Note: ``exclude`` and ``exclude_dir`` use ``fnmatch`` behind the scenes to do the filtering.
+
++ ``exclude`` matches against the filename.
++ ``exclude_dir`` matches against the path of the directory, relative to ``src``.
+  Since fnmatch does not treat path separators (``/`` or ``\``) as special characters,
+  excluding all directories matching a given name, however deep under ``src`` they are,
+  can be done for example with ``exclude_dir=["__pycache__", "*/__pycache__"]``
+
+Symlinks:
+    Local symlinks (both to files and directories) are synced to the remote as symlinks,
+    preserving the link target as-is (relative or absolute). Symlinked directories are not
+    traversed. When ``delete=True``, remote symlinks not present locally are also removed.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.template:
+
+:code:`files.template`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Generate a template using jinja2 and write it to the remote system.
+
+.. code:: python
+
+    files.template(
+         src: 'str | IO[Any]',
+         dest: 'str',
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         mode: 'str | None' = None,
+         create_remote_dir: 'bool' = True,
+         jinja_env_kwargs: 'dict[str, Any] | None' = None,
+         **data,
+         **kwargs,
+    )
+
++ **src**: template filename or IO-like object
++ **dest**: remote filename
++ **user**: user to own the files
++ **group**: group to own the files
++ **mode**: permissions of the files
++ **create_remote_dir**: create the remote directory if it doesn't exist
++ **jinja_env_kwargs**: keyword arguments to be passed into the jinja Environment()
+
+``create_remote_dir``:
+    If the remote directory does not exist it will be created using the same
+    user & group as passed to ``files.put``. The mode will *not* be copied over,
+    if this is required call ``files.directory`` separately.
+
+``jinja_env_kwargs``:
+    To have more control over how jinja2 renders your template, you can pass
+    a dict with arguments that will be passed as keyword args to the jinja2
+    `Environment() <https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment>`_.
+
+The ``host``, ``state``, and ``inventory`` objects will be automatically passed to the template.
+To pass additional data or variables, explicitly add them as keyword arguments to the operation
+call itself.
+
+Notes:
+    Common convention is to store templates in a "templates" directory and
+    have a filename suffix with '.j2' (for jinja2).
+
+    The default template lookup directory (used with jinjas ``extends``, ``import`` and
+    ``include`` statements) is the current working directory.
+
+    For information on the template syntax, see
+    `the jinja2 docs <https://jinja.palletsprojects.com>`_.
+
+**Examples:**
+
+.. code:: python
+
+    files.template(
+        name="Create a templated file",
+        src="templates/somefile.conf.j2",
+        dest="/etc/somefile.conf",
+    )
+
+    files.template(
+        name="Create service file",
+        src="templates/myweb.service.j2",
+        dest="/etc/systemd/system/myweb.service",
+        mode="755",
+        user="root",
+        group="root",
+    )
+
+    # You can use a (local) file path or an IO-like object as src:
+    files.template(
+        name="Create a templated file",
+        src=StringIO("This is a template file content"),
+        dest="/etc/somefile.conf",
+    )
+
+    # To pass variables to the template file, just add them to the operation call.
+    # You can also use dicts and lists. The .j2 file can use `{{ foo_variable }}`
+    # to interpolate them:
+    foo_variable = 'This is some foo variable contents'
+    foo_dict = {
+        "str1": "This is string 1",
+        "str2": "This is string 2"
+    }
+    foo_list = [
+        "entry 1",
+        "entry 2"
+    ]
+
+    template = StringIO("""
+    name: "{{ foo_variable }}"
+    dict_contents:
+        str1: "{{ foo_dict.str1 }}"
+        str2: "{{ foo_dict.str2 }}"
+    list_contents:
+    {% for entry in foo_list %}
+        - "{{ entry }}"
+    {% endfor %}
+    """)
+
+    files.template(
+        name="Create a templated file",
+        src=template,
+        dest="/tmp/foo.yml",
+        foo_variable=foo_variable,
+        foo_dict=foo_dict,
+        foo_list=foo_list
+    )
+
+    # Host, state and inventory are automatically passed to the template,
+    # no need to explicitly pass them in the operation call:
+    template = StringIO("""
+    name: "{{ host.name }}"
+    list_contents:
+    {% for entry in inventory.groups.my_servers %}
+        - "{{ entry }}"
+    {% endfor %}
+    """)
+
+    files.template(
+        name="Create a templated file",
+        src=template,
+        dest="/tmp/foo.yml"
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:files.unarchive:
+
+:code:`files.unarchive`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Extract archive files on the remote system.
+
+.. code:: python
+
+    files.unarchive(
+         src: 'str',
+         dest: 'str',
+         remote_src: 'bool' = False,
+         creates: 'str | None' = None,
+         extra_opts: 'list[str] | None' = None,
+         user: 'str | None' = None,
+         group: 'str | None' = None,
+         **kwargs,
+    )
+
++ **src**: path to the archive file (local or remote depending on ``remote_src``)
++ **dest**: remote directory to extract into (must exist)
++ **remote_src**: set to ``True`` if the archive is already on the remote system
++ **creates**: if this path already exists, the operation is skipped (idempotency)
++ **extra_opts**: list of additional arguments to pass to the extract command
++ **user**: user to own the extracted files
++ **group**: group to own the extracted files
+
+Supported formats:
+    ``.tar``, ``.tar.gz``/``.tgz``, ``.tar.bz2``/``.tbz2``,
+    ``.tar.xz``/``.txz``, ``.tar.zst``, ``.zip``
+
+**Examples:**
+
+.. code:: python
+
+    # Extract a remote archive
+    files.unarchive(
+        name="Extract app tarball",
+        src="/tmp/app.tar.gz",
+        dest="/opt/app",
+        remote_src=True,
+    )
+
+    # Upload and extract a local archive
+    files.unarchive(
+        name="Deploy release",
+        src="releases/app-v1.0.tar.gz",
+        dest="/opt/app",
+        creates="/opt/app/bin/start",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

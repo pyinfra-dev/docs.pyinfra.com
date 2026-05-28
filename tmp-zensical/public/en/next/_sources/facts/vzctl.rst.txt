@@ -1,0 +1,26 @@
+Vzctl Facts
+-----------
+
+See also: :doc:`../operations/vzctl`.
+
+.. _facts:vzctl.OpenvzContainers:
+
+:code:`vzctl.OpenvzContainers`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OpenvzContainers)
+
+Returns a dict of running OpenVZ containers by CTID:
+
+.. code:: python
+
+    {
+        666: {
+            "ip": [],
+            "ostemplate": "ubuntu...",
+            ...
+        },
+    }
+

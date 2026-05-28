@@ -1,0 +1,76 @@
+Snap Operations
+---------------
+
+
+Manage snap packages. See https://snapcraft.io/
+
+
+Facts used in these operations: :ref:`facts:snap.SnapPackage`, :ref:`facts:snap.SnapPackages`.
+
+.. _operations:snap.package:
+
+:code:`snap.package`
+~~~~~~~~~~~~~~~~~~~~
+
+Install/remove a snap package
+
+.. code:: python
+
+    snap.package(
+         packages: 'str | list[str] | None' = None,
+         channel='latest/stable',
+         classic=False,
+         present=True,
+         **kwargs,
+    )
+
++ **packages**: List of packages
++ **channel**: tracking channel
++ **classic**: Use classic confinement
++ **present**: whether the package should be installed
+
+``classic``:
+    Allows access to your system’s resources in much the same way traditional
+    packages do. This option corresponds to the ``--classic`` argument.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import snap
+    # Install vlc via snap
+    snap.package(
+        name="Install vlc",
+        packages="vlc",
+    )
+
+    # Install multiple snaps
+    snap.package(
+        name="Install vlc and hello-world",
+        packages=["vlc", "hello-world"],
+    )
+
+    # Remove vlc
+    snap.package(
+        name="Remove vlc",
+        packages="vlc",
+        present=False,
+    )
+
+    # Install LXD using "4.0/stable" channel
+    snap.package(
+        name="Install LXD 4.0/stable",
+        packages=["lxd"],
+        channel="4.0/stable",
+    )
+
+    # Install neovim with classic confinement
+    snap.package(
+        name="Install Neovim",
+        packages=["nvim"],
+        classic=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

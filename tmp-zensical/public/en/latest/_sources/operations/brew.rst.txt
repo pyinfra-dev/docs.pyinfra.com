@@ -1,0 +1,207 @@
+Brew Operations
+---------------
+
+
+Manage brew packages on mac/OSX. See https://brew.sh/
+
+
+Facts used in these operations: :ref:`facts:brew.BrewCasks`, :ref:`facts:brew.BrewPackages`, :ref:`facts:brew.BrewTaps`, :ref:`facts:brew.BrewVersion`.
+
+.. _operations:brew.cask_upgrade:
+
+:code:`brew.cask_upgrade`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Upgrades all brew casks.
+
+.. code:: python
+
+    brew.cask_upgrade**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:brew.casks:
+
+:code:`brew.casks`
+~~~~~~~~~~~~~~~~~~
+
+Add/remove/update brew casks.
+
+.. code:: python
+
+    brew.casks(casks: 'str | list[str] | None' = None, present=True, latest=False, upgrade=False,
+         **kwargs,
+    )
+
++ **casks**: list of casks to ensure
++ **present**: whether the casks should be installed
++ **latest**: whether to upgrade casks without a specified version
++ **upgrade**: run brew cask upgrade before installing casks
+
+Versions:
+    Cask versions can be pinned like brew: ``<pkg>@<version>``.
+
+**Example:**
+
+.. code:: python
+
+    brew.casks(
+        name='Upgrade and install the latest cask',
+        casks=["godot"],
+        upgrade=True,
+        latest=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:brew.packages:
+
+:code:`brew.packages`
+~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove/update brew packages.
+
+.. code:: python
+
+    brew.packages(
+         packages: 'str | list[str] | None' = None,
+         present=True,
+         latest=False,
+         update=False,
+         upgrade=False,
+         **kwargs,
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **latest**: whether to upgrade packages without a specified version
++ **update**: run ``brew update`` before installing packages
++ **upgrade**: run ``brew upgrade`` before installing packages
+
+Versions:
+    Package versions can be pinned like brew: ``<pkg>@<version>``.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import brew
+    # Update package list and install packages
+    brew.packages(
+        name='Install Vim and vimpager',
+        packages=["vimpager", "vim"],
+        update=True,
+    )
+
+    # Install the latest versions of packages (always check)
+    brew.packages(
+        name="Install latest Vim",
+        packages=["vim"],
+        latest=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:brew.tap:
+
+:code:`brew.tap`
+~~~~~~~~~~~~~~~~
+
+Add/remove brew taps.
+
+.. code:: python
+
+    brew.tap(src: 'str | None' = None, present=True, url: 'str | None' = None,
+         **kwargs,
+    )
+
++ **src**: the name of the tap
++ **present**: whether this tap should be present or not
++ **url**: the url of the tap. See https://docs.brew.sh/Taps
+
+**Examples:**
+
+.. code:: python
+
+    brew.tap(
+        name="Add a brew tap",
+        src="includeos/includeos",
+    )
+
+    # Just url is equivalent to
+    # `brew tap kptdev/kpt https://github.com/kptdev/kpt`
+    brew.tap(
+        url="https://github.com/kptdev/kpt",
+    )
+
+    # src and url is equivalent to
+    # `brew tap example/project https://github.example.com/project`
+    brew.tap(
+        src="example/project",
+        url="https://github.example.com/project",
+    )
+
+    # Multiple taps
+    for tap in ["includeos/includeos", "ktr0731/evans"]:
+        brew.tap(
+            name={f"Add brew tap {tap}"},
+            src=tap,
+        )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:brew.update:
+
+:code:`brew.update`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Updates brew repositories.
+
+.. code:: python
+
+    brew.update**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:brew.upgrade:
+
+:code:`brew.upgrade`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Upgrades all brew packages.
+
+.. code:: python
+
+    brew.upgrade**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

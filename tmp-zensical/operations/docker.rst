@@ -1,0 +1,628 @@
+Docker Operations
+-----------------
+
+
+Manager Docker containers, volumes and networks. These operations allow you to manage Docker from
+the view of the current inventory host. See the :doc:`../connectors/docker` to use Docker containers
+as inventory directly.
+
+
+Facts used in these operations: :ref:`facts:docker.DockerAuths`, :ref:`facts:docker.DockerContainer`, :ref:`facts:docker.DockerImage`, :ref:`facts:docker.DockerNetwork`, :ref:`facts:docker.DockerPlugin`, :ref:`facts:docker.DockerVolume`.
+
+.. _operations:docker.build:
+
+:code:`docker.build`
+~~~~~~~~~~~~~~~~~~~~
+
+Build a Docker image from a context directory or URL.
+
+.. code:: python
+
+    docker.build(
+         path: 'str',
+         tags: 'str | list[str] | None' = None,
+         dockerfile: 'str | None' = None,
+         build_args: 'dict[str, str] | None' = None,
+         labels: 'dict[str, str] | None' = None,
+         target: 'str | None' = None,
+         platform: 'str | None' = None,
+         network: 'str | None' = None,
+         cache_from: 'str | list[str] | None' = None,
+         cache_to: 'str | list[str] | None' = None,
+         secrets: 'list[str] | None' = None,
+         pull: 'bool' = False,
+         no_cache: 'bool' = False,
+         force: 'bool' = False,
+         builder: 'str | None' = None,
+         build_cmd: 'str' = 'docker build',
+         **kwargs,
+    )
+
++ **path**: build context (local directory or git/http URL)
++ **tags**: tag or list of tags to apply to the built image (maps to ``-t``)
++ **dockerfile**: path to the Dockerfile (maps to ``-f``; relative to the context)
++ **build_args**: ``--build-arg`` values as a mapping
++ **labels**: ``--label`` values as a mapping
++ **target**: ``--target`` stage for multi-stage Dockerfiles
++ **platform**: ``--platform`` (e.g. ``linux/amd64``)
++ **network**: ``--network`` (e.g. ``host``)
++ **cache_from**: ``--cache-from`` value or list of values; accepts image
+  references and full backend specs (e.g. ``type=registry,ref=...``,
+  ``type=gha``, ``type=local,src=/tmp/.buildx-cache``)
++ **cache_to**: ``--cache-to`` value or list of values; same backend syntax as
+  ``cache_from`` (BuildKit / ``docker buildx build`` only)
++ **secrets**: list of raw ``--secret`` specs (e.g. ``id=mysecret,src=/run/secret``)
++ **pull**: pass ``--pull`` to always fetch newer base images
++ **no_cache**: pass ``--no-cache``
++ **force**: rebuild even if all provided tags already exist locally
++ **builder**: optional name passed via ``--builder`` to select a buildx
+  builder instance (BuildKit only)
++ **build_cmd**: command used to invoke the build, defaults to ``docker build``;
+  set to ``"docker buildx build"`` to force BuildKit
+
+Idempotency is tag-based: when ``tags`` is provided and ``force`` is false, the
+operation no-ops if every tag already exists on the target. Without ``tags``
+the build always runs (Docker's own layer cache still applies).
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+
+    # Build and tag a local context
+    docker.build(
+        name="Build app image",
+        path="/srv/app",
+        tags=["app:1.0", "app:latest"],
+        build_args={"VERSION": "1.0"},
+        pull=True,
+    )
+
+    # BuildKit cross-platform build from a custom Dockerfile,
+    # using a named buildx builder and a registry cache backend
+    docker.build(
+        name="Build multi-arch app",
+        path="/srv/app",
+        tags="registry.io/app:arm64",
+        dockerfile="docker/Dockerfile.prod",
+        platform="linux/arm64",
+        build_cmd="docker buildx build",
+        builder="multiarch",
+        cache_from="type=registry,ref=registry.io/app:cache",
+        cache_to="type=registry,ref=registry.io/app:cache,mode=max",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.compose:
+
+:code:`docker.compose`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Deploy a Docker Compose stack on the target.
+
+.. code:: python
+
+    docker.compose(
+         project_directory: 'str',
+         files: 'str | list[str] | None' = None,
+         project_name: 'str | None' = None,
+         present: 'bool' = True,
+         pull: 'str | None' = None,
+         build: 'bool' = False,
+         force_recreate: 'bool' = False,
+         remove_orphans: 'bool' = True,
+         remove_volumes: 'bool' = False,
+         compose_command: 'str' = 'docker compose',
+         **kwargs,
+    )
+
++ **project_directory**: project directory on the target (maps to
+  ``--project-directory``). Compose discovers ``compose.yaml`` /
+  ``compose.yml`` / ``docker-compose.yaml`` / ``docker-compose.yml`` inside
+  this directory by default.
++ **files**: optional path or list of paths to specific compose file(s) on the
+  target (maps to ``-f``); use this to override the default discovery or to
+  layer overrides.
++ **project_name**: compose project name (maps to ``--project-name``; defaults
+  to compose's own default — typically the basename of ``project_directory``)
++ **present**: ``True`` runs ``up -d``, ``False`` runs ``down``
++ **pull**: policy for ``up -d --pull`` (``None``, ``"always"``, ``"missing"``, ``"never"``)
++ **build**: pass ``--build`` on ``up``
++ **force_recreate**: pass ``--force-recreate`` on ``up``
++ **remove_orphans**: pass ``--remove-orphans`` on ``up`` / ``down``
++ **remove_volumes**: pass ``-v`` on ``down`` (only honored when ``present=False``)
++ **compose_command**: compose binary to invoke; use ``"docker-compose"`` for v1
+
+This operation is not idempotent from pyinfra's perspective: it always shells out
+to compose. Docker itself skips services whose definition has not changed, so
+re-runs are safe and cheap.
+
+``_env`` and ``_chdir`` are the standard pyinfra global operation kwargs and
+work here without any special handling, which is useful for compose variable
+interpolation.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker, files
+
+    # Upload the compose file then bring the stack up using compose's
+    # default discovery (looks for compose.yaml / docker-compose.yml in
+    # the project directory)
+    files.put(
+        name="Upload compose file",
+        src="files/docker-compose.yml",
+        dest="/srv/app/docker-compose.yml",
+    )
+    docker.compose(
+        name="Deploy app stack",
+        project_directory="/srv/app",
+        project_name="app",
+        _env={"DIR_STORAGE": "/srv/app/data"},
+    )
+
+    # Layer a base compose file with an override
+    docker.compose(
+        name="Deploy app stack with override",
+        project_directory="/srv/app",
+        files=["docker-compose.yml", "docker-compose.prod.yml"],
+    )
+
+    # Tear the stack down, including named volumes
+    docker.compose(
+        name="Remove app stack",
+        project_directory="/srv/app",
+        project_name="app",
+        present=False,
+        remove_volumes=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.container:
+
+:code:`docker.container`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Manage Docker containers
+
+.. code:: python
+
+    docker.container(
+         container: 'str',
+         image: 'str' = '',
+         ports: 'list[str] | None' = None,
+         networks: 'list[str] | None' = None,
+         volumes: 'list[str] | None' = None,
+         env_vars: 'list[str] | None' = None,
+         env_files: 'list[str] | None' = None,
+         labels: 'list[str] | None' = None,
+         pull_always: 'bool' = False,
+         present: 'bool' = True,
+         force: 'bool' = False,
+         start: 'bool' = True,
+         restart_policy: 'str | None' = None,
+         auto_remove: 'bool' = False,
+         mounts: 'list[str] | None' = None,
+         privileged: 'bool' = False,
+         hostname: 'str | None' = None,
+         entrypoint: 'str | None' = None,
+         user: 'str | None' = None,
+         cpus: 'float | None' = None,
+         memory: 'str | None' = None,
+         extra_args: 'list[str] | None' = None,
+         dns: 'list[str] | None' = None,
+         command: 'str | None' = None,
+         **kwargs,
+    )
+
++ **container**: name to identify the container
++ **image**: container image and tag ex: nginx:alpine
++ **networks**: network list to attach on container
++ **ports**: port list to expose
++ **volumes**: volume list to map on container
++ **env_vars**: environment variable list to inject on container
++ **env_files**: list of files containing environment variables to inject on container
++ **labels**: Label list to attach to the container
++ **pull_always**: force image pull
++ **force**: remove a container with same name and create a new one
++ **present**: whether the container should be up and running
++ **start**: start or stop the container
++ **restart_policy**: restart policy to apply when a container exits
++ **auto_remove**: automatically remove the container and its associated anonymous volumes when it exits
++ **mounts**: list of ``--mount`` specifications (e.g. ``type=bind,source=/src,target=/app``)
++ **privileged**: give extended privileges to the container
++ **hostname**: container hostname
++ **entrypoint**: override the default entrypoint
++ **user**: username or UID to run as
++ **cpus**: number of CPUs (e.g. ``1.5``)
++ **memory**: memory limit (e.g. ``512m``, ``1g``)
++ **extra_args**: list of additional raw arguments passed to ``docker container create``
++ **dns**: list of dns servers to be used by the container
++ **command**: custom command to run on container start
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+    # Run a container
+    docker.container(
+        name="Deploy Nginx container",
+        container="nginx",
+        image="nginx:alpine",
+        ports=["80:80"],
+        present=True,
+        force=True,
+        networks=["proxy", "services"],
+        volumes=["nginx_data:/usr/share/nginx/html"],
+        pull_always=True,
+        restart_policy="unless-stopped",
+        auto_remove=True,
+    )
+
+    # Run a container with mounts and resource limits
+    docker.container(
+        name="Deploy app container",
+        container="myapp",
+        image="myapp:latest",
+        mounts=["type=bind,source=/host/data,target=/app/data"],
+        privileged=True,
+        hostname="myapp-host",
+        entrypoint="/bin/sh",
+        user="1000:1000",
+        cpus=2.0,
+        memory="512m",
+        extra_args=["--cap-add", "NET_ADMIN"],
+    )
+
+    # Stop a container
+    docker.container(
+        name="Stop Nginx container",
+        container="nginx",
+        start=False,
+    )
+
+    # Start a container
+    docker.container(
+        name="Start Nginx container",
+        container="nginx",
+        start=True,
+    )
+
+    # Run a custom command on container start
+    # Note: you can omit the shell (sh -c) to use the default shell of the container
+    docker.container(
+        name="Run a custom command",
+        container="alpine",
+        command="sh -c 'echo Whatever you want'",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.image:
+
+:code:`docker.image`
+~~~~~~~~~~~~~~~~~~~~
+
+Manage Docker images
+
+.. code:: python
+
+    docker.image(image: 'str', present: 'bool' = True, force: 'bool' = False,
+         **kwargs,
+    )
+
++ **image**: Image and tag ex: nginx:alpine
++ **present**: whether the Docker image should exist
++ **force**: always pull the image if present is True
+
+**Examples:**
+
+.. code:: python
+
+    # Pull a Docker image
+    docker.image(
+        name="Pull nginx image",
+        image="nginx:alpine",
+        present=True,
+    )
+
+    # Remove a Docker image
+    docker.image(
+        name="Remove nginx image",
+        image:"nginx:image",
+        present=False,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.login:
+
+:code:`docker.login`
+~~~~~~~~~~~~~~~~~~~~
+
+Log in to a Docker registry.
+
+.. code:: python
+
+    docker.login(username: 'str', password: 'str', server: 'str | None' = None, force: 'bool' = False,
+         **kwargs,
+    )
+
++ **username**: username to authenticate with
++ **password**: password to authenticate with
++ **server**: registry server to log in to (defaults to Docker Hub)
++ **force**: log in even if ``~/.docker/config.json`` already has an entry for the server
+
+Idempotency is checked against the ``auths`` section of
+``${DOCKER_CONFIG:-$HOME/.docker}/config.json``: if the server is already
+present, the operation is a no-op. Use ``force=True`` to re-run ``docker
+login`` (e.g. after rotating credentials).
+
+The password is piped to ``docker login --password-stdin`` so it is not
+exposed on the command line, and is masked in pyinfra's command log.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+
+    # Log in to a private registry
+    docker.login(
+        name="Log in to private registry",
+        server="myregistry.io:5000",
+        username="ci",
+        password="s3cret",
+    )
+
+    # Log in to Docker Hub
+    docker.login(
+        name="Log in to Docker Hub",
+        username="ci",
+        password="s3cret",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.logout:
+
+:code:`docker.logout`
+~~~~~~~~~~~~~~~~~~~~~
+
+Log out of a Docker registry.
+
+.. code:: python
+
+    docker.logout(server: 'str | None' = None,
+         **kwargs,
+    )
+
++ **server**: registry server to log out of (defaults to Docker Hub)
+
+No-ops when the server is not present in
+``${DOCKER_CONFIG:-$HOME/.docker}/config.json``.
+
+**Examples:**
+
+.. code:: python
+
+    from pyinfra.operations import docker
+
+    # Log out of a private registry
+    docker.logout(
+        name="Log out of private registry",
+        server="myregistry.io:5000",
+    )
+
+    # Log out of Docker Hub
+    docker.logout(name="Log out of Docker Hub")
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.network:
+
+:code:`docker.network`
+~~~~~~~~~~~~~~~~~~~~~~
+
+Manage docker networks
+
+.. code:: python
+
+    docker.network(
+         network: 'str',
+         driver: 'str' = '',
+         gateway: 'str' = '',
+         ip_range: 'str' = '',
+         ipam_driver: 'str' = '',
+         subnet: 'str' = '',
+         scope: 'str' = '',
+         aux_addresses: 'dict[str, str] | None' = None,
+         opts: 'list[str] | None' = None,
+         ipam_opts: 'list[str] | None' = None,
+         labels: 'list[str] | None' = None,
+         ingress: 'bool' = False,
+         attachable: 'bool' = False,
+         present: 'bool' = True,
+         **kwargs,
+    )
+
++ **network**: Network name
++ **driver**: Network driver ex: bridge or overlay
++ **gateway**: IPv4 or IPv6 Gateway for the master subnet
++ **ip_range**: Allocate container ip from a sub-range
++ **ipam_driver**: IP Address Management Driver
++ **subnet**: Subnet in CIDR format that represents a network segment
++ **scope**: Control the network's scope
++ **aux_addresses**: named aux addresses for the network
++ **opts**: Set driver specific options
++ **ipam_opts**: Set IPAM driver specific options
++ **labels**: Label list to attach in the network
++ **ingress**: Create swarm routing-mesh network
++ **attachable**: Enable manual container attachment
++ **present**: whether the Docker network should exist
+
+**Examples:**
+
+.. code:: python
+
+    # Create Docker network
+    docker.network(
+        network="nginx",
+        attachable=True,
+        present=True,
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.plugin:
+
+:code:`docker.plugin`
+~~~~~~~~~~~~~~~~~~~~~
+
+Manage Docker plugins
+
+.. code:: python
+
+    docker.plugin(
+         plugin: 'str',
+         alias: 'str | None' = None,
+         present: 'bool' = True,
+         enabled: 'bool' = True,
+         plugin_options: 'dict[str, str] | None' = None,
+         **kwargs,
+    )
+
++ **plugin**: Plugin name
++ **alias**: Alias for the plugin (optional)
++ **present**: Whether the plugin should be installed
++ **enabled**: Whether the plugin should be enabled
++ **plugin_options**: Options to pass to the plugin
+
+**Examples:**
+
+.. code:: python
+
+    # Install and enable a Docker plugin
+    docker.plugin(
+        name="Install and enable a Docker plugin",
+        plugin="username/my-awesome-plugin:latest",
+        alias="my-plugin",
+        present=True,
+        enabled=True,
+        plugin_options={"option1": "value1", "option2": "value2"},
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.prune:
+
+:code:`docker.prune`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Execute a docker system prune.
+
+.. code:: python
+
+    docker.prune(all: 'bool' = False, volumes: 'bool' = False, filter: 'str' = '',
+         **kwargs,
+    )
+
++ **all**: Remove all unused images not just dangling ones
++ **volumes**: Prune anonymous volumes
++ **filter**: Provide filter values (e.g. "label=<key>=<value>" or "until=24h")
+
+**Examples:**
+
+.. code:: python
+
+    # Remove dangling images
+    docker.prune(
+        name="remove dangling images",
+    )
+
+    # Remove all images and volumes
+    docker.prune(
+        name="Remove all images and volumes",
+        all=True,
+        volumes=True,
+    )
+
+    # Remove images older than 90 days
+    docker.prune(
+        name="Remove unused older than 90 days",
+        filter="until=2160h"
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:docker.volume:
+
+:code:`docker.volume`
+~~~~~~~~~~~~~~~~~~~~~
+
+Manage Docker volumes
+
+.. code:: python
+
+    docker.volume(
+         volume: 'str',
+         driver: 'str' = '',
+         labels: 'list[str] | None' = None,
+         present: 'bool' = True,
+         **kwargs,
+    )
+
++ **volume**: Volume name
++ **driver**: Docker volume storage driver
++ **labels**: Label list to attach in the volume
++ **present**: whether the Docker volume should exist
+
+**Examples:**
+
+.. code:: python
+
+    # Create a Docker volume
+    docker.volume(
+        name="Create nginx volume",
+        volume="nginx_data",
+        present=True
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

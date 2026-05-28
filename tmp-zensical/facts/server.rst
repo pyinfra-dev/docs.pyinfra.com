@@ -1,0 +1,729 @@
+Server Facts
+------------
+
+See also: :doc:`../operations/server`.
+
+.. _facts:server.Arch:
+
+:code:`server.Arch`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Arch)
+
+Returns the system architecture according to ``uname``.
+
+
+.. _facts:server.AuthorizedKeys:
+
+:code:`server.AuthorizedKeys`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(AuthorizedKeys, user, path=None)
+
+Returns the SSH public keys listed in a user's ``~/.ssh/authorized_keys`` file as a
+list of full key strings. Empty lines and lines starting with ``#`` are skipped; the
+file's order is preserved.
+
+.. code:: python
+
+    [
+        "ssh-ed25519 AAAAC3Nz... user@host",
+        "ssh-rsa AAAAB3Nz... other@host",
+    ]
+
+
+.. _facts:server.Command:
+
+:code:`server.Command`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Command, command)
+
+Returns the raw output lines of a given command.
+
+
+.. _facts:server.Date:
+
+:code:`server.Date`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Date)
+
+Returns the current datetime on the server.
+
+
+.. _facts:server.EtcHosts:
+
+:code:`server.EtcHosts`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(EtcHosts, path='/etc/hosts')
+
+Returns ``/etc/hosts`` (or the file at ``path``) parsed as a mapping of IP address
+to the list of hostnames declared on the matching lines. Comments and empty lines
+are ignored; when the same IP is listed more than once, hostnames are merged in
+file order.
+
+.. code:: python
+
+    {
+        "127.0.0.1": ["localhost", "localhost.localdomain"],
+        "::1": ["localhost"],
+        "192.168.1.10": ["db.internal"],
+    }
+
+
+.. _facts:server.Groups:
+
+:code:`server.Groups`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Groups)
+
+Returns a list of groups on the system.
+
+
+.. _facts:server.HasGui:
+
+:code:`server.HasGui`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(HasGui)
+
+Returns a boolean indicating the remote side has GUI capabilities. Linux only.
+
+
+.. _facts:server.Home:
+
+:code:`server.Home`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Home, user='')
+
+Returns the home directory of the given user, or the current user if no user is given.
+
+
+.. _facts:server.Hostname:
+
+:code:`server.Hostname`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Hostname)
+
+Returns the current hostname of the server.
+
+
+.. _facts:server.Kernel:
+
+:code:`server.Kernel`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Kernel)
+
+Returns the kernel name according to ``uname``.
+
+
+.. _facts:server.KernelModules:
+
+:code:`server.KernelModules`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(KernelModules)
+
+Returns a dictionary of kernel module name -> info.
+
+.. code:: python
+
+    {
+        "module_name": {
+            "size": 0,
+            "instances": 0,
+            "state": "Live",
+        },
+    }
+
+
+.. _facts:server.KernelVersion:
+
+:code:`server.KernelVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(KernelVersion)
+
+Returns the kernel version according to ``uname``.
+
+
+.. _facts:server.Last:
+
+:code:`server.Last`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Last)
+
+Returns login records parsed from ``last`` as a list of dicts.
+
+Parsing is intentionally light: ``time`` holds the raw trailing string from the
+``last`` output (e.g. ``"Thu Apr 17 14:00   still logged in"``) so that callers can
+re-parse the date format that matches their system if needed.
+
+.. code:: python
+
+    [
+        {
+            "user": "alice",
+            "tty": "pts/0",
+            "host": "192.168.1.5",
+            "time": "Thu Apr 17 14:00   still logged in",
+        },
+        {
+            "user": "reboot",
+            "tty": "system boot",
+            "host": "6.19.10-arch1-1",
+            "time": "Thu Apr 17 11:00 - 12:00  (01:00)",
+        },
+    ]
+
+
+.. _facts:server.Lastb:
+
+:code:`server.Lastb`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Lastb)
+
+Returns failed login records parsed from ``lastb`` (``/var/log/btmp``).
+
+Output shape matches :class:`Last`; see that fact for details. ``lastb`` usually
+requires root to read ``/var/log/btmp``.
+
+
+.. _facts:server.LinuxDistribution:
+
+:code:`server.LinuxDistribution`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxDistribution)
+
+Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
+Fedora & Gentoo currently. Also contains any key/value items located in
+release files.
+
+.. code:: python
+
+    {
+        "name": "Ubuntu",
+        "major": 20,
+        "minor": 04,
+        "release_meta": {
+            "CODENAME": "focal",
+            "ID_LIKE": "debian",
+            ...
+        }
+    }
+
+
+.. _facts:server.LinuxGui:
+
+:code:`server.LinuxGui`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxGui)
+
+Returns a list of available Linux GUIs.
+
+
+.. _facts:server.LinuxName:
+
+:code:`server.LinuxName`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LinuxName)
+
+Returns the name of the Linux distribution. Shortcut for
+``host.get_fact(LinuxDistribution)['name']``.
+
+
+.. _facts:server.LoadAverage:
+
+:code:`server.LoadAverage`
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LoadAverage)
+
+Returns the system load average keyed by window (1, 5 and 15 minutes).
+
+Reads ``/proc/loadavg`` when available (Linux) and falls back to parsing
+``uptime`` output on systems without procfs (e.g. FreeBSD).
+
+.. code:: python
+
+    {
+        "1": 0.12,
+        "5": 0.21,
+        "15": 0.22,
+    }
+
+
+.. _facts:server.Locales:
+
+:code:`server.Locales`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Locales)
+
+Returns installed locales on the target host.
+
+.. code:: python
+
+    ["C.UTF-8", "en_US.UTF-8"]
+
+
+.. _facts:server.LsbRelease:
+
+:code:`server.LsbRelease`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LsbRelease)
+
+Returns a dictionary of release information using ``lsb_release``.
+
+.. code:: python
+
+    {
+        "id": "Ubuntu",
+        "description": "Ubuntu 18.04.2 LTS",
+        "release": "18.04",
+        "codename": "bionic",
+        ...
+    }
+
+
+.. _facts:server.MacosVersion:
+
+:code:`server.MacosVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(MacosVersion)
+
+Returns the installed MacOS version.
+
+
+.. _facts:server.Mounts:
+
+:code:`server.Mounts`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Mounts)
+
+Returns a dictionary of mounted filesystems and information.
+
+.. code:: python
+
+    {
+        "/": {
+            "device": "/dev/mv2",
+            "type": "ext4",
+            "options": [
+                "rw",
+                "relatime"
+            ]
+        },
+    }
+
+
+.. _facts:server.Os:
+
+:code:`server.Os`
+~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Os)
+
+Returns the OS name according to ``uname``.
+
+.. warning::
+    This fact is deprecated/renamed, please use the ``server.Kernel`` fact.
+
+
+.. _facts:server.OsRelease:
+
+:code:`server.OsRelease`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OsRelease)
+
+Returns a dictionary of release information stored in ``/etc/os-release``.
+
+.. code:: python
+
+    {
+      "name": "EndeavourOS",
+      "pretty_name": "EndeavourOS",
+      "id": "endeavouros",
+      "id_like": "arch",
+      "build_id": "2024.06.25",
+      ...
+    }
+
+
+.. _facts:server.OsVersion:
+
+:code:`server.OsVersion`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OsVersion)
+
+Returns the OS version according to ``uname``.
+
+.. warning::
+    This fact is deprecated/renamed, please use the ``server.KernelVersion`` fact.
+
+
+.. _facts:server.Path:
+
+:code:`server.Path`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Path)
+
+Returns the path environment variable of the current user.
+
+
+.. _facts:server.Port:
+
+:code:`server.Port`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Port, port, protocol='tcp')
+
+Returns the process occupying a port and its PID.
+
+Supports TCP and UDP protocols via the ``protocol`` argument (default ``"tcp"``).
+Uses ``ss`` on Linux (with ``netstat`` fallback) and ``sockstat`` on FreeBSD.
+
+.. code:: python
+
+    # TCP (default)
+    host.get_fact(Port, port=80)
+    # UDP
+    host.get_fact(Port, port=53, protocol="udp")
+
+
+.. _facts:server.Ports:
+
+:code:`server.Ports`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Ports)
+
+Returns a list of all listening ports with their processes and PIDs.
+
+Uses ``ss`` on Linux (with ``netstat`` fallback) and ``sockstat`` on FreeBSD.
+
+.. code:: python
+
+    host.get_fact(Ports)
+
+
+.. _facts:server.Processes:
+
+:code:`server.Processes`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Processes, pid=None)
+
+Returns a dictionary of running processes keyed by PID.
+
+.. code:: python
+
+    {
+        1: {
+            "user": "root",
+            "state": "Ss",
+            "cpu_percent": 0.0,
+            "mem_percent": 0.1,
+            "command": "init",
+            "args": "/sbin/init",
+        },
+    }
+
+
+.. _facts:server.RebootRequired:
+
+:code:`server.RebootRequired`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(RebootRequired)
+
+Returns a boolean indicating whether the system requires a reboot.
+
+On Linux systems:
+
+- Checks /var/run/reboot-required and /var/run/reboot-required.pkgs
+- On Alpine Linux, compares installed kernel with running kernel
+
+On FreeBSD systems:
+
+- Compares running kernel version with installed kernel version
+
+
+.. _facts:server.SecurityLimits:
+
+:code:`server.SecurityLimits`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(SecurityLimits)
+
+Returns a list of security limits on the target host.
+
+.. code:: python
+
+    [
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "nofile",
+            "value": "1048576"
+        },
+        {
+            "domain": "*",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "*",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "soft",
+            "item": "memlock",
+            "value": "unlimited"
+        },
+        {
+            "domain": "root",
+            "limit_type": "hard",
+            "item": "memlock",
+            "value": "unlimited"
+        }
+    ]
+
+
+.. _facts:server.Selinux:
+
+:code:`server.Selinux`
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Selinux)
+
+Discovers the SELinux related facts on the target host.
+
+.. code:: python
+
+    {
+        "mode": "enabled",
+    }
+
+
+.. _facts:server.Sysctl:
+
+:code:`server.Sysctl`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Sysctl, keys=None)
+
+Returns a dictionary of sysctl settings and values.
+
+.. code:: python
+
+    {
+        "fs.inotify.max_queued_events": 16384,
+        "fs.inode-state": [
+            44565,
+            360,
+        ],
+    }
+
+
+.. _facts:server.Timezone:
+
+:code:`server.Timezone`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Timezone)
+
+Returns the current system timezone (e.g. ``Europe/Amsterdam``).
+
+
+.. _facts:server.TmpDir:
+
+:code:`server.TmpDir`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(TmpDir)
+
+Returns the temporary directory of the current server.
+
+According to POSIX standards, checks environment variables in this order:
+1. TMPDIR (if set and accessible)
+2. TMP (if set and accessible)
+3. TEMP (if set and accessible)
+4. Falls back to empty string
+
+
+.. _facts:server.Uptime:
+
+:code:`server.Uptime`
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Uptime)
+
+Returns the number of seconds the system has been up.
+
+
+.. _facts:server.User:
+
+:code:`server.User`
+~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(User)
+
+Returns the name of the current user.
+
+
+.. _facts:server.Users:
+
+:code:`server.Users`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Users)
+
+Returns a dictionary of users -> details.
+
+.. code:: python
+
+    {
+        "user_name": {
+            "comment": "Full Name",
+            "home": "/home/user_name",
+            "shell": "/bin/bash,
+            "group": "main_user_group",
+            "groups": [
+                "other",
+                "groups"
+            ],
+            "uid": user_id,
+            "gid": main_user_group_id,
+            "lastlog": last_login_time,
+            "password": encrypted_password,
+        },
+    }
+
+
+.. _facts:server.Which:
+
+:code:`server.Which`
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Which, command)
+
+Returns the path of a given command according to `command -v`, if available.
+

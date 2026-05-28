@@ -1,0 +1,43 @@
+Lxd Operations
+--------------
+
+
+The LXD modules manage LXD containers
+
+
+Facts used in these operations: :ref:`facts:lxd.LxdContainers`.
+
+.. _operations:lxd.container:
+
+:code:`lxd.container`
+~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove LXD containers.
+
+.. code:: python
+
+    lxd.container(id: 'str', present=True, image='ubuntu:16.04',
+         **kwargs,
+    )
+
+Note: does not check if an existing container is based on the specified
+image.
+
++ **id**: name/identifier for the container
++ **image**: image to base the container on
++ **present**: whether the container should be present or absent
+
+**Example:**
+
+.. code:: python
+
+    from pyinfra.operations import lxd
+    lxd.container(
+        name="Add an ubuntu container",
+        id="ubuntu19",
+        image="ubuntu:19.10",
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

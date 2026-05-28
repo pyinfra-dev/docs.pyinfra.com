@@ -1,0 +1,56 @@
+Flatpak Operations
+------------------
+
+
+Manage flatpak packages. See https://www.flatpak.org/
+
+
+Facts used in these operations: :ref:`facts:flatpak.FlatpakPackages`.
+
+.. _operations:flatpak.packages:
+
+:code:`flatpak.packages`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install/remove a flatpak package
+
+.. code:: python
+
+    flatpak.packages(packages: str | list[str] | None=None, remote: str | None=None, present=True, **kwargs)
+
++ **packages**: List of packages
++ **remote**: Source to install the application or runtime from
++ **present**: whether the package should be installed
+
+**Examples:**
+
+.. code:: python
+
+    # Install vlc flatpak
+    flatpak.package(
+        name="Install vlc",
+        packages="org.videolan.VLC",
+    )
+
+    # Install vlc flatpak from flathub
+    flatpak.package(
+        name="Install vlc",
+        packages="org.videolan.VLC",
+        remote="flathub",
+    )
+
+    # Install multiple flatpaks
+    flatpak.package(
+        name="Install vlc and kodi",
+        packages=["org.videolan.VLC", "tv.kodi.Kodi"],
+    )
+
+    # Remove vlc
+    flatpak.package(
+        name="Remove vlc",
+        packages="org.videolan.VLC",
+        present=False,
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+

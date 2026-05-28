@@ -89,6 +89,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -155,11 +159,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="./index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -1608,10 +1612,14 @@
 <p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change. See: <a href="deploy-process.html#using-host-facts">using host facts</a>.</p>
 </div>
 <h4 id="fact-errors">Fact Errors<a class="headerlink" href="#fact-errors" title="Permanent link">&para;</a></h4>
-<p>When facts fail due to an error the host will be marked as failed just as it would when an operation fails. This can be avoided by passing the <code>_ignore_errors</code> argument:</p>
+<p>When a fact command exits with a non-zero status the host is marked as failed, just as when an operation fails. This can be avoided by passing the <code>_ignore_errors</code> argument:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">LinuxName</span><span class="p">,</span> <span class="n">_ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="o">...</span>
 </span></code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Facts may choose to silently ignore errors for missing commands (eg mysql not installed) and instead return a default value. In v4 this will raise an error during the execution phase.</p>
+</div>
 <h2 id="the-inventory-object">The <code>inventory</code> Object<a class="headerlink" href="#the-inventory-object" title="Permanent link">&para;</a></h2>
 <p>Like <code>host</code>, there is an <code>inventory</code> object that can be used to access the entire inventory of hosts. This is useful when you need facts or data from another host like the hostname of another server:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">inventory</span>
@@ -1660,6 +1668,10 @@
 </span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">_if</span><span class="o">=</span><span class="n">any_changed</span><span class="p">(</span><span class="n">create_user</span><span class="p">,</span> <span class="n">create_otheruser</span><span class="p">))</span>
 </span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">_if</span><span class="o">=</span><span class="n">all_changed</span><span class="p">(</span><span class="n">create_user</span><span class="p">,</span> <span class="n">create_otheruser</span><span class="p">))</span>
 </span></code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code>_if</code> must be a callable, or a list of callables. Passing a value directly (e.g. <code>_if=host.get_fact(MyFact)</code>) does not gate the operation: most non-callable values raise <code>ArgumentTypeError</code> at prepare time, and <code>None</code> is treated as "no condition" so the operation always runs. Wrap the value in a lambda to gate on it: <code>_if=lambda: bool(host.get_fact(MyFact))</code>.</p>
+</div>
 <h2 id="output-callbacks">Output &amp; Callbacks<a class="headerlink" href="#output-callbacks" title="Permanent link">&para;</a></h2>
 <p>pyinfra doesn't immediately execute operations, meaning output is not available right away. It is possible to access this output at runtime by providing a callback function using the <a href="operations/python.html#python-call"><code>python.call</code></a> operation. Callback functions may also call other operations which will be immediately executed.
 Why/how this works <a href="deploy-process.html#detects-changes">is described here</a>.</p>
@@ -1827,14 +1839,9 @@ For example, if you create a <code>requirements.py</code> file with:</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

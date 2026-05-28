@@ -1,0 +1,31 @@
+Launchd Operations
+------------------
+
+
+Manage launchd services.
+
+
+Facts used in these operations: :ref:`facts:launchd.LaunchdStatus`.
+
+.. _operations:launchd.service:
+
+:code:`launchd.service`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Manage the state of systemd managed services.
+
+.. code:: python
+
+    launchd.service(service: 'str', running=True, restarted=False, command: 'str | None' = None,
+         **kwargs,
+    )
+
++ **service**: name of the service to manage
++ **running**: whether the service should be running
++ **restarted**: whether the service should be restarted
++ **command**: custom command to pass like: ``launchctl <command> <service>``
++ **enabled**: whether this service should be enabled/disabled on boot
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

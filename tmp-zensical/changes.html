@@ -89,6 +89,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -155,11 +159,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="./index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -1181,6 +1185,93 @@
 
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h1 id="v380">v3.8.0<a class="headerlink" href="#v380" title="Permanent link">&para;</a></h1>
+<p>Big release with a lot of fixes and improvements across the board! We're also switching to full semver (so .0 on the 3.8.0) for this release and others going forward. Thank you to all contributors!</p>
+<p>Core:</p>
+<ul>
+<li>api.command: fix <code>make_formatted_string_command</code> adding unwanted spaces between format args (#1610) (@wowi42)</li>
+<li>api: decouple core API from click by introducing pluggable output functions (#1616) (@wowi42)</li>
+</ul>
+<p>Operations/facts:</p>
+<ul>
+<li>operations: expand quoting of user inputs to prevent command injection (#1576) (@wowi42)</li>
+<li>facts.selinux.FileContext: handle missing SELinux context (#1581) (@wowi42)</li>
+<li>facts.systemd: ensure that user-mode systemd facts do not fail if user manager is not available (#1604) (@martenlienen)</li>
+<li>facts.apt.AptSources: add deb822 format support (#1465) (@maisim)</li>
+<li>operations.files: expand diff output (#1552) (@gwelch-contegix)</li>
+<li>facts.server: add Ports fact returning all listening ports (#1637) (@wowi42)</li>
+<li>facts.choco: remove invalid shell_executable on ChocoPackages (#1598) (@wowi42)</li>
+<li>operations.git.repo: add depth support (#1656) (@bsaussay)</li>
+<li>operations.docker: add extra parameters (#1593) (@wowi42)</li>
+<li>operations.selinux.port: fix a bug where the op would not find existing labels if <code>sepolicy</code> command was missing from the host (#1654) (@yacoob)</li>
+<li>operations.server.reboot: survive dead SSH session during askpass cleanup (#1665) (@wowi42)</li>
+<li>facts.docker: add version, container, image, network detail facts (#1668) (@wowi42)</li>
+<li>facts.server: add AuthorizedKeys, make user_authorized_keys idempotent (#1670) (@wowi42)</li>
+<li>facts.crontab: match full crontab(5) env var syntax (#1678) (@wowi42)</li>
+<li>operations.files: add limit_rate to cap download bandwidth (#1681) (@wowi42)</li>
+<li>operations.files: add files.unarchive (#1631) (@wowi42)</li>
+<li>operations.docker: add support for custom command (#1625) (@EricDriussi)</li>
+<li>facts.{yum,dnf,zypper}: add filename field to each repository entry (#1684) (@wowi42)</li>
+<li>operations.server: dispatch BSD rc.d before sysvinit in server.service (#1685) (@wowi42)</li>
+<li>operations.files.download: reconcile mode/user/group on existing files (#1687) (@wowi42)</li>
+</ul>
+<p>Connectors:</p>
+<ul>
+<li>connectors.ssh: fix parsing of SSH config file comments (#1574) (@wowi42)</li>
+<li>connectors: use gevent.subprocess in util for macOS + Python 3.13 compatibility (#1653) (@Yaminyam)</li>
+<li>connectors: show askpass generation errors (#1628) (@matthijskooijman)</li>
+<li>connectors.ssh: honor ConnectTimeout through ProxyJump (#1679) (@wowi42)</li>
+</ul>
+<p>Docs/meta:</p>
+<ul>
+<li>docs: facts.opkg, operations.opkg - add note about Openwrt switch to apk (#1595) (@morrison12)</li>
+<li>docs: fix extra trailing comma in operation argument lists (#1596) (@morrison12)</li>
+<li>docs: fix missing keyword-only args in operations documentation (#1600) (@morrison12)</li>
+<li>docs: fix <code>generate_operations_docs.py</code> and add docs build to CI (#1614) (@wowi42)</li>
+<li>docs: operations.files - clarify template vars use (#1615) (@EricDriussi)</li>
+<li>docs: update Python version requirements (#1627) (@pascal-cm)</li>
+<li>docs: generate fact/operation docs for modules (vs files) (#1606) (@morrison12)</li>
+<li>docs: clarify group_data/ is file-inventory only (#1696) (@wowi42)</li>
+</ul>
+<p>Other:</p>
+<ul>
+<li>facts+operations: add <code>GpgKeyrings</code> fact and <code>gpg.*</code> operations (#1460) (@maisim)</li>
+<li>dependencies/paramiko: support paramiko v4, remove DSS key support (#1525) (@5long)</li>
+<li>operations.server.mount fix not detecting already-mounted devices (#1611) (@wowi42)</li>
+<li>facts+operations: add uv support (#1500) (@morrison12)</li>
+<li>meta,api: lazy load fact and operation modules (#1609) (@Dexmachi)</li>
+<li>facts,operations: migrate <code>shlex.quote</code> to <code>StringCommand</code> + <code>QuoteString</code> everywhere (#1617) (@wowi42)</li>
+<li>operations+facts: <code>server.Processes</code> fact and <code>server.kill</code> operation (#1583) (@wowi42)</li>
+<li>arguments: add <code>dzdo</code> support for privilege escalation, including CLI options and configuration. (#1633) (@guinuxbr)</li>
+<li>zfs: return an empty dict if zfs/zpool commands are not available (#1650) (@yacoob)</li>
+<li>meta,ci: make ruff checks in ci+dev-lint.sh consistent</li>
+<li>progress: finish spinner as soon as possible (#1657) (@matthijskooijman)</li>
+<li>feat: support SSH IdentityAgent config directive (#1630) (@wowi42)</li>
+<li>security: quote untrusted values in command construction across connectors, operations, and util (#1664) (@wowi42)</li>
+<li>ci: upgrade default Python to 3.14 (#1667) (@wowi42)</li>
+<li>fix: Add timeout support in FunctionCommand (#1663) (@Tbruno25)</li>
+<li>feat: add config.INHERIT_ENV to pass local process env vars to all op… (#1677) (@maisim)</li>
+<li>Add support for using AI coding agents (#1672) (@DonDebonair)</li>
+<li>fix(cli): exclude imports from group data (#1676) (@wowi42)</li>
+<li>fix: scripts/generate_facts_docs: add canonical-name label for re-exported facts (#1686) (@wowi42)</li>
+<li>fix(operations.git): don't pull when already up to date (#1690) (@wowi42)</li>
+<li>feat(facts): add requires_command guard sentinel and check_preconditions() hook (@maisim)</li>
+<li>feat(facts.zfs): add check_preconditions for ZfsDatasets and update command method (@maisim)</li>
+<li>feat(operations.docker): add login/logout operations (#1694) (@wowi42)</li>
+<li>feat(operations.docker): add compose operation (#1693) (@wowi42)</li>
+<li>feat(operations.docker): add build operation (#1695) (@wowi42)</li>
+<li>operations/facts: modernize apt.key to replace deprecated apt-key command (@maisim)</li>
+<li>chore: make Claude use modern type hints (#1692) (@DonDebonair)</li>
+<li>feat(apt): add purge option to apt.packages (closes #1698) (#1702) (@mvanhorn)</li>
+<li>fix(facts): add semicolons to TmpDir shell script for sh -c compatibility (#1703) (@wucm667)</li>
+<li>fix(operations.server): normalize sysctl value for comparison (#1706) (@wowi42)</li>
+<li>feat: add PR review skill (#1683)</li>
+</ul>
+<p>Operations/facts:</p>
+<ul>
+<li>operations.files.line, operations.files.replace: add <code>extended_regex</code> parameter (default <code>False</code>) to opt in to extended regular expressions (<code>grep -E</code> / <code>sed -E</code>) so quantifiers like <code>+</code> and <code>?</code> and groups like <code>(a|b)</code> work without backslash escaping (#1019, #1400).</li>
+<li>facts.files.FindInFile: add <code>extended_regex</code> parameter (default <code>False</code>) to use <code>grep -E</code>.</li>
+</ul>
 <h1 id="v37">v3.7<a class="headerlink" href="#v37" title="Permanent link">&para;</a></h1>
 <p>Thank you to all contributors - particular shout out to @wowi42 for an incredible run of PRs!</p>
 <p>Core:</p>
@@ -1635,14 +1726,9 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

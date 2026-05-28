@@ -1,0 +1,29 @@
+Zypper Facts
+------------
+
+See also: :doc:`../operations/zypper`.
+
+.. _facts:zypper.ZypperRepositories:
+
+:code:`zypper.ZypperRepositories`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(ZypperRepositories)
+
+Returns a list of installed zypper repositories:
+
+.. code:: python
+
+    [
+        {
+            "repoid": "repo-oss",
+            "name": "Main Repository",
+            "enabled": "1",
+            "autorefresh": "1",
+            "baseurl": "http://download.opensuse.org/distribution/leap/$releasever/repo/oss/",
+            "filename": "/etc/zypp/repos.d/oss.repo"
+        },
+    ]
+

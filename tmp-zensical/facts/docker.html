@@ -85,6 +85,10 @@
     
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 
   </head>
   
@@ -151,11 +155,11 @@
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
-        <div class="md-header__topic">
+        <a href="../index.html" title="pyinfra" class="md-header__topic md-header__topic--home">
           <span class="md-ellipsis">
             pyinfra
           </span>
-        </div>
+        </a>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
@@ -1160,6 +1164,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#docker-DockerAuths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        docker.DockerAuths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker-DockerContainer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1480,110 +1495,116 @@
 of the current inventory host. See the :doc:<code>../connectors/docker</code> to use Docker containers as
 inventory directly.</p>
 <p>See also: <a href="../operations/docker.html">operations/docker</a>.</p>
+<h2 id="docker-DockerAuths"><code>docker.DockerAuths</code><a class="headerlink" href="#docker-DockerAuths" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerAuths</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Returns the list of registry servers the current user is authenticated
+against, read from <code>${DOCKER_CONFIG:-$HOME/.docker}/config.json</code>.</p>
+<p>Returns an empty list if no config file exists or no auths are stored.</p>
 <h2 id="docker-DockerContainer"><code>docker.DockerContainer</code><a class="headerlink" href="#docker-DockerContainer" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainer</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainer</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for a single Docker container.</p>
 <h2 id="docker-DockerContainerEnvs"><code>docker.DockerContainerEnvs</code><a class="headerlink" href="#docker-DockerContainerEnvs" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerEnvs</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerEnvs</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns environment variables for all Docker containers, keyed by container ID.</p>
 <h2 id="docker-DockerContainerFsChanges"><code>docker.DockerContainerFsChanges</code><a class="headerlink" href="#docker-DockerContainerFsChanges" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerFsChanges</span><span class="p">,</span> <span class="n">container_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerFsChanges</span><span class="p">,</span> <span class="n">container_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns filesystem changes for a single container (<code>docker diff</code>) as a list of
 <code>{"path": ..., "change": "A"|"C"|"D"}</code> entries.</p>
 <h2 id="docker-DockerContainerLabels"><code>docker.DockerContainerLabels</code><a class="headerlink" href="#docker-DockerContainerLabels" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerLabels</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerLabels</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns labels for all Docker containers, keyed by container ID.</p>
 <h2 id="docker-DockerContainerMounts"><code>docker.DockerContainerMounts</code><a class="headerlink" href="#docker-DockerContainerMounts" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerMounts</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerMounts</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns mounts for all Docker containers, keyed by container ID.</p>
 <h2 id="docker-DockerContainerNetworks"><code>docker.DockerContainerNetworks</code><a class="headerlink" href="#docker-DockerContainerNetworks" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerNetworks</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerNetworks</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns networks for all Docker containers, keyed by container ID.</p>
 <h2 id="docker-DockerContainerPorts"><code>docker.DockerContainerPorts</code><a class="headerlink" href="#docker-DockerContainerPorts" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerPorts</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerPorts</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns published port bindings for all Docker containers, keyed by container ID.</p>
 <h2 id="docker-DockerContainerProcesses"><code>docker.DockerContainerProcesses</code><a class="headerlink" href="#docker-DockerContainerProcesses" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerProcesses</span><span class="p">,</span> <span class="n">container_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerProcesses</span><span class="p">,</span> <span class="n">container_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns processes running inside a single container (<code>docker top</code>) as a list of
 column dicts. Column names follow the <code>ps</code> output header.</p>
 <h2 id="docker-DockerContainerStats"><code>docker.DockerContainerStats</code><a class="headerlink" href="#docker-DockerContainerStats" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerStats</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainerStats</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns resource-usage stats for all running containers (<code>docker stats</code>) as a list
 of dicts (one entry per container).</p>
 <h2 id="docker-DockerContainers"><code>docker.DockerContainers</code><a class="headerlink" href="#docker-DockerContainers" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainers</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerContainers</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for all Docker containers.</p>
 <h2 id="docker-DockerImage"><code>docker.DockerImage</code><a class="headerlink" href="#docker-DockerImage" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImage</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImage</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for a single Docker image.</p>
 <h2 id="docker-DockerImageHistory"><code>docker.DockerImageHistory</code><a class="headerlink" href="#docker-DockerImageHistory" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageHistory</span><span class="p">,</span> <span class="n">image_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageHistory</span><span class="p">,</span> <span class="n">image_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns the layer history of a single image (<code>docker history</code>) as a list of dicts.</p>
 <h2 id="docker-DockerImageLabels"><code>docker.DockerImageLabels</code><a class="headerlink" href="#docker-DockerImageLabels" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageLabels</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageLabels</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns labels for all Docker images, keyed by image ID.</p>
 <h2 id="docker-DockerImageLayers"><code>docker.DockerImageLayers</code><a class="headerlink" href="#docker-DockerImageLayers" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageLayers</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImageLayers</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns layer digests for all Docker images, keyed by image ID.</p>
 <h2 id="docker-DockerImages"><code>docker.DockerImages</code><a class="headerlink" href="#docker-DockerImages" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImages</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerImages</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for all Docker images.</p>
 <h2 id="docker-DockerNetwork"><code>docker.DockerNetwork</code><a class="headerlink" href="#docker-DockerNetwork" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetwork</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetwork</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for a single Docker network.</p>
 <h2 id="docker-DockerNetworkLabels"><code>docker.DockerNetworkLabels</code><a class="headerlink" href="#docker-DockerNetworkLabels" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetworkLabels</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetworkLabels</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns labels for all Docker networks, keyed by network ID.</p>
 <h2 id="docker-DockerNetworks"><code>docker.DockerNetworks</code><a class="headerlink" href="#docker-DockerNetworks" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetworks</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerNetworks</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for all Docker networks.</p>
 <h2 id="docker-DockerPlugin"><code>docker.DockerPlugin</code><a class="headerlink" href="#docker-DockerPlugin" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerPlugin</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerPlugin</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker plugin inspect</code> output for a single Docker plugin.</p>
 <h2 id="docker-DockerPlugins"><code>docker.DockerPlugins</code><a class="headerlink" href="#docker-DockerPlugins" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerPlugins</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerPlugins</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker plugin inspect</code> output for all Docker plugins.</p>
 <h2 id="docker-DockerSingleMixin"><code>docker.DockerSingleMixin</code><a class="headerlink" href="#docker-DockerSingleMixin" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSingleMixin</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSingleMixin</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="docker-DockerSystemInfo"><code>docker.DockerSystemInfo</code><a class="headerlink" href="#docker-DockerSystemInfo" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSystemInfo</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerSystemInfo</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker system info</code> output in JSON format.</p>
 <h2 id="docker-DockerVersion"><code>docker.DockerVersion</code><a class="headerlink" href="#docker-DockerVersion" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVersion</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVersion</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns the Docker version.</p>
 <h2 id="docker-DockerVolume"><code>docker.DockerVolume</code><a class="headerlink" href="#docker-DockerVolume" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolume</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolume</span><span class="p">,</span> <span class="n">object_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for a single Docker container.</p>
 <h2 id="docker-DockerVolumeLabels"><code>docker.DockerVolumeLabels</code><a class="headerlink" href="#docker-DockerVolumeLabels" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolumeLabels</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolumeLabels</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns labels for all Docker volumes, keyed by volume name.</p>
 <h2 id="docker-DockerVolumes"><code>docker.DockerVolumes</code><a class="headerlink" href="#docker-DockerVolumes" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolumes</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DockerVolumes</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns <code>docker inspect</code> output for all Docker volumes.</p>
 
@@ -1626,14 +1647,9 @@ of dicts (one entry per container).</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Nick Barrett / pyinfra contributors
+      © 2017–2026 · open source community
     </div>
   
-  
-    Made with
-    <a href="https://zensical.org/" target="_blank" rel="noopener">
-      Zensical
-    </a>
   
 </div>
       

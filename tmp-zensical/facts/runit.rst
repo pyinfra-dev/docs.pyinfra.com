@@ -1,0 +1,43 @@
+Runit Facts
+-----------
+
+See also: :doc:`../operations/runit`.
+
+.. _facts:runit.RunitManaged:
+
+:code:`runit.RunitManaged`
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(RunitManaged, service=None, svdir='/var/service')
+
+Returns a set of all services managed by runit
+
++ **service**: optionally check only for a single service
++ **svdir**: alternative ``SVDIR``
+
+
+.. _facts:runit.RunitStatus:
+
+:code:`runit.RunitStatus`
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(RunitStatus, service=None, svdir='/var/service')
+
+Returns a dict of name -> status for runit services.
+
++ **service**: optionally check only for a single service
++ **svdir**: alternative ``SVDIR``
+
+.. code:: python
+
+    {
+        'agetty-tty1': True,     # service is running
+        'dhcpcd': False,         # service is down
+        'wpa_supplicant': None,  # service is managed, but not running or down,
+                                 # possibly in a fail state
+    }
+

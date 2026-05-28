@@ -1,0 +1,188 @@
+Mysql Operations
+----------------
+
+
+Manage MySQL databases, users and privileges.
+
+Requires the ``mysql`` CLI executable on the target host(s).
+
+All operations in this module take four optional arguments:
+    + ``mysql_user``: the username to connect to mysql to
+    + ``mysql_password``: the password for the connecting user
+    + ``mysql_host``: the hostname of the server to connect to
+    + ``mysql_port``: the port of the server to connect to
+
+See the example/mysql.py
+
+
+
+Facts used in these operations: :ref:`facts:mysql.MysqlDatabases`, :ref:`facts:mysql.MysqlUserGrants`, :ref:`facts:mysql.MysqlUsers`.
+
+.. _operations:mysql.database:
+
+:code:`mysql.database`
+~~~~~~~~~~~~~~~~~~~~~~
+.. code:: python
+
+    mysql.database(
+        database: str, present: bool=True, collate: str | None=None, charset: str | None=None,
+        user: str | None=None, user_hostname: str="localhost",
+        user_privileges: str | list[str]="ALL", mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:mysql.dump:
+
+:code:`mysql.dump`
+~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Dump a MySQL database into a ``.sql`` file. Requires ``mysqldump``.
+
+.. code:: python
+
+    mysql.dump(
+        dest: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+
++ **dest**: name of the file to dump the SQL to
++ **database**: name of the database to dump
++ **mysql_***: global module arguments, see above
+
+**Example:**
+
+.. code:: python
+
+    mysql.dump(
+        name="Dump the pyinfra_stuff database",
+        dest="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff",
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:mysql.load:
+
+:code:`mysql.load`
+~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Load ``.sql`` file into a database.
+
+.. code:: python
+
+    mysql.load(
+        src: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+
++ **src**: the filename to read from
++ **database**: name of the database to import into
++ **mysql_***: global module arguments, see above
+
+**Example:**
+
+.. code:: python
+
+    mysql.load(
+        name="Import the pyinfra_stuff dump into pyinfra_stuff_copy",
+        src="/tmp/pyinfra_stuff.dump",
+        database="pyinfra_stuff_copy",
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:mysql.privileges:
+
+:code:`mysql.privileges`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add/remove MySQL privileges for a user, either global, database or table specific.
+
+.. code:: python
+
+    mysql.privileges(
+        user: str, privileges: str | list[str] | set[str], user_hostname="localhost",
+        database="*", table="*", flush=True, with_grant_option=False, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+
++ **user**: name of the user to manage privileges for
++ **privileges**: list of privileges the user should have (see also: ``with_grant_option`` argument)
++ **user_hostname**: the hostname of the user
++ **database**: name of the database to grant privileges to (defaults to all)
++ **table**: name of the table to grant privileges to (defaults to all)
++ **flush**: whether to flush (and update) the privileges table after any changes
++ **with_grant_option**: whether the grant option privilege should be set
++ **mysql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:mysql.sql:
+
+:code:`mysql.sql`
+~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Execute arbitrary SQL against MySQL.
+
+.. code:: python
+
+    mysql.sql(
+        sql: str, database: str | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+
++ **sql**: SQL command(s) to execute
++ **database**: optional database to open the connection with
++ **mysql_***: global module arguments, see above
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:mysql.user:
+
+:code:`mysql.user`
+~~~~~~~~~~~~~~~~~~
+.. code:: python
+
+    mysql.user(
+        user: str, present: bool=True, user_hostname: str="localhost", password: str | None=None,
+        privileges: str | list[str] | None=None, require: str | None=None,
+        require_cipher: str | None=None, require_issuer: str | None=None,
+        require_subject: str | None=None, max_connections: int | None=None,
+        max_queries_per_hour: int | None=None, max_updates_per_hour: int | None=None,
+        max_connections_per_hour: int | None=None, mysql_user: str | None=None,
+        mysql_password: str | None=None, mysql_host: str | None=None, mysql_port: int | None=None,
+        **kwargs,
+    )
+Note:
+	This operation also inherits all :doc:`global arguments </arguments>`.
+
