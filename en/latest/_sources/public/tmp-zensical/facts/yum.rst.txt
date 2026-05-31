@@ -1,0 +1,33 @@
+Yum Facts
+---------
+
+See also: :doc:`../operations/yum`.
+
+.. _facts:yum.YumRepositories:
+
+:code:`yum.YumRepositories`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(YumRepositories)
+
+Returns a list of installed yum repositories:
+
+.. code:: python
+
+    [
+        {
+            "repoid": "baseos",
+            "name": "AlmaLinux $releasever - BaseOS",
+            "mirrorlist": "https://mirrors.almalinux.org/mirrorlist/$releasever/baseos",
+            "enabled": "1",
+            "gpgcheck": "1",
+            "countme": "1",
+            "gpgkey": "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-9",
+            "metadata_expire": "86400",
+            "enabled_metadata": "1",
+            "filename": "/etc/yum.repos.d/almalinux.repo"
+        },
+    ]
+

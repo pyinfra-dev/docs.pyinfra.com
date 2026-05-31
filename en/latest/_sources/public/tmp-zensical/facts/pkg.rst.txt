@@ -1,0 +1,22 @@
+Pkg Facts
+---------
+
+See also: :doc:`../operations/pkg`.
+
+.. _facts:pkg.PkgPackages:
+
+:code:`pkg.PkgPackages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(PkgPackages)
+
+Returns a dict of installed pkg packages:
+
+.. code:: python
+
+    {
+        "package_name": ["version"],
+    }
+

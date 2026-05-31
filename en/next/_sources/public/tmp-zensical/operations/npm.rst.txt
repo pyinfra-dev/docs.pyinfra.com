@@ -1,0 +1,37 @@
+Npm Operations
+--------------
+
+
+Manage npm (aka node aka Node.js) packages.
+
+
+Facts used in these operations: :ref:`facts:npm.NpmPackages`.
+
+.. _operations:npm.packages:
+
+:code:`npm.packages`
+~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update npm packages.
+
+.. code:: python
+
+    npm.packages(
+         packages: 'str | list[str] | None' = None,
+         present=True,
+         latest=False,
+         directory: 'str | None' = None,
+         **kwargs,
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be present
++ **latest**: whether to upgrade packages without a specified version
++ **directory**: directory to manage packages for, defaults to global
+
+Versions:
+    Package versions can be pinned like npm: ``<pkg>@<version>``.
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

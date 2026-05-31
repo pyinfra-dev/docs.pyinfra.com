@@ -1,0 +1,28 @@
+Openrc Facts
+------------
+
+See also: :doc:`../operations/openrc`.
+
+.. _facts:openrc.OpenrcEnabled:
+
+:code:`openrc.OpenrcEnabled`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OpenrcEnabled, runlevel='default')
+
+Returns a dict of name -> whether enabled for OpenRC services for a given runlevel.
+
+
+.. _facts:openrc.OpenrcStatus:
+
+:code:`openrc.OpenrcStatus`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(OpenrcStatus, runlevel='default')
+
+Returns a dict of name -> status for OpenRC services for a given runlevel.
+

@@ -1,0 +1,32 @@
+Pip Facts
+---------
+
+See also: :doc:`../operations/pip`.
+
+.. _facts:pip.Pip3Packages:
+
+:code:`pip.Pip3Packages`
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(Pip3Packages, pip=None)
+
+
+.. _facts:pip.PipPackages:
+
+:code:`pip.PipPackages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(PipPackages, pip=None)
+
+Returns a dict of installed pip packages:
+
+.. code:: python
+
+    {
+        "package_name": ["version"],
+    }
+

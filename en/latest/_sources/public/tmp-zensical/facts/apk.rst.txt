@@ -1,0 +1,22 @@
+Apk Facts
+---------
+
+See also: :doc:`../operations/apk`.
+
+.. _facts:apk.ApkPackages:
+
+:code:`apk.ApkPackages`
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(ApkPackages)
+
+Returns a dict of installed apk packages:
+
+.. code:: python
+
+    {
+        "package_name": ["version"],
+    }
+

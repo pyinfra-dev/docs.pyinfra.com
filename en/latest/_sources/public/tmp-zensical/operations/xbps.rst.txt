@@ -1,0 +1,82 @@
+Xbps Operations
+---------------
+
+
+Manage XBPS packages and repositories. Note that XBPS package names are case-sensitive.
+
+
+Facts used in these operations: :ref:`facts:xbps.XbpsPackages`.
+
+.. _operations:xbps.packages:
+
+:code:`xbps.packages`
+~~~~~~~~~~~~~~~~~~~~~
+
+Install/remove/update XBPS packages.
+
+.. code:: python
+
+    xbps.packages(packages: 'str | list[str] | None' = None, present=True, update=False, upgrade=False,
+         **kwargs,
+    )
+
++ **packages**: list of packages to ensure
++ **present**: whether the packages should be installed
++ **update**: run ``xbps-install -S`` before installing packages
++ **upgrade**: run ``xbps-install -y -u`` before installing packages
+
+**Example:**
+
+.. code:: python
+
+    from pyinfra.operations import xbps
+    xbps.packages(
+        name="Install Vim and Vim Pager",
+        packages=["vimpager", "vim"],
+    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:xbps.update:
+
+:code:`xbps.update`
+~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Update XBPS repositories.
+
+.. code:: python
+
+    xbps.update**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+
+
+.. _operations:xbps.upgrade:
+
+:code:`xbps.upgrade`
+~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: Stateless operation
+    :class: important
+
+    This operation will always execute commands and is not idempotent.
+
+
+Upgrades all XBPS packages.
+
+.. code:: python
+
+    xbps.upgrade**kwargs,    )
+
+.. note::
+    This operation also inherits all :doc:`global arguments </arguments>`.
+

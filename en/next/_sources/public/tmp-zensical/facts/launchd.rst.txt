@@ -1,0 +1,16 @@
+Launchd Facts
+-------------
+
+See also: :doc:`../operations/launchd`.
+
+.. _facts:launchd.LaunchdStatus:
+
+:code:`launchd.LaunchdStatus`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python
+
+    host.get_fact(LaunchdStatus)
+
+Returns a dict of name -> status for launchd managed services.
+
