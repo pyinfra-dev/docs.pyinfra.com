@@ -226,6 +226,21 @@ env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
 </section>
 <section id="platform-specific-instructions">
 <h2>Platform-Specific Instructions<a class="headerlink" href="#platform-specific-instructions" title="Link to this heading">¶</a></h2>
+<section id="bsd-installation">
+<h3>BSD Installation<a class="headerlink" href="#bsd-installation" title="Link to this heading">¶</a></h3>
+<p>Regardless of your installation method, you will need to preface commands with some environmental variables that prevent <code class="docutils literal notranslate"><span class="pre">gevent</span></code> (a dependency) from building embedded versions of some libraries.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```sh
+# Example for installing pyinfra as a tool under a BSD
+env C_INCLUDE_PATH=&#39;/usr/local/include/&#39; \
+    GEVENTSETUP_EMBED_CARES=0 \
+    GEVENTSETUP_EMBED_LIBEV=0 \
+    GEVENTSETUP_EMBED_LIBUV=0 \
+    uv tool install pyinfra
+```
+</pre></div>
+</div>
+<p>Note that you’ll still need <code class="docutils literal notranslate"><span class="pre">c-ares</span></code>, <code class="docutils literal notranslate"><span class="pre">libev</span></code> and <code class="docutils literal notranslate"><span class="pre">libuv</span></code> in your system.</p>
+</section>
 <section id="windows-installation">
 <h3>Windows Installation<a class="headerlink" href="#windows-installation" title="Link to this heading">¶</a></h3>
 <section id="install-python">
