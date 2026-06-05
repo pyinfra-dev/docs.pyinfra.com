@@ -233,7 +233,8 @@
 <li><p><strong>line</strong>: regex before or after which the content should be added if it doesn’t exist.</p></li>
 <li><p><strong>backup</strong>: whether to backup the file (see <code class="docutils literal notranslate"><span class="pre">files.line</span></code>). Default False.</p></li>
 <li><p><strong>escape_regex_characters</strong>: whether to escape regex characters from the matching line</p></li>
-<li><p><strong>try_prevent_shell_expansion</strong>: tries to prevent shell expanding by values like <cite>$</cite></p></li>
+<li><p><strong>try_prevent_shell_expansion</strong>: deprecated and ignored; <code class="docutils literal notranslate"><span class="pre">content</span></code> is always written
+literally (no shell expansion) and is safely shell-quoted</p></li>
 <li><p><strong>marker</strong>: the base string used to mark the text.  Default is <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">{mark}</span> <span class="pre">PYINFRA</span> <span class="pre">BLOCK</span></code></p></li>
 <li><p><strong>begin</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker before the content. Default is <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code></p></li>
 <li><p><strong>end</strong>: the value for <code class="docutils literal notranslate"><span class="pre">{mark}</span></code> in the marker after the content. Default is <code class="docutils literal notranslate"><span class="pre">END</span></code></p></li>
@@ -251,8 +252,9 @@ are <code class="docutils literal notranslate"><span class="pre">True</span></co
 <p>If the file is created, it is created with the default umask; otherwise the umask is preserved
 as is the owner.</p>
 <p>Removal ignores <code class="docutils literal notranslate"><span class="pre">content</span></code> and <code class="docutils literal notranslate"><span class="pre">line</span></code></p>
-<p>Preventing shell expansion works by wrapping the content in ‘`’ before passing to <cite>awk</cite>.
-WARNING: This will break if the content contains raw single quotes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">content</span></code> is written to the file verbatim. It is shell-quoted before being passed to
+<code class="docutils literal notranslate"><span class="pre">awk</span></code>, so shell metacharacters (<code class="docutils literal notranslate"><span class="pre">$(...)</span></code>, quotes, backticks) are kept literal and never
+expanded on the remote host.</p>
 <p><strong>Examples:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># add entry to /etc/host</span>
 <span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
@@ -289,11 +291,10 @@ WARNING: This will break if the content contains raw single quotes.</p>
     <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&lt;!-- </span><span class="si">{mark}</span><span class="s2"> PYINFRA BLOCK --&gt;&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># put complex alias into .zshrc</span>
+<span class="c1"># put complex alias into .zshrc (written literally, no shell expansion)</span>
 <span class="n">files</span><span class="o">.</span><span class="n">block</span><span class="p">(</span>
     <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/home/user/.zshrc&quot;</span><span class="p">,</span>
     <span class="n">content</span><span class="o">=</span><span class="s2">&quot;eval $(thef -a)&quot;</span><span class="p">,</span>
-    <span class="n">try_prevent_shell_expansion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;## </span><span class="si">{mark}</span><span class="s2"> ALIASES ##&quot;</span>
 <span class="p">)</span>
 </pre></div>

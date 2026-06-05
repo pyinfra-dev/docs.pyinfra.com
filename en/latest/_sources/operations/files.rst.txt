@@ -40,7 +40,8 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 + **line**: regex before or after which the content should be added if it doesn't exist.
 + **backup**: whether to backup the file (see ``files.line``). Default False.
 + **escape_regex_characters**: whether to escape regex characters from the matching line
-+ **try_prevent_shell_expansion**: tries to prevent shell expanding by values like `$`
++ **try_prevent_shell_expansion**: deprecated and ignored; ``content`` is always written
+  literally (no shell expansion) and is safely shell-quoted
 + **marker**: the base string used to mark the text.  Default is ``# {mark} PYINFRA BLOCK``
 + **begin**: the value for ``{mark}`` in the marker before the content. Default is ``BEGIN``
 + **end**: the value for ``{mark}`` in the marker after the content. Default is ``END``
@@ -60,8 +61,9 @@ as is the owner.
 
 Removal ignores ``content`` and ``line``
 
-Preventing shell expansion works by wrapping the content in '`' before passing to `awk`.
-WARNING: This will break if the content contains raw single quotes.
+``content`` is written to the file verbatim. It is shell-quoted before being passed to
+``awk``, so shell metacharacters (``$(...)``, quotes, backticks) are kept literal and never
+expanded on the remote host.
 
 **Examples:**
 
@@ -102,11 +104,10 @@ WARNING: This will break if the content contains raw single quotes.
         marker="<!-- {mark} PYINFRA BLOCK -->",
     )
 
-    # put complex alias into .zshrc
+    # put complex alias into .zshrc (written literally, no shell expansion)
     files.block(
         path="/home/user/.zshrc",
         content="eval $(thef -a)",
-        try_prevent_shell_expansion=True,
         marker="## {mark} ALIASES ##"
     )
 
