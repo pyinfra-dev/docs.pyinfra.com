@@ -133,15 +133,22 @@
     
       <div id="right-column">
         
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/examples/dynamic_execution_deploy.html"><strong>3.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="dynamic-execution-during-deploy">
 <h1>Dynamic Execution during Deploy<a class="headerlink" href="#dynamic-execution-during-deploy" title="Permalink to this heading">¶</a></h1>
 <p>pyinfra is designed around the idea of defining the end-state <em>before</em> executing any changes on the remote server. Generally this works well but sometimes you need the output of one command to feed into another. This can be achieved by executing Python functions mid-deploy.</p>
 <p>In this example we install a service (ZeroTier) that generates a random ID for the remote host. We then use this ID to authenticate the server with the ZeroTier API.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">python</span><span class="p">,</span> <span class="n">server</span>
 
 <span class="c1"># Assumes the repo is configured/apt is updated</span>
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
@@ -149,7 +156,7 @@
     <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;zerotier-one&#39;</span><span class="p">],</span>
 <span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">authorize_server</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">authorize_server</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
     <span class="c1"># Run a command on the server and collect status, stderr and stdout</span>
     <span class="n">status</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">run_shell_command</span><span class="p">(</span><span class="s1">&#39;cat /var/lib/zerotier-one/identity.public&#39;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">True</span>  <span class="c1"># ensure the command executed OK</span>

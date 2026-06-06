@@ -116,37 +116,44 @@
     
       <div id="right-column">
         
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/api/index.html"><strong>3.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="using-the-api">
 <h1>Using the API<a class="headerlink" href="#using-the-api" title="Permalink to this heading">¶</a></h1>
 <p>In addition to <a class="reference internal" href="../cli.html"><span class="doc">the pyinfra CLI</span></a>, <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> provides a full Python API. As of <cite>v1</cite> this API can be considered mostly stable. An example of how to use the API is embedded below. See also <a class="reference internal" href="reference.html"><span class="doc">API Reference</span></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gevent</span> <span class="kn">import</span> <span class="n">monkey</span>  <span class="c1"># noqa</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gevent</span><span class="w"> </span><span class="kn">import</span> <span class="n">monkey</span>  <span class="c1"># noqa</span>
 
 <span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>  <span class="c1"># noqa async things (speed++, optional)</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>  <span class="c1"># noqa: E402, I100</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>  <span class="c1"># noqa: E402, I100</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>  <span class="c1"># noqa: E402</span>
 
-<span class="kn">from</span> <span class="nn">pyinfra.api</span> <span class="kn">import</span> <span class="n">BaseStateCallback</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.api.connect</span> <span class="kn">import</span> <span class="n">connect_all</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.api.facts</span> <span class="kn">import</span> <span class="n">get_facts</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.api.operation</span> <span class="kn">import</span> <span class="n">add_op</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.api.operations</span> <span class="kn">import</span> <span class="n">run_ops</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.connectors.vagrant</span> <span class="kn">import</span> <span class="n">make_names_data</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.facts.server</span> <span class="kn">import</span> <span class="n">Os</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>  <span class="c1"># noqa: E402</span>
-<span class="kn">from</span> <span class="nn">pyinfra_cli.prints</span> <span class="kn">import</span> <span class="n">jsonify</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseStateCallback</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">,</span> <span class="n">State</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">connect_all</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.facts</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_facts</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.operation</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_op</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.api.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_ops</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.connectors.vagrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_names_data</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Os</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra_cli.prints</span><span class="w"> </span><span class="kn">import</span> <span class="n">jsonify</span>  <span class="c1"># noqa: E402</span>
 
 
-<span class="k">class</span> <span class="nc">StateCallback</span><span class="p">(</span><span class="n">BaseStateCallback</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">host_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StateCallback</span><span class="p">(</span><span class="n">BaseStateCallback</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">host_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Host connected: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">operation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">operation_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start operation: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">operation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">operation_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">op_hash</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;End operation: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">op_hash</span><span class="p">))</span>
 
 

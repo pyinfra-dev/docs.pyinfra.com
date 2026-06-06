@@ -140,6 +140,13 @@
     
       <div id="right-column">
         
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/deploy-process.html"><strong>3.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="deploy-execution">
@@ -204,7 +211,7 @@
 <div class="section" id="interdependent-operations">
 <h3>Interdependent operations<a class="headerlink" href="#interdependent-operations" title="Permalink to this heading">¶</a></h3>
 <p>The major disadvantage to separating the deploy into two phases comes into effect where operations rely on each other - i.e. the changes of one operation will affect a later operations facts. Consider the following example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
 <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
@@ -219,7 +226,7 @@
 </pre></div>
 </div>
 <p>This is problematic because the link, <code class="docutils literal notranslate"><span class="pre">/etc/nginx/sites-enabled/default</span></code>, won’t exist during the first phase as it is created by the previous <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> operation. This means, on first run, the second operation will do nothing, leaving the link in place. Re-running the deploy would correct this, but we can also provide hints to <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> in such cases, i.e.:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyinfra.operations</span> <span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
 
 <span class="n">install_nginx</span> <span class="o">=</span> <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>

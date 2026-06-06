@@ -124,6 +124,13 @@
     
       <div id="right-column">
         
+          
+            <div class="admonition important">
+                <p class="first admonition-title">Documentation may be out of date!</p>
+                <p>You are not reading the most recent version the documentation. <a href="/en/3.x/api/connectors.html"><strong>3.x</strong></a> is the latest release version available.</p>
+            </div>
+          
+        
         <div class="document clearer body" role="main">
           
   <div class="section" id="writing-connectors">
@@ -131,7 +138,7 @@
 <p><a class="reference internal" href="../connectors.html"><span class="doc std std-doc">Connectors</span></a> enable <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> to directly integrate with other tools and systems. These do not require the other system to have any knowledge of <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code>.</p>
 <p>Check out <a class="reference external" href="https://github.com/Fizzadar/pyinfra/tree/master/pyinfra/api/connectors">the existing code</a>. Be sure to add tests and documentation.</p>
 <p>All connectors must provide the <code class="docutils literal notranslate"><span class="pre">make_names_data</span></code> function:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_names_data</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_names_data</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Generate list of hosts.</span>
 
@@ -146,12 +153,12 @@
 </pre></div>
 </div>
 <p>Furthermore, connectors that modify execution must provide the following functions:</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">split_combined_output</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">split_combined_output</span>
 
 <span class="n">EXECUTION_CONNECTOR</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># flag this connector as defining execution</span>
 
 
-<span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Connect to the target host.</span>
 
@@ -166,7 +173,7 @@
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">run_shell_command</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_shell_command</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span>
     <span class="n">get_pty</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -205,7 +212,7 @@
     <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span>
 
 
-<span class="k">def</span> <span class="nf">put_file</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">put_file</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">filename_or_io</span><span class="p">,</span> <span class="n">remote_filename</span><span class="p">,</span>
     <span class="n">print_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">print_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">command_kwargs</span>
@@ -220,7 +227,7 @@
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">get_file</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_file</span><span class="p">(</span>
     <span class="n">state</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">remote_filename</span><span class="p">,</span> <span class="n">filename_or_io</span><span class="p">,</span>
     <span class="n">print_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">print_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">command_kwargs</span>
