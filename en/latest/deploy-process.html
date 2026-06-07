@@ -1,453 +1,1694 @@
-<!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<!doctype html>
+<html lang="en" class="no-js">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  
-  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
-  <meta name="docsearch:version" content="latest" />
-  <meta name="docsearch:language" content="en" />
-  
-    <title>How pyinfra Works &#8212; pyinfra  documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
-    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=fb44425a" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <link rel="icon" href="_static/logo_small.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Packaging Deploys" href="api/deploys.html" />
-    <link rel="prev" title="@vagrant Connector" href="connectors/vagrant.html" />
-  
-   
-
-  </head><body>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="api/deploys.html" title="Packaging Deploys"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="connectors/vagrant.html" title="@vagrant Connector"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 
-      </ul>
-    </div>
-  <div class="container-wrapper">
-    <header>
-      <nav>
-        <a target="_blank" href="https://pyinfra.com">pyinfra.com<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
-        <a target="_blank" href="https://github.com/Fizzadar/pyinfra">GitHub<span class="glyphicon glyphicon glyphicon-share" aria-hidden="true"></span></a>
-      </nav>
-
-      <div id="header-sidebar">
-        <a href="index.html" class="text-logo">
-            <img src="_static/logo_small.png" />
-            pyinfra <small>latest</small>
-        </a>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="pyinfra automates infrastructure using idempotent Python operations.">
+      
+      
+        <meta name="author" content="Nick Barrett">
+      
+      
+        <link rel="canonical" href="https://docs.pyinfra.com/deploy-process.html">
+      
+      
+        <link rel="prev" href="./arguments.html">
+      
+      
+        <link rel="next" href="./api/deploys.html">
+      
+      
         
-<form id="main-search" class="form-inline" action="search.html" method="GET" role="form">
-  <div id="docsearch">
-    <input id="search-input" name="q" type="text" class="form-control" placeholder="Search...">
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </div>
-</form>
-      </div>
+      
+      
+      <link rel="icon" href="./static/logo_small.png">
+      <meta name="generator" content="zensical-0.0.34">
+    
+    
+      
+        <title>How pyinfra Works - pyinfra</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="./assets/stylesheets/modern/main.53a7feaf.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="./assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
 
-      <div id="mobile-toggle">
-        <a id="toggle-menu" href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
-        <a href="index.html" class="text-logo">
-            <img src="_static/logo_small.png" />
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="./assets/pyinfra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+    
+      
+
+    
+    <script defer
+            data-domain="docs.pyinfra.com"
+            data-api="https://stats.oxygem.com/api/event"
+            src="https://stats.oxygem.com/js/script.js"></script>
+
+    
+    
+    <meta name="darkreader-lock">
+    
+    <link rel="preconnect" href="https://pyinfra.com" crossorigin>
+    <link rel="preload" crossorigin
+          href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
+          as="font" type="font/woff2">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-pyinfra-works" class="md-skip">
+          Skip to content
         </a>
-      </div>
-    </header>
-    <div id="left-column">
-      <div class="sphinxsidebar">
-        <div class="sidebar-block">
-    <div class="sidebar-toc">
-        <p class="caption" role="heading"><span class="caption-text">Using pyinfra</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using-operations.html">Using Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inventory-data.html">Inventory &amp; Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arguments.html">Global Arguments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Using the CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Deploy Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="operations.html">Operations Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="facts.html">Facts Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connectors.html">Connectors Index</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">How pyinfra Works</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How pyinfra Works</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-pyinfra-detects-changes-orders-operations">How pyinfra Detects Changes &amp; Orders Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#when-does-this-matter">When does this matter?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#using-host-facts">Using Host Facts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#checking-operation-changes">Checking Operation Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#loops-cycle-errors">Loops &amp; Cycle Errors</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/deploys.html">Packaging Deploys</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/operations.html">Writing Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/facts.html">Writing Facts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/connectors.html">Writing Connectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Using the API</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Meta</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="support.html">Help &amp; Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="compatibility.html">Compatibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/reference.html">API Reference</a></li>
-</ul>
-
+      
     </div>
-</div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+    
+    
+    
+    
+        
+            You are reading the most recent documentation which may contain
+            unreleased features. The latest release is
+            <a href="/en/3.x/"><strong>3.x</strong></a>.
+        
+    
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./index.html" title="pyinfra" class="md-header__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="./static/logo_small.png" alt="pyinfra">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyinfra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              How pyinfra Works
+            
+          </span>
+        </div>
       </div>
     </div>
     
-      <div id="right-column">
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="pyinfra" data-md-color-accent="pyinfra"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
           
-            <div class="admonition important">
-                <p class="first admonition-title">Documentation may contain unreleased features!</p>
-                <p>You are reading most recent documentation which may not have been released yet. <a href="/en/3.x/deploy-process.html"><strong>3.x</strong></a> is the latest release version available.</p>
-            </div>
-          
         
-        <div class="document clearer body" role="main">
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
-  <section id="how-pyinfra-works">
-<h1>How pyinfra Works<a class="headerlink" href="#how-pyinfra-works" title="Link to this heading">¶</a></h1>
-<p>pyinfra executes in five of stages:</p>
-<ol class="arabic simple">
-<li><p><strong>Setup</strong> phase, read the inventory / data</p></li>
-<li><p><strong>Connect</strong> to the targets in the inventory</p></li>
-<li><p><strong>Prepare</strong> by detecting changes and determining operation order</p></li>
-<li><p><strong>Execute</strong> the changes on the targets</p></li>
-<li><p><strong>Disconnect</strong> and cleanup</p></li>
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./index.html" title="pyinfra" class="md-nav__button md-logo" aria-label="pyinfra" data-md-component="logo">
+      
+  <img src="./static/logo_small.png" alt="pyinfra">
+
+    </a>
+    pyinfra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pyinfra-dev/pyinfra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pyinfra-dev/pyinfra
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using pyinfra
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using pyinfra
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./getting-started.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./using-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./inventory-data.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory & Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./faq.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deploy Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./arguments.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How pyinfra Works
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How pyinfra Works
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Process
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="deploy-process.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#detects-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two-phase execution model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The two-phase execution model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-execute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: execute
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-all-this-matters-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why all this matters: ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-this-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When does this matter?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When does this matter?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-host-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Host Facts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-operation-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Operation Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loops-cycle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loops &amp; Cycle Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/deploys.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/connectors.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Connectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/facts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Facts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Meta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./support.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./compatibility.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./performance.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./changes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#detects-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two-phase execution model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The two-phase execution model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-prepare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: prepare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-execute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: execute
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-all-this-matters-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why all this matters: ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-this-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When does this matter?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When does this matter?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-host-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Host Facts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-operation-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Operation Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loops-cycle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loops &amp; Cycle Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="how-pyinfra-works">How pyinfra Works<a class="headerlink" href="#how-pyinfra-works" title="Permanent link">&para;</a></h1>
+<p>Every <code>pyinfra</code> run steps through five stages:</p>
+<ol>
+<li><strong>Setup</strong> — load the inventory file and any group/host data</li>
+<li><strong>Connect</strong> — open a connection (e.g. one SSH session) to each target host</li>
+<li><strong>Prepare</strong> — run the deploy code once per host to establish operation order and detect which operations will change each host</li>
+<li><strong>Execute</strong> — walk the operation list and, for each operation, generate and run its commands on every host</li>
+<li><strong>Disconnect</strong> — close the connections and emit the final report</li>
 </ol>
-<p>Every time you run pyinfra it steps through each of these stages with the goal of updating the inventory to match the commands or state provided. Most of these stages are simple to reason about. The one exception to this is the <strong>prepare</strong>, or change detection, phase which is used to define the order operations are executed.</p>
-<section id="how-pyinfra-detects-changes-orders-operations">
-<span id="deploy-process-detects-changes"></span><h2>How pyinfra Detects Changes &amp; Orders Operations<a class="headerlink" href="#how-pyinfra-detects-changes-orders-operations" title="Link to this heading">¶</a></h2>
-<p>Below we’ll look at an in depth example that explains why the prepare / ordering stage is so critical. This example deploys a single database server and three webservers, here’s the inventory:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">web_servers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;web-01&quot;</span><span class="p">,</span> <span class="s2">&quot;web-02&quot;</span><span class="p">,</span> <span class="s2">&quot;web-03&quot;</span><span class="p">]</span>
-<span class="n">db_server</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;db-01&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>And here’s the deploy code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
-
-<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install base debugging packages&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;htop&quot;</span><span class="p">,</span> <span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
-    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">cache_time</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">if</span> <span class="s2">&quot;db_server&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
-    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install postgres server&quot;</span><span class="p">,</span>
-        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;postgresql-server&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-
-<span class="k">if</span> <span class="s2">&quot;web_servers&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
-    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
-        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<p>The deploy code is written as if executing a single host. To execute it over multiple hosts requires pyinfra to run the code once for each host. We can’t do this host by host or pyinfra would be really slow. But if we do it in parallel we can’t ensure operations run in expected order.</p>
-<p>The aim is that each operation runs in order, stopping at the end of operation until all hosts have completed or failed it before moving onto the next. So operations are sequential but each individual operation is executed on all hosts in parallel, like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install base debugging packages&quot;</span> <span class="n">on</span> <span class="nb">all</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">,</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install postgres server&quot;</span> <span class="n">on</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span>
-<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Upload postgres pg_hba config&quot;</span> <span class="n">on</span> <span class="n">db</span><span class="o">-</span><span class="mi">01</span>
-<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Install nginx&quot;</span> <span class="n">on</span> <span class="n">web</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">run</span> <span class="s2">&quot;Upload nginx config&quot;</span> <span class="n">on</span> <span class="n">web</span> <span class="n">hosts</span> <span class="ow">in</span> <span class="n">parallel</span> <span class="p">(</span><span class="n">web</span><span class="o">-</span><span class="mi">01</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">02</span><span class="p">,</span> <span class="n">web</span><span class="o">-</span><span class="mi">03</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To make this possible we have to first execute the code to generate the order and then execute the actual operations. This is why deploy code is always executed before any changes are made.</p>
-</section>
-<section id="when-does-this-matter">
-<h2>When does this matter?<a class="headerlink" href="#when-does-this-matter" title="Link to this heading">¶</a></h2>
-<section id="using-host-facts">
-<span id="deploy-process-using-host-facts"></span><h3>Using Host Facts<a class="headerlink" href="#using-host-facts" title="Link to this heading">¶</a></h3>
+<p>Most of these are unsurprising; the interesting one is <strong>prepare</strong>, because it is the stage that determines the order operations run in. Your deploy file's Python runs once, during prepare, to establish that order; then each <em>operation</em> is re-evaluated individually during execute to produce the commands that actually run.</p>
+<h2 id="detects-changes">The two-phase execution model<a class="headerlink" href="#detects-changes" title="Permanent link">&para;</a></h2>
+<p>pyinfra is, at its core, a translator. Your Python deploy file is not run <em>on</em> the target host — it's run <em>locally</em>, once per host in the inventory, and the operations it calls turn into shell commands that pyinfra ships over the connection.</p>
+<h3 id="phase-1-prepare">Phase 1: prepare<a class="headerlink" href="#phase-1-prepare" title="Permanent link">&para;</a></h3>
+<p>For every host in the inventory pyinfra invokes your deploy code with the <code>host</code> context bound to that host. As your code calls operations like <code>apt.packages(...)</code>, each operation:</p>
+<ol>
+<li>Reads the current state from the target by gathering any <a href="facts.html">facts</a> it needs (e.g. <code>AptPackages</code> to see what is already installed). Facts open a channel on the existing connection, run a read-only shell command, and cache the parsed result for the rest of the deploy.</li>
+<li>Diffs that state against the desired state you've described.</li>
+<li>Determines whether it would produce any commands — pyinfra advances the operation just far enough to see its first command, then stops. It does <strong>not</strong> build or keep the full command list at this point.</li>
+<li>Returns an <code>OperationMeta</code> handle with a <code>will_change</code> flag indicating whether the operation would change anything.</li>
+</ol>
+<p>When the deploy file finishes, pyinfra knows the order operations appear in and which operations will change which hosts. What it has built is an <strong>ordering</strong>, not a stored list of commands. <strong>No mutating commands have been sent to any target yet</strong> — only fact-gathering reads.</p>
+<h3 id="phase-2-execute">Phase 2: execute<a class="headerlink" href="#phase-2-execute" title="Permanent link">&para;</a></h3>
+<p>pyinfra then walks the operations in order. For each operation it <strong>re-evaluates</strong> the operation against each host — re-running the operation's logic to generate its commands, then running them on every host that needs them, in parallel, and waiting for that operation to finish on all hosts before moving on to the next. The commands are produced here, at execute time, not replayed from prepare.</p>
+<p>This means a host's connection lifecycle for a deploy is typically: one connection opens at stage 2, stays open for facts (prepare) and command execution (execute), and closes at stage 5. Individual operations open new channels over that single connection rather than fresh sessions per command.</p>
+<h3 id="why-all-this-matters-ordering">Why all this matters: ordering<a class="headerlink" href="#why-all-this-matters-ordering" title="Permanent link">&para;</a></h3>
+<p>A deploy file is written as if it were running against one host. But you usually have many. Consider this inventory:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">web_servers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;web-01&quot;</span><span class="p">,</span> <span class="s2">&quot;web-02&quot;</span><span class="p">,</span> <span class="s2">&quot;web-03&quot;</span><span class="p">]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">db_server</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;db-01&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<p>…and this deploy:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install base debugging packages&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;htop&quot;</span><span class="p">,</span> <span class="s2">&quot;iftop&quot;</span><span class="p">],</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">cache_time</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">if</span> <span class="s2">&quot;db_server&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install postgres server&quot;</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;postgresql-server&quot;</span><span class="p">],</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="k">if</span> <span class="s2">&quot;web_servers&quot;</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">groups</span><span class="p">:</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<p>If pyinfra naively ran the whole deploy on each host in parallel, hosts could finish at different points and operations would interleave unpredictably — fine here, but breaks down as soon as one host depends on something an earlier operation on a <em>different</em> host did (e.g. webservers reading the database hostname). pyinfra avoids this by running each operation in lock-step across hosts: all hosts complete operation N (or fail it) before any host starts operation N+1. The schedule for the example above looks like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>- &quot;Install base debugging packages&quot; on web-01, web-02, web-03, db-01 (in parallel)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>- &quot;Install postgres server&quot;         on db-01
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>- &quot;Install nginx&quot;                   on web-01, web-02, web-03 (in parallel)
+</span></code></pre></div>
+<p>Getting that ordering right is precisely what the prepare phase is for. pyinfra has to execute your deploy code first — running it through to the end on every host — to discover which operations each host needs, what order they appear in, and how they relate. Only then can it stitch the per-host orderings together into a single sequence to execute. This is why <strong>deploy code always runs before any host is mutated</strong>, and why a fact branched on in Python (<code>if host.get_fact(File, ...):</code>) reflects pre-deploy state rather than the running state at that point in the file. The next two subsections show the implications.</p>
+<h2 id="when-does-this-matter">When does this matter?<a class="headerlink" href="#when-does-this-matter" title="Permanent link">&para;</a></h2>
+<h3 id="using-host-facts">Using Host Facts<a class="headerlink" href="#using-host-facts" title="Permanent link">&para;</a></h3>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>Only use immutable facts in deploy code (installed OS, Arch, etc) unless you are absolutely sure they will not change.</p>
 </div>
-<p>Let’s look at an example - the deploy code here is bad but highlights the ordering problems:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span>
-
-<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
-    <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
-        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
-        <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<p>The critical thing to remember is that when you execute <code class="docutils literal notranslate"><span class="pre">pyinfra</span> <span class="pre">INVENTORY</span> <span class="pre">deploy.py</span></code> the deploy code is run <em>before</em> the operations are actually executed. This enables pyinfra to figure out the correct order for operations (see below for a detailed explanation).</p>
+<p>Let's look at an example - the deploy code here is bad but highlights the ordering problems:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.facts.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">File</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<p>The critical thing to remember is that when you execute <code>pyinfra INVENTORY deploy.py</code> the deploy code is run <em>before</em> the operations are actually executed. This enables pyinfra to figure out the correct order for operations (see below for a detailed explanation).</p>
 <p>The problem here is the conditional check:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">facts</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
-</pre></div>
-</div>
-<p>This gets executed <em>before</em> the <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> install, and evaluates to <code class="docutils literal notranslate"><span class="pre">False</span></code>. But at execution time this would actually become <code class="docutils literal notranslate"><span class="pre">True</span></code>. The solution is simple - rely on pyinfra’s operations to describe the desired state and always call the second:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
-
-<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
-    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>In this case when the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation is executed pyinfra will check if the file is present and remove it if so, and do nothing if not.</p>
-</section>
-<section id="checking-operation-changes">
-<h3>Checking Operation Changes<a class="headerlink" href="#checking-operation-changes" title="Link to this heading">¶</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">facts</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">):</span>
+</span></code></pre></div>
+<p>This gets executed <em>before</em> the <code>apt.packages</code> install, and evaluates to <code>False</code>. But at execution time this would actually become <code>True</code>. The solution is simple - rely on pyinfra's operations to describe the desired state and always call the second:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>In this case when the <code>files.file</code> operation is executed pyinfra will check if the file is present and remove it if so, and do nothing if not.</p>
+<h3 id="checking-operation-changes">Checking Operation Changes<a class="headerlink" href="#checking-operation-changes" title="Permanent link">&para;</a></h3>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>Always use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument when checking for previous operation changes.</p>
+<p>Always use the <code>_if</code> global argument when checking for previous operation changes.</p>
 </div>
-<p>Let’s use a simple example as above with add a conditional reload based on the outcome of the <code class="docutils literal notranslate"><span class="pre">files.file</span></code> operation:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
-
-<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
-    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
-        <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
-        <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
+<p>Let's use a simple example as above with add a conditional reload based on the outcome of the <code>files.file</code> operation:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>        <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>        <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>    <span class="p">)</span>
+</span></code></pre></div>
 <p>As above, the problem here is again the conditional check:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>Since this gets executed before nginx is installed by <code class="docutils literal notranslate"><span class="pre">apt.packages</span></code> operation, the value of <code class="docutils literal notranslate"><span class="pre">remove_default_site.changed</span></code> at this stage is <code class="docutils literal notranslate"><span class="pre">False</span></code> but at execution time this would become <code class="docutils literal notranslate"><span class="pre">True</span></code>, exactly like the fact example above. The solution here is to use the <code class="docutils literal notranslate"><span class="pre">_if</span></code> global argument to delay the check until execution time:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
-
-<span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
-<span class="p">)</span>
-
-<span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
-    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
-    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
-    <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">_if</span><span class="o">=</span><span class="n">remove_default_site</span><span class="o">.</span><span class="n">did_change</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="loops-cycle-errors">
-<span id="id1"></span><h3>Loops &amp; Cycle Errors<a class="headerlink" href="#loops-cycle-errors" title="Link to this heading">¶</a></h3>
-<p>In CLI mode <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> builds a single DAG to determine the order in which
-operations are executed. This usually produces the order a deploy author
-expects, but loops can make the same operation line appear multiple times with
-different per-host paths through the deploy. When those paths disagree about
-which operation must run first, the ordering graph contains a cycle and
-<code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> raises a cycle error.</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">host.loop</span></code> when a loop contains operations. This gives <code class="docutils literal notranslate"><span class="pre">pyinfra</span></code> the
-loop position as an ordering hint:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Do a thing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<p>For example, this deploy can generate a cycle because the first operation only
-appears on <code class="docutils literal notranslate"><span class="pre">&#64;local</span></code> during the first loop iteration:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
-            <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
-        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">if</span> <span class="n">remove_default_site</span><span class="o">.</span><span class="n">changed</span><span class="p">:</span>
+</span></code></pre></div>
+<p>Since this gets executed before nginx is installed by <code>apt.packages</code> operation, the value of <code>remove_default_site.changed</code> at this stage is <code>False</code> but at execution time this would become <code>True</code>, exactly like the fact example above. The solution here is to use the <code>_if</code> global argument to delay the check until execution time:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">facts</span><span class="p">,</span> <span class="n">host</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">apt</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">server</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">apt</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Install nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">],</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">)</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="n">remove_default_site</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">file</span><span class="p">(</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Remove nginx default site&quot;</span><span class="p">,</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/nginx/sites-enabled/default&quot;</span><span class="p">,</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="n">present</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">)</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="n">server</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Reload nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    <span class="n">service</span><span class="o">=</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    <span class="n">reloaded</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    <span class="n">_if</span><span class="o">=</span><span class="n">remove_default_site</span><span class="o">.</span><span class="n">did_change</span><span class="p">,</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="loops-cycle-errors">Loops &amp; Cycle Errors<a class="headerlink" href="#loops-cycle-errors" title="Permanent link">&para;</a></h3>
+<p>In CLI mode <code>pyinfra</code> builds a single DAG to determine the order in which operations are executed. This usually produces the order a deploy author expects, but loops can make the same operation line appear multiple times with different per-host paths through the deploy. When those paths disagree about which operation must run first, the ordering graph contains a cycle and <code>pyinfra</code> raises a cycle error.</p>
+<p>Use <code>host.loop</code> when a loop contains operations. This gives <code>pyinfra</code> the loop position as an ordering hint:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Do a thing </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<p>For example, this deploy can generate a cycle because the first operation only appears on <code>@local</code> during the first loop iteration:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="p">)</span>
+</span></code></pre></div>
 <p>The resulting per-host order is inconsistent:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># @local: A -&gt; B -&gt; A-1 -&gt; B-1</span>
-<span class="c1"># Other:       B -&gt; A   -&gt; B-1</span>
-</pre></div>
-</div>
-<p>Combining those host orders means <code class="docutils literal notranslate"><span class="pre">A</span></code> must run before <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> must
-run before <code class="docutils literal notranslate"><span class="pre">A</span></code>. Switching the loop to <code class="docutils literal notranslate"><span class="pre">host.loop</span></code> includes the loop position
-in the operation order and removes the ambiguity:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
-            <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
-        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># @local: A -&gt; B -&gt; A-1 -&gt; B-1</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># Other:       B -&gt; A   -&gt; B-1</span>
+</span></code></pre></div>
+<p>Combining those host orders means <code>A</code> must run before <code>B</code> and <code>B</code> must run before <code>A</code>. Switching the loop to <code>host.loop</code> includes the loop position in the operation order and removes the ambiguity:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">host</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">server</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">host</span><span class="o">.</span><span class="n">loop</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">host</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;@local&quot;</span><span class="p">):</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>            <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;B&quot;</span><span class="p">,</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>        <span class="n">commands</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="p">)</span>
+</span></code></pre></div>
 <p>The graph can then be resolved consistently:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># @local: 0A -&gt; 0B -&gt; 1A -&gt; 1B</span>
-<span class="c1"># Other:        0B -&gt; 1A -&gt; 1B</span>
-</pre></div>
-</div>
-</section>
-</section>
-</section>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># @local: 0A -&gt; 0B -&gt; 1A -&gt; 1B</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Other:        0B -&gt; 1A -&gt; 1B</span>
+</span></code></pre></div>
 
 
-        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
           
-  <nav class="footer-relations">
-    <ul class="pager">
-      
-        <li class="previous"><a href="connectors/vagrant.html">
-          <span aria-hidden="true">&larr;</span> <code class="docutils literal notranslate"><span class="pre">&#64;vagrant</span></code> Connector
-        </a></li>
-      
-        <li class="next"><a href="api/deploys.html">
-          Packaging Deploys <span aria-hidden="true">&rarr;</span>
-        </a></li>
-      
-    </ul>
-  </nav>
-    <div class="clearer"></div>
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
-      </div>
-      <div class="clearfix"></div>
-  </div>
-    <div class="related" role="navigation" aria-label="Related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="api/deploys.html" title="Packaging Deploys"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="connectors/vagrant.html" title="@vagrant Connector"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Home</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">How pyinfra Works</a></li> 
-      </ul>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2015–2026 · pyinfra and contributors
     </div>
-<script type="text/javascript" src="_static/js/jquery.min.js"></script>
-<script type="text/javascript" src="_static/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-  $("a#toggle-menu").click(function () {
-    $("#left-column").slideToggle(100);
-  });
-
-  var currentIndexItem = document.querySelector('ul.current ul.current li.current');
-  if (currentIndexItem) {
-    currentIndexItem.scrollIntoView({'block': 'center'});
-  }
-</script>
-  <div class="footer">
+  
+  
+</div>
+      
+    </div>
   </div>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-  <script type="text/javascript">
-    docsearch({
-        apiKey: '25a25b5f5310f306641f9ce07dcb06eb',
-        appId: 'XXGX6EX4KA',
-        indexName: 'pyinfra',
-        container: '#docsearch',
-        searchParameters: {
-          facetFilters: ["version:latest", "lang:en"],
-        },
-        debug: false,
-    });
-  </script>
-
-
-
-  
-    <script async defer data-domain="docs.pyinfra.com" src="https://stats.oxygem.com/js/index.js"></script>
-  
-
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":".","features":["navigation.sections","navigation.top","navigation.tracking","toc.follow","content.code.copy","content.code.annotate"],"search":"./assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="./assets/javascripts/bundle.9f55f5b1.min.js"></script>
+      
+    
   </body>
 </html>
