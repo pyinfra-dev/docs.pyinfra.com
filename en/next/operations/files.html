@@ -1755,6 +1755,11 @@ expanded on the remote host.</p>
     Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
     it does, like: <code>^.*LINE.*$</code>. This means we don't swap parts of lines out. To
     change bits of lines, see <code>files.replace</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>Because of this wrapping, `line=&quot;foo&quot;` also matches a commented-out `#foo` or
+any line that merely contains `foo`. To match a whole line exactly, anchor it
+yourself with `^` and/or `$` (eg `line=&quot;^foo$&quot;`); the anchors are used only
+for matching and are stripped before the line is appended to the file.
+</code></pre></div>
 <p>Regex line escaping:
     If matching special characters (eg a crontab line containing <code>*</code>), remember to escape
     it first using Python's <code>re.escape</code>.</p>

@@ -4168,6 +4168,11 @@ Regex line matching:
     it does, like: `^.*LINE.*$`. This means we don't swap parts of lines out. To
     change bits of lines, see `files.replace`.
 
+    Because of this wrapping, `line="foo"` also matches a commented-out `#foo` or
+    any line that merely contains `foo`. To match a whole line exactly, anchor it
+    yourself with `^` and/or `$` (eg `line="^foo$"`); the anchors are used only
+    for matching and are stripped before the line is appended to the file.
+
 Regex line escaping:
     If matching special characters (eg a crontab line containing `*`), remember to escape
     it first using Python's `re.escape`.
