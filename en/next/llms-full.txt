@@ -4927,6 +4927,44 @@ git.worktree(
 
 ---
 
+## Operations: go
+
+Source: https://docs.pyinfra.com/en/latest/operations/go.html
+
+Manage Go (Golang) binary packages installed via `go install`.
+
+### `go.packages(packages: 'str | list[str] | None' = None, present: 'bool' = True, latest: 'bool' = False)`
+
+Add/remove/update Go binary packages installed via `go install`.
+
++ packages: list of packages to ensure
++ present: whether the packages should be installed
++ latest: whether to upgrade packages without a specified version
+
+Note:
+    `latest=True` is not idempotent offline: without a version to compare
+    against, an installed unversioned package always re-runs `go install`
+    and reports as changed every run (same as `pip.packages` with latest).
+
+Versions:
+    Package versions can be pinned like go: `<pkg>@<version>`. Packages
+    without a pinned version (or with the special `@latest` suffix) are
+    installed at the latest available version.
+
+**Example:**
+
+```python
+from pyinfra.operations import go
+# Note: Assumes that 'go' is installed.
+go.packages(
+    name="Install staticcheck",
+    packages=["honnef.co/go/tools/cmd/staticcheck"],
+)
+```
+
+
+---
+
 ## Operations: iptables
 
 Source: https://docs.pyinfra.com/en/latest/operations/iptables.html
@@ -8044,6 +8082,26 @@ branch does not exist on the remote, or the repository is missing.
 ### `git.GitTrackingBranch`
 
     host.get_fact(GitTrackingBranch, repo)
+
+---
+
+## Facts: go
+
+Source: https://docs.pyinfra.com/en/latest/facts/go.html
+
+### `go.GoPackages`
+
+    host.get_fact(GoPackages)
+
+Returns a dict of installed Go binary packages (those installed via
+`go install`) keyed by their import path:
+
+```python
+{
+    "github.com/example/tool": {"v1.2.3"},
+}
+```
+
 
 ---
 
