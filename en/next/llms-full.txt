@@ -3706,6 +3706,50 @@ docker.container(
 ```
 
 
+### `docker.container_exec(container: 'str', command: 'str | list[str]', user: 'str | None' = None, workdir: 'str | None' = None, env: 'dict[str, str] | None' = None, detach: 'bool' = False, privileged: 'bool' = False, tty: 'bool' = False)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Run a command inside an existing Docker container (`docker exec`).
+
++ container: name or ID of the target container
++ command: command to run. A string is run through the container's shell
+  (`sh -c`) so pipes/redirects work; a list is passed straight through as
+  `argv` with no shell
++ user: run as this user (maps to `--user`)
++ workdir: working directory inside the container (maps to `--workdir`)
++ env: environment variables to set (maps to repeated `--env`)
++ detach: run in the background (maps to `--detach`)
++ privileged: give extended privileges to the command (maps to `--privileged`)
++ tty: allocate a pseudo-TTY (maps to `--tty`)
+
+This operation is not idempotent: it always runs the command. The target
+container must already exist and be running.
+
+**Examples:**
+
+```python
+from pyinfra.operations import docker
+
+# Run a shell command (pipes/redirects work)
+docker.container_exec(
+    name="Migrate the database",
+    container="app",
+    command="./manage.py migrate 2>&1 | tee /var/log/migrate.log",
+)
+
+# Pass an explicit argv (no shell)
+docker.container_exec(
+    name="Touch a file as appuser",
+    container="app",
+    command=["touch", "/srv/ready"],
+    user="appuser",
+    workdir="/srv",
+    env={"STAGE": "prod"},
+)
+```
+
+
 ### `docker.image(image: 'str', present: 'bool' = True, force: 'bool' = False)`
 
 Manage Docker images
@@ -8389,6 +8433,7 @@ Gets & returns a dict of network devices. See the `ipv4_addresses` and
 `ipv6_addresses` facts for easier-to-use shortcuts to get device addresses.
 
 ```python
+{
 "enp1s0": {
     "ether": "12:34:56:78:9A:BC",
     "mtu": 1500,
@@ -8451,6 +8496,7 @@ Gets & returns a dict of network devices. See the `ipv4_addresses` and
     "ether": "77:88:99:AA:BB:CC",
     "mtu": 1500,
     "state": "UNKNOWN"
+}
 }
 ```
 
