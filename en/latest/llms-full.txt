@@ -9181,6 +9181,11 @@ Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
 Fedora & Gentoo currently. Also contains any key/value items located in
 release files.
 
+`major` and `minor` resolved from the most precise source available, when
+`/etc/os-release` exposes only major version (e.g. CentOS 8's `VERSION_ID="8"`),
+`major.minor` is read from distro-specific release file (e.g. `/etc/centos-release`)
+instead. `minor` is `None` when no source provides it (e.g. CentOS Stream).
+
 ```python
 {
     "name": "Ubuntu",

@@ -1764,6 +1764,10 @@ requires root to read <code>/var/log/btmp</code>.</p>
 <p>Returns a dict of the Linux distribution version. Ubuntu, Debian, CentOS,
 Fedora &amp; Gentoo currently. Also contains any key/value items located in
 release files.</p>
+<p><code>major</code> and <code>minor</code> resolved from the most precise source available, when
+<code>/etc/os-release</code> exposes only major version (e.g. CentOS 8's <code>VERSION_ID="8"</code>),
+<code>major.minor</code> is read from distro-specific release file (e.g. <code>/etc/centos-release</code>)
+instead. <code>minor</code> is <code>None</code> when no source provides it (e.g. CentOS Stream).</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu&quot;</span><span class="p">,</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
