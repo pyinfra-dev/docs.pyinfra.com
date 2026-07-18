@@ -12,7 +12,7 @@
         <meta name="author" content="Nick Barrett">
       
       
-        <link rel="canonical" href="https://docs.pyinfra.com/examples/dynamic_inventories_data.html">
+        <link rel="canonical" href="https://docs.pyinfra.com/connectors/fake.html">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>Dynamic Inventories & Data - pyinfra</title>
+        <title>@fake Connector - pyinfra</title>
       
     
     
@@ -134,7 +134,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dynamic-inventories-data" class="md-skip">
+        <a href="#fake-connector" class="md-skip">
           Skip to content
         </a>
       
@@ -169,7 +169,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dynamic Inventories &amp; Data
+              @fake Connector
             
           </span>
         </div>
@@ -1198,10 +1198,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#test-inventories-with-fake-data" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Inventories with Fake Data
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Data
       
     </span>
   </a>
@@ -1217,96 +1228,122 @@
             
           
           
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
+  <script type="text/javascript">
+    document.querySelectorAll(".md-nav__list a").forEach(e => {
+      if (e.getAttribute("href") === "../connectors.html") {
+        e.classList.add("md-nav__link--active")
+      }
+    })
+  </script>
+
+  <div class="md-content" data-md-component="content">
+
+    <!-- Navigation path (breadcrumbs) -->
+    
+
+    <!-- Page content -->
+    <article class="md-content__inner md-typeset">
+      
+        
   
   
 
 
-<h1 id="dynamic-inventories-data">Dynamic Inventories &amp; Data<a class="headerlink" href="#dynamic-inventories-data" title="Permanent link">&para;</a></h1>
-<p>One of the biggest features of pyinfra is that it's configured in regular Python. This means inventory, data and deploy files can use Python code and modules. As a result it is possible to generate inventory and group data for a deploy.</p>
-<p>For example, here we fetch the list of target hosts from some internal inventory API:</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># inventory.py</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_servers</span><span class="p">():</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">db</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">web</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">servers</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;inventory.mycompany.net/api/v1/app_servers&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">if</span> <span class="n">server</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;db&#39;</span><span class="p">:</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="n">db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">])</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="k">elif</span> <span class="n">server</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;web&#39;</span><span class="p">:</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            <span class="n">web</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">])</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">return</span> <span class="n">db</span><span class="p">,</span> <span class="n">web</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">db_servers</span><span class="p">,</span> <span class="n">web_servers</span> <span class="o">=</span> <span class="n">get_servers</span><span class="p">()</span>
+<h1 id="fake-connector"><code>@fake</code> Connector<a class="headerlink" href="#fake-connector" title="Permanent link">&para;</a></h1>
+<p>The <code>@fake</code> connector simulates execution locally without running anything,
+which is handy for demos, screenshots, documentation examples and tests.</p>
+<p>Every command "succeeds" (exit code 0) with empty output by default. Specific
+responses can be scripted via the host <code>fake_responses</code> data, a mapping of a
+command matcher to a canned response.</p>
+<p>The matcher (mapping key) is either:</p>
+<ul>
+<li>a <code>str</code> — matched as a <strong>substring</strong> of the command, or</li>
+<li>a compiled <code>re.Pattern</code> (<code>re.compile(...)</code>) — matched with
+  <code>pattern.search(command)</code>, so regular expressions are supported.</li>
+</ul>
+<p>The response (mapping value) is either:</p>
+<ul>
+<li>a <code>str</code> / <code>list[str]</code> of stdout lines, or</li>
+<li>a <code>dict</code> with optional <code>stdout</code> (<code>str</code>/<code>list</code>), <code>stderr</code>
+  (<code>str</code>/<code>list</code>) and <code>success</code> (<code>bool</code>) keys.</li>
+</ul>
+<p>Matchers are tried in insertion order; the first match wins.</p>
+<p>Each simulated command/transfer also takes a short, slightly randomised
+amount of time (so progress bars behave like a real deploy rather than
+finishing instantly). Tune this with the <code>fake_delay</code> /
+<code>fake_delay_jitter</code> host data, or the <code>PYINFRA_FAKE_DELAY</code> /
+<code>PYINFRA_FAKE_DELAY_JITTER</code> environment variables. Set the delay to
+<code>0</code> for instant execution (e.g. in tests).</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Run any command or operation against one or more fake hosts, with no real
+target:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># A single fake host</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pyinfra<span class="w"> </span>@fake<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Multiple named fake hosts (comma separated)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pyinfra<span class="w"> </span>@fake/web-1,@fake/web-2<span class="w"> </span>server.shell<span class="w"> </span><span class="s2">&quot;echo hi&quot;</span>
 </span></code></pre></div>
-<p>Like the dynamic inventory, we can use Python inside group data. It is also possible to access the initial inventory (without group data):</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># group_data/all.py</span>
+<p>Script what specific commands return with the <code>fake_responses</code> host data in
+an inventory file (<code>inventory.py</code>). Each key is a matcher, each value the
+canned response:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra</span><span class="w"> </span><span class="kn">import</span> <span class="n">inventory</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">master_db_server</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">db_servers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="p">(</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">&quot;@fake/web-1&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="p">{</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="s2">&quot;fake_responses&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                <span class="c1"># substring match</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                <span class="s2">&quot;command -v git&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                <span class="s2">&quot;git --version&quot;</span><span class="p">:</span> <span class="s2">&quot;git version 2.40.0&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                <span class="c1"># regexp match (re.Pattern keys use pattern.search())</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^apt-get .*install&quot;</span><span class="p">):</span> <span class="p">{</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                    <span class="s2">&quot;stderr&quot;</span><span class="p">:</span> <span class="s2">&quot;E: locked&quot;</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="p">},</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="p">},</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>            <span class="c1"># instant execution for this host</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="s2">&quot;fake_delay&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="p">},</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="p">),</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">]</span>
 </span></code></pre></div>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># group_data/web_servers.py</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">db_user</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span>
-</span></code></pre></div>
-<h2 id="test-inventories-with-fake-data">Test Inventories with Fake Data<a class="headerlink" href="#test-inventories-with-fake-data" title="Permanent link">&para;</a></h2>
-<p>For tests, demos and screenshots you often want a whole inventory of hosts
-without any real target to connect to. The built-in <a href="../connectors/fake.html"><code>@fake</code> connector</a>
-simulates command execution locally without running anything, and pairs nicely
-with a <a href="../inventory-data.html#function-based-inventories-alpha">function-based inventory</a>
-to generate any number of fake hosts and data in plain Python:</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># inventory.py</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_test</span><span class="p">(</span><span class="n">web_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">db_count</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">web_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;@fake/web-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">web_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">db_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;@fake/db-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">db_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="c1"># Any host can script specific command results (including failures) via</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="c1"># `fake_responses`; anything unmatched just succeeds with no output.</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">web_hosts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="s1">&#39;@fake/web-1&#39;</span><span class="p">,</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="p">{</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="s1">&#39;fake_responses&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>                <span class="s1">&#39;git --version&#39;</span><span class="p">:</span> <span class="s1">&#39;git version 2.40.0&#39;</span><span class="p">,</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>                <span class="s1">&#39;pip install&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>                    <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>                    <span class="s1">&#39;stderr&#39;</span><span class="p">:</span> <span class="s1">&#39;error: externally-managed-environment&#39;</span><span class="p">,</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>                <span class="p">},</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>            <span class="p">},</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="p">},</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="p">)</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="k">return</span> <span class="p">{</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="s1">&#39;web&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">web_hosts</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;web&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">80</span><span class="p">}),</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>        <span class="s1">&#39;db&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">db_hosts</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">5432</span><span class="p">}),</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="p">}</span>
-</span></code></pre></div>
-<p>Point pyinfra at the function on the command line as <code>module.attribute</code>:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Inspect the generated hosts and data</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>pyinfra<span class="w"> </span>inventory:make_test<span class="w"> </span>debug-inventory
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Run any command or operation against the fake hosts</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>pyinfra<span class="w"> </span>inventory:make_test<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># `@fake/web-1` reports the scripted failure, the rest succeed</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>pyinfra<span class="w"> </span>inventory:make_test<span class="w"> </span>server.shell<span class="w"> </span><span class="s2">&quot;pip install requests&quot;</span>
-</span></code></pre></div>
-<p>See the <a href="../connectors/fake.html"><code>@fake</code> connector</a> documentation for the full
-<code>fake_responses</code> format (substring and regular-expression matchers), simulated
-command timing and other available data.</p>
+<p>A response value is either a <code>str</code> / <code>list[str]</code> of stdout lines, or a
+<code>dict</code> with optional <code>stdout</code>, <code>stderr</code> and <code>success</code> keys. Matchers
+are tried in insertion order; the first match wins, and unmatched commands
+succeed with no output.</p>
+<h2 id="available-data">Available Data<a class="headerlink" href="#available-data" title="Permanent link">&para;</a></h2>
+<p>The following keys can be set as host or group data to control how this connector interacts with the target.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fake_responses</code></td>
+<td>Mapping of command matcher (substring str or re.Pattern) to a canned response.</td>
+<td><code>dict</code></td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>fake_delay</code></td>
+<td>Base duration (seconds) to simulate for each command/transfer.</td>
+<td><code>float</code></td>
+<td><code>0.5</code></td>
+</tr>
+<tr>
+<td><code>fake_delay_jitter</code></td>
+<td>Extra random duration (seconds, 0..jitter) added to each delay.</td>
+<td><code>float</code></td>
+<td><code>0.4</code></td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -1324,10 +1361,10 @@ command timing and other available data.</p>
 
 
 
-                
-              </article>
-            </div>
-          
+      
+    </article>
+  </div>
+
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>

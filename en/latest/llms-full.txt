@@ -852,6 +852,8 @@ def make_prod():
 
     Provide per-group data via the `(hosts, data)` tuple in the function's return value, or compose the data inside the function itself (e.g. by reading files, calling APIs, or importing Python modules). The function-based inventory loader is also still in alpha and will log a warning at startup.
 
+See [Dynamic Inventories & Data](examples/dynamic_inventories_data.md) for a worked example, including building a fake-data test inventory against the `@fake` connector.
+
 ## Project Layout
 
 There is no enforced project structure — pyinfra works with anything from a single `deploy.py` file to a multi-directory tree. The CLI only auto-loads two things by convention:
@@ -10184,6 +10186,40 @@ pyinfra @dockerssh/remotehost:alpine:3.8 ...
 pyinfra @dockerssh/remotehost:alpine:3.8,@dockerssh/remotehost:ubuntu:bionic ...
 ```
 
+
+---
+
+## Connector: @fake
+
+Source: https://docs.pyinfra.com/en/latest/connectors/fake.html
+
+The `@fake` connector simulates execution locally without running anything,
+which is handy for demos, screenshots, documentation examples and tests.
+
+Every command "succeeds" (exit code 0) with empty output by default. Specific
+responses can be scripted via the host `fake_responses` data, a mapping of a
+command matcher to a canned response.
+
+The matcher (mapping key) is either:
+
++ a `str` — matched as a **substring** of the command, or
++ a compiled `re.Pattern` (`re.compile(...)`) — matched with
+  `pattern.search(command)`, so regular expressions are supported.
+
+The response (mapping value) is either:
+
++ a `str` / `list[str]` of stdout lines, or
++ a `dict` with optional `stdout` (`str`/`list`), `stderr`
+  (`str`/`list`) and `success` (`bool`) keys.
+
+Matchers are tried in insertion order; the first match wins.
+
+Each simulated command/transfer also takes a short, slightly randomised
+amount of time (so progress bars behave like a real deploy rather than
+finishing instantly). Tune this with the `fake_delay` /
+`fake_delay_jitter` host data, or the `PYINFRA_FAKE_DELAY` /
+`PYINFRA_FAKE_DELAY_JITTER` environment variables. Set the delay to
+`0` for instant execution (e.g. in tests).
 
 ---
 
