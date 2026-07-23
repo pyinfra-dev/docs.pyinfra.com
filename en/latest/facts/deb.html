@@ -1269,6 +1269,18 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DebPackage</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns information on a .deb archive or installed package.</p>
+<p>Package resolution depends on the remote current working directory and is
+therefore not idempotent:</p>
+<ul>
+<li>Names that do not match the shell pattern <code>*.deb</code> query the installed
+  package database.</li>
+<li>Names that match <code>*.deb</code> inspect the archive only when that file exists
+  in the current working directory. Otherwise they query the installed
+  package database.</li>
+</ul>
+<p>Consequently, archive names such as <code>package.deb.old</code> and
+<code>package.deb~</code> cannot be queried as files. Older pyinfra versions tried
+to inspect any existing path as an archive instead.</p>
 <h2 id="deb-DebPackages"><code>deb.DebPackages</code><a class="headerlink" href="#deb-DebPackages" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">DebPackages</span><span class="p">)</span>
 </span></code></pre></div>
