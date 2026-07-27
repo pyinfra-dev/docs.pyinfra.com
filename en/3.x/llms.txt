@@ -1,0 +1,149 @@
+# pyinfra
+
+> pyinfra turns Python code into shell commands and runs them on your servers. Execute ad-hoc commands and write declarative operations against SSH, local, Docker, chroot, and other targets. Operations diff desired state against gathered facts and yield only the reconciling commands.
+
+## Using pyinfra
+
+- [Getting started](https://docs.pyinfra.com/en/latest/getting-started.html): Quickest path to your first pyinfra deploy.
+- [Using operations](https://docs.pyinfra.com/en/latest/using-operations.html): Write reusable, committable deploys in Python.
+- [Inventory & data](https://docs.pyinfra.com/en/latest/inventory-data.html): Groups, host/group data, and environment-driven config.
+- [Global arguments](https://docs.pyinfra.com/en/latest/arguments.html): Arguments available on every operation: _sudo, _env, _serial, etc.
+- [CLI reference](https://docs.pyinfra.com/en/latest/cli.html): pyinfra command-line usage for ad-hoc and scripted runs.
+- [FAQ](https://docs.pyinfra.com/en/latest/faq.html): Answers to frequently asked questions.
+
+## Deploy reference
+
+- [Operations index](https://docs.pyinfra.com/en/latest/operations.html): Browse all built-in operations by tag.
+- [Facts index](https://docs.pyinfra.com/en/latest/facts.html): Browse all built-in facts by tag.
+- [Connectors](https://docs.pyinfra.com/en/latest/connectors.html): Built-in connectors: @ssh, @docker, @local, @terraform, ...
+
+## Operations
+
+- [apk](https://docs.pyinfra.com/en/latest/operations/apk.html): Manage apk packages. (Alpine Linux)
+- [apt](https://docs.pyinfra.com/en/latest/operations/apt.html): Manage apt packages and repositories.
+- [brew](https://docs.pyinfra.com/en/latest/operations/brew.html): Manage brew packages on mac/OSX. See https://brew.sh/
+- [bsdinit](https://docs.pyinfra.com/en/latest/operations/bsdinit.html): Manage BSD init services (``/etc/rc.d``, ``/usr/local/etc/rc.d``).
+- [cargo](https://docs.pyinfra.com/en/latest/operations/cargo.html): Manage cargo (aka Rust) packages.
+- [choco](https://docs.pyinfra.com/en/latest/operations/choco.html): Manage ``choco`` (Chocolatey) packages (https://chocolatey.org).
+- [crontab](https://docs.pyinfra.com/en/latest/operations/crontab.html): System
+- [dnf](https://docs.pyinfra.com/en/latest/operations/dnf.html): Manage dnf packages and repositories. Note that dnf package names are case-sensitive.
+- [docker](https://docs.pyinfra.com/en/latest/operations/docker.html): Manager Docker containers, volumes and networks. These operations allow you to manage Docker from the view of the current inventory host. See the :doc:`../connectors/docker` to...
+- [files](https://docs.pyinfra.com/en/latest/operations/files.html): The files operations handles filesystem state, file uploads and template generation.
+- [flatpak](https://docs.pyinfra.com/en/latest/operations/flatpak.html): Manage flatpak packages. See https://www.flatpak.org/
+- [gem](https://docs.pyinfra.com/en/latest/operations/gem.html): Manage Ruby gem packages. (see https://rubygems.org/ )
+- [git](https://docs.pyinfra.com/en/latest/operations/git.html): Manage git repositories and configuration.
+- [go](https://docs.pyinfra.com/en/latest/operations/go.html): Manage Go (Golang) binary packages installed via ``go install``.
+- [iptables](https://docs.pyinfra.com/en/latest/operations/iptables.html): The iptables modules handles iptables rules
+- [launchd](https://docs.pyinfra.com/en/latest/operations/launchd.html): Manage launchd services.
+- [lxd](https://docs.pyinfra.com/en/latest/operations/lxd.html): The LXD modules manage LXD containers
+- [mysql](https://docs.pyinfra.com/en/latest/operations/mysql.html): Manage MySQL databases, users and privileges.
+- [npm](https://docs.pyinfra.com/en/latest/operations/npm.html): Manage npm (aka node aka Node.js) packages.
+- [openrc](https://docs.pyinfra.com/en/latest/operations/openrc.html): Manage OpenRC init services.
+- [opkg](https://docs.pyinfra.com/en/latest/operations/opkg.html): Manage packages on OpenWrt using opkg + ``update`` - update local copy of package information + ``packages`` - install and remove packages
+- [pacman](https://docs.pyinfra.com/en/latest/operations/pacman.html): Manage pacman packages. (Arch Linux package manager)
+- [pip](https://docs.pyinfra.com/en/latest/operations/pip.html): Manage pip (python) packages. Compatible globally or inside a virtualenv (virtual environment).
+- [pipx](https://docs.pyinfra.com/en/latest/operations/pipx.html): Manage pipx (python) applications.
+- [pkg](https://docs.pyinfra.com/en/latest/operations/pkg.html): Manage BSD packages and repositories. Note that BSD package names are case-sensitive.
+- [pkgin](https://docs.pyinfra.com/en/latest/operations/pkgin.html): Manage pkgin packages.
+- [postgres](https://docs.pyinfra.com/en/latest/operations/postgres.html): The PostgreSQL modules manage PostgreSQL databases, users and privileges.
+- [postgresql](https://docs.pyinfra.com/en/latest/operations/postgresql.html): Database
+- [puppet](https://docs.pyinfra.com/en/latest/operations/puppet.html): Configuration Management
+- [python](https://docs.pyinfra.com/en/latest/operations/python.html): The Python module allows you to execute Python code within the context of a deploy.
+- [runit](https://docs.pyinfra.com/en/latest/operations/runit.html): Manage runit services.
+- [selinux](https://docs.pyinfra.com/en/latest/operations/selinux.html): Provides operations to set SELinux file contexts, booleans and port types.
+- [server](https://docs.pyinfra.com/en/latest/operations/server.html): The server module takes care of os-level state. Targets POSIX compatibility, tested on Linux/BSD.
+- [snap](https://docs.pyinfra.com/en/latest/operations/snap.html): Manage snap packages. See https://snapcraft.io/
+- [ssh](https://docs.pyinfra.com/en/latest/operations/ssh.html): Execute commands and up/download files *from* the remote host.
+- [systemd](https://docs.pyinfra.com/en/latest/operations/systemd.html): Manage systemd services.
+- [sysvinit](https://docs.pyinfra.com/en/latest/operations/sysvinit.html): Manage sysvinit services (``/etc/init.d``).
+- [upstart](https://docs.pyinfra.com/en/latest/operations/upstart.html): Manage upstart services.
+- [uv](https://docs.pyinfra.com/en/latest/operations/uv.html): Operations for ``uv``: + install, remove or upgrade Python packages + install, remove or upgrade 'tools' + create or remove virtual environments (venv's) + ensure the uv tool ex...
+- [vzctl](https://docs.pyinfra.com/en/latest/operations/vzctl.html): Manage OpenVZ containers with ``vzctl``.
+- [xbps](https://docs.pyinfra.com/en/latest/operations/xbps.html): Manage XBPS packages and repositories. Note that XBPS package names are case-sensitive.
+- [yum](https://docs.pyinfra.com/en/latest/operations/yum.html): Manage yum packages and repositories. Note that yum package names are case-sensitive.
+- [zfs](https://docs.pyinfra.com/en/latest/operations/zfs.html): Manage ZFS filesystems.
+- [zypper](https://docs.pyinfra.com/en/latest/operations/zypper.html): Package Manager, System
+
+## Facts
+
+- [apk](https://docs.pyinfra.com/en/latest/facts/apk.html): Package Manager, System
+- [apt](https://docs.pyinfra.com/en/latest/facts/apt.html): Package Manager, System
+- [brew](https://docs.pyinfra.com/en/latest/facts/brew.html): Package Manager, System
+- [bsdinit](https://docs.pyinfra.com/en/latest/facts/bsdinit.html): Service Management, System
+- [cargo](https://docs.pyinfra.com/en/latest/facts/cargo.html): Package Manager, Rust
+- [choco](https://docs.pyinfra.com/en/latest/facts/choco.html): Package Manager, System
+- [crontab](https://docs.pyinfra.com/en/latest/facts/crontab.html): System
+- [deb](https://docs.pyinfra.com/en/latest/facts/deb.html): Package Manager
+- [dnf](https://docs.pyinfra.com/en/latest/facts/dnf.html): Package Manager, System
+- [docker](https://docs.pyinfra.com/en/latest/facts/docker.html): Facts about Docker containers, volumes and networks. These facts give you information from the view of the current inventory host. See the :doc:`../connectors/docker` to use Doc...
+- [efibootmgr](https://docs.pyinfra.com/en/latest/facts/efibootmgr.html): Boot, System
+- [files](https://docs.pyinfra.com/en/latest/facts/files.html): The files facts provide information about the filesystem and it's contents on the target host.
+- [flatpak](https://docs.pyinfra.com/en/latest/facts/flatpak.html): Package Manager, System
+- [freebsd](https://docs.pyinfra.com/en/latest/facts/freebsd.html): Package Manager
+- [gem](https://docs.pyinfra.com/en/latest/facts/gem.html): Package Manager, Ruby
+- [git](https://docs.pyinfra.com/en/latest/facts/git.html): Version Control System
+- [go](https://docs.pyinfra.com/en/latest/facts/go.html): Package Manager, Go
+- [gpg](https://docs.pyinfra.com/en/latest/facts/gpg.html): Security
+- [hardware](https://docs.pyinfra.com/en/latest/facts/hardware.html): System
+- [iptables](https://docs.pyinfra.com/en/latest/facts/iptables.html): Security, System
+- [launchd](https://docs.pyinfra.com/en/latest/facts/launchd.html): Service Management, System
+- [lxd](https://docs.pyinfra.com/en/latest/facts/lxd.html): Containers, System
+- [mysql](https://docs.pyinfra.com/en/latest/facts/mysql.html): Database, System
+- [npm](https://docs.pyinfra.com/en/latest/facts/npm.html): Package Manager, Javascript
+- [openrc](https://docs.pyinfra.com/en/latest/facts/openrc.html): Service Management, System
+- [opkg](https://docs.pyinfra.com/en/latest/facts/opkg.html): Gather the information provided by ``opkg`` on OpenWrt systems: + ``opkg`` configuration + feeds configuration + list of installed packages + list of packages with available upg...
+- [pacman](https://docs.pyinfra.com/en/latest/facts/pacman.html): Package Manager, System
+- [pip](https://docs.pyinfra.com/en/latest/facts/pip.html): Package Manager, Python
+- [pipx](https://docs.pyinfra.com/en/latest/facts/pipx.html): Package Manager, Python
+- [pkg](https://docs.pyinfra.com/en/latest/facts/pkg.html): Package Manager, System
+- [pkgin](https://docs.pyinfra.com/en/latest/facts/pkgin.html): Package Manager, System
+- [podman](https://docs.pyinfra.com/en/latest/facts/podman.html): Containers
+- [postgres](https://docs.pyinfra.com/en/latest/facts/postgres.html): Database, System
+- [postgresql](https://docs.pyinfra.com/en/latest/facts/postgresql.html): Database, System
+- [puppet](https://docs.pyinfra.com/en/latest/facts/puppet.html): Configuration Management
+- [rpm](https://docs.pyinfra.com/en/latest/facts/rpm.html): Package Manager
+- [runit](https://docs.pyinfra.com/en/latest/facts/runit.html): Service Management, System
+- [selinux](https://docs.pyinfra.com/en/latest/facts/selinux.html): Security, System
+- [server](https://docs.pyinfra.com/en/latest/facts/server.html): System
+- [snap](https://docs.pyinfra.com/en/latest/facts/snap.html): Package Manager, System
+- [systemd](https://docs.pyinfra.com/en/latest/facts/systemd.html): Service Management, System
+- [sysvinit](https://docs.pyinfra.com/en/latest/facts/sysvinit.html): Service Management, System
+- [upstart](https://docs.pyinfra.com/en/latest/facts/upstart.html): Service Management, System
+- [uv](https://docs.pyinfra.com/en/latest/facts/uv.html): Present information provided by ``uv``: + available and installed versions of Python + installed Python packages and their versions + where the installed versions of Python are...
+- [vzctl](https://docs.pyinfra.com/en/latest/facts/vzctl.html): Containers, System
+- [xbps](https://docs.pyinfra.com/en/latest/facts/xbps.html): Package Manager, System
+- [yum](https://docs.pyinfra.com/en/latest/facts/yum.html): Package Manager, System
+- [zfs](https://docs.pyinfra.com/en/latest/facts/zfs.html): Gather information about ZFS filesystems.
+- [zypper](https://docs.pyinfra.com/en/latest/facts/zypper.html): Package Manager, System
+
+## Connectors
+
+- [@chroot](https://docs.pyinfra.com/en/latest/connectors/chroot.html): The chroot connector allows you to execute operations within another root.
+- [@docker](https://docs.pyinfra.com/en/latest/connectors/docker.html): The Docker connector allows you to use pyinfra to create new Docker images or modify running Docker containers.
+- [@dockerssh](https://docs.pyinfra.com/en/latest/connectors/dockerssh.html): **Note**: this connector is in beta!
+- [@fake](https://docs.pyinfra.com/en/latest/connectors/fake.html): The ``@fake`` connector simulates execution locally without running anything, which is handy for demos, screenshots, documentation examples and tests.
+- [@local](https://docs.pyinfra.com/en/latest/connectors/local.html): The ``@local`` connector executes changes on the local machine using subprocesses. **This connector is only compatible with MacOS & Linux hosts**.
+- [@podman](https://docs.pyinfra.com/en/latest/connectors/podman.html): The Podman connector allows you to use pyinfra to create new Podman images or modify running Podman containers.
+- [@podmanssh](https://docs.pyinfra.com/en/latest/connectors/podmanssh.html): **Note**: this connector is in beta!
+- [@ssh](https://docs.pyinfra.com/en/latest/connectors/ssh.html): Connect to hosts over SSH. This is the default connector and all targets default to this meaning you do not need to specify it - ie the following two commands are identical:
+- [@terraform](https://docs.pyinfra.com/en/latest/connectors/terraform.html): Generate one or more SSH hosts from a Terraform output variable. The variable must be a list of hostnames or dictionaries.
+- [@vagrant](https://docs.pyinfra.com/en/latest/connectors/vagrant.html): The ``@vagrant`` connector reads the current Vagrant status and generates an inventory for any running VMs.
+
+## How pyinfra works
+
+- [Deploy process](https://docs.pyinfra.com/en/latest/deploy-process.html): How pyinfra orders, diffs, and executes operations.
+- [API: deploys](https://docs.pyinfra.com/en/latest/api/deploys.html): Package and share deploys as Python packages.
+- [API: operations](https://docs.pyinfra.com/en/latest/api/operations.html): Write your own operations.
+- [API: facts](https://docs.pyinfra.com/en/latest/api/facts.html): Write your own facts.
+- [API: connectors](https://docs.pyinfra.com/en/latest/api/connectors.html): Write your own connectors.
+- [API overview](https://docs.pyinfra.com/en/latest/api/index.html): Use pyinfra as a Python library.
+
+## Optional
+
+- [Installation](https://docs.pyinfra.com/en/latest/install.html): Install pyinfra on your system.
+- [Support](https://docs.pyinfra.com/en/latest/support.html): Where to get help.
+- [Contributing](https://docs.pyinfra.com/en/latest/contributing.html): How to contribute to pyinfra.
+- [Compatibility](https://docs.pyinfra.com/en/latest/compatibility.html): Supported Python and platform versions.
+- [Performance](https://docs.pyinfra.com/en/latest/performance.html): Performance tuning tips.
+- [LLM-friendly docs](https://docs.pyinfra.com/en/latest/llms.html): How to consume llms.txt and llms-full.txt from AI tools and agents.
+- [Changelog](https://docs.pyinfra.com/en/latest/changes.html): Release notes.

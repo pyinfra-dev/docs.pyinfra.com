@@ -12,7 +12,7 @@
         <meta name="author" content="Nick Barrett">
       
       
-        <link rel="canonical" href="https://docs.pyinfra.com/operations/upstart.html">
+        <link rel="canonical" href="https://docs.pyinfra.com/facts/go.html">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>upstart Operations - pyinfra</title>
+        <title>go Facts - pyinfra</title>
       
     
     
@@ -134,7 +134,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#upstart-operations" class="md-skip">
+        <a href="#go-facts" class="md-skip">
           Skip to content
         </a>
       
@@ -169,7 +169,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              upstart Operations
+              go Facts
             
           </span>
         </div>
@@ -1198,10 +1198,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upstart-service" class="md-nav__link">
+  <a href="#go-GoPackages" class="md-nav__link">
     <span class="md-ellipsis">
       
-        upstart.service
+        go.GoPackages
       
     </span>
   </a>
@@ -1219,7 +1219,7 @@
           
   <script type="text/javascript">
     document.querySelectorAll(".md-nav__list a").forEach(e => {
-      if (e.getAttribute("href") === "../operations.html") {
+      if (e.getAttribute("href") === "../facts.html") {
         e.classList.add("md-nav__link--active")
       }
     })
@@ -1238,38 +1238,17 @@
   
 
 
-<h1 id="upstart-operations">upstart Operations<a class="headerlink" href="#upstart-operations" title="Permanent link">&para;</a></h1>
-<p>Manage upstart services.</p>
-<p>Facts used in these operations: <a href="../facts/upstart.html#upstart-UpstartStatus"><code>upstart.UpstartStatus</code></a>.</p>
-<h2 id="upstart-service"><code>upstart.service</code><a class="headerlink" href="#upstart-service" title="Permanent link">&para;</a></h2>
-<p>Manage the state of upstart managed services.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">upstart</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="n">service</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>         <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>         <span class="n">command</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">)</span>
+<h1 id="go-facts">go Facts<a class="headerlink" href="#go-facts" title="Permanent link">&para;</a></h1>
+<p>See also: <a href="../operations/go.html">operations/go</a>.</p>
+<h2 id="go-GoPackages"><code>go.GoPackages</code><a class="headerlink" href="#go-GoPackages" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">GoPackages</span><span class="p">)</span>
 </span></code></pre></div>
-<ul>
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>running</strong>: whether the service should be running</li>
-<li><strong>restarted</strong>: whether the service should be restarted</li>
-<li><strong>reloaded</strong>: whether the service should be reloaded</li>
-<li><strong>command</strong>: custom command to pass like: <code>/etc/rc.d/&lt;service&gt; &lt;command&gt;</code></li>
-<li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
-</ul>
-<p>Enabling/disabling services:
-    Upstart jobs define runlevels in their config files - as such there is no way to
-    edit/list these without fiddling with the config. So pyinfra simply manages the
-    existence of a <code>/etc/init/&lt;service&gt;.override</code> file, and sets its content to
-    "manual" to disable automatic start of services.</p>
-<div class="admonition note">
-<p class="admonition-title">Global arguments</p>
-<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
-</div>
+<p>Returns a dict of installed Go binary packages (those installed via
+<code>go install</code>) keyed by their import path:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;github.com/example/tool&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;v1.2.3&quot;</span><span class="p">},</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+</span></code></pre></div>
 
 
 

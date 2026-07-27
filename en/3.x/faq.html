@@ -82,6 +82,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -107,25 +144,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -562,6 +580,17 @@
     <span class="md-ellipsis">
       
         How do I handle unreliable operations or network issues?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-pyinfra-publish-an-llmstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does pyinfra publish an llms.txt?
       
     </span>
   </a>
@@ -1153,6 +1182,34 @@
   
   
     <li class="md-nav__item">
+      <a href="./llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./changes.html" class="md-nav__link">
         
   
@@ -1293,6 +1350,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#does-pyinfra-publish-an-llmstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Does pyinfra publish an llms.txt?
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1369,6 +1437,18 @@
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">_retry_until</span><span class="o">=</span><span class="n">should_retry_download</span><span class="p">,</span>
 </span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">)</span>
 </span></code></pre></div>
+<h2 id="does-pyinfra-publish-an-llmstxt">Does pyinfra publish an <code>llms.txt</code>?<a class="headerlink" href="#does-pyinfra-publish-an-llmstxt" title="Permanent link">&para;</a></h2>
+<p>Yes. <code>llms.txt</code> is the <a href="https://llmstxt.org">llmstxt.org</a> convention for exposing documentation in a plain-text format that AI assistants, agents, and crawlers can consume without scraping the rendered HTML site. pyinfra publishes two files on every doc build:</p>
+<ul>
+<li><code>llms.txt</code> (~15 KB): a curated index with one-line summaries and absolute links for every guide, operation, fact and connector.</li>
+<li><code>llms-full.txt</code> (~290 KB): a single-file monolith inlining the hand-written guides and every built-in operation/fact/connector docstring and signature.</li>
+</ul>
+<p>Both live at the root of each versioned doc tree:</p>
+<ul>
+<li><a href="https://docs.pyinfra.com/en/latest/llms.txt">docs.pyinfra.com/en/latest/llms.txt</a></li>
+<li><a href="https://docs.pyinfra.com/en/latest/llms-full.txt">docs.pyinfra.com/en/latest/llms-full.txt</a></li>
+</ul>
+<p>Swap <code>latest</code> for a release tag to pin against a known version. See <a href="llms.html">LLM-friendly docs</a> for consumption examples.</p>
 
 
 

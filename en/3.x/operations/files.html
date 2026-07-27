@@ -78,6 +78,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -103,25 +140,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -1055,6 +1073,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changes.html" class="md-nav__link">
         
   
@@ -1727,6 +1773,11 @@ expanded on the remote host.</p>
     Unless line matches a line (starts with ^, ends $), pyinfra will wrap it such that
     it does, like: <code>^.*LINE.*$</code>. This means we don't swap parts of lines out. To
     change bits of lines, see <code>files.replace</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>Because of this wrapping, `line=&quot;foo&quot;` also matches a commented-out `#foo` or
+any line that merely contains `foo`. To match a whole line exactly, anchor it
+yourself with `^` and/or `$` (eg `line=&quot;^foo$&quot;`); the anchors are used only
+for matching and are stripped before the line is appended to the file.
+</code></pre></div>
 <p>Regex line escaping:
     If matching special characters (eg a crontab line containing <code>*</code>), remember to escape
     it first using Python's <code>re.escape</code>.</p>
@@ -2061,7 +2112,7 @@ global arguments.</p>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>         <span class="n">dest</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>         <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>         <span class="n">group</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>         <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>         <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;int | str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>         <span class="n">create_remote_dir</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 </span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>         <span class="n">jinja_env_kwargs</span><span class="p">:</span> <span class="s1">&#39;dict[str, Any] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>         <span class="o">**</span><span class="n">data</span><span class="p">,</span>

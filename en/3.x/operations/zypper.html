@@ -78,6 +78,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -103,25 +140,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -1055,6 +1073,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changes.html" class="md-nav__link">
         
   
@@ -1350,7 +1396,7 @@
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Updates all zypper packages.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">zypper</span><span class="o">.</span><span class="n">update</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">zypper</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>

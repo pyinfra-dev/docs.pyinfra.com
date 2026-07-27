@@ -12,7 +12,7 @@
         <meta name="author" content="Nick Barrett">
       
       
-        <link rel="canonical" href="https://docs.pyinfra.com/operations/upstart.html">
+        <link rel="canonical" href="https://docs.pyinfra.com/connectors/fake.html">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>upstart Operations - pyinfra</title>
+        <title>@fake Connector - pyinfra</title>
       
     
     
@@ -134,7 +134,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#upstart-operations" class="md-skip">
+        <a href="#fake-connector" class="md-skip">
           Skip to content
         </a>
       
@@ -169,7 +169,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              upstart Operations
+              @fake Connector
             
           </span>
         </div>
@@ -1198,10 +1198,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upstart-service" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        upstart.service
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Data
       
     </span>
   </a>
@@ -1219,7 +1230,7 @@
           
   <script type="text/javascript">
     document.querySelectorAll(".md-nav__list a").forEach(e => {
-      if (e.getAttribute("href") === "../operations.html") {
+      if (e.getAttribute("href") === "../connectors.html") {
         e.classList.add("md-nav__link--active")
       }
     })
@@ -1238,38 +1249,101 @@
   
 
 
-<h1 id="upstart-operations">upstart Operations<a class="headerlink" href="#upstart-operations" title="Permanent link">&para;</a></h1>
-<p>Manage upstart services.</p>
-<p>Facts used in these operations: <a href="../facts/upstart.html#upstart-UpstartStatus"><code>upstart.UpstartStatus</code></a>.</p>
-<h2 id="upstart-service"><code>upstart.service</code><a class="headerlink" href="#upstart-service" title="Permanent link">&para;</a></h2>
-<p>Manage the state of upstart managed services.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">upstart</span><span class="o">.</span><span class="n">service</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="n">service</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         <span class="n">running</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>         <span class="n">restarted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         <span class="n">reloaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>         <span class="n">command</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         <span class="n">enabled</span><span class="p">:</span> <span class="s1">&#39;bool | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">)</span>
-</span></code></pre></div>
+<h1 id="fake-connector"><code>@fake</code> Connector<a class="headerlink" href="#fake-connector" title="Permanent link">&para;</a></h1>
+<p>The <code>@fake</code> connector simulates execution locally without running anything,
+which is handy for demos, screenshots, documentation examples and tests.</p>
+<p>Every command "succeeds" (exit code 0) with empty output by default. Specific
+responses can be scripted via the host <code>fake_responses</code> data, a mapping of a
+command matcher to a canned response.</p>
+<p>The matcher (mapping key) is either:</p>
 <ul>
-<li><strong>service</strong>: name of the service to manage</li>
-<li><strong>running</strong>: whether the service should be running</li>
-<li><strong>restarted</strong>: whether the service should be restarted</li>
-<li><strong>reloaded</strong>: whether the service should be reloaded</li>
-<li><strong>command</strong>: custom command to pass like: <code>/etc/rc.d/&lt;service&gt; &lt;command&gt;</code></li>
-<li><strong>enabled</strong>: whether this service should be enabled/disabled on boot</li>
+<li>a <code>str</code> — matched as a <strong>substring</strong> of the command, or</li>
+<li>a compiled <code>re.Pattern</code> (<code>re.compile(...)</code>) — matched with
+  <code>pattern.search(command)</code>, so regular expressions are supported.</li>
 </ul>
-<p>Enabling/disabling services:
-    Upstart jobs define runlevels in their config files - as such there is no way to
-    edit/list these without fiddling with the config. So pyinfra simply manages the
-    existence of a <code>/etc/init/&lt;service&gt;.override</code> file, and sets its content to
-    "manual" to disable automatic start of services.</p>
-<div class="admonition note">
-<p class="admonition-title">Global arguments</p>
-<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
-</div>
+<p>The response (mapping value) is either:</p>
+<ul>
+<li>a <code>str</code> / <code>list[str]</code> of stdout lines, or</li>
+<li>a <code>dict</code> with optional <code>stdout</code> (<code>str</code>/<code>list</code>), <code>stderr</code>
+  (<code>str</code>/<code>list</code>) and <code>success</code> (<code>bool</code>) keys.</li>
+</ul>
+<p>Matchers are tried in insertion order; the first match wins.</p>
+<p>Each simulated command/transfer also takes a short, slightly randomised
+amount of time (so progress bars behave like a real deploy rather than
+finishing instantly). Tune this with the <code>fake_delay</code> /
+<code>fake_delay_jitter</code> host data, or the <code>PYINFRA_FAKE_DELAY</code> /
+<code>PYINFRA_FAKE_DELAY_JITTER</code> environment variables. Set the delay to
+<code>0</code> for instant execution (e.g. in tests).</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Run any command or operation against one or more fake hosts, with no real
+target:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># A single fake host</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pyinfra<span class="w"> </span>@fake<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Multiple named fake hosts (comma separated)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pyinfra<span class="w"> </span>@fake/web-1,@fake/web-2<span class="w"> </span>server.shell<span class="w"> </span><span class="s2">&quot;echo hi&quot;</span>
+</span></code></pre></div>
+<p>Script what specific commands return with the <code>fake_responses</code> host data in
+an inventory file (<code>inventory.py</code>). Each key is a matcher, each value the
+canned response:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="p">(</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">&quot;@fake/web-1&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="p">{</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="s2">&quot;fake_responses&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                <span class="c1"># substring match</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                <span class="s2">&quot;command -v git&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                <span class="s2">&quot;git --version&quot;</span><span class="p">:</span> <span class="s2">&quot;git version 2.40.0&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                <span class="c1"># regexp match (re.Pattern keys use pattern.search())</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^apt-get .*install&quot;</span><span class="p">):</span> <span class="p">{</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                    <span class="s2">&quot;stderr&quot;</span><span class="p">:</span> <span class="s2">&quot;E: locked&quot;</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="p">},</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="p">},</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>            <span class="c1"># instant execution for this host</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>            <span class="s2">&quot;fake_delay&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="p">},</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="p">),</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">]</span>
+</span></code></pre></div>
+<p>A response value is either a <code>str</code> / <code>list[str]</code> of stdout lines, or a
+<code>dict</code> with optional <code>stdout</code>, <code>stderr</code> and <code>success</code> keys. Matchers
+are tried in insertion order; the first match wins, and unmatched commands
+succeed with no output.</p>
+<h2 id="available-data">Available Data<a class="headerlink" href="#available-data" title="Permanent link">&para;</a></h2>
+<p>The following keys can be set as host or group data to control how this connector interacts with the target.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fake_responses</code></td>
+<td>Mapping of command matcher (substring str or re.Pattern) to a canned response.</td>
+<td><code>dict</code></td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>fake_delay</code></td>
+<td>Base duration (seconds) to simulate for each command/transfer.</td>
+<td><code>float</code></td>
+<td><code>0.5</code></td>
+</tr>
+<tr>
+<td><code>fake_delay_jitter</code></td>
+<td>Extra random duration (seconds, 0..jitter) added to each delay.</td>
+<td><code>float</code></td>
+<td><code>0.4</code></td>
+</tr>
+</tbody>
+</table>
 
 
 

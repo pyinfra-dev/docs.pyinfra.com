@@ -82,6 +82,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -107,25 +144,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -1209,6 +1227,34 @@
   
   
     <li class="md-nav__item">
+      <a href="./llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./changes.html" class="md-nav__link">
         
   
@@ -1462,7 +1508,9 @@
 </span></code></pre></div>
 <h3 id="code-style-type-checking">Code Style &amp; Type Checking<a class="headerlink" href="#code-style-type-checking" title="Permanent link">&para;</a></h3>
 <p>Code style is enforced via <a href="https://docs.astral.sh/ruff/">ruff</a>. Types are checked with mypy currently, and pyright is
-recommended for local development though currently optional. There is a script to run the linting &amp; type-checking:</p>
+recommended for local development though currently optional. Shell scripts are checked with
+<a href="https://www.shellcheck.net/">shellcheck</a>, so install it before running the lint script (eg <code>apt-get install shellcheck</code>
+or <code>brew install shellcheck</code>). There is a script to run the linting &amp; type-checking:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Check formatting &amp; types</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>scripts/dev-lint.sh
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -1472,8 +1520,11 @@ recommended for local development though currently optional. There is a script t
 <h3 id="commit-messages">Commit Messages<a class="headerlink" href="#commit-messages" title="Permanent link">&para;</a></h3>
 <p>Commit messages should follow the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a>
 standard. PRs that follow this will be rebased, PRs that do not will be squashed.</p>
-<p>The following scopes are allowed: <code>api</code>, <code>cli</code>, <code>operations</code>, <code>facts</code>, <code>connectors</code>. With the last 
-three an optional sub-scope can be added, ie <code>operations.docker</code> or <code>facts.apt</code>.</p>
+<p>The following scopes are (optionally) allowed: <code>api</code>, <code>cli</code>, <code>deps</code>, <code>operations</code>, <code>facts</code>, <code>connectors</code>. 
+With the last three an optional sub-scope can be added, ie <code>operations.docker</code> or <code>facts.apt</code>.</p>
+<p>When creating a PR, the last commit message is typically used as the PR title. When merging PRs, 
+we typically squash all commits into a single commit, and use the PR title as the commit message.
+For this reason, PR titles are linted to check if they follow our commit message conventions.</p>
 <h3 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
 <p>GitHub will run all the test suites as part of any pull requests. There's a handy script that runs the unit tests:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>scripts/dev-test.sh
@@ -1485,6 +1536,10 @@ three an optional sub-scope can be added, ie <code>operations.docker</code> or <
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Only run operation tests for operations.selinux</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/test_operations.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;selinux.&quot;</span>
 </span></code></pre></div>
+<p>Tests for facts and operations are written in a declarative manner and use the 
+<a href="https://github.com/pyinfra-dev/pyinfra-testing">pyinfra-testing harness</a>. Review the harness README 
+to understand how tests for facts and operations are written, and how to add new tests.</p>
+<p>The test harness can also be used for writing tests for 3<sup>rd</sup> party facts and operations.</p>
 <h4 id="end-to-end-tests">End-to-End Tests<a class="headerlink" href="#end-to-end-tests" title="Permanent link">&para;</a></h4>
 <p>The end-to-end tests are also executed via <code>pytest</code> but not selected by default, options/usage:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Run all the e2e tests (local, SSH, Docker)</span>

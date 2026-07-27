@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.pyinfra.com/changes.html">
       
       
-        <link rel="prev" href="./performance.html">
+        <link rel="prev" href="./llms.html">
       
       
         <link rel="next" href="./api/reference.html">
@@ -82,6 +82,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -107,25 +144,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -1058,6 +1076,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="./llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1173,6 +1219,67 @@
 
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h1 id="v3100">v3.10.0<a class="headerlink" href="#v3100" title="Permanent link">&para;</a></h1>
+<p>Another bumper update with lots of security fixes in user input quoting and many other improvements. Thank you all new and returning contributors (there are many of you!).</p>
+<ul>
+<li>facts.files: render import example as a code block (#1801) (@wowi42)</li>
+<li>operations.files.line: strip regex anchors from appended lines (#1802) (@wowi42)</li>
+<li>operations.zfs: avoid mutable default properties leaking across operation calls (#1792) (@mvanhorn)</li>
+<li>facts.zfs,facts.server.KernelModules: zfs operations broken on freebsd (#1791) (@jgelens)</li>
+<li>facts.deb: DebPackage failing when file/directory with same name exists in cwd (#1829) (@bendigg)</li>
+<li>operations.files: clear error for file-like src with directory dest (#1144) (#1849) (@vjsai)</li>
+<li>operations.server: detach reboot from SSH session (#1711) (@wowi42)</li>
+<li>facts.server: resolve major.minor from distro release file (#1859) (@wlix13)</li>
+<li>operations.go,facts.go: implement go operations and facts (#1776) (@yagarea)</li>
+<li>facts.server: Add OpenBSD support to server.Mounts (#1863) (@epicrazzmatazz)</li>
+<li>operations.docker: add container_exec operation (#1821) (@wowi42)</li>
+<li>facts.hardware: use JSON from ip address show in NetworkDevices to cope with lack of prefix length and/or broadcast (#1851) (@morrison12)</li>
+<li>operations.selinux: harden commands with QuoteString and remove asserts (#1846) (@Muhammad-Ikhwan-Fathulloh)</li>
+<li>operations.files: type annotation for mode in files.template (#1866) (@bbonf)</li>
+<li>operations.git: update origin remote when src changes (#1763) (#1843) (@vjsai)</li>
+<li>facts.pacman: parse packages with uppercase version strings (#1865) (@zlangbert)</li>
+<li>operations.zypper: fix gpg validation, auto-import keys, and permissions (#1833) (@doraem-on)</li>
+<li>operations.server.Mount: generalize remount to more BSDs (#1872) (@epicrazzmatazz)</li>
+<li>operations.docker.volume: allow options to be passed when creating docker volumes (#1882) (@DonDebonair)</li>
+<li>facts.git: GitLocalCommit fact failing on nonlocal ref (#1881) (@yagarea)</li>
+<li>operations.brew, facts.brew: add support for brew trust (#1836) (@morrison12)</li>
+<li>operations.brew: use enum value strings in brew.trust fixtures (#1887) (@wowi42)</li>
+<li>facts.deb: clarify package resolution (#1897) (@Sanjays2402)</li>
+<li>operations.{apt,crontab,dnf,docker,flatpak,lxd,openrc,puppet,server,sysvinit,vzctl,yum,zfs},facts.{crontab,mysql,server}: quote user input (#1803-#1809, #1811-#1818) (@wowi42)</li>
+</ul>
+<p>Connectors:</p>
+<ul>
+<li>connectors.ssh: respect ssh_key_password over ssh_config IdentityFile (#1855) (@wowi42)</li>
+<li>connectors: allow HiddenValue in _env (#1853) (@Jesse-11)</li>
+<li>connectors: add @fake no-op execution connector (#1888) (@noirbizarre)</li>
+</ul>
+<p>CLI:</p>
+<ul>
+<li>cli: preserve Windows paths in module errors (#1884) (@0xTaoZ)</li>
+</ul>
+<p>Docs/meta:</p>
+<ul>
+<li>docs: add llms.txt and llms-full.txt for LLM consumption (#1800) (@wowi42)</li>
+<li>docs: clarify server.shell shell usage (#1835) (@Himanshuagrawal4)</li>
+<li>docs: fix version banner</li>
+<li>ci: add shellcheck workflow and fix scripts (#1827) (@wowi42)</li>
+<li>docs: correct documentation rendering  of operations that no parameters (#1840) (@morrison12)</li>
+<li>test: Enable tests from fixtures to work with string-valued Enum params (#1841) (@morrison12)</li>
+<li>chore: keep ruff away from fixtures (#1871) (@morrison12)</li>
+<li>style: fix ruff lint errors (PEP 585/604, f-strings, imports) (#1856) (@wowi42)</li>
+<li>test: move freezegun; <code>dev</code>→<code>test</code> (#1868) (@ScegfOd)</li>
+<li>docs: clarify commit message format and PR linting (#1879) (@DonDebonair)</li>
+<li>test: use pyinfra-testing harness for facts and operations tests (#1878) (@DonDebonair)</li>
+<li>chore: fix mypy warning (#1890) (@simonhammes)</li>
+<li>chore: deduplicate shellcheck lint command (#1891) (@0xTaoZ)</li>
+</ul>
+<p>Other:</p>
+<ul>
+<li>feat: add --exclude CLI argument to restrict target hosts (#1789) (@mvanhorn)</li>
+<li>fix: allow SSH connections when an ED25519-SK (FIDO2) key is present in the agent (#1858) (@mvanhorn)</li>
+<li>refactor: replace os.path usage with pathlib (#1753) (@wowi42)</li>
+<li>ci: use uv.lock for ruff action</li>
+</ul>
 <h1 id="v392">v3.9.2<a class="headerlink" href="#v392" title="Permanent link">&para;</a></h1>
 <ul>
 <li>Fix documentation recursive copy mess</li>

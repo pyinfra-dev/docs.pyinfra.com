@@ -78,6 +78,43 @@
           href="https://pyinfra.com/static/fonts/jetbrains-mono-latin.woff2"
           as="font" type="font/woff2">
 
+    
+    <script>
+        (function () {
+            var language = "en";
+            var primary = "3.x";
+            var parts = window.location.pathname.split("/").filter(Boolean);
+            var version = (parts[0] === language && parts.length > 1) ? parts[1] : primary;
+            if (version === primary) return;
+
+            var unreleased = version === "latest" || version === "next";
+            var link = '<a href="/' + language + '/' + primary + '/"><strong>' +
+                primary + '</strong></a>';
+            var message = unreleased
+                ? "You are reading the most recent documentation which may contain " +
+                  "unreleased features. The latest release is " + link + "."
+                : "You are viewing documentation for an older version of pyinfra. " +
+                  "The latest release is " + link + ".";
+
+            function inject() {
+                var host = document.querySelector('[data-md-component="announce"]');
+                if (!host) return;
+                var aside = document.createElement("aside");
+                aside.className = "md-banner";
+                aside.innerHTML =
+                    '<div class="md-banner__inner md-grid md-typeset"><p>' +
+                    message + "</p></div>";
+                host.appendChild(aside);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", inject);
+            } else {
+                inject();
+            }
+        })();
+    </script>
+
   </head>
   
   
@@ -103,25 +140,6 @@
       
     </div>
     <div data-md-component="announce">
-      
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-    
-    
-    
-    
-        
-            You are reading the most recent documentation which may contain
-            unreleased features. The latest release is
-            <a href="/en/3.x/"><strong>3.x</strong></a>.
-        
-    
-
-          </div>
-          
-        </aside>
       
     </div>
     
@@ -1055,6 +1073,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../llms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM-friendly docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changes.html" class="md-nav__link">
         
   
@@ -1196,6 +1242,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#brew-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        brew.trust
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#brew-update" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1249,14 +1306,14 @@
 
 <h1 id="brew-operations">brew Operations<a class="headerlink" href="#brew-operations" title="Permanent link">&para;</a></h1>
 <p>Manage brew packages on mac/OSX. See <a href="https://brew.sh/">https://brew.sh/</a></p>
-<p>Facts used in these operations: <a href="../facts/brew.html#brew-BrewCasks"><code>brew.BrewCasks</code></a>, <a href="../facts/brew.html#brew-BrewPackages"><code>brew.BrewPackages</code></a>, <a href="../facts/brew.html#brew-BrewTaps"><code>brew.BrewTaps</code></a>, <a href="../facts/brew.html#brew-BrewVersion"><code>brew.BrewVersion</code></a>.</p>
+<p>Facts used in these operations: <a href="../facts/brew.html#brew-BrewCasks"><code>brew.BrewCasks</code></a>, <a href="../facts/brew.html#brew-BrewPackages"><code>brew.BrewPackages</code></a>, <a href="../facts/brew.html#brew-BrewTaps"><code>brew.BrewTaps</code></a>, <a href="../facts/brew.html#brew-BrewTrusted"><code>brew.BrewTrusted</code></a>, <a href="../facts/brew.html#brew-BrewVersion"><code>brew.BrewVersion</code></a>.</p>
 <h2 id="brew-cask_upgrade"><code>brew.cask_upgrade</code><a class="headerlink" href="#brew-cask_upgrade" title="Permanent link">&para;</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Stateless operation</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Upgrades all brew casks.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">cask_upgrade</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">cask_upgrade</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
@@ -1330,40 +1387,72 @@
 </div>
 <h2 id="brew-tap"><code>brew.tap</code><a class="headerlink" href="#brew-tap" title="Permanent link">&para;</a></h2>
 <p>Add/remove brew taps.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>         <span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>         <span class="n">present</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>         <span class="n">trusted</span><span class="p">:</span> <span class="s1">&#39;bool | None&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>         <span class="n">url</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>src</strong>: the name of the tap</li>
-<li><strong>present</strong>: whether this tap should be present or not</li>
+<li><strong>present</strong>: whether this tap should be present or not. Default True.</li>
+<li><strong>trusted</strong>: whether or not this tap should be trusted.  Default False.</li>
 <li><strong>url</strong>: the url of the tap. See <a href="https://docs.brew.sh/Taps">https://docs.brew.sh/Taps</a></li>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Add a brew tap&quot;</span><span class="p">,</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Just url is equivalent to</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># `brew tap kptdev/kpt https://github.com/kptdev/kpt`</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/kptdev/kpt&quot;</span><span class="p">,</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">)</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># src and url is equivalent to</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1"># `brew tap example/project https://github.example.com/project`</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;example/project&quot;</span><span class="p">,</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.example.com/project&quot;</span><span class="p">,</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="p">)</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="c1"># Multiple taps</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span> <span class="s2">&quot;ktr0731/evans&quot;</span><span class="p">]:</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>        <span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;Add brew tap </span><span class="si">{</span><span class="n">tap</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>        <span class="n">src</span><span class="o">=</span><span class="n">tap</span><span class="p">,</span>
-</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Just url is equivalent to</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># `brew tap kptdev/kpt https://github.com/kptdev/kpt`</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/kptdev/kpt&quot;</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c1"># src and url is equivalent to</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="c1"># `brew tap example/project https://github.example.com/project`</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;example/project&quot;</span><span class="p">,</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.example.com/project&quot;</span><span class="p">,</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="p">)</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="c1"># Multiple taps</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="k">for</span> <span class="n">tap</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span> <span class="s2">&quot;ktr0731/evans&quot;</span><span class="p">]:</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="n">brew</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>        <span class="n">name</span><span class="o">=</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;Add brew tap </span><span class="si">{</span><span class="n">tap</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>        <span class="n">src</span><span class="o">=</span><span class="n">tap</span><span class="p">,</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>        <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Global arguments</p>
+<p>This operation also inherits all <a href="../arguments.html">global arguments</a>.</p>
+</div>
+<h2 id="brew-trust"><code>brew.trust</code><a class="headerlink" href="#brew-trust" title="Permanent link">&para;</a></h2>
+<p>Trust/untrust brew casks, commands, formulae and/or taps (see <a href="https://docs.brew.sh/Tap-Trust">https://docs.brew.sh/Tap-Trust</a>)</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">trust</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="s1">&#39;str | list[str]&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="s1">&#39;BrewItemKind&#39;</span><span class="p">,</span> <span class="n">trusted</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<ul>
+<li><strong>items</strong>: the cask, command, formula or tap to be trusted or untrusted</li>
+<li><strong>kind</strong>: whether the item is a CASK, COMMAND, FORMULA or TAP (using BrewItemKind enum)</li>
+<li><strong>trusted</strong>: whether this item should be trusted or not.  no default, must be specified</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">trust</span><span class="p">(</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mark magic tap as trusted&quot;</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">items</span><span class="o">=</span><span class="s2">&quot;includeos/includeos&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">kind</span><span class="o">=</span><span class="n">BrewItemKind</span><span class="o">.</span><span class="n">TAP</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">trusted</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
@@ -1375,7 +1464,7 @@
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Updates brew repositories.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">update</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
@@ -1387,7 +1476,7 @@
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
 <p>Upgrades all brew packages.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">upgrade</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">brew</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
