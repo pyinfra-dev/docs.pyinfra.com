@@ -1852,14 +1852,13 @@
 <li>Log messages and errors are still written to stderr, so redirect with <code>pyinfra ... --json 2&gt;/dev/null &gt; out.json</code> if you need stdout to contain only JSON.</li>
 </ul>
 <h2 id="shell-autocompletion">Shell Autocompletion<a class="headerlink" href="#shell-autocompletion" title="Permanent link">&para;</a></h2>
-<p>Add the following to your <code>~/.bash_profile</code> or <code>~/.profile</code> files:</p>
-<ul>
-<li><strong>bash</strong> <code>source scripts/pyinfra-complete.sh</code>.</li>
-<li><strong>zsh</strong> <code>source scripts/pyinfra-complete.zsh</code>.</li>
-</ul>
-<p>These files were generated using these commands:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>env _PYINFRA_COMPLETE=bash_source pyinfra &gt; pyinfra-complete.sh
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>env _PYINFRA_COMPLETE=zsh_source pyinfra &gt; pyinfra-complete.zsh
+<p>pyinfra can install shell completion for you:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pyinfra --install-completion
+</span></code></pre></div>
+<p>This auto-detects your current shell (<code>bash</code>, <code>zsh</code> and <code>fish</code> are supported), then generates and installs the completion script to the shell-specific default location. After installation you may need to restart your shell or source your shell configuration file.</p>
+<p>You can also target a specific shell or output path:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pyinfra --install-completion --shell zsh
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pyinfra --install-completion --shell bash --output ~/.pyinfra-complete.bash
 </span></code></pre></div>
 
 
