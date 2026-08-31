@@ -1845,7 +1845,7 @@ To completely disable writing the hostname file, set `hostname_file=False`.
 <p class="admonition-title">Stateless operation</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
-<p>Run raw shell code on server during a deploy. If the command would modify data that would be in a fact, the fact would not be updated since facts are only run at the start of a deploy.</p>
+<p>Run raw shell code on server during a deploy. If the command would modify data that would be in a fact, the fact would not be updated since facts are only run at the start of a deploy. Commands run via the configured shell, which defaults to <code>sh</code>; use the <code>_shell_executable</code> global argument when a command needs Bash or another shell.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span><span class="n">commands</span><span class="p">:</span> <span class="s1">&#39;str | list[str]&#39;</span><span class="p">,</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="p">)</span>
@@ -1858,6 +1858,12 @@ To completely disable writing the hostname file, set `hostname_file=False`.
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Run lxd auto init&quot;</span><span class="p">,</span>
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lxd init --auto&quot;</span><span class="p">],</span>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">)</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">server</span><span class="o">.</span><span class="n">shell</span><span class="p">(</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Source a Bash environment before building&quot;</span><span class="p">,</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">commands</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;source /opt/example/setupvars.sh &amp;&amp; make&quot;</span><span class="p">],</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    <span class="n">_shell_executable</span><span class="o">=</span><span class="s2">&quot;bash&quot;</span><span class="p">,</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
