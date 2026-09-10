@@ -1656,7 +1656,7 @@
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;644&quot;</span><span class="p">,</span>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">)</span>
 </span></code></pre></div>
-<p>Uses <a href="operations/files.html"><code>operations.files</code></a> and <a href="operations/server.html"><code>operations.server</code></a>. You can see all available operations in the <a href="operations/index.html">Operations Index</a>. If you save the file as <code>deploy.py</code> you can test it out using Docker:</p>
+<p>Uses <a href="operations/files.html"><code>operations.files</code></a> and <a href="operations/server.html"><code>operations.server</code></a>. You can see all available operations in the <a href="operations.html">Operations Index</a>. If you save the file as <code>deploy.py</code> you can test it out using Docker:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pyinfra<span class="w"> </span>@docker/ubuntu:20.04<span class="w"> </span>deploy.py
 </span></code></pre></div>
 <div class="admonition note">
@@ -1746,7 +1746,7 @@ syntax or choose a shell explicitly with <code>_shell_executable</code>:</p>
 </span></code></pre></div>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pyinfra<span class="w"> </span>inventory.py<span class="w"> </span>nano.py
 </span></code></pre></div>
-<p>See <a href="facts/index.html">Facts Index</a> for a full list of available facts and arguments.</p>
+<p>See <a href="facts.html">Facts Index</a> for a full list of available facts and arguments.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Only use <strong>immutable</strong> facts in deploy code — facts whose value cannot change <em>over the course of the deploy</em>. OS family, distribution, architecture and kernel version are immutable in this sense; "is this package installed", "does this file exist" and "is this service running" are <strong>not</strong>, because an earlier operation in the same deploy could flip them. Facts are read during prepare, before any operation runs, so a mutable fact branched on in Python sees pre-deploy state — not the state at the point of the branch in source order. Use <code>_if</code> (see <a href="#change-detection">Change Detection</a> below) for conditions that need execute-time evaluation. More detail: <a href="deploy-process.html#using-host-facts">using host facts</a>.</p>
