@@ -1359,7 +1359,7 @@
 <p>Facts used in these operations: <a href="../facts/apt.html#apt-AptSources"><code>apt.AptSources</code></a>, <a href="../facts/server.html#server-Date"><code>server.Date</code></a>, <a href="../facts/deb.html#deb-DebPackage"><code>deb.DebPackage</code></a>, <a href="../facts/deb.html#deb-DebPackages"><code>deb.DebPackages</code></a>, <a href="../facts/files.html#files-File"><code>files.File</code></a>, <a href="../facts/apt.html#apt-SimulateOperationWillChange"><code>apt.SimulateOperationWillChange</code></a>.</p>
 <h2 id="apt-deb"><code>apt.deb</code><a class="headerlink" href="#apt-deb" title="Permanent link">&para;</a></h2>
 <p>Add/remove <code>.deb</code> file packages.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">deb</span><span class="p">(</span><span class="n">src</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wait_for_lock</span><span class="p">:</span> <span class="s1">&#39;bool | int&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="p">)</span>
 </span></code></pre></div>
@@ -1367,6 +1367,8 @@
 <li><strong>src</strong>: filename or URL of the <code>.deb</code> file</li>
 <li><strong>present</strong>: whether or not the package should exist on the system</li>
 <li><strong>force</strong>: whether to force the package install by passing <code>--force-yes</code> to apt</li>
+<li><strong>wait_for_lock</strong>: wait for the apt lock instead of failing instantly, <code>True</code>
+  waits up to 60 seconds, an integer sets the timeout in seconds</li>
 </ul>
 <p>Note:
     When installing, <code>apt-get install -f</code> will be run to install any unmet
@@ -1387,12 +1389,14 @@
 </div>
 <h2 id="apt-dist_upgrade"><code>apt.dist_upgrade</code><a class="headerlink" href="#apt-dist_upgrade" title="Permanent link">&para;</a></h2>
 <p>Updates all apt packages, employing dist-upgrade.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">wait_for_lock</span><span class="p">:</span> <span class="s1">&#39;bool | int&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>auto_remove</strong>: removes transitive dependencies that are no longer needed.</li>
+<li><strong>wait_for_lock</strong>: wait for the apt lock instead of failing instantly, <code>True</code>
+  waits up to 60 seconds, an integer sets the timeout in seconds</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">dist_upgrade</span><span class="p">(</span>
@@ -1485,8 +1489,9 @@ removes individual keys and prunes empty files.</p>
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>         <span class="n">purge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>         <span class="n">extra_install_args</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>         <span class="n">extra_uninstall_args</span><span class="p">:</span> <span class="s1">&#39;str | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>         <span class="n">wait_for_lock</span><span class="p">:</span> <span class="s1">&#39;bool | int&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>packages</strong>: list of packages to ensure</li>
@@ -1502,6 +1507,8 @@ removes individual keys and prunes empty files.</p>
   are removed alongside the package</li>
 <li><strong>extra_install_args</strong>: additional arguments to the apt install command</li>
 <li><strong>extra_uninstall_args</strong>: additional arguments to the apt uninstall command</li>
+<li><strong>wait_for_lock</strong>: wait for the apt lock instead of failing instantly, <code>True</code>
+  waits up to 60 seconds, an integer sets the timeout in seconds</li>
 </ul>
 <p>Versions:
     Package versions can be pinned like apt: <code>&lt;pkg&gt;=&lt;version&gt;</code></p>
@@ -1641,12 +1648,14 @@ accepts multiple values can be given as a list or a space-separated string.</p>
 <p>This operation will always execute commands unless the <code>cache_time</code> argument is provided.</p>
 </div>
 <p>Updates apt repositories.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_time</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_time</span><span class="p">:</span> <span class="s1">&#39;int | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">wait_for_lock</span><span class="p">:</span> <span class="s1">&#39;bool | int&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>cache_time</strong>: cache updates for this many seconds</li>
+<li><strong>wait_for_lock</strong>: wait for the apt lock instead of failing instantly, <code>True</code>
+  waits up to 60 seconds, an integer sets the timeout in seconds</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
@@ -1660,12 +1669,14 @@ accepts multiple values can be given as a list or a space-separated string.</p>
 </div>
 <h2 id="apt-upgrade"><code>apt.upgrade</code><a class="headerlink" href="#apt-upgrade" title="Permanent link">&para;</a></h2>
 <p>Upgrades all apt packages.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">apt</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">auto_remove</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">wait_for_lock</span><span class="p">:</span> <span class="s1">&#39;bool | int&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>auto_remove</strong>: removes transitive dependencies that are no longer needed.</li>
+<li><strong>wait_for_lock</strong>: wait for the apt lock instead of failing instantly, <code>True</code>
+  waits up to 60 seconds, an integer sets the timeout in seconds</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Upgrade all packages</span>

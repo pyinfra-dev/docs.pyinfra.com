@@ -2786,13 +2786,15 @@ Source: https://docs.pyinfra.com/en/latest/operations/apt.html
 
 Manage apt packages and repositories.
 
-### `apt.deb(src: 'str', present=True, force=False)`
+### `apt.deb(src: 'str', present=True, force=False, wait_for_lock: 'bool | int' = False)`
 
 Add/remove `.deb` file packages.
 
 + src: filename or URL of the `.deb` file
 + present: whether or not the package should exist on the system
 + force: whether to force the package install by passing `--force-yes` to apt
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 Note:
     When installing, `apt-get install -f` will be run to install any unmet
@@ -2813,11 +2815,13 @@ apt.deb(
 ```
 
 
-### `apt.dist_upgrade(auto_remove: 'bool' = False)`
+### `apt.dist_upgrade(auto_remove: 'bool' = False, wait_for_lock: 'bool | int' = False)`
 
 Updates all apt packages, employing dist-upgrade.
 
 + auto_remove: removes transitive dependencies that are no longer needed.
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
@@ -2886,7 +2890,7 @@ apt.key(
 ```
 
 
-### `apt.packages(packages: 'str | list[str] | None' = None, present=True, latest=False, update=False, cache_time: 'int | None' = None, upgrade=False, force=False, no_recommends=False, allow_downgrades=False, purge=False, extra_install_args: 'str | None' = None, extra_uninstall_args: 'str | None' = None)`
+### `apt.packages(packages: 'str | list[str] | None' = None, present=True, latest=False, update=False, cache_time: 'int | None' = None, upgrade=False, force=False, no_recommends=False, allow_downgrades=False, purge=False, extra_install_args: 'str | None' = None, extra_uninstall_args: 'str | None' = None, wait_for_lock: 'bool | int' = False)`
 
 Install/remove/update packages & update apt.
 
@@ -2903,6 +2907,8 @@ Install/remove/update packages & update apt.
   are removed alongside the package
 + extra_install_args: additional arguments to the apt install command
 + extra_uninstall_args: additional arguments to the apt uninstall command
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 Versions:
     Package versions can be pinned like apt: `<pkg>=<version>`
@@ -3021,13 +3027,15 @@ apt.sources_file(
 ```
 
 
-### `apt.update(cache_time: 'int | None' = None)`
+### `apt.update(cache_time: 'int | None' = None, wait_for_lock: 'bool | int' = False)`
 
 _Stateless:_ This operation will always execute commands unless the ``cache_time`` argument is provided.
 
 Updates apt repositories.
 
 + cache_time: cache updates for this many seconds
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
@@ -3039,11 +3047,13 @@ apt.update(
 ```
 
 
-### `apt.upgrade(auto_remove: 'bool' = False)`
+### `apt.upgrade(auto_remove: 'bool' = False, wait_for_lock: 'bool | int' = False)`
 
 Upgrades all apt packages.
 
 + auto_remove: removes transitive dependencies that are no longer needed.
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
