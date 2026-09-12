@@ -3109,8 +3109,13 @@ Add/remove/update brew packages.
 + update: run `brew update` before installing packages
 + upgrade: run `brew upgrade` before installing packages
 
-Versions:
-    Package versions can be pinned like brew: `<pkg>@<version>`.
+!!! note
+    Homebrew maintains separate versions of certain formulae (e.g. `python`, `postgres` and
+    `node`) and multiple versions of these formulae can be installed at the same time
+    (e.g. `python@3.15` and `python@3.10`) but Homebrew does not otherwise support installing
+    a specific version of a formula (e.g. `rclone@1.75`).
+    When one adds one of these specific packages with `package@X.Y.Z`, brew will drop the
+    `Z` (if it was supplied) and install the latest sub-version of `X.Y` of `package`.
 
 **Examples:**
 
@@ -7576,6 +7581,13 @@ Returns a dict of installed brew packages:
 }
 ```
 
+!!! note
+    Homebrew maintains separate versions of certain formulae (e.g. `python`, `postgres` and
+    `node`) and multiple versions of these formulae can be installed at the same time
+    (e.g. `python@3.15` and `python@3.10`) but Homebrew does not otherwise support installing
+    a specific version of a formula (e.g. `rclone@1.75`).  In the case where multiple versions
+    of a formula are installed at once, they will show up as distinct entries in
+    `BrewPackages`
 
 ### `brew.BrewTaps`
 
