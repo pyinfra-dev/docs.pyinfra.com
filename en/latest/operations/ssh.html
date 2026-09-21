@@ -1365,13 +1365,14 @@
 </div>
 <h2 id="ssh-keyscan"><code>ssh.keyscan</code><a class="headerlink" href="#ssh-keyscan" title="Permanent link">&para;</a></h2>
 <p>Check/add hosts to the <code>~/.ssh/known_hosts</code> file.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">ssh</span><span class="o">.</span><span class="n">keyscan</span><span class="p">(</span><span class="n">hostname</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="s1">&#39;int | str&#39;</span> <span class="o">=</span> <span class="mi">22</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Generator[StringCommand, None, None],</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <ul>
 <li><strong>hostname</strong>: hostname that should have a key in <code>known_hosts</code></li>
 <li><strong>force</strong>: if the key already exists, remove and rescan</li>
+<li><strong>port</strong>: SSH port to scan (defaults to 22)</li>
 </ul>
 <p><strong>Example:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">ssh</span>
