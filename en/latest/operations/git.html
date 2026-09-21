@@ -1393,7 +1393,9 @@
 <li><strong>rebase</strong>: when pulling, use <code>--rebase</code></li>
 <li><strong>user</strong>: chown files to this user after</li>
 <li><strong>group</strong>: chown files to this group after</li>
-<li><strong>ssh_keyscan</strong>: keyscan the remote host if not in known_hosts before clone/pull</li>
+<li><strong>ssh_keyscan</strong>: keyscan the remote host if not in known_hosts before clone/pull; only
+  SSH sources can be keyscanned (<code>user@host:path</code> or <code>ssh://host[:port]/path</code>),
+  with the host and port read from <code>src</code></li>
 <li><strong>update_submodules</strong>: update any git submodules</li>
 <li><strong>recursive_submodules</strong>: update git submodules recursively</li>
 <li><strong>depth</strong>: truncate clone, fetch and pull history to the specified number of commits</li>
@@ -1401,12 +1403,19 @@
   check out the specified revision.</li>
 <li><strong>force</strong>: Execute <code>fetch</code>, <code>pull</code> and <code>checkout</code> commands with <code>--force</code>.</li>
 </ul>
-<p><strong>Example:</strong></p>
+<p><strong>Examples:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Clone repo&quot;</span><span class="p">,</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;https://github.com/Fizzadar/pyinfra.git&quot;</span><span class="p">,</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/pyinfra&quot;</span><span class="p">,</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">git</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Clone repo with SSH keyscan (non-standard port)&quot;</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">src</span><span class="o">=</span><span class="s2">&quot;ssh://git@git.example.com:2222/org/repo.git&quot;</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;/usr/local/src/repo&quot;</span><span class="p">,</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">ssh_keyscan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>

@@ -4894,7 +4894,9 @@ Clone/pull git repositories.
 + rebase: when pulling, use `--rebase`
 + user: chown files to this user after
 + group: chown files to this group after
-+ ssh_keyscan: keyscan the remote host if not in known_hosts before clone/pull
++ ssh_keyscan: keyscan the remote host if not in known_hosts before clone/pull; only
+  SSH sources can be keyscanned (`user@host:path` or `ssh://host[:port]/path`),
+  with the host and port read from `src`
 + update_submodules: update any git submodules
 + recursive_submodules: update git submodules recursively
 + depth: truncate clone, fetch and pull history to the specified number of commits
@@ -4902,13 +4904,20 @@ Clone/pull git repositories.
   check out the specified revision.
 + force: Execute `fetch`, `pull` and `checkout` commands with `--force`.
 
-**Example:**
+**Examples:**
 
 ```python
 git.repo(
     name="Clone repo",
     src="https://github.com/Fizzadar/pyinfra.git",
     dest="/usr/local/src/pyinfra",
+)
+
+git.repo(
+    name="Clone repo with SSH keyscan (non-standard port)",
+    src="ssh://git@git.example.com:2222/org/repo.git",
+    dest="/usr/local/src/repo",
+    ssh_keyscan=True,
 )
 ```
 
