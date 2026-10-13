@@ -3113,7 +3113,9 @@ If the binary is absent the fact returns its <code>default()</code> value silent
 
 
 <a href="#pyinfra.api.facts.FactBase.check_preconditions" class="headerlink" title="Permanent link">&para;</a></h5>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">check_preconditions</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="n">Host</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">check_preconditions</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="n">Host</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3126,6 +3128,13 @@ If the binary is absent the fact returns its <code>default()</code> value silent
 </ul>
 <p>The framework handles raising <code>FactPreconditionError</code> and phase-awareness
 automatically; fact authors never need to import exception classes.</p>
+<p>A fact that takes parameters receives them here, named as its <code>command</code> declares
+them, so a precondition can depend on which project or pool is being asked about. A
+fact whose <code>command</code> takes none is called with none, which is what every existing
+implementation already expects.</p>
+<p>The trailing <code>*args</code>/<code>**kwargs</code> are what let an implementation declare only what it
+needs — <code>(self, state, host)</code>, or <code>(self, state, host, pool=None)</code> for one that
+depends on its own parameters — the way <code>requires_command</code>'s implementations do.</p>
 
 
     </div>
