@@ -1524,6 +1524,15 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">cd</span><span class="w"> </span>pyinfra
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>uv<span class="w"> </span>sync
 </span></code></pre></div>
+<p>Re-run <code>uv sync</code> every time you switch branches. The editable install records the connector entry
+points in the virtualenv metadata at install time, while the modules themselves are read from the
+checked out tree, and <code>uv</code> does not notice a checkout: its staleness marker is the modification
+time of <code>src/</code>, which <code>git checkout</code> leaves alone. A branch that adds or removes a connector can
+therefore leave an entry point pointing at a module that is not there.</p>
+<p>pyinfra imports only the connectors an inventory asks for, so an entry point you never use is
+harmless - but the connector you do use will fail to load until the virtualenv is resynced.</p>
+<p>A plain <code>uv sync</code> also drops the <code>docs</code> dependency group, so pass <code>--group docs</code> when you want to
+build the documentation.</p>
 <p>If you will use pyinfra as a module, and want to be able to edit its code as you go, make sure you add it as an editable dependency to your project instead:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># There is no need to create a virtualenv, uv will do that for you
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>

@@ -2591,6 +2591,18 @@ cd pyinfra
 uv sync
 ```
 
+Re-run `uv sync` every time you switch branches. The editable install records the connector entry
+points in the virtualenv metadata at install time, while the modules themselves are read from the
+checked out tree, and `uv` does not notice a checkout: its staleness marker is the modification
+time of `src/`, which `git checkout` leaves alone. A branch that adds or removes a connector can
+therefore leave an entry point pointing at a module that is not there.
+
+pyinfra imports only the connectors an inventory asks for, so an entry point you never use is
+harmless - but the connector you do use will fail to load until the virtualenv is resynced.
+
+A plain `uv sync` also drops the `docs` dependency group, so pass `--group docs` when you want to
+build the documentation.
+
 If you will use pyinfra as a module, and want to be able to edit its code as you go, make sure you add it as an editable dependency to your project instead:
 
 ```
@@ -4016,7 +4028,7 @@ Source: https://docs.pyinfra.com/en/latest/operations/files.html
 
 The files operations handles filesystem state, file uploads and template generation.
 
-### `files.block(path: 'str', content: 'str | list[str] | None' = None, present=True, line: 'str | None' = None, backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False, before=False, after=False, marker: 'str | None' = None, begin: 'str | None' = None, end: 'str | None' = None)`
+### `files.block(path: 'str', content: 'str | list[str] | None' = None, present=True, line: 'str | None' = None, backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False, before=False, after=False, marker: 'str | None' = None, begin: 'str | None' = None, end: 'str | None' = None, preserve_meta: 'bool' = True)`
 
 Ensure content, surrounded by the appropriate markers, is present (or not) in the file.
 
@@ -4033,6 +4045,13 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 + marker: the base string used to mark the text.  Default is `# {mark} PYINFRA BLOCK`
 + begin: the value for `{mark}` in the marker before the content. Default is `BEGIN`
 + end: the value for `{mark}` in the marker after the content. Default is `END`
++ preserve_meta: whether to restore the file's owner, group and mode after rewriting it.
+  Default `True` (today's behaviour on an existing file). Set to `False` on a host
+  where the executing user may not `chown` the target. Has no effect when the file does
+  not yet exist: there is nothing to restore in that case either way. When `False` on an
+  existing file, the rewrite replaces the file rather than editing it in place, so the file
+  is left with the temporary file's mode (`0600`) and the executing user's ownership
+  instead of its original owner, group and mode.
 
 Content appended if `line` not found in the file
     If `content` is not in the file but is required (`present=True`) and `line` is not

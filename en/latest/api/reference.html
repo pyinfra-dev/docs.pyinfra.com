@@ -1289,6 +1289,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pyinfra.api.connectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;connectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pyinfra.api.deploy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1542,6 +1553,17 @@
     <span class="md-ellipsis">
       
         <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyinfra.api.connectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;connectors
       
     </span>
   </a>
@@ -2136,6 +2158,117 @@ instance with each bit.</p>
           </tr>
       </tbody>
     </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h3 id="pyinfra.api.connectors" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">connectors</span>
+
+
+<a href="#pyinfra.api.connectors" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="pyinfra.api.connectors.get_connector" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_connector</span>
+
+
+<a href="#pyinfra.api.connectors.get_connector" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_connector</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the connector registered under <code>name</code>, importing it.</p>
+<p>Only the connector asked for is imported. A package whose module cannot be imported
+therefore costs nothing until something actually asks for it - and when it does, the error
+names both the connector and the cause, instead of taking the other connectors down with it.</p>
+<ul>
+<li>param name: connector name, as used in an inventory (<code>@name</code>).</li>
+</ul>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="pyinfra.api.connectors.get_execution_connectors" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_execution_connectors</span>
+
+
+<a href="#pyinfra.api.connectors.get_execution_connectors" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_execution_connectors</span><span class="p">()</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return every installed connector that can execute commands.</p>
+<p>Imports all of them, so prefer <code>get_execution_connector</code> when only one is wanted.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="pyinfra.api.connectors.get_execution_connector" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_execution_connector</span>
+
+
+<a href="#pyinfra.api.connectors.get_execution_connector" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_execution_connector</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the connector registered under <code>name</code> that can execute commands.</p>
+<p>Only this connector is imported, unlike <code>get_execution_connectors</code>.</p>
+<ul>
+<li>param name: connector name, as used in an inventory (<code>@name</code>).</li>
+</ul>
 
 
     </div>
