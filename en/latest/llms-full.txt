@@ -4544,6 +4544,10 @@ the `rsync` binary on your system.
     or `@local` connectors. When using the SSH connector, rsync will automatically use the
     StrictHostKeyChecking setting, config and known_hosts file (when specified).
 
+!!! warning
+    The default flags are `["-ax", "--delete"]`, so remote files missing from `src` are
+    deleted. Pass `flags=["-ax"]` to preserve extra remote files.
+
 !!! caution
     When using SSH, the `files.rsync` operation only supports the `sudo`, `sudo_user`,
     and `sudo_password` global arguments.

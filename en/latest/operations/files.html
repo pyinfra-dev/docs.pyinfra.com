@@ -2098,6 +2098,11 @@ reading and checksumming the file will cause the host OS to update the file&#39;
 or <code>@local</code> connectors. When using the SSH connector, rsync will automatically use the
 StrictHostKeyChecking setting, config and known_hosts file (when specified).</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default flags are <code>["-ax", "--delete"]</code>, so remote files missing from <code>src</code> are
+deleted. Pass <code>flags=["-ax"]</code> to preserve extra remote files.</p>
+</div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>When using SSH, the <code>files.rsync</code> operation only supports the <code>sudo</code>, <code>sudo_user</code>,
