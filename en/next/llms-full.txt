@@ -557,7 +557,7 @@ server.shell(
     _if=[create_user.did_change, create_otheruser.did_change],
 )
 
-# You can also build your own lamba functions to achieve, e.g. an OR condition
+# You can also build your own lambda functions to achieve, e.g. an OR condition
 server.shell(
     commands=["echo 'myuser or otheruser changed'"],
     _if=lambda: create_user.did_change() or create_otheruser.did_change(),
@@ -762,7 +762,7 @@ Source: https://docs.pyinfra.com/en/latest/inventory-data.html
 
 ## Inventory Files
 
-Inventory files contain groups of hosts. Groups are defined as a `list` or `tuple`. For example, this inventory creates two groups, `app_servers` and `db_servers`. Note that group names cannot start `_`:
+Inventory files contain groups of hosts. Groups are defined as a `list` or `tuple`. For example, this inventory creates two groups, `app_servers` and `db_servers`. Note that group names cannot start with `_`:
 
 ```python
 app_servers = [
@@ -2360,7 +2360,7 @@ run_ops(state)
 # timings.timings now holds per-host start/end times for every operation
 ```
 
-The available hooks are defined on `BaseStateCallback` — subclass it and override only the ones you care about. The current set covers host connect/disconnect, operation start/end, and per-host operation start/success/error/retry. See [`pyinfra.api.state.BaseStateCallback`](reference.md) for the full signature list.
+The available hooks are defined on `BaseStateCallback` — subclass it and override only the ones you care about. The current set covers host connect/disconnect, operation start/end, and per-host operation start/success/error/retry. See [`pyinfra.api.state.BaseStateCallback`](reference.md#pyinfra.api.state.BaseStateCallback) for the full signature list.
 
 ---
 
@@ -6250,7 +6250,7 @@ Set the system hostname using `hostnamectl` or `hostname` on older systems.
 + hostname_file: the file that permanently sets the hostname
 
 Hostname file:
-    The hostname file only matters no systems that do not have `hostnamectl`,
+    The hostname file only matters on systems that do not have `hostnamectl`,
     which is part of `systemd`.
 
     By default pyinfra will auto detect this by targeting `/etc/hostname`
