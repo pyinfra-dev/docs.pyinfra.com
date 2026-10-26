@@ -2846,6 +2846,33 @@ apt.dist_upgrade(
 ```
 
 
+### `apt.hold(packages: 'str | list[str]', present: 'bool' = True)`
+
+Hold or unhold apt packages, using `apt-mark`. Held packages are not automatically
+upgraded, removed or changed by `apt`, for example to pin a package at a specific version.
+
++ packages: package or list of packages to hold/unhold
++ present: whether the packages should be held (`True`) or not (`False`)
+
+Version specifiers (`name=version`) are accepted and ignored, so the same list
+passed to `apt.packages` can be passed here.
+
+**Example:**
+
+```python
+apt.packages(
+    name="Install nomad 1.9.7",
+    packages=["nomad=1.9.7-1"],
+    allow_downgrades=True,
+)
+
+apt.hold(
+    name="Hold nomad so it isn't upgraded",
+    packages=["nomad=1.9.7-1"],
+)
+```
+
+
 ### `apt.key(src: 'str | None' = None, keyserver: 'str | None' = None, keyid: 'str | list[str] | None' = None, dest: 'str | None' = None, present: 'bool' = True)`
 
 Add or remove APT GPG keys using modern keyring management (no `apt-key`).
@@ -7545,6 +7572,21 @@ Returns a dict of installed apk packages:
 ## Facts: apt
 
 Source: https://docs.pyinfra.com/en/latest/facts/apt.html
+
+### `apt.AptHeldPackages`
+
+    host.get_fact(AptHeldPackages)
+
+Returns a list of apt packages marked as held (`apt-mark showhold`). Held
+packages are not automatically upgraded, removed or changed by `apt`.
+
+```python
+[
+    "nomad",
+    "libfoo:i386",
+]
+```
+
 
 ### `apt.AptKeys`
 

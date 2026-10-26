@@ -1226,6 +1226,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#apt-AptHeldPackages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        apt.AptHeldPackages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#apt-AptKeys" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1301,33 +1312,43 @@
 
 <h1 id="apt-facts">apt Facts<a class="headerlink" href="#apt-facts" title="Permanent link">&para;</a></h1>
 <p>See also: <a href="../operations/apt.html">operations/apt</a>.</p>
+<h2 id="apt-AptHeldPackages"><code>apt.AptHeldPackages</code><a class="headerlink" href="#apt-AptHeldPackages" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptHeldPackages</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Returns a list of apt packages marked as held (<code>apt-mark showhold</code>). Held
+packages are not automatically upgraded, removed or changed by <code>apt</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">[</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;nomad&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="s2">&quot;libfoo:i386&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">]</span>
+</span></code></pre></div>
 <h2 id="apt-AptKeys"><code>apt.AptKeys</code><a class="headerlink" href="#apt-AptKeys" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptKeys</span><span class="p">,</span> <span class="n">directories</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptKeys</span><span class="p">,</span> <span class="n">directories</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns information on GPG keys available to APT.</p>
 <p>This fact reuses the GpgKeyrings infrastructure to search APT's modern keyring
 directories instead of using the deprecated apt-key command. It provides
 compatibility with the old AptKeys interface while leveraging the modern
 GPG infrastructure.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;3B4FE6ACC0B21F32&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="s2">&quot;validity&quot;</span><span class="p">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">&quot;subkeys&quot;</span><span class="p">:</span> <span class="p">{},</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="s2">&quot;fingerprint&quot;</span><span class="p">:</span> <span class="s2">&quot;790BC7277767219C42C86F933B4FE6ACC0B21F32&quot;</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">&quot;uid_hash&quot;</span><span class="p">:</span> <span class="s2">&quot;B7A02867A0C1D32B594B36C00E20C8C57E397748&quot;</span><span class="p">,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu Archive Automatic Signing Key (2012) &lt;ftpmaster@ubuntu.com&gt;&quot;</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="p">},</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="s2">&quot;3B4FE6ACC0B21F32&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="s2">&quot;validity&quot;</span><span class="p">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="s2">&quot;subkeys&quot;</span><span class="p">:</span> <span class="p">{},</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="s2">&quot;fingerprint&quot;</span><span class="p">:</span> <span class="s2">&quot;790BC7277767219C42C86F933B4FE6ACC0B21F32&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="s2">&quot;uid_hash&quot;</span><span class="p">:</span> <span class="s2">&quot;B7A02867A0C1D32B594B36C00E20C8C57E397748&quot;</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu Archive Automatic Signing Key (2012) &lt;ftpmaster@ubuntu.com&gt;&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">},</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <h2 id="apt-AptPackages"><code>apt.AptPackages</code><a class="headerlink" href="#apt-AptPackages" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackages</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackages</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns a dict of installed apt packages, keyed by name with a list of
 versions as the value:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>The list-of-versions shape mirrors :class:<code>pyinfra.facts.deb.DebPackages</code>
 so callers can swap between the two without reshaping their code. The
@@ -1335,7 +1356,7 @@ main reason to reach for <code>AptPackages</code> is to surface packages whose
 presence is more reliably visible from <code>apt</code> than from <code>dpkg</code> (for
 example, packages with an architecture suffix like <code>foo:i386</code>).</p>
 <h2 id="apt-AptSources"><code>apt.AptSources</code><a class="headerlink" href="#apt-AptSources" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns a list of installed apt sources (legacy .list + <strong>deb822</strong> .sources).</p>
 <p>Returns a list of AptRepo instances that behave like dicts for backward compatibility:</p>
@@ -1345,7 +1366,7 @@ example, packages with an architecture suffix like <code>foo:i386</code>).</p>
     repo['type']  # works like repo.type
     repo.get('url')  # works like getattr(repo, 'url')</p>
 <h2 id="apt-SimulateOperationWillChange"><code>apt.SimulateOperationWillChange</code><a class="headerlink" href="#apt-SimulateOperationWillChange" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SimulateOperationWillChange</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SimulateOperationWillChange</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Simulate an 'apt-get' operation and try to detect if any changes would be performed.</p>
 
