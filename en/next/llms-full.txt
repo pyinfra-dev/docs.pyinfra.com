@@ -7169,6 +7169,9 @@ Install/remove/update XBPS packages.
 + update: run `xbps-install -S` before installing packages
 + upgrade: run `xbps-install -y -u` before installing packages
 
+If `xbps` itself has an update available it is updated before installing
+packages, as XBPS refuses to install anything else until it has.
+
 **Example:**
 
 ```python
@@ -7190,7 +7193,7 @@ Update XBPS repositories.
 
 _Stateless:_ This operation always executes commands and is not idempotent.
 
-Upgrades all XBPS packages.
+Upgrades all XBPS packages, updating `xbps` itself first.
 
 ---
 
@@ -10502,6 +10505,22 @@ Returns a dict of installed XBPS packages:
 }
 ```
 
+
+### `xbps.XbpsSelfUpdate`
+
+    host.get_fact(XbpsSelfUpdate)
+
+Returns the packages XBPS would update to update itself, empty if `xbps`
+is up to date:
+
+```python
+["xbps-triggers-0.128_1", "xbps-0.60.5_1"]
+```
+
+XBPS refuses to install or update any other package until it has updated
+itself, failing with "The 'xbps' package must be updated". This reads the
+locally synced repository index, so it can only see a new `xbps` after
+`xbps-install -S` has run.
 
 ---
 

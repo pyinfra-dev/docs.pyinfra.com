@@ -1290,7 +1290,7 @@
 
 <h1 id="xbps-operations">xbps Operations<a class="headerlink" href="#xbps-operations" title="Permanent link">&para;</a></h1>
 <p>Manage XBPS packages and repositories. Note that XBPS package names are case-sensitive.</p>
-<p>Facts used in these operations: <a href="../facts/xbps.html#xbps-XbpsPackages"><code>xbps.XbpsPackages</code></a>.</p>
+<p>Facts used in these operations: <a href="../facts/xbps.html#xbps-XbpsPackages"><code>xbps.XbpsPackages</code></a>, <a href="../facts/xbps.html#xbps-XbpsSelfUpdate"><code>xbps.XbpsSelfUpdate</code></a>.</p>
 <h2 id="xbps-packages"><code>xbps.packages</code><a class="headerlink" href="#xbps-packages" title="Permanent link">&para;</a></h2>
 <p>Install/remove/update XBPS packages.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">xbps</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="n">packages</span><span class="p">:</span> <span class="s1">&#39;str | list[str] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">present</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">upgrade</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1303,6 +1303,8 @@
 <li><strong>update</strong>: run <code>xbps-install -S</code> before installing packages</li>
 <li><strong>upgrade</strong>: run <code>xbps-install -y -u</code> before installing packages</li>
 </ul>
+<p>If <code>xbps</code> itself has an update available it is updated before installing
+packages, as XBPS refuses to install anything else until it has.</p>
 <p><strong>Example:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pyinfra.operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">xbps</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">xbps</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span>
@@ -1331,7 +1333,7 @@
 <p class="admonition-title">Stateless operation</p>
 <p>This operation will always execute commands and is not idempotent.</p>
 </div>
-<p>Upgrades all XBPS packages.</p>
+<p>Upgrades all XBPS packages, updating <code>xbps</code> itself first.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">xbps</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
