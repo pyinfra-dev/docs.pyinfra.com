@@ -4780,7 +4780,8 @@ operation representation that consists of a list of commands + options
         <p>Pluggable output formatting for pyinfra.</p>
 <p>Provides <code>format_text</code> and <code>echo</code> functions that default to plain-text
 no-ops, allowing the API layer to work without any CLI dependency.  The CLI
-layer replaces them at startup via <code>set_formatter</code> and <code>set_echo</code>.</p>
+layer replaces them at startup via <code>set_formatter</code> and <code>set_echo</code> (wiring
+in Rich-backed implementations).</p>
 
 
 
@@ -4805,6 +4806,49 @@ layer replaces them at startup via <code>set_formatter</code> and <code>set_echo
 <div class="doc doc-object doc-function">
 
 
+<h4 id="pyinfra.api.output.get_console" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_console</span>
+
+
+<a href="#pyinfra.api.output.get_console" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">get_console</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Console</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the shared human-facing (stderr) Rich console.</p>
+<p>Created lazily so importing the API layer doesn't require Rich to be
+configured.  The CLI may replace it via :func:<code>set_console</code> to share a
+single console between logging, tables and the progress spinner.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="pyinfra.api.output.set_console" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">set_console</span>
+
+
+<a href="#pyinfra.api.output.set_console" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">set_console</span><span class="p">(</span><span class="n">console</span><span class="p">:</span> <span class="n">Console</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Replace the shared human-facing console.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h4 id="pyinfra.api.output.format_text" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">format_text</span>
 
@@ -4816,8 +4860,9 @@ layer replaces them at startup via <code>set_formatter</code> and <code>set_echo
     <div class="doc doc-contents ">
 
         <p>Format text with optional styling (color, bold, etc.).</p>
-<p>Mirrors <code>click.style</code> signature.  Accepts positional <code>fg</code> argument
-for compatibility with <code>click.style("text", "red")</code>.</p>
+<p>Historically mirrored <code>click.style</code>: accepts a positional foreground
+color (e.g. <code>format_text("text", "red")</code>) and <code>bold=</code> keyword.  The CLI
+installs a Rich-backed implementation preserving this signature.</p>
 
 
     </div>
@@ -4837,7 +4882,7 @@ for compatibility with <code>click.style("text", "red")</code>.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Echo a message.  Mirrors <code>click.echo</code> signature.</p>
+        <p>Echo a message.  Supports <code>err=True</code> to write to stderr.</p>
 
 
     </div>
@@ -4857,7 +4902,7 @@ for compatibility with <code>click.style("text", "red")</code>.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Replace the default formatter (e.g. with <code>click.style</code>).</p>
+        <p>Replace the default formatter (e.g. with a Rich-backed styler).</p>
 
 
     </div>
@@ -4877,7 +4922,7 @@ for compatibility with <code>click.style("text", "red")</code>.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Replace the default echo function (e.g. with <code>click.echo</code>).</p>
+        <p>Replace the default echo function (e.g. with a Rich-backed echo).</p>
 
 
     </div>
