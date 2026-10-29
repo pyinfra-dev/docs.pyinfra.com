@@ -6600,7 +6600,7 @@ server.timezone(
 ```
 
 
-### `server.user(user: 'str', present=True, home: 'str | None' = None, shell: 'str | None' = None, group: 'str | None' = None, groups: 'list[str] | None' = None, append=False, public_keys: 'str | list[str] | None' = None, delete_keys=False, ensure_home=True, create_home=False, system=False, uid: 'int | None' = None, comment: 'str | None' = None, unique=True, password: 'str | None' = None)`
+### `server.user(user: 'str', present=True, home: 'str | None' = None, shell: 'str | None' = None, group: 'str | None' = None, groups: 'list[str] | None' = None, append=False, public_keys: 'str | list[str] | None' = None, delete_keys=False, ensure_home=True, create_home=False, system=False, uid: 'int | None' = None, comment: 'str | None' = None, unique=True, password: 'str | None' = None, password_lock: 'bool | None' = None)`
 
 Add/remove/update system users & their ssh `authorized_keys`.
 
@@ -6620,6 +6620,7 @@ Add/remove/update system users & their ssh `authorized_keys`.
 + comment: the user GECOS comment
 + unique: prevent creating users with duplicate UID
 + password: set the encrypted password for the user
++ password_lock: whether the user's password should be locked (`True`) or unlocked (`False`)
 
 Home directory:
     When `ensure_home` or `public_keys` are provided, `home` defaults to
@@ -6630,6 +6631,14 @@ Home directory:
 Public keys:
     These can be provided as strings containing the public key or as a path to
     a public key file which pyinfra will read.
+
+Password lock:
+    New users created without a `password` have a locked (Linux) or disabled
+    (FreeBSD, `*`) password. `password_lock=False` unlocks the password, or
+    deletes it (making it empty) when there is no password hash to unlock, so the
+    user can set one with `passwd`. When `password_lock` is set, `password` is
+    compared ignoring the lock prefix. Only supported on Linux and FreeBSD, and
+    ignored when `present=False`.
 
 **Examples:**
 
@@ -6644,6 +6653,12 @@ server.user(
     name="Ensure myweb user exists",
     user="myweb",
     shell="/bin/bash",
+)
+
+server.user(
+    name="Ensure alice exists and can set her own password",
+    user="alice",
+    password_lock=False,
 )
 
 # multiple users
