@@ -3421,7 +3421,7 @@ _Stateless:_ This operation always executes commands and is not idempotent.
 
 Add dnf gpg keys with `rpm`.
 
-+ key: filename or URL
++ src: filename or URL
 
 Note:
     always returns one command, not idempotent
@@ -5822,7 +5822,7 @@ See example/postgresql.py for detailed example
 
 Add/remove PostgreSQL databases.
 
-+ name: name of the database
++ database: name of the database
 + present: whether the database should exist or not
 + owner: the PostgreSQL role that owns the database
 + template: name of the PostgreSQL template to use
@@ -6134,7 +6134,7 @@ Provides operations to set SELinux file contexts, booleans and port types.
 
 Set the specified SELinux boolean to the desired state.
 
-+ boolean: name of an SELinux boolean
++ bool_name: name of an SELinux boolean
 + value: desired state of the boolean
 + persistent: whether to write updated policy or not
 
@@ -6199,7 +6199,7 @@ selinux.file_context_mapping(
 Set the SELinux type for the specified protocol and port.
 
 + protocol: the protocol: (udp|tcp|sctp|dccp)
-+ port: the port
++ port_num: the port
 + se_type: the SELinux type for the given port
 + present: whether to add or remove the SELinux type for the port
 
@@ -7047,7 +7047,7 @@ uv.packages(
 
 Install/remove Python version(s).
 
-+ version: a version or list of Python versions
++ versions: a version or list of Python versions
 + present: whether the versions should be installed or removed. Default True.
 + managed: whether only managed or all available version should be considered. Default True.
 + extra_args: zero or more additional arguments to be passed to `uv`. Default None.
@@ -7434,7 +7434,7 @@ zfs.filesystem("tank/vm-disks/db_srv_04", "32G")
 
 Create or destroy a ZFS snapshot, or modify its properties.
 
-+ dataset_name: name of the filesystem to operate on
++ snapshot_name: name of the filesystem to operate on
 + present: whether the named filesystem should exist
 + recursive: whether to snapshot child datasets
 + properties: the ZFS properties that should be set on the snapshot.
