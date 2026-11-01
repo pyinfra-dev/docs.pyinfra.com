@@ -4800,13 +4800,14 @@ Source: https://docs.pyinfra.com/en/latest/operations/flatpak.html
 
 Manage flatpak packages. See https://www.flatpak.org/
 
-### `flatpak.packages(packages: 'str | list[str] | None' = None, remote: 'str | None' = None, present=True)`
+### `flatpak.packages(packages: 'str | list[str] | None' = None, remote: 'str | None' = None, present: 'bool' = True, user: 'bool' = False)`
 
 Install/remove a flatpak package
 
 + packages: List of packages
 + remote: Source from which to install the application or runtime
 + present: whether the package should be installed
++ user: use the current user's installation instead of Flatpak's default
 
 **Examples:**
 
@@ -4823,6 +4824,14 @@ flatpak.packages(
     name="Install vlc",
     packages="org.videolan.VLC",
     remote="flathub",
+)
+
+# Install vlc flatpak for the current user
+flatpak.packages(
+    name="Install vlc",
+    packages="org.videolan.VLC",
+    remote="flathub",
+    user=True,
 )
 
 # Install multiple flatpaks
@@ -8381,7 +8390,7 @@ Returns information for an installed flatpak package
 
 ### `flatpak.FlatpakPackages`
 
-    host.get_fact(FlatpakPackages)
+    host.get_fact(FlatpakPackages, user)
 
 Returns a list of installed flatpak packages:
 
