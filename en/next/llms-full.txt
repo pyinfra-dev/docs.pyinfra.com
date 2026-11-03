@@ -6864,6 +6864,170 @@ Upload files to other servers using `scp`.
 
 ---
 
+## Operations: supervisorctl
+
+Source: https://docs.pyinfra.com/en/latest/operations/supervisorctl.html
+
+Manage processes controlled by supervisord using `supervisorctl`.
+
+Every operation accepts the global `supervisorctl` options: `config_file`
+(`-c`), `server_url` (`-s`), `username` (`-u`) and `password`
+(`-p`).
+
+The read-only `supervisorctl` actions are facts, not operations: `status`
+maps to `pyinfra.facts.supervisorctl.SupervisorctlStatus` and `pid` to
+`SupervisorctlPid` / `SupervisorctlPids`. The interactive actions
+(`tail`, `fg`, `help`) are not covered.
+
+### `supervisorctl.add(group: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Activate any updates in config for a process or group.
+
++ group: name of the process group to add
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.clear(process: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Clear the log files of a process.
+
++ process: name of the process, or `all` to clear every process' logs
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.process(process: 'str', running: 'bool | None' = True, restarted: 'bool' = False, command: 'str | None' = None, config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+Manage the state of supervisor processes.
+
++ process: name of the process to manage, a single `<name>`, a group
+  `<gname>:*` or `all`
++ running: whether the process should be running
++ restarted: whether the process should be restarted
++ command: custom `supervisorctl` action to run like:
+  `supervisorctl <command> <process>`
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+Processes in BACKOFF, FATAL or UNKNOWN state are considered not running.
+
+**Examples:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.process(
+    name="Start the web process",
+    process="web",
+    running=True,
+)
+
+supervisorctl.process(
+    name="Restart every process in the workers group",
+    process="workers:*",
+    restarted=True,
+)
+```
+
+
+### `supervisorctl.reload(config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Restart the remote supervisord.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.remove(group: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Remove a process or group from the active configuration.
+
++ group: name of the process group to remove
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.reread(config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Reload the supervisord configuration files, without adding, removing or
+restarting anything.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.signal(signal: 'str', process: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Send a signal to a supervisor process.
+
++ signal: signal to send, eg `HUP` or `USR2`
++ process: name of the process to signal, a single `<name>`, a group
+  `<gname>:*` or `all`
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+**Example:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.signal(
+    name="Rotate web process logs",
+    signal="USR2",
+    process="web",
+)
+```
+
+
+### `supervisorctl.update(groups: 'list[str] | None' = None, config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Reload the supervisord configuration files, add/remove process groups as
+necessary and restart affected programs.
+
++ groups: optional list of process groups to update, defaults to all
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+**Example:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.update(
+    name="Apply config changes to the workers group",
+    groups=["workers"],
+)
+```
+
+
+---
+
 ## Operations: systemd
 
 Source: https://docs.pyinfra.com/en/latest/operations/systemd.html
@@ -10300,6 +10464,64 @@ Returns a list of installed snap packages:
     "lxd",
     "snapd"
 ]
+```
+
+
+---
+
+## Facts: supervisorctl
+
+Source: https://docs.pyinfra.com/en/latest/facts/supervisorctl.html
+
+### `supervisorctl.SupervisorctlPid`
+
+    host.get_fact(SupervisorctlPid, process, config_file, server_url, username, password)
+
+Returns the PID of supervisord itself, or of a single supervisor managed
+process when `process` is given.
+
+A PID of `0` means the process exists but is not running. `None` means
+no PID could be read (eg unknown process or supervisord not reachable).
+
++ process: optional name of the process, defaults to supervisord itself
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.SupervisorctlPids`
+
+    host.get_fact(SupervisorctlPids, config_file, server_url, username, password)
+
+Returns a list of the PIDs of all supervisor managed processes
+(`supervisorctl pid all`). A PID of `0` means a process is not
+running. The output of `pid all` carries no process names; use
+`SupervisorctlStatus` to map names to states.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.SupervisorctlStatus`
+
+    host.get_fact(SupervisorctlStatus, config_file, server_url, username, password)
+
+Returns a dict of supervisor process names to their running state.
+
+Processes inside a group are keyed by their full `group:name` name.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+```python
+{
+    "web": True,             # RUNNING or STARTING
+    "workers:worker_0": False,  # STOPPED, STOPPING or EXITED
+    "broken": None,          # BACKOFF, FATAL or UNKNOWN
+}
 ```
 
 
