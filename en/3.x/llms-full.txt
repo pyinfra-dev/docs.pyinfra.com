@@ -358,7 +358,7 @@ files.file(
 )
 ```
 
-Uses [`operations.files`](operations/files.md) and [`operations.server`](operations/server.md). You can see all available operations in the [Operations Index](operations/index.md). If you save the file as `deploy.py` you can test it out using Docker:
+Uses [`operations.files`](operations/files.md) and [`operations.server`](operations/server.md). You can see all available operations in the [Operations Index](operations.md). If you save the file as `deploy.py` you can test it out using Docker:
 
 ```sh
 pyinfra @docker/ubuntu:20.04 deploy.py
@@ -487,7 +487,7 @@ if host.get_fact(LinuxName) == "Ubuntu":
 pyinfra inventory.py nano.py
 ```
 
-See [Facts Index](facts/index.md) for a full list of available facts and arguments.
+See [Facts Index](facts.md) for a full list of available facts and arguments.
 
 !!! important
     Only use **immutable** facts in deploy code — facts whose value cannot change *over the course of the deploy*. OS family, distribution, architecture and kernel version are immutable in this sense; "is this package installed", "does this file exist" and "is this service running" are **not**, because an earlier operation in the same deploy could flip them. Facts are read during prepare, before any operation runs, so a mutable fact branched on in Python sees pre-deploy state — not the state at the point of the branch in source order. Use `_if` (see [Change Detection](#change-detection) below) for conditions that need execute-time evaluation. More detail: [using host facts](deploy-process.md#using-host-facts).
@@ -557,7 +557,7 @@ server.shell(
     _if=[create_user.did_change, create_otheruser.did_change],
 )
 
-# You can also build your own lamba functions to achieve, e.g. an OR condition
+# You can also build your own lambda functions to achieve, e.g. an OR condition
 server.shell(
     commands=["echo 'myuser or otheruser changed'"],
     _if=lambda: create_user.did_change() or create_otheruser.did_change(),
@@ -762,7 +762,7 @@ Source: https://docs.pyinfra.com/en/latest/inventory-data.html
 
 ## Inventory Files
 
-Inventory files contain groups of hosts. Groups are defined as a `list` or `tuple`. For example, this inventory creates two groups, `app_servers` and `db_servers`. Note that group names cannot start `_`:
+Inventory files contain groups of hosts. Groups are defined as a `list` or `tuple`. For example, this inventory creates two groups, `app_servers` and `db_servers`. Note that group names cannot start with `_`:
 
 ```python
 app_servers = [
@@ -950,7 +950,7 @@ ssh_key = "~/.ssh/some_key"
 ssh_key_password = "password for key"
 ```
 
-The [Connectors Index](connectors/index.md) contains full details of which data keys are available in each connector.
+The [Connectors Index](connectors.md) contains full details of which data keys are available in each connector.
 
 ## Global Arguments with Data
 
@@ -1233,16 +1233,19 @@ Interactive prompts from deploy code (e.g. `input(...)`) will still block, so av
 
 ## Shell Autocompletion
 
-Add the following to your `~/.bash_profile` or `~/.profile` files:
-
-+ **bash** `source scripts/pyinfra-complete.sh`.
-+ **zsh** `source scripts/pyinfra-complete.zsh`.
-
-These files were generated using these commands:
+pyinfra can install shell completion for you:
 
 ```
-env _PYINFRA_COMPLETE=bash_source pyinfra > pyinfra-complete.sh
-env _PYINFRA_COMPLETE=zsh_source pyinfra > pyinfra-complete.zsh
+pyinfra --install-completion
+```
+
+This auto-detects your current shell (`bash`, `zsh` and `fish` are supported), then generates and installs the completion script to the shell-specific default location. After installation you may need to restart your shell or source your shell configuration file.
+
+You can also target a specific shell or output path:
+
+```
+pyinfra --install-completion --shell zsh
+pyinfra --install-completion --shell bash --output ~/.pyinfra-complete.bash
 ```
 
 ---
@@ -1366,7 +1369,7 @@ pyinfra is, at its core, a translator. Your Python deploy file is not run *on* t
 
 For every host in the inventory pyinfra invokes your deploy code with the `host` context bound to that host. As your code calls operations like `apt.packages(...)`, each operation:
 
-1. Reads the current state from the target by gathering any [facts](facts.md) it needs (e.g. `AptPackages` to see what is already installed). Facts open a channel on the existing connection, run a read-only shell command, and cache the parsed result for the rest of the deploy.
+1. Reads the current state from the target by gathering any [facts](facts.md) it needs (e.g. `AptPackages` to see what is already installed). Facts open a channel on the existing connection, run a read-only shell command, and parse its output. Fact results are **not cached**: every time a fact is requested its command runs on the target again.
 2. Diffs that state against the desired state you've described.
 3. Determines whether it would produce any commands — pyinfra advances the operation just far enough to see its first command, then stops. It does **not** build or keep the full command list at this point.
 4. Returns an `OperationMeta` handle with a `will_change` flag indicating whether the operation would change anything.
@@ -1376,6 +1379,8 @@ When the deploy file finishes, pyinfra knows the order operations appear in and 
 ### Phase 2: execute
 
 pyinfra then walks the operations in order. For each operation it **re-evaluates** the operation against each host — re-running the operation's logic to generate its commands, then running them on every host that needs them, in parallel, and waiting for that operation to finish on all hosts before moving on to the next. The commands are produced here, at execute time, not replayed from prepare.
+
+Because the operation's logic runs again, any facts it reads are gathered **again** at this point, so they reflect changes made by earlier operations. This is why, with `--debug`, you will see the same fact command run once during prepare and once more during execute. Facts read directly in your deploy code (e.g. `host.get_fact(...)`) are likewise re-run on every call. If you need the same fact several times in your own code, store the result in a variable rather than calling `host.get_fact` repeatedly.
 
 This means a host's connection lifecycle for a deploy is typically: one connection opens at stage 2, stays open for facts (prepare) and command execution (execute), and closes at stage 5. Individual operations open new channels over that single connection rather than fresh sessions per command.
 
@@ -1792,7 +1797,7 @@ occurs during fact collection.
 There are two base classes for facts and they solve different problems:
 
 - **`FactBase`** — defines a *new* fact that runs a shell command on the host and parses the output. Use this whenever you need information that isn't already available from an existing fact.
-- **`ShortFactBase`** — defines a *derived* view over an existing fact. It does not run any command on the host; instead it points at another fact via a `fact` class attribute and post-processes that fact's result. Use this when you want a simpler or different shape of an existing fact (e.g. just one field from a dict). Both facts share the same cached command result, so adding a `ShortFactBase` costs nothing at runtime.
+- **`ShortFactBase`** — defines a *derived* view over an existing fact. It does not define a command of its own; instead it points at another fact via a `fact` class attribute and post-processes that fact's result. Use this when you want a simpler or different shape of an existing fact (e.g. just one field from a dict). Fact results are not cached, so requesting a `ShortFactBase` runs the underlying fact's command, costing the same as requesting that fact directly.
 
 For example, `LinuxName` is a `ShortFactBase` that extracts the `name` field from the larger `LinuxDistribution` fact:
 
@@ -2357,7 +2362,7 @@ run_ops(state)
 # timings.timings now holds per-host start/end times for every operation
 ```
 
-The available hooks are defined on `BaseStateCallback` — subclass it and override only the ones you care about. The current set covers host connect/disconnect, operation start/end, and per-host operation start/success/error/retry. See [`pyinfra.api.state.BaseStateCallback`](reference.md) for the full signature list.
+The available hooks are defined on `BaseStateCallback` — subclass it and override only the ones you care about. The current set covers host connect/disconnect, operation start/end, and per-host operation start/success/error/retry. See [`pyinfra.api.state.BaseStateCallback`](reference.md#pyinfra.api.state.BaseStateCallback) for the full signature list.
 
 ---
 
@@ -2382,11 +2387,11 @@ Where possible pyinfra follows [semantic versioning](https://semver.org/) rules.
 
 pyinfra works on anywhere that runs Python - Mac, Linux & Windows are all supported.
 
-### Editor Integration
+### Interactive Debuggers
 
-#### PyCharm
-
-To debug pyinfra within PyCharm, you need to [explicitly enable support for Gevent](https://blog.jetbrains.com/pycharm/2012/08/gevent-debug-support/).
+pyinfra executes work concurrently using gevent, so stepping through a deploy in an interactive
+debugger does not reliably represent the order of remote execution. See
+[Debugging Deploys](debugging.md) for supported ways to inspect deploy state and execution.
 
 
 ## Remote Systems
@@ -2588,6 +2593,18 @@ cd pyinfra
 uv sync
 ```
 
+Re-run `uv sync` every time you switch branches. The editable install records the connector entry
+points in the virtualenv metadata at install time, while the modules themselves are read from the
+checked out tree, and `uv` does not notice a checkout: its staleness marker is the modification
+time of `src/`, which `git checkout` leaves alone. A branch that adds or removes a connector can
+therefore leave an entry point pointing at a module that is not there.
+
+pyinfra imports only the connectors an inventory asks for, so an entry point you never use is
+harmless - but the connector you do use will fail to load until the virtualenv is resynced.
+
+A plain `uv sync` also drops the `docs` dependency group, so pass `--group docs` when you want to
+build the documentation.
+
 If you will use pyinfra as a module, and want to be able to edit its code as you go, make sure you add it as an editable dependency to your project instead:
 
 ```
@@ -2783,13 +2800,15 @@ Source: https://docs.pyinfra.com/en/latest/operations/apt.html
 
 Manage apt packages and repositories.
 
-### `apt.deb(src: 'str', present=True, force=False)`
+### `apt.deb(src: 'str', present=True, force=False, wait_for_lock: 'bool | int' = False)`
 
 Add/remove `.deb` file packages.
 
 + src: filename or URL of the `.deb` file
 + present: whether or not the package should exist on the system
 + force: whether to force the package install by passing `--force-yes` to apt
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 Note:
     When installing, `apt-get install -f` will be run to install any unmet
@@ -2810,17 +2829,46 @@ apt.deb(
 ```
 
 
-### `apt.dist_upgrade(auto_remove: 'bool' = False)`
+### `apt.dist_upgrade(auto_remove: 'bool' = False, wait_for_lock: 'bool | int' = False)`
 
 Updates all apt packages, employing dist-upgrade.
 
 + auto_remove: removes transitive dependencies that are no longer needed.
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
 ```python
 apt.dist_upgrade(
     name="Upgrade apt packages using dist-upgrade",
+)
+```
+
+
+### `apt.hold(packages: 'str | list[str]', present: 'bool' = True)`
+
+Hold or unhold apt packages, using `apt-mark`. Held packages are not automatically
+upgraded, removed or changed by `apt`, for example to pin a package at a specific version.
+
++ packages: package or list of packages to hold/unhold
++ present: whether the packages should be held (`True`) or not (`False`)
+
+Version specifiers (`name=version`) are accepted and ignored, so the same list
+passed to `apt.packages` can be passed here.
+
+**Example:**
+
+```python
+apt.packages(
+    name="Install nomad 1.9.7",
+    packages=["nomad=1.9.7-1"],
+    allow_downgrades=True,
+)
+
+apt.hold(
+    name="Hold nomad so it isn't upgraded",
+    packages=["nomad=1.9.7-1"],
 )
 ```
 
@@ -2883,7 +2931,7 @@ apt.key(
 ```
 
 
-### `apt.packages(packages: 'str | list[str] | None' = None, present=True, latest=False, update=False, cache_time: 'int | None' = None, upgrade=False, force=False, no_recommends=False, allow_downgrades=False, purge=False, extra_install_args: 'str | None' = None, extra_uninstall_args: 'str | None' = None)`
+### `apt.packages(packages: 'str | list[str] | None' = None, present=True, latest=False, update=False, cache_time: 'int | None' = None, upgrade=False, force=False, no_recommends=False, allow_downgrades=False, purge=False, extra_install_args: 'str | None' = None, extra_uninstall_args: 'str | None' = None, wait_for_lock: 'bool | int' = False)`
 
 Install/remove/update packages & update apt.
 
@@ -2900,6 +2948,8 @@ Install/remove/update packages & update apt.
   are removed alongside the package
 + extra_install_args: additional arguments to the apt install command
 + extra_uninstall_args: additional arguments to the apt uninstall command
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 Versions:
     Package versions can be pinned like apt: `<pkg>=<version>`
@@ -3018,13 +3068,15 @@ apt.sources_file(
 ```
 
 
-### `apt.update(cache_time: 'int | None' = None)`
+### `apt.update(cache_time: 'int | None' = None, wait_for_lock: 'bool | int' = False)`
 
 _Stateless:_ This operation will always execute commands unless the ``cache_time`` argument is provided.
 
 Updates apt repositories.
 
 + cache_time: cache updates for this many seconds
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
@@ -3036,11 +3088,13 @@ apt.update(
 ```
 
 
-### `apt.upgrade(auto_remove: 'bool' = False)`
+### `apt.upgrade(auto_remove: 'bool' = False, wait_for_lock: 'bool | int' = False)`
 
 Upgrades all apt packages.
 
 + auto_remove: removes transitive dependencies that are no longer needed.
++ wait_for_lock: wait for the apt lock instead of failing instantly, `True`
+  waits up to 60 seconds, an integer sets the timeout in seconds
 
 **Example:**
 
@@ -3106,8 +3160,13 @@ Add/remove/update brew packages.
 + update: run `brew update` before installing packages
 + upgrade: run `brew upgrade` before installing packages
 
-Versions:
-    Package versions can be pinned like brew: `<pkg>@<version>`.
+!!! note
+    Homebrew maintains separate versions of certain formulae (e.g. `python`, `postgres` and
+    `node`) and multiple versions of these formulae can be installed at the same time
+    (e.g. `python@3.15` and `python@3.10`) but Homebrew does not otherwise support installing
+    a specific version of a formula (e.g. `rclone@1.75`).
+    When one adds one of these specific packages with `package@X.Y.Z`, brew will drop the
+    `Z` (if it was supplied) and install the latest sub-version of `X.Y` of `package`.
 
 **Examples:**
 
@@ -3362,7 +3421,7 @@ _Stateless:_ This operation always executes commands and is not idempotent.
 
 Add dnf gpg keys with `rpm`.
 
-+ key: filename or URL
++ src: filename or URL
 
 Note:
     always returns one command, not idempotent
@@ -3998,7 +4057,7 @@ Source: https://docs.pyinfra.com/en/latest/operations/files.html
 
 The files operations handles filesystem state, file uploads and template generation.
 
-### `files.block(path: 'str', content: 'str | list[str] | None' = None, present=True, line: 'str | None' = None, backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False, before=False, after=False, marker: 'str | None' = None, begin: 'str | None' = None, end: 'str | None' = None)`
+### `files.block(path: 'str', content: 'str | list[str] | None' = None, present=True, line: 'str | None' = None, backup=False, escape_regex_characters=False, try_prevent_shell_expansion=False, before=False, after=False, marker: 'str | None' = None, begin: 'str | None' = None, end: 'str | None' = None, preserve_meta: 'bool' = True)`
 
 Ensure content, surrounded by the appropriate markers, is present (or not) in the file.
 
@@ -4015,6 +4074,13 @@ Ensure content, surrounded by the appropriate markers, is present (or not) in th
 + marker: the base string used to mark the text.  Default is `# {mark} PYINFRA BLOCK`
 + begin: the value for `{mark}` in the marker before the content. Default is `BEGIN`
 + end: the value for `{mark}` in the marker after the content. Default is `END`
++ preserve_meta: whether to restore the file's owner, group and mode after rewriting it.
+  Default `True` (today's behaviour on an existing file). Set to `False` on a host
+  where the executing user may not `chown` the target. Has no effect when the file does
+  not yet exist: there is nothing to restore in that case either way. When `False` on an
+  existing file, the rewrite replaces the file rather than editing it in place, so the file
+  is left with the temporary file's mode (`0600`) and the executing user's ownership
+  instead of its original owner, group and mode.
 
 Content appended if `line` not found in the file
     If `content` is not in the file but is required (`present=True`) and `line` is not
@@ -4124,6 +4190,7 @@ files.directory(
     path="/web",
     user="myweb",
     group="myweb",
+    mode="750",
 )
 
 # Multiple directories
@@ -4413,8 +4480,9 @@ Upload a local file, or file-like object, to the remote system.
 + mtime: value of mtime the file should have, use `True` to match the local file
 
 `dest`:
-    If this is a directory that already exists on the remote side, the local
-    file will be uploaded to that directory with the same filename.
+    If this is a directory that already exists on the remote side, or the
+    destination ends with a trailing slash, the file will be uploaded to
+    that directory with the same filename.
 
 `mode`:
     When set to `True` the permissions of the local file are applied to the
@@ -4474,6 +4542,14 @@ files.put(
 ```
 
 
+### `files.rename(src: 'str', dest: 'str', overwrite=False)`
+
+Rename a remote file/directory/link to a new path
+
++ src: remote file/directory to rename
++ dest: new path for `src`
++ overwrite: whether to overwrite dest, if present
+
 ### `files.replace(path: 'str', text: 'str | None' = None, replace: 'str | None' = None, flags: 'list[str] | None' = None, backup=False, interpolate_variables=False, extended_regex=False, match=None)`
 
 Replace contents of a file using `sed`.
@@ -4517,9 +4593,13 @@ the `rsync` binary on your system.
     or `@local` connectors. When using the SSH connector, rsync will automatically use the
     StrictHostKeyChecking setting, config and known_hosts file (when specified).
 
+!!! warning
+    The default flags are `["-ax", "--delete"]`, so remote files missing from `src` are
+    deleted. Pass `flags=["-ax"]` to preserve extra remote files.
+
 !!! caution
-    When using SSH, the `files.rsync` operation only supports the `sudo` and `sudo_user`
-    global arguments.
+    When using SSH, the `files.rsync` operation only supports the `sudo`, `sudo_user`,
+    and `sudo_password` global arguments.
 
 
 ### `files.sync(src: 'str', dest: 'str', user: 'str | None' = None, group: 'str | None' = None, mode: 'str | None' = None, dir_mode: 'str | None' = None, delete=False, exclude: 'str | list[str] | tuple[str] | None' = None, exclude_dir: 'str | list[str] | tuple[str] | None' = None, add_deploy_dir=True)`
@@ -4720,39 +4800,48 @@ Source: https://docs.pyinfra.com/en/latest/operations/flatpak.html
 
 Manage flatpak packages. See https://www.flatpak.org/
 
-### `flatpak.packages(packages: 'str | list[str] | None' = None, remote: 'str | None' = None, present=True)`
+### `flatpak.packages(packages: 'str | list[str] | None' = None, remote: 'str | None' = None, present: 'bool' = True, user: 'bool' = False)`
 
 Install/remove a flatpak package
 
 + packages: List of packages
-+ remote: Source to install the application or runtime from
++ remote: Source from which to install the application or runtime
 + present: whether the package should be installed
++ user: use the current user's installation instead of Flatpak's default
 
 **Examples:**
 
 ```python
 from pyinfra.operations import flatpak
 # Install vlc flatpak
-flatpak.package(
+flatpak.packages(
     name="Install vlc",
     packages="org.videolan.VLC",
 )
 
 # Install vlc flatpak from flathub
-flatpak.package(
+flatpak.packages(
     name="Install vlc",
     packages="org.videolan.VLC",
     remote="flathub",
 )
 
+# Install vlc flatpak for the current user
+flatpak.packages(
+    name="Install vlc",
+    packages="org.videolan.VLC",
+    remote="flathub",
+    user=True,
+)
+
 # Install multiple flatpaks
-flatpak.package(
+flatpak.packages(
     name="Install vlc and kodi",
     packages=["org.videolan.VLC", "tv.kodi.Kodi"],
 )
 
 # Remove vlc
-flatpak.package(
+flatpak.packages(
     name="Remove vlc",
     packages="org.videolan.VLC",
     present=False,
@@ -4856,7 +4945,7 @@ git.config(
 ```
 
 
-### `git.repo(src: 'str', dest: 'str', branch: 'str | None' = None, pull: 'bool' = True, rebase: 'bool' = False, user: 'str | None' = None, group: 'str | None' = None, ssh_keyscan: 'bool' = False, update_submodules: 'bool' = False, recursive_submodules: 'bool' = False, depth: 'int | None' = None, *, fetch_tags: 'bool' = False)`
+### `git.repo(src: 'str', dest: 'str', branch: 'str | None' = None, pull: 'bool' = True, rebase: 'bool' = False, user: 'str | None' = None, group: 'str | None' = None, ssh_keyscan: 'bool' = False, update_submodules: 'bool' = False, recursive_submodules: 'bool' = False, depth: 'int | None' = None, *, fetch_tags: 'bool' = False, force: 'bool' = False)`
 
 Clone/pull git repositories.
 
@@ -4867,19 +4956,30 @@ Clone/pull git repositories.
 + rebase: when pulling, use `--rebase`
 + user: chown files to this user after
 + group: chown files to this group after
-+ ssh_keyscan: keyscan the remote host if not in known_hosts before clone/pull
++ ssh_keyscan: keyscan the remote host if not in known_hosts before clone/pull; only
+  SSH sources can be keyscanned (`user@host:path` or `ssh://host[:port]/path`),
+  with the host and port read from `src`
 + update_submodules: update any git submodules
 + recursive_submodules: update git submodules recursively
-+ depth: create a shallow clone with a history truncated to the specified number of commits
-+ fetch_tags: Whether all tags should be fetched prior to attempting to check out the specified revision
++ depth: truncate clone, fetch and pull history to the specified number of commits
++ fetch_tags: Whether all tags should be fetched prior to attempting to
+  check out the specified revision.
++ force: Execute `fetch`, `pull` and `checkout` commands with `--force`.
 
-**Example:**
+**Examples:**
 
 ```python
 git.repo(
     name="Clone repo",
     src="https://github.com/Fizzadar/pyinfra.git",
     dest="/usr/local/src/pyinfra",
+)
+
+git.repo(
+    name="Clone repo with SSH keyscan (non-standard port)",
+    src="ssh://git@git.example.com:2222/org/repo.git",
+    dest="/usr/local/src/repo",
+    ssh_keyscan=True,
 )
 ```
 
@@ -5067,7 +5167,7 @@ Add/remove/update iptables chains.
 Policy:
     These can only be applied to system chains (FORWARD, INPUT, OUTPUT, etc).
 
-### `iptables.rule(chain: 'str', jump: 'str', present: 'bool' = True, table: 'str' = 'filter', append: 'bool' = True, version: 'int' = 4, protocol: 'str | None' = None, not_protocol: 'str | None' = None, source: 'str | None' = None, not_source: 'str | None' = None, destination: 'str | None' = None, not_destination: 'str | None' = None, in_interface: 'str | None' = None, not_in_interface: 'str | None' = None, out_interface: 'str | None' = None, not_out_interface: 'str | None' = None, to_destination: 'str | None' = None, to_source: 'str | None' = None, to_ports: 'int | str | None' = None, log_prefix: 'str | None' = None, destination_port: 'int | None' = None, source_port: 'int | None' = None, extras: 'str' = '')`
+### `iptables.rule(chain: 'str', jump: 'str', present: 'bool' = True, table: 'str' = 'filter', append: 'bool' = True, version: 'int' = 4, protocol: 'str | None' = None, not_protocol: 'str | None' = None, source: 'str | None' = None, not_source: 'str | None' = None, destination: 'str | None' = None, not_destination: 'str | None' = None, in_interface: 'str | None' = None, not_in_interface: 'str | None' = None, out_interface: 'str | None' = None, not_out_interface: 'str | None' = None, to_destination: 'str | None' = None, to_source: 'str | None' = None, to_ports: 'int | str | None' = None, log_prefix: 'str | None' = None, destination_port: 'int | None' = None, source_port: 'int | None' = None, comment: 'str | None' = None, extras: 'str' = '')`
 
 Add/remove iptables rules.
 
@@ -5094,6 +5194,7 @@ Extras:
 + extras: a place to define iptables extension arguments (eg --limit, --physdev)
 + destination_port: destination port (requires protocol)
 + source_port: source port (requires protocol)
++ comment: rule comment
 
 **Examples:**
 
@@ -5599,6 +5700,107 @@ Upgrades all pkgin packages.
 
 ---
 
+## Operations: pnpm
+
+Source: https://docs.pyinfra.com/en/latest/operations/pnpm.html
+
+Manage pnpm (Node.js) packages. See https://pnpm.io/
+
+Operations taking a `directory` run pnpm inside it rather than under pnpm's
+`--dir`, so corepack - which resolves the pnpm version from the working
+directory - picks up the project's `packageManager` pin. No `_chdir` needed.
+
+### `pnpm.install(directory: 'str', *, frozen_lockfile: 'bool | None' = None, ignore_scripts: 'bool' = False, package_import_method: "Literal['auto', 'clone', 'copy', 'hardlink'] | None" = None)`
+
+Install every dependency a project declares, as resolved by its lockfile.
+
++ directory: project directory holding `package.json` and `pnpm-lock.yaml`
++ frozen_lockfile: fail rather than update an outdated lockfile, defaults to pnpm's own
+  behaviour of doing so on CI only
++ ignore_scripts: don't run lifecycle scripts of the project or the installed packages
++ package_import_method: how packages are placed into `node_modules` from the store,
+  one of `auto` (default), `hardlink`, `clone` or `copy`
+
+Note:
+    The install is skipped when `node_modules` was already built from the lockfile
+    now in the directory, so `package.json` edits not yet written to
+    `pnpm-lock.yaml` are missed - deploy both files together.
+
+**Example:**
+
+```python
+pnpm.install(
+    name="Install app dependencies",
+    directory="/opt/app",
+    package_import_method="hardlink",
+)
+```
+
+
+### `pnpm.packages(packages: 'str | list[str] | None' = None, present: 'bool' = True, latest: 'bool' = False, directory: 'str | None' = None, dev: 'bool' = False)`
+
+Install/remove/update pnpm packages.
+
++ packages: list of packages to ensure
++ present: whether the packages should be present
++ latest: whether to upgrade packages without a specified version
++ directory: directory to manage packages for, defaults to global
++ dev: add the packages as development dependencies, requires `directory`
+
+Versions:
+    Pin like pnpm: `<pkg>@<version>`. Only exact versions are compared against
+    the installed ones, so ranges and dist-tags (eg `<pkg>@^5`) re-apply on
+    every run.
+
+Note:
+    Packages match by name across every dependency group, so one already
+    installed as a (dev/optional) dependency stays where it is rather than
+    moving. `latest=True` upgrades via `pnpm update --latest`, ignoring the
+    ranges in `package.json`; with no local version to compare against the
+    newest published one, it always reports as changed.
+
+**Example:**
+
+```python
+pnpm.packages(
+    name="Install typescript for the app",
+    packages=["typescript@5.4.5"],
+    directory="/opt/app",
+    dev=True,
+)
+```
+
+
+### `pnpm.run(script: 'str', directory: 'str', *, args: 'str | list[str] | None' = None, if_present: 'bool' = False)`
+
+Run one of a project's `package.json` scripts.
+
++ script: name of the script to run
++ directory: project directory holding `package.json`
++ args: argument(s) to append to the script's own command line, one per item
++ if_present: succeed quietly when the project has no such script, instead of failing
+
+Not idempotent: the script runs on every deploy. To build only when something new
+arrived, gate it with `_if` on whatever delivered the source - the checkout, not
+the dependency install, which reports no change when only application code moved.
+
+**Example:**
+
+```python
+checkout = git.repo(src="git@github.com:me/app.git", dest="/opt/app", branch=VERSION)
+pnpm.install(directory="/opt/app")
+
+pnpm.run(
+    name="Build the app",
+    script="build",
+    directory="/opt/app",
+    _if=checkout.did_change,
+)
+```
+
+
+---
+
 ## Operations: postgres
 
 Source: https://docs.pyinfra.com/en/latest/operations/postgres.html
@@ -5620,7 +5822,7 @@ See example/postgresql.py for detailed example
 
 Add/remove PostgreSQL databases.
 
-+ name: name of the database
++ database: name of the database
 + present: whether the database should exist or not
 + owner: the PostgreSQL role that owns the database
 + template: name of the PostgreSQL template to use
@@ -5932,7 +6134,7 @@ Provides operations to set SELinux file contexts, booleans and port types.
 
 Set the specified SELinux boolean to the desired state.
 
-+ boolean: name of an SELinux boolean
++ bool_name: name of an SELinux boolean
 + value: desired state of the boolean
 + persistent: whether to write updated policy or not
 
@@ -5997,7 +6199,7 @@ selinux.file_context_mapping(
 Set the SELinux type for the specified protocol and port.
 
 + protocol: the protocol: (udp|tcp|sctp|dccp)
-+ port: the port
++ port_num: the port
 + se_type: the SELinux type for the given port
 + present: whether to add or remove the SELinux type for the port
 
@@ -6106,7 +6308,7 @@ Set the system hostname using `hostnamectl` or `hostname` on older systems.
 + hostname_file: the file that permanently sets the hostname
 
 Hostname file:
-    The hostname file only matters no systems that do not have `hostnamectl`,
+    The hostname file only matters on systems that do not have `hostnamectl`,
     which is part of `systemd`.
 
     By default pyinfra will auto detect this by targeting `/etc/hostname`
@@ -6345,7 +6547,9 @@ _Stateless:_ This operation always executes commands and is not idempotent.
 
 Run raw shell code on server during a deploy. If the command would
 modify data that would be in a fact, the fact would not be updated
-since facts are only run at the start of a deploy.
+since facts are only run at the start of a deploy. Commands run via the
+configured shell, which defaults to `sh`; use the `_shell_executable`
+global argument when a command needs Bash or another shell.
 
 + commands: command or list of commands to execute on the remote server
 
@@ -6355,6 +6559,12 @@ since facts are only run at the start of a deploy.
 server.shell(
     name="Run lxd auto init",
     commands=["lxd init --auto"],
+)
+
+server.shell(
+    name="Source a Bash environment before building",
+    commands=["source /opt/example/setupvars.sh && make"],
+    _shell_executable="bash",
 )
 ```
 
@@ -6399,7 +6609,7 @@ server.timezone(
 ```
 
 
-### `server.user(user: 'str', present=True, home: 'str | None' = None, shell: 'str | None' = None, group: 'str | None' = None, groups: 'list[str] | None' = None, append=False, public_keys: 'str | list[str] | None' = None, delete_keys=False, ensure_home=True, create_home=False, system=False, uid: 'int | None' = None, comment: 'str | None' = None, unique=True, password: 'str | None' = None)`
+### `server.user(user: 'str', present=True, home: 'str | None' = None, shell: 'str | None' = None, group: 'str | None' = None, groups: 'list[str] | None' = None, append=False, public_keys: 'str | list[str] | None' = None, delete_keys=False, ensure_home=True, create_home=False, system=False, uid: 'int | None' = None, comment: 'str | None' = None, unique=True, password: 'str | None' = None, password_lock: 'bool | None' = None)`
 
 Add/remove/update system users & their ssh `authorized_keys`.
 
@@ -6419,6 +6629,7 @@ Add/remove/update system users & their ssh `authorized_keys`.
 + comment: the user GECOS comment
 + unique: prevent creating users with duplicate UID
 + password: set the encrypted password for the user
++ password_lock: whether the user's password should be locked (`True`) or unlocked (`False`)
 
 Home directory:
     When `ensure_home` or `public_keys` are provided, `home` defaults to
@@ -6429,6 +6640,14 @@ Home directory:
 Public keys:
     These can be provided as strings containing the public key or as a path to
     a public key file which pyinfra will read.
+
+Password lock:
+    New users created without a `password` have a locked (Linux) or disabled
+    (FreeBSD, `*`) password. `password_lock=False` unlocks the password, or
+    deletes it (making it empty) when there is no password hash to unlock, so the
+    user can set one with `passwd`. When `password_lock` is set, `password` is
+    compared ignoring the lock prefix. Only supported on Linux and FreeBSD, and
+    ignored when `present=False`.
 
 **Examples:**
 
@@ -6443,6 +6662,12 @@ server.user(
     name="Ensure myweb user exists",
     user="myweb",
     shell="/bin/bash",
+)
+
+server.user(
+    name="Ensure alice exists and can set her own password",
+    user="alice",
+    password_lock=False,
 )
 
 # multiple users
@@ -6568,7 +6793,7 @@ Execute commands and up/download files *from* the remote host.
 
 Eg: `pyinfra -> inventory-host.net <-> another-host.net`
 
-### `ssh.command(hostname: 'str', command: 'str', user: 'str | None' = None, port=22)`
+### `ssh.command(hostname: 'str', command: 'str', user: 'str | None' = None, port=22, ssh_keyscan: 'bool' = False)`
 
 _Stateless:_ This operation always executes commands and is not idempotent.
 
@@ -6578,6 +6803,7 @@ Execute commands on other servers over SSH.
 + command: the command to execute
 + user: connect with this user
 + port: connect to this port
++ ssh_keyscan: execute `ssh.keyscan` before running the command
 
 **Example:**
 
@@ -6603,12 +6829,13 @@ Download files from other servers using `scp`.
 + user: connect with this user
 + ssh_keyscan: execute `ssh.keyscan` before uploading the file
 
-### `ssh.keyscan(hostname: 'str', force=False, port=22)`
+### `ssh.keyscan(hostname: 'str', force: 'bool' = False, port: 'int | str' = 22) -> 'Generator[StringCommand, None, None]'`
 
 Check/add hosts to the `~/.ssh/known_hosts` file.
 
 + hostname: hostname that should have a key in `known_hosts`
 + force: if the key already exists, remove and rescan
++ port: SSH port to scan (defaults to 22)
 
 **Example:**
 
@@ -6634,6 +6861,170 @@ Upload files to other servers using `scp`.
 + user: connect with this user
 + use_remote_sudo: upload to a temporary location and move using sudo
 + ssh_keyscan: execute `ssh.keyscan` before uploading the file
+
+---
+
+## Operations: supervisorctl
+
+Source: https://docs.pyinfra.com/en/latest/operations/supervisorctl.html
+
+Manage processes controlled by supervisord using `supervisorctl`.
+
+Every operation accepts the global `supervisorctl` options: `config_file`
+(`-c`), `server_url` (`-s`), `username` (`-u`) and `password`
+(`-p`).
+
+The read-only `supervisorctl` actions are facts, not operations: `status`
+maps to `pyinfra.facts.supervisorctl.SupervisorctlStatus` and `pid` to
+`SupervisorctlPid` / `SupervisorctlPids`. The interactive actions
+(`tail`, `fg`, `help`) are not covered.
+
+### `supervisorctl.add(group: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Activate any updates in config for a process or group.
+
++ group: name of the process group to add
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.clear(process: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Clear the log files of a process.
+
++ process: name of the process, or `all` to clear every process' logs
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.process(process: 'str', running: 'bool | None' = True, restarted: 'bool' = False, command: 'str | None' = None, config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+Manage the state of supervisor processes.
+
++ process: name of the process to manage, a single `<name>`, a group
+  `<gname>:*` or `all`
++ running: whether the process should be running
++ restarted: whether the process should be restarted
++ command: custom `supervisorctl` action to run like:
+  `supervisorctl <command> <process>`
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+Processes in BACKOFF, FATAL or UNKNOWN state are considered not running.
+
+**Examples:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.process(
+    name="Start the web process",
+    process="web",
+    running=True,
+)
+
+supervisorctl.process(
+    name="Restart every process in the workers group",
+    process="workers:*",
+    restarted=True,
+)
+```
+
+
+### `supervisorctl.reload(config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Restart the remote supervisord.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.remove(group: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Remove a process or group from the active configuration.
+
++ group: name of the process group to remove
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.reread(config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Reload the supervisord configuration files, without adding, removing or
+restarting anything.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.signal(signal: 'str', process: 'str', config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Send a signal to a supervisor process.
+
++ signal: signal to send, eg `HUP` or `USR2`
++ process: name of the process to signal, a single `<name>`, a group
+  `<gname>:*` or `all`
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+**Example:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.signal(
+    name="Rotate web process logs",
+    signal="USR2",
+    process="web",
+)
+```
+
+
+### `supervisorctl.update(groups: 'list[str] | None' = None, config_file: 'str | None' = None, server_url: 'str | None' = None, username: 'str | None' = None, password: 'str | None' = None)`
+
+_Stateless:_ This operation always executes commands and is not idempotent.
+
+Reload the supervisord configuration files, add/remove process groups as
+necessary and restart affected programs.
+
++ groups: optional list of process groups to update, defaults to all
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+**Example:**
+
+```python
+from pyinfra.operations import supervisorctl
+
+supervisorctl.update(
+    name="Apply config changes to the workers group",
+    groups=["workers"],
+)
+```
+
 
 ---
 
@@ -6820,7 +7211,7 @@ uv.packages(
 
 Install/remove Python version(s).
 
-+ version: a version or list of Python versions
++ versions: a version or list of Python versions
 + present: whether the versions should be installed or removed. Default True.
 + managed: whether only managed or all available version should be considered. Default True.
 + extra_args: zero or more additional arguments to be passed to `uv`. Default None.
@@ -6993,6 +7384,9 @@ Install/remove/update XBPS packages.
 + update: run `xbps-install -S` before installing packages
 + upgrade: run `xbps-install -y -u` before installing packages
 
+If `xbps` itself has an update available it is updated before installing
+packages, as XBPS refuses to install anything else until it has.
+
 **Example:**
 
 ```python
@@ -7014,7 +7408,7 @@ Update XBPS repositories.
 
 _Stateless:_ This operation always executes commands and is not idempotent.
 
-Upgrades all XBPS packages.
+Upgrades all XBPS packages, updating `xbps` itself first.
 
 ---
 
@@ -7204,7 +7598,7 @@ zfs.filesystem("tank/vm-disks/db_srv_04", "32G")
 
 Create or destroy a ZFS snapshot, or modify its properties.
 
-+ dataset_name: name of the filesystem to operate on
++ snapshot_name: name of the filesystem to operate on
 + present: whether the named filesystem should exist
 + recursive: whether to snapshot child datasets
 + properties: the ZFS properties that should be set on the snapshot.
@@ -7367,6 +7761,21 @@ Returns a dict of installed apk packages:
 
 Source: https://docs.pyinfra.com/en/latest/facts/apt.html
 
+### `apt.AptHeldPackages`
+
+    host.get_fact(AptHeldPackages)
+
+Returns a list of apt packages marked as held (`apt-mark showhold`). Held
+packages are not automatically upgraded, removed or changed by `apt`.
+
+```python
+[
+    "nomad",
+    "libfoo:i386",
+]
+```
+
+
 ### `apt.AptKeys`
 
     host.get_fact(AptKeys, directories)
@@ -7462,6 +7871,13 @@ Returns a dict of installed brew packages:
 }
 ```
 
+!!! note
+    Homebrew maintains separate versions of certain formulae (e.g. `python`, `postgres` and
+    `node`) and multiple versions of these formulae can be installed at the same time
+    (e.g. `python@3.15` and `python@3.10`) but Homebrew does not otherwise support installing
+    a specific version of a formula (e.g. `rclone@1.75`).  In the case where multiple versions
+    of a formula are installed at once, they will show up as distinct entries in
+    `BrewPackages`
 
 ### `brew.BrewTaps`
 
@@ -7518,12 +7934,24 @@ Returns the version of brew installed as a semantic versioning list:
 
 Source: https://docs.pyinfra.com/en/latest/facts/bsdinit.html
 
+### `bsdinit.RcdEnabled`
+
+    host.get_fact(RcdEnabled)
+
+Returns a dict of OpenBSD rc.d services enabled at boot.
+
 ### `bsdinit.RcdStatus`
 
     host.get_fact(RcdStatus)
 
 Same as `initd_status` but for BSD (/etc/rc.d) systems. Unlike Linux/init.d,
 BSD init scripts are well behaved and as such their output can be trusted.
+
+### `bsdinit.ServiceEnabled`
+
+    host.get_fact(ServiceEnabled)
+
+Returns a dict of FreeBSD rc.d services enabled at boot.
 
 ---
 
@@ -8054,6 +8482,13 @@ If the path exists but is not a link:
 
 Returns an MD5 hash of a file, or `None` if the file does not exist.
 
+### `files.SameFile`
+
+    host.get_fact(SameFile, path, target)
+
+Returns `True` if `path` and `target` refer to the same file (same device and
+inode, ie one is a hard link to the other), otherwise `False`.
+
 ### `files.Sha1File`
 
     host.get_fact(Sha1File, path)
@@ -8119,7 +8554,7 @@ Returns information for an installed flatpak package
 
 ### `flatpak.FlatpakPackages`
 
-    host.get_fact(FlatpakPackages)
+    host.get_fact(FlatpakPackages, user)
 
 Returns a list of installed flatpak packages:
 
@@ -9008,21 +9443,273 @@ Returns a dict of installed pkgin packages:
 
 ---
 
+## Facts: pnpm
+
+Source: https://docs.pyinfra.com/en/latest/facts/pnpm.html
+
+Facts for pnpm, the fast, disk space efficient Node.js package manager.
+See https://pnpm.io/
+
+Facts taking a `directory` run pnpm inside it rather than under pnpm's `--dir`,
+so corepack - which resolves the pnpm version from the working directory - picks up
+the project's `packageManager` pin.
+
+### `pnpm.PnpmModulesUpToDate`
+
+    host.get_fact(PnpmModulesUpToDate, directory)
+
+Returns whether a project's `node_modules` was installed from the
+`pnpm-lock.yaml` now in the directory.
+
+pnpm keeps the lockfile it installed at `node_modules/.pnpm/lock.yaml`, so
+the two matching means the packages on disk are the ones the lockfile asks
+for - though not that `package.json` agrees with the lockfile.
+
+### `pnpm.PnpmPackages`
+
+    host.get_fact(PnpmPackages, directory)
+
+Returns a dict of installed pnpm packages, globally or in a given directory:
+
+```python
+{
+    "package_name": {"version"},
+}
+```
+
+Only packages the manifest declares are reported.
+
+### `pnpm.PnpmVersion`
+
+    host.get_fact(PnpmVersion)
+
+Returns the version of pnpm installed:
+
+```python
+"10.15.1"
+```
+
+
+---
+
 ## Facts: podman
 
 Source: https://docs.pyinfra.com/en/latest/facts/podman.html
+
+### `podman.PodmanImages`
+
+    host.get_fact(PodmanImages)
+
+Returns a list of all container images.
+This is equivalent to `podman image ls --all`.
+
+```python
+[
+    {
+        "Id": "d529dd0c...",
+        "ParentId": "",
+        "RepoTags": null,
+        "RepoDigests": [
+            "docker.io/library/alpine@sha256:28bd5fe8...",
+            "docker.io/library/alpine@sha256:79ff19e9..."
+        ],
+        "Size": 8709729,
+        "SharedSize": 0,
+        "VirtualSize": 8709729,
+        "Labels": null,
+        "Containers": 0,
+        "Digest": "sha256:28bd5fe8...",
+        "History": [
+            "docker.io/library/alpine:3.24",
+            "docker.io/library/alpine:latest"
+        ],
+        "Names": [
+            "docker.io/library/alpine:latest",
+            "docker.io/library/alpine:3.24"
+        ],
+        "Created": 1781568089,
+        "CreatedAt": "2026-06-16T00:01:29Z"
+    }
+]
+```
+
+
+### `podman.PodmanNetworks`
+
+    host.get_fact(PodmanNetworks)
+
+Returns a list of all podman networks.
+This is equivalent to `podman network ls`.
+
+```python
+[
+    {
+        "name": "podman",
+        "id": "2f259bab...",
+        "driver": "bridge",
+        "network_interface": "podman0",
+        "created": "2026-07-25T17:51:57.975124805+02:00",
+        "subnets": [
+            {
+                "subnet": "10.88.0.0/16",
+                "gateway": "10.88.0.1"
+            }
+        ],
+        "ipv6_enabled": false,
+        "internal": false,
+        "dns_enabled": false,
+        "ipam_options": {
+            "driver": "host-local"
+        }
+    }
+]
+```
+
+
+### `podman.PodmanPods`
+
+    host.get_fact(PodmanPods)
+
+Returns a list of all pods.
+This is equivalent to `podman pod ps`.
+
+```python
+[
+    {
+        "Cgroup": "user.slice",
+        "Containers": [
+            {
+                "Id": "7787b95b...",
+                "Names": "qdrant",
+                "Status": "exited",
+                "RestartCount": 0
+            }
+        ],
+        "Created": "2026-05-08T14:29:50.634923891+02:00",
+        "Id": "1c8e9eccf...",
+        "InfraId": "",
+        "Name": "pod_qdrant",
+        "Namespace": "",
+        "Networks": [],
+        "Status": "Exited",
+        "Labels": {}
+    }
+]
+```
+
 
 ### `podman.PodmanPs`
 
     host.get_fact(PodmanPs)
 
-Output of 'podman ps'
+Returns a list of all containers.
+This is equivalent to `podman ps --all`.
+
+```python
+[
+    {
+        "AutoRemove": true,
+        "Command": [
+            "bash"
+        ],
+        "CreatedAt": "24 seconds ago",
+        "CIDFile": "",
+        "Exited": false,
+        "ExitedAt": -62135596800,
+        "ExitCode": 0,
+        "ExposedPorts": null,
+        "Id": "3b2f3186...",
+        "Image": "docker.io/library/bash:latest",
+        "ImageID": "bc60f0547...",
+        "IsInfra": false,
+        "Labels": null,
+        "Mounts": [],
+        "Names": [
+            "hardcore_darwin"
+        ],
+        "Namespaces": {},
+        "Networks": [],
+        "Pid": 65638,
+        "Pod": "",
+        "PodName": "",
+        "Ports": null,
+        "Restarts": 0,
+        "Size": null,
+        "StartedAt": 1785003868,
+        "State": "running",
+        "Status": "Up 24 seconds",
+        "Created": 1785003868
+    }
+]
+```
+
+
+### `podman.PodmanQuadlets`
+
+    host.get_fact(PodmanQuadlets)
+
+Returns a list of podman quadlets.
+This is equivalent to `podman quadlet list`.
+
+**Note**: Available since Podman [v5.6.0][release_notes]. This version
+constraint is NOT checked automatically.
+
+[release_notes]: https://github.com/podman-container-tools/podman/releases/tag/v5.6.0
+
+```python
+[
+    {
+        "Name": "grafana-data.volume",
+        "UnitName": "grafana-data-volume.service",
+        "Path": "/home/user/.config/containers/systemd/grafana-data.volume",
+        "Status": "active/exited",
+        "App": ""
+    },
+    {
+        "Name": "grafana.container",
+        "UnitName": "grafana.service",
+        "Path": "/home/user/.config/containers/systemd/grafana.container",
+        "Status": "active/running",
+        "App": ""
+    }
+]
+```
+
 
 ### `podman.PodmanSystemInfo`
 
     host.get_fact(PodmanSystemInfo)
 
-Output of 'podman system info'
+Returns the podman system information
+This is equivalent to `podman system info`.
+
+### `podman.PodmanVolumes`
+
+    host.get_fact(PodmanVolumes)
+
+Returns a list of all volumes.
+This is equivalent to `podman volume ls`.
+
+```python
+[
+    {
+        "Name": "postgres_data",
+        "Driver": "local",
+        "Mountpoint": "/home/user/.local/share/containers/storage/volumes/postgres_data/_data",
+        "CreatedAt": "2026-05-07T20:13:33.435751494+02:00",
+        "Labels": {
+            "com.docker.compose.project": "postgres",
+            "io.podman.compose.project": "postgres"
+        },
+        "Scope": "local",
+        "Options": {},
+        "MountCount": 0,
+        "NeedsCopyUp": true,
+        "LockNumber": 1
+    }
+]
+```
+
 
 ---
 
@@ -9782,6 +10469,64 @@ Returns a list of installed snap packages:
 
 ---
 
+## Facts: supervisorctl
+
+Source: https://docs.pyinfra.com/en/latest/facts/supervisorctl.html
+
+### `supervisorctl.SupervisorctlPid`
+
+    host.get_fact(SupervisorctlPid, process, config_file, server_url, username, password)
+
+Returns the PID of supervisord itself, or of a single supervisor managed
+process when `process` is given.
+
+A PID of `0` means the process exists but is not running. `None` means
+no PID could be read (eg unknown process or supervisord not reachable).
+
++ process: optional name of the process, defaults to supervisord itself
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.SupervisorctlPids`
+
+    host.get_fact(SupervisorctlPids, config_file, server_url, username, password)
+
+Returns a list of the PIDs of all supervisor managed processes
+(`supervisorctl pid all`). A PID of `0` means a process is not
+running. The output of `pid all` carries no process names; use
+`SupervisorctlStatus` to map names to states.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+### `supervisorctl.SupervisorctlStatus`
+
+    host.get_fact(SupervisorctlStatus, config_file, server_url, username, password)
+
+Returns a dict of supervisor process names to their running state.
+
+Processes inside a group are keyed by their full `group:name` name.
+
++ config_file: configuration file to pass to `supervisorctl` (`-c`)
++ server_url: URL on which supervisord listens (`-s`)
++ username: username to authenticate with (`-u`)
++ password: password to authenticate with (`-p`)
+
+```python
+{
+    "web": True,             # RUNNING or STARTING
+    "workers:worker_0": False,  # STOPPED, STOPPING or EXITED
+    "broken": None,          # BACKOFF, FATAL or UNKNOWN
+}
+```
+
+
+---
+
 ## Facts: systemd
 
 Source: https://docs.pyinfra.com/en/latest/facts/systemd.html
@@ -10048,6 +10793,22 @@ Returns a dict of installed XBPS packages:
 }
 ```
 
+
+### `xbps.XbpsSelfUpdate`
+
+    host.get_fact(XbpsSelfUpdate)
+
+Returns the packages XBPS would update to update itself, empty if `xbps`
+is up to date:
+
+```python
+["xbps-triggers-0.128_1", "xbps-0.60.5_1"]
+```
+
+XBPS refuses to install or update any other package until it has updated
+itself, failing with "The 'xbps' package must be updated". This reads the
+locally synced repository index, so it can only see a new `xbps` after
+`xbps-install -S` has run.
 
 ---
 

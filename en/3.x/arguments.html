@@ -480,6 +480,34 @@
   
   
     <li class="md-nav__item">
+      <a href="./debugging.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./faq.html" class="md-nav__link">
         
   
@@ -879,6 +907,34 @@
     
   
     Packaging Deploys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./api/testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Deploys
   
 
     
@@ -1433,6 +1489,12 @@ are applied: <code>doas</code> -&gt; <code>dzdo</code> -&gt; <code>sudo</code> -
 <td><code>False</code></td>
 </tr>
 <tr>
+<td><code>_sudo_set_home</code></td>
+<td>Set <code>HOME</code> to the target user's home directory when using sudo (<code>sudo -H</code>).</td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
 <td><code>_su_user</code></td>
 <td>Execute/apply any changes with this user using su.</td>
 <td><code>str</code></td>
@@ -1530,7 +1592,7 @@ are applied: <code>doas</code> -&gt; <code>dzdo</code> -&gt; <code>sudo</code> -
 <tr>
 <td><code>_env</code></td>
 <td>Dictionary of environment variables to set.</td>
-<td><code>Mapping[str, Union]</code></td>
+<td><code>Mapping[str, str | HiddenValue]</code></td>
 <td><code>{}</code></td>
 </tr>
 <tr>
@@ -1554,7 +1616,7 @@ are applied: <code>doas</code> -&gt; <code>dzdo</code> -&gt; <code>sudo</code> -
 <tr>
 <td><code>_stdin</code></td>
 <td>String or buffer to send to the stdin of any commands.</td>
-<td><code>Union[str, list, Iterable]</code></td>
+<td><code>str | list[str] | Iterable[str]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1605,7 +1667,7 @@ are applied: <code>doas</code> -&gt; <code>dzdo</code> -&gt; <code>sudo</code> -
 <tr>
 <td><code>_if</code></td>
 <td>Only run this operation if these functions return True</td>
-<td><code>Union[list, Callable, NoneType]</code></td>
+<td><code>list[Callable[bool]] | Callable[bool] | NoneType</code></td>
 <td><code>[]</code></td>
 </tr>
 </tbody>
@@ -1669,7 +1731,7 @@ function to determine when to stop retrying.</p>
 <tr>
 <td><code>_retry_delay</code></td>
 <td>Delay in seconds between retry attempts.</td>
-<td><code>Union[int, float]</code></td>
+<td><code>int | float</code></td>
 <td><code>5</code></td>
 </tr>
 <tr>
