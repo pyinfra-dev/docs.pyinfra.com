@@ -1276,6 +1276,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#apt-AptPackageProvides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        apt.AptPackageProvides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#apt-AptPackages" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1369,14 +1380,22 @@ GPG infrastructure.</p>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">},</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </span></code></pre></div>
+<h2 id="apt-AptPackageProvides"><code>apt.AptPackageProvides</code><a class="headerlink" href="#apt-AptPackageProvides" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackageProvides</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Returns a list of packages that provide the specified (virtual) package name:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">[</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="p">[</span><span class="s2">&quot;package_name&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">],</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">]</span>
+</span></code></pre></div>
 <h2 id="apt-AptPackages"><code>apt.AptPackages</code><a class="headerlink" href="#apt-AptPackages" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackages</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptPackages</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns a dict of installed apt packages, keyed by name with a list of
 versions as the value:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="s2">&quot;package_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">],</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>The list-of-versions shape mirrors :class:<code>pyinfra.facts.deb.DebPackages</code>
 so callers can swap between the two without reshaping their code. The
@@ -1384,7 +1403,7 @@ main reason to reach for <code>AptPackages</code> is to surface packages whose
 presence is more reliably visible from <code>apt</code> than from <code>dpkg</code> (for
 example, packages with an architecture suffix like <code>foo:i386</code>).</p>
 <h2 id="apt-AptSources"><code>apt.AptSources</code><a class="headerlink" href="#apt-AptSources" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">AptSources</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Returns a list of installed apt sources (legacy .list + <strong>deb822</strong> .sources).</p>
 <p>Returns a list of AptRepo instances that behave like dicts for backward compatibility:</p>
@@ -1394,7 +1413,7 @@ example, packages with an architecture suffix like <code>foo:i386</code>).</p>
     repo['type']  # works like repo.type
     repo.get('url')  # works like getattr(repo, 'url')</p>
 <h2 id="apt-SimulateOperationWillChange"><code>apt.SimulateOperationWillChange</code><a class="headerlink" href="#apt-SimulateOperationWillChange" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SimulateOperationWillChange</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">host</span><span class="o">.</span><span class="n">get_fact</span><span class="p">(</span><span class="n">SimulateOperationWillChange</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Simulate an 'apt-get' operation and try to detect if any changes would be performed.</p>
 
