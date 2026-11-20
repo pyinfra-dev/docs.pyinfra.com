@@ -7812,6 +7812,10 @@ will open and close filenames, and leave IO objects alone.</p>
 
         <p>Gets a jinja2 <code>Template</code> object for the input filename or string, with caching
 based on the filename of the template, or the SHA1 of the input string.</p>
+<p>If a custom <code>loader</code> is supplied and <code>filename_or_io</code> is a template name
+that does not exist as a local path, the loader searches for that name
+(so a <code>FileSystemLoader</code> search path is honoured). Existing file paths
+and IO objects are still read directly and compiled with <code>from_string</code>.</p>
 
 
     </div>
