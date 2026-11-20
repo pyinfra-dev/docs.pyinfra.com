@@ -4594,7 +4594,12 @@ Backup:
     date (taken from the machine running `pyinfra`) appended as the extension. If
     you pass a string value this will be used as the extension of the backed up file.
 
-**Example:**
+Backreferences:
+    `replace` is passed to `sed` as is, so it can use backreferences like `\1` to
+    insert the groups matched by `text`. Write it as a raw string (`r"\1"`): in a
+    normal Python string `"\1"` is a control character, not a backslash and `1`.
+
+**Examples:**
 
 ```python
 files.replace(
@@ -4602,6 +4607,16 @@ files.replace(
     path="/etc/motd",
     text="verboten",
     replace="forbidden",
+)
+
+# The matched line goes back into the replacement with \1. Once the line is
+# commented out, `text` no longer matches it, so a second run changes nothing.
+files.replace(
+    name="Comment out the PasswordAuthentication line",
+    path="/etc/ssh/sshd_config",
+    text=r"^(PasswordAuthentication .*)$",
+    replace=r"# \1",
+    extended_regex=True,
 )
 ```
 
@@ -4700,6 +4715,11 @@ Notes:
 
     The default template lookup directory (used with jinjas `extends`, `import` and
     `include` statements) is the current working directory.
+
+    If `jinja_env_kwargs` includes a custom `loader` and `src` is a
+    template name that does not exist as a local path, that loader searches
+    for the name instead of treating `src` as a file relative to the
+    working directory.
 
     For information on the template syntax, see
     `the jinja2 docs <https://jinja.palletsprojects.com>`_.
@@ -6854,7 +6874,7 @@ Download files from other servers using `scp`.
 + user: connect with this user
 + ssh_keyscan: execute `ssh.keyscan` before uploading the file
 
-### `ssh.keyscan(hostname: 'str', force: 'bool' = False, port: 'int | str' = 22) -> 'Generator[StringCommand, None, None]'`
+### `ssh.keyscan(hostname: 'str', force: 'bool' = False, port: 'int | str' = 22) -> 'Generator[PyinfraCommand | str, None, None]'`
 
 Check/add hosts to the `~/.ssh/known_hosts` file.
 
@@ -7823,6 +7843,19 @@ GPG infrastructure.
         "uid": "Ubuntu Archive Automatic Signing Key (2012) <ftpmaster@ubuntu.com>"
     },
 }
+```
+
+
+### `apt.AptPackageProvides`
+
+    host.get_fact(AptPackageProvides, package)
+
+Returns a list of packages that provide the specified (virtual) package name:
+
+```python
+[
+    ["package_name", "version"],
+]
 ```
 
 
@@ -10959,6 +10992,8 @@ pyinfra @docker/2beb8c15a1b1 ...
 The Docker connector is great for testing pyinfra operations locally, rather than connecting to
 a remote host over SSH each time. This gives you a fast, local-first devloop to iterate on when
 writing deploys, operations or facts.
+
+See :doc:`../examples/docker-image-builds` for a complete image build and tagging example.
 
 !!! note
     For running Docker containers on remote hosts, see the :doc:`dockerssh` connector.
