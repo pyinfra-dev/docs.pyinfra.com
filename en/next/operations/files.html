@@ -2107,13 +2107,27 @@ reading and checksumming the file will cause the host OS to update the file&#39;
     If set to <code>True</code>, any editing of the file will place an old copy with the ISO
     date (taken from the machine running <code>pyinfra</code>) appended as the extension. If
     you pass a string value this will be used as the extension of the backed up file.</p>
-<p><strong>Example:</strong></p>
+<p>Backreferences:
+    <code>replace</code> is passed to <code>sed</code> as is, so it can use backreferences like <code>\1</code> to
+    insert the groups matched by <code>text</code>. Write it as a raw string (<code>r"\1"</code>): in a
+    normal Python string <code>"\1"</code> is a control character, not a backslash and <code>1</code>.</p>
+<p><strong>Examples:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Change part of a line in a file&quot;</span><span class="p">,</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/motd&quot;</span><span class="p">,</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;verboten&quot;</span><span class="p">,</span>
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">replace</span><span class="o">=</span><span class="s2">&quot;forbidden&quot;</span><span class="p">,</span>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="p">)</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1"># The matched line goes back into the replacement with \1. Once the line is</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="c1"># commented out, `text` no longer matches it, so a second run changes nothing.</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="n">files</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Comment out the PasswordAuthentication line&quot;</span><span class="p">,</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/etc/ssh/sshd_config&quot;</span><span class="p">,</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="n">text</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(PasswordAuthentication .*)$&quot;</span><span class="p">,</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>    <span class="n">replace</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;# \1&quot;</span><span class="p">,</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>    <span class="n">extended_regex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Global arguments</p>
